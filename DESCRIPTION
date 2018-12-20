@@ -1,13 +1,24 @@
 Package: rTLS
-Type: Package
 Title: A package to compute different metrics from Terrestrial Laser Scanner data
-Description: A set of tools to process and calculate metrics of terrestrial LiDAR (Light Detection and Ranging) data
-Version: 0.1.0
-Author: J. Antonio Guzman Q., Ronny Hernandez
-Maintainer: J. Antonio Guzman Q. <antguz06@gmail.com>, Ronny Hernandez <ronny.hernandezm@gmail.com>
-Imports: bio3d, nabor, dplyr, plyr, foreach, doParallel, boot
-Dependts: R (>= 3.5.1)
+Version: 0.0.1
+Authors@R: c(
+  person("Antonio", "Guzman", role="cre", email="antguz06@gmail.com"),
+  person("Ronny", "Hernandez", role="cre", email="ronny.hernandezm@gmail.com"))
+Description: A set of tools to process and calculate metrics of terrestrial 
+              LiDAR (Light Detection and Ranging) data
+Depends: R (>= 3.4.4)
+Imports: bio3d, 
+        nabor, 
+        dplyr, 
+        plyr, 
+        foreach, 
+        doParallel, 
+        boot
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
+Suggests: testthat,
+    knitr,
+    rmarkdow
 RoxygenNote: 6.1.1
+VignetteBuilder: knitr

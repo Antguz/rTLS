@@ -1,3 +1,16 @@
+#' @import dplyr
+#'
+#' @title
+#'
+#' @description
+#'
+#' @param cloud
+#' @param method
+#' @param radius
+#' @param k
+#' @param parallel
+#'
+#'@export
 neighborhood <- function(cloud, method, radius, k, parallel, ...) {
 
   if(parallel == TRUE) { ###Parallel TRUE
@@ -22,4 +35,4 @@ neighborhood <- function(cloud, method, radius, k, parallel, ...) {
   results
 }
 
-# comentario  prueba versiones
+

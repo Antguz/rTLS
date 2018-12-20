@@ -1,3 +1,14 @@
+#' @import dplyr
+#'
+#' @title
+#'
+#' @description
+#'
+#' @param x
+#' @param cloud
+#' @param radius
+#'
+#'@export
 dist_dimensionality <- function(x, cloud, radius) {
   cube <- cloud %>% filter(cloud[,1] <= (x[,1] + radius), cloud[,1] >= (x[,1] - radius),
                            cloud[,2] <= (x[,2] + radius), cloud[,2] >= (x[,2] - radius),
