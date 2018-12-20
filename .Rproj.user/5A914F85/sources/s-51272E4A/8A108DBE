@@ -1,22 +1,20 @@
 {
     "collab_server" : "",
     "contents" : "",
-    "created" : 1545282130945.000,
+    "created" : 1545283443042.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
-    "id" : "D7D21478",
+    "hash" : "541366964",
+    "id" : "8A108DBE",
     "lastKnownWriteTime" : 1545283442,
     "last_content_update" : 1545283442,
-    "path" : "~/Desktop/github/rTLS/DESCRIPTION",
-    "project_path" : "DESCRIPTION",
+    "path" : "~/Desktop/github/rTLS/vignettes/user_guide.Rmd",
+    "project_path" : "vignettes/user_guide.Rmd",
     "properties" : {
-        "cursorPosition" : "5,40",
-        "scrollLine" : "0"
     },
-    "relative_order" : 2,
+    "relative_order" : 3,
     "source_on_save" : false,
     "source_window" : "",
-    "type" : "dcf"
+    "type" : "r_markdown"
 }
