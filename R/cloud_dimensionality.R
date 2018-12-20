@@ -1,3 +1,16 @@
+#' @import dplyr
+#'
+#' @title
+#'
+#' @description
+#'
+#' @param data
+#' @param parallel
+#' @param method
+#' @param radius
+#' @param k
+#'
+#'@export
 cloud_dimensionality <- function(data, parallel, method, radius, k) {
 
   if(class(data) == "neighborhood") {  ####For objects of class "neighborhood"
@@ -34,6 +47,3 @@ cloud_dimensionality <- function(data, parallel, method, radius, k) {
     results
   }
 }
-
-
-### dimentionality
