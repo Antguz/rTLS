@@ -21,4 +21,5 @@ dist_neighbors <- function(x, cloud, radius) {
 }
 
 #' @value A matrix with the xyz coordinates of the neighboring points and a fourth column with their distance
-#' @author J. Antonio Guzman Q. and Ronny Hernandez
+#' @author J. Antonio Guzman Q.
+#' @author Ronny Hernandez

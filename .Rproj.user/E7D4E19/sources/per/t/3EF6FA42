@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1545323944590.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1071939419",
+    "id" : "3EF6FA42",
+    "lastKnownWriteTime" : 1545245680,
+    "last_content_update" : 1545245680,
+    "path" : "C:/Users/Antonio Guzman/Desktop/rTLS/R/knn_neighbors.R",
+    "project_path" : "R/knn_neighbors.R",
+    "properties" : {
+        "cursorPosition" : "8,1",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

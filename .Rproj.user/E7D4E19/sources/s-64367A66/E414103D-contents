@@ -1,17 +1,17 @@
 #' @import dplyr
 #'
-#' @title Point cloud dimensionality
+#' @title
 #'
-#' @description Estimate the dimensionality of the poits of a cloud. It estimate 10 parameters based on Wang et al. 2017.
+#' @description
 #'
-#' @param data A matrix or data.frame with xyz coordinates in the first three columns or an object of class "neighborhood".
-#' @param method A character string specifying the method to estimated the neighbors. It most be one of "distance" or "knn".
-#' @param radius An integer of a length 1 representing the number of neighbors to consider. This will be used if method = "distance".
-#' @param k An integer of a length 1 representing the number of neighbors to consider. This will be used if method = "knn".
-#' @param parallel Logical, if TRUE it use a parallel processing.
+#' @param data
+#' @param parallel
+#' @param method
+#' @param radius
+#' @param k
 #'
 #'@export
-cloud_dimensionality <- function(data, method, radius, k, parallel) {
+cloud_dimensionality <- function(data, parallel, method, radius, k) {
 
   if(class(data) == "neighborhood") {  ####For objects of class "neighborhood"
 
@@ -47,8 +47,3 @@ cloud_dimensionality <- function(data, method, radius, k, parallel) {
     results
   }
 }
-
-
-#' @value A data.frame with the estimated parameters
-#' @author J. Antonio Guzman Q. and Ronny Hernandez
-#' @references Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.

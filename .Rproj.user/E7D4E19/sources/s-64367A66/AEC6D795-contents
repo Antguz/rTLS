@@ -6,7 +6,7 @@
 #'
 #' @param x a matrix or data.frame of a point with xyz coordinates
 #' @param cloud a matrix or data.frame of a point cloud with xyz coordinates
-#' @param k an integer of a length 1 representing the number of neighbors to consider
+#' @param k a integer of a length 1 representing the number of neighbors to consider
 #'
 #'@export
 knn_neighbors <- function(x, cloud, k) {
