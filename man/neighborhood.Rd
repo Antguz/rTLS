@@ -4,21 +4,31 @@
 \alias{neighborhood}
 \title{Neighboring points}
 \usage{
-neighborhood(cloud, method, radius, k, parallel, ...)
+neighborhood(cloud, method, radius, k, parallel)
 }
 \arguments{
-\item{cloud}{A matrix or data.frame with xyz coordinates in the first three columns.}
+\item{cloud}{A  \code{matrix} or  \code{data.frame} with xyz coordinates in the first three columns.}
 
-\item{method}{A character string specifying the method to estimated the neighbors. It most be one of "distance" or "knn".}
+\item{method}{A character string specifying the method to estimated the neighbors. It most be one of  \code{"distance"} or  \code{"knn"}.}
 
-\item{radius}{An integer of a length 1 representing the number of neighbors to consider. This will be used if method = "distance".}
+\item{radius}{An integer of a length 1 representing the number of neighbors to consider. This will be used if  \code{method = "distance"}.}
 
-\item{k}{An integer of a length 1 representing the number of neighbors to consider. This will be used if method = "knn".}
+\item{k}{An integer of a length 1 representing the number of neighbors to consider. This will be used if  \code{method = "knn"}.}
 
-\item{parallel}{Logical, if TRUE it use a parallel processing.}
+\item{parallel}{Logical, if  \code{TRUE} it use a parallel processing.}
 }
 \description{
 Estimate neighboring points based on two methods.
+}
+\examples{
+data("pc_tree")
+
+###Estimate the niegborhood based on distance
+neighborhood(pc_tree, method = "distance", radius = 0.2)
+
+###Estimate the niegborhood based on knn
+neighborhood(pc_tree, method = "knn", k = 10)
+
 }
 \references{
 Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.

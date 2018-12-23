@@ -7,13 +7,13 @@
     "folds" : "",
     "hash" : "0",
     "id" : "64DF1C7E",
-    "lastKnownWriteTime" : 1545577985,
-    "last_content_update" : 1545577985,
+    "lastKnownWriteTime" : 1545582805,
+    "last_content_update" : 1545582805535,
     "path" : "C:/Users/Antonio Guzman/Desktop/rTLS/R/neighborhood.R",
     "project_path" : "R/neighborhood.R",
     "properties" : {
-        "cursorPosition" : "17,0",
-        "scrollLine" : "17"
+        "cursorPosition" : "2,12",
+        "scrollLine" : "0"
     },
     "relative_order" : 2,
     "source_on_save" : false,

@@ -7,14 +7,19 @@
 dist_neighbors(x, cloud, radius)
 }
 \arguments{
-\item{x}{a matrix or data.frame of a point with xyz coordinates}
+\item{x}{a \code{matrix} or \code{data.frame} of a point with xyz coordinates}
 
-\item{cloud}{a matrix or data.frame of a point cloud with xyz coordinates}
+\item{cloud}{a \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates}
 
-\item{radius}{a numeric vector of a length 1 representing the minimum distance to consider neighboring points}
+\item{radius}{a numeric \code{vector} of a length 1 representing the minimum distance to consider neighboring points}
 }
 \description{
 Estimate the neighboring points of a targed point based on a radius
+}
+\examples{
+data("pc_tree")
+dist_neighbors(pc_tree[100,], pc_tree, radius = 0.2)
+
 }
 \author{
 J. Antonio Guzman Q. and Ronny Hernandez

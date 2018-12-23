@@ -7,14 +7,19 @@
 knn_neighbors(x, cloud, k)
 }
 \arguments{
-\item{x}{a matrix or data.frame of a point with xyz coordinates}
+\item{x}{a \code{matrix} or \code{data.frame} of a point with xyz coordinates}
 
-\item{cloud}{a matrix or data.frame of a point cloud with xyz coordinates}
+\item{cloud}{a \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates}
 
 \item{k}{an integer of a length 1 representing the number of neighbors to consider}
 }
 \description{
 Estimate the neighboring points of a targed point based on a knn
+}
+\examples{
+data("pc_tree")
+knn_neighbors(pc_tree[100,], pc_tree, k = 10)
+
 }
 \author{
 J. Antonio Guzman Q. and Ronny Hernandez

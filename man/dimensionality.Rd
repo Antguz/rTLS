@@ -7,10 +7,15 @@
 dimensionality(space)
 }
 \arguments{
-\item{space}{a matrix or data.frame with xzy coordinate in the first three columns.}
+\item{space}{a \code{matrix} or \code{data.frame} with xzy coordinate in the first three columns.}
 }
 \description{
 Calculate the dimensionality of a cloud of neighboring points. It estimate 10 parameters based on Wang et al. 2017.
+}
+\examples{
+data("pc_tree")
+n <- neighborhood(pc_tree, method = "distance", radius = 0.2)
+
 }
 \references{
 Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.

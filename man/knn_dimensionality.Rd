@@ -7,14 +7,19 @@
 knn_dimensionality(x, cloud, k)
 }
 \arguments{
-\item{x}{a matrix or data.frame of a point with xyz coordinates}
+\item{x}{a \code{matrix} or \code{data.frame} of a point with xyz coordinates}
 
-\item{cloud}{an matrix or data.frame of a point cloud with xyz coordinates}
+\item{cloud}{an \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates}
 
 \item{radius}{an integer of a length 1 representing the number of neighbors to consider}
 }
 \description{
 Estimate the dimensionality of neighboring points of a targed point based on knn
+}
+\examples{
+data("pc_tree")
+knn_dimensionality(pc_tree[100,], pc_tree, k = 10)
+
 }
 \author{
 J. Antonio Guzman Q. and Ronny Hernandez
