@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1545580168663.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E4DD6C38",
+    "lastKnownWriteTime" : 1545580330,
+    "last_content_update" : 1545580330561,
+    "path" : "C:/Users/Antonio Guzman/Desktop/rTLS/R/pc_tree.R",
+    "project_path" : "R/pc_tree.R",
+    "properties" : {
+        "cursorPosition" : "9,2",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
