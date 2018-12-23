@@ -26,7 +26,7 @@ data("pc_tree")
 ###Run from an object of class data.frame or matrix
 cloud_dimensionality(pc_tree, method = "distance", radius = 0.2)
 
-###Run from an object of class neighborhood
+###Run from an object of class \\code{neighborhood}
 dist <- neighborhood(pc_tree, method = "distance", radius = 0.2)
 cloud_dimensionality(dist, method = "distance", radius = 0.2)
 
