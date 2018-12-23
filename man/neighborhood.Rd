@@ -20,3 +20,9 @@ neighborhood(cloud, method, radius, k, parallel, ...)
 \description{
 Estimate neighboring points based on two methods.
 }
+\references{
+Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.
+}
+\author{
+J. Antonio Guzman Q. and Ronny Hernandez
+}

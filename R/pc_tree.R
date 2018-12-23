@@ -4,9 +4,7 @@
 #'
 #' @docType data
 #'
-#' @usage
-data(pc_tree)
-#'
+#' @usage data(pc_tree)
 #'
 #' @keywords datasets
 #'

@@ -16,3 +16,6 @@ dist_neighbors(x, cloud, radius)
 \description{
 Estimate the neighboring points of a targed point based on a radius
 }
+\author{
+J. Antonio Guzman Q. and Ronny Hernandez
+}

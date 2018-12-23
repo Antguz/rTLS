@@ -16,3 +16,6 @@ knn_neighbors(x, cloud, k)
 \description{
 Estimate the neighboring points of a targed point based on a knn
 }
+\author{
+J. Antonio Guzman Q. and Ronny Hernandez
+}

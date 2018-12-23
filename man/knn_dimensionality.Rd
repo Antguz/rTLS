@@ -16,3 +16,6 @@ knn_dimensionality(x, cloud, k)
 \description{
 Estimate the dimensionality of neighboring points of a targed point based on knn
 }
+\author{
+J. Antonio Guzman Q. and Ronny Hernandez
+}

@@ -16,3 +16,6 @@ dist_dimensionality(x, cloud, radius)
 \description{
 Estimate the dimensionality of neighboring points of a targed point based on a radius
 }
+\author{
+J. Antonio Guzman Q. and Ronny Hernandez
+}
