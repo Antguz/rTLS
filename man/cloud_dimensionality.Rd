@@ -24,11 +24,11 @@ Estimate the dimensionality of the poits of a cloud. It estimate 10 parameters b
 data("pc_tree")
 
 ###Run from an object of class data.frame or matrix
-cloud_dimensionality(pc_tree, method = "distance", radius = 0.2)
+cloud_dimensionality(pc_tree, method = "distance", radius = 0.2, parallel = FALSE)
 
 ###Run from an object of class neighborhood
-dist <- neighborhood(pc_tree, method = "distance", radius = 0.2)
-cloud_dimensionality(dist, method = "distance", radius = 0.2)
+dist <- neighborhood(pc_tree, method = "distance", radius = 0.2, parallel = FALSE)
+cloud_dimensionality(dist, method = "distance", radius = 0.2, parallel = FALSE)
 
 }
 \references{

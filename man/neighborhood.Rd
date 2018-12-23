@@ -24,10 +24,20 @@ Estimate neighboring points based on two methods.
 data("pc_tree")
 
 ###Estimate the niegborhood based on distance
-neighborhood(pc_tree, method = "distance", radius = 0.2)
+neighborhood(pc_tree, method = "distance", radius = 0.2, parallel = FALSE)
 
 ###Estimate the niegborhood based on knn
-neighborhood(pc_tree, method = "knn", k = 10)
+neighborhood(pc_tree, method = "knn", k = 10, parallel = FALSE)
+
+###Parallel TRUE
+require(doParallel)
+detectCores() ### Number of cores of your computer
+cores <- makeCluster(4) ### Set number of cores to work
+registerDoParallel(cores)
+
+neighborhood(pc_tree, method = "distance", radius = 0.2, parallel = TRUE)
+
+stopCluster(cores)
 
 }
 \references{
