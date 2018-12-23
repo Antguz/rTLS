@@ -4,13 +4,15 @@
 #'
 #' @docType data
 #'
-#' @usage data(pc_tree)
+#' @usage
+data(pc_tree)
 #'
 #'
 #' @keywords datasets
 #'
-#' @references Guzman, Sharp, Alencastro, Sanchez-Azofeifa. 2018. To be published
+#' @references Guzman, Sharp, Alencastro, Sanchez-Azofeifa. 2018. To be published.
 #'
+#' @value A data.frame where the rows represent the points and the three columns represent the xyz coordinates.
 #'
 #' @examples
 #' data(pc_tree)

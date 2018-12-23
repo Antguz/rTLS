@@ -50,5 +50,3 @@ cloud_dimensionality <- function(data, method, radius, k, parallel) {
     results
   }
 }
-
-
