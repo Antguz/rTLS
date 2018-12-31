@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1546295095142.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "CD6626A3",
+    "lastKnownWriteTime" : 1545583087,
+    "last_content_update" : 1545583087,
+    "path" : "C:/Users/Antonio Guzman/Desktop/rTLS/R/knn_dimensionality.R",
+    "project_path" : "R/knn_dimensionality.R",
+    "properties" : {
+        "cursorPosition" : "8,35",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
