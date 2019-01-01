@@ -17,17 +17,27 @@
 #' voxels(pc_tree, voxel.size = 0.5)
 #'
 #'@export
-voxels <- function(cloud, voxel.size, precision) {
+voxels <- function(cloud, voxel.size) {
 
-  xi <- round(min(cloud[,1]) - voxel.size/2, digits = precision)    ##  Buffer the minimum point value by half the voxel size to find the lower bound for the x,y, and z voxels
-  yi <- round(min(cloud[,2]) - voxel.size/2, digits = precision)
-  zi <- round(min(cloud[,3]) - voxel.size/2, digits = precision)
+  xi <- round(min(cloud[,1]) - voxel.size/2, digits = max(nchar(sub('.','', cloud[,1])) - 1))    ##  Buffer the minimum point value by half the voxel size to find the lower bound for the x,y, and z voxels
+  yi <- round(min(cloud[,2]) - voxel.size/2, digits = max(nchar(sub('.','', cloud[,2])) - 1))
+  zi <- round(min(cloud[,3]) - voxel.size/2, digits = max(nchar(sub('.','', cloud[,3])) - 1))
 
   cloud$x_vox <- ceiling((cloud[,1]-xi)/voxel.size)    ##  Assign x, y, and z "voxel coordinates" to each point as a point attribute
   cloud$y_vox <- ceiling((cloud[,2]-yi)/voxel.size)
   cloud$z_vox <- ceiling((cloud[,3]-zi)/voxel.size)
 
   voxels.cloud <- cloud %>% count(x_vox, y_vox, z_vox, sort = TRUE) #Cound the number of points per voxel
-  as.data.frame(voxels.cloud)
+  voxels.cloud <- as.data.frame(voxels.cloud)
+
+  xc <- (min(cloud[,1]) - voxel.size/2) + (voxels.cloud$x_vox*voxel.size)
+  yc <- (min(cloud[,2]) - voxel.size/2) + (voxels.cloud$y_vox*voxel.size)
+  zc <- (min(cloud[,3]) - voxel.size/2) + (voxels.cloud$z_vox*voxel.size)
+
+  voxels.cloud$x_vox <- round(xc, max(nchar(sub('.','', cloud[,1])) - 1))
+  voxels.cloud$y_vox <- round(yc, max(nchar(sub('.','', cloud[,2])) - 1))
+  voxels.cloud$z_vox <- round(zc, max(nchar(sub('.','', cloud[,3])) - 1))
+
+  return(voxels.cloud)
 
 }

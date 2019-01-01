@@ -4,7 +4,7 @@
 \alias{voxels}
 \title{Voxelization of a point cloud}
 \usage{
-voxels(cloud, voxel.size, precision)
+voxels(cloud, voxel.size)
 }
 \arguments{
 \item{cloud}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns.}
