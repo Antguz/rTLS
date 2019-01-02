@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1546397246694.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "9127532E",
+    "lastKnownWriteTime" : 1546400211,
+    "last_content_update" : 1546400211033,
+    "path" : "C:/Users/Antonio Guzman/Desktop/rTLS/tmp/filter.R",
+    "project_path" : "tmp/filter.R",
+    "properties" : {
+        "cursorPosition" : "33,0",
+        "scrollLine" : "14",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

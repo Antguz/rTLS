@@ -2,25 +2,29 @@
 % Please edit documentation in R/sub_neighborhood.R
 \name{sub_neighborhood}
 \alias{sub_neighborhood}
-\title{Subset neighboring points}
+\title{Subsample neighboring points}
 \usage{
-sub_neighborhood(x, new_distance)
+sub_neighborhood(x, method, new_distance, new_k)
 }
 \arguments{
 \item{x}{An object of class \code{neighborhood}.}
 
-\item{new_distance}{A numeric vector that swhich specifies the new distance to subset.}
+\item{method}{A character string specifying the method to subsample the neighboring points. It most be one of \code{"distance"} or \code{"knn"}.}
+
+\item{new_distance}{A \code{numeric} vector of a length 1 representing the new distance to consider. This will be used if \code{method = "distance"}. To be functional, \code{"new_distance"} most be lower than \code{"distance"} used in \code{"neighborhood"}.}
+
+\item{new_k}{An integer of a length 1 representing the new number of neighbors to consider. This will be used if \code{method = "knn"}.  To be functional, \code{"new_k"} most be lower than \code{"k"} used in \code{"neighborhood"}.}
 }
 \value{
 An object of class "neighborhood" with a list per point of the neighboring points.
 }
 \description{
-Subset neighboring points based on a distance or knn
+Subsample the neighboring points based on a distance or knn
 }
 \examples{
 data("pc_tree")
 
-###Subset neighboring points from 0.2 to 0.1
+###Subset neighboring points from a radius 0.2 to a radius of 0.1
 dis <- neighborhood(pc_tree, method = "distance", radius = 0.2, parallel = FALSE)
 sub_neighborhood(dis, new_distance = 0.1)
 

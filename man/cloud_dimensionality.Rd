@@ -11,7 +11,7 @@ cloud_dimensionality(data, method, radius, k, parallel)
 
 \item{method}{A character string specifying the method to estimated the neighbors. It most be one of \code{"distance"} or \code{"knn"}.}
 
-\item{radius}{An integer of a length 1 representing the number of neighbors to consider. This will be used if \code{method = "distance"}.}
+\item{radius}{A \code{numeric} vector of a length 1 representing the distance to consider. This will be used if \code{method = "distance"}.}
 
 \item{k}{An integer of a length 1 representing the number of neighbors to consider. This will be used if \code{method = "knn"}.}
 
