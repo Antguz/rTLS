@@ -1,0 +1,89 @@
+library(splines)
+library(quantmod)
+library(ggplot2)
+library(RColorBrewer)
+library(gridExtra)
+
+folder <- "L1"
+
+peaks <- function(folder) {
+  files <- dir(paste("", getwd(), "/", folder, sep=""))
+  
+  complete <- data.frame(Tree = substr(files, 9, 10), Resolution = as.numeric(substr(files, 13, 17)),
+                         Opt_Size = NA, N_voxels = NA, Peak = NA, Slope = NA)
+  
+  for(i in 1:length(files)) {
+    data <- read.delim(paste("", getwd(), "/", folder, "/", files[i], sep=""))
+    data <- data[order(data$Size),]
+    data <- subset(data, Count > 1)
+    data <- subset(data, Size >= as.numeric(substr(files[i], 13, 17)) & Size <= 2)
+    ss <- smooth.spline(log(data$Size), data$I_boot, spar= 0.5)
+    data$y <- smooth.spline(log(data$Size), data$I_boot, spar= 1)$y
+    data$yeq <- smooth.spline(log(data$Size), data$Equitavility_boot, spar= 0.4)$y
+    peak <- data[findPeaks(data$y)[1],]
+    
+    jpeg(filename= paste("", substr(files[i], 9, 10), "-", substr(files[i], 13, 17), ".jpg", sep = ""), 
+        units="in", 
+        width= 7.5, 
+        height= 4, 
+        pointsize=12, 
+        res=300)
+    
+    ne <- ggplot(data, aes(x = Size, y = I_boot)) + 
+      geom_point(size = 5, color = col_lf[i], fill= col_lf[i], shape=21, alpha = 0.25) +
+      geom_line(aes(x = Size, y = y), color = "gray90", size = 1, linetype = 1) +
+      
+      geom_vline(xintercept= peak$Size, linetype = 3, size = 1) +
+      geom_hline(yintercept= peak$y, linetype = 3, size = 1) +
+      
+      scale_x_continuous(limits = c(-0.01, 2), expand=c(0,0)) +
+      scale_y_continuous(limits = c(0, 1.1), expand=c(0,0)) +
+      theme_bw(base_size = 14) + 
+      theme(plot.background = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+      xlab("Voxel size (m)") +
+      ylab("H' - Hmax") +
+      labs(title = "Negative entropy", subtitle = paste("", "Cloud resolution = ", substr(files[i], 13, 19), sep = "")) +
+      annotate("text", x = 1.3, y = 0.90, label = paste("", "Opt size (x)= ", peak$Size, " m"), size = 4) +
+      annotate("text", x = 1.3, y = 0.95, label = paste("", "Neg entropy (y)= ", round(peak$y, 3)), size = 4)
+    
+    eq <- ggplot(data, aes(x = Size, y = Equitavility_boot)) + 
+      geom_point(size = 5, color = col_lf[i], fill= col_lf[i], shape=21, alpha = 0.25) +
+      geom_line(aes(x = Size, y = yeq), color = "gray90", size = 1, linetype = 1) +
+      
+      geom_vline(xintercept= peak$Size, linetype = 3, size = 1) +
+      geom_hline(yintercept= peak$yeq, linetype = 3, size = 1) +
+      
+      scale_x_continuous(limits = c(-0.01, 2), expand=c(0,0)) +
+      scale_y_continuous(limits = c(0.8, 1), expand=c(0,0)) +
+      theme_bw(base_size = 14) + 
+      theme(plot.background = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+      xlab("Voxel size (m)") +
+      ylab("H'/Hmax") +
+      labs(title = "Equitavility", subtitle = paste("", "Cloud resolution = ", substr(files[i], 13, 19), sep = "")) +
+      annotate("text", x = 0.6, y = 0.83, label = paste("", "Opt size (x)= ", peak$Size, " m"), size = 4) +
+      annotate("text", x = 0.6, y = 0.84, label = paste("", "Equitavility (y)= ", round(peak$yeq, 3)), size = 4)
+    
+    grid.arrange(ne, eq, nrow = 1)
+    
+    dev.off()
+    
+    complete[i, 3] <- peak$Size
+    complete[i, 4] <- peak$Count
+    complete[i, 5] <- peak$y
+    complete[i, 6] <- summary(lm(log(Count)~log(Size), data))$coeff[2,1]
+
+  }
+  complete
+}
+
+write.csv(peaks("L1"), "results_L1.csv", row.names = FALSE)
+write.csv(peaks("S1"), "results_S1.csv", row.names = FALSE)
+write.csv(peaks("S2"), "results_S2.csv", row.names = FALSE)
+write.csv(peaks("S3"), "results_S3.csv", row.names = FALSE)
+write.csv(peaks("S4"), "results_S4.csv", row.names = FALSE)
+write.csv(peaks("S5"), "results_S5.csv", row.names = FALSE)
+write.csv(peaks("S6"), "results_S6.csv", row.names = FALSE)
+write.csv(peaks("S7"), "results_S7.csv", row.names = FALSE)
+write.csv(peaks("S8"), "results_S8.csv", row.names = FALSE)
+
+

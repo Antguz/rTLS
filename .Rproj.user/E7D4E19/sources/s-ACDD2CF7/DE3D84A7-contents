@@ -1,0 +1,42 @@
+folder <- "01-Fractals results without normalization"
+
+regression <- function(folder) {
+  
+  files <- dir(paste("", getwd(), "/", folder, sep=""))
+  
+  complete <- data.frame(filename = NA, c_intercept = NA, c_slope = NA,
+                         c_std_intercept = NA, c_std_slope = NA, c_rsquared = NA,
+                         c_error = NA, h_intercept = NA, h_slope = NA,
+                         h_std_intercept = NA, h_std_slope = NA, h_rsquared = NA,
+                         h_error = NA)
+    
+  complete <- complete[0,]
+  
+  for(i in 1:length(files)) {
+    data <- read.delim(paste("", getwd(), "/", folder, "/", files[i], sep=""))
+    
+    count <- lm(log(data$Count) ~ log(data$Size))
+    h <- lm(log(data$H) ~ log(data$Size))
+    
+    frame <- data.frame(filename = files[i],
+                           c_intercept = summary(count)$coefficients[1,1],
+                           c_slope = summary(count)$coefficients[2,1],
+                           c_std_intercept = summary(count)$coefficients[1,2],
+                           c_std_slope = summary(count)$coefficients[2,2],
+                           c_rsquared = summary(count)$r.squared,
+                           c_error = summary(count)$sigma,
+                           h_intercept = summary(h)$coefficients[1,1],
+                           h_slope = summary(h)$coefficients[2,1],
+                           h_std_intercept = summary(h)$coefficients[1,2],
+                           h_std_slope = summary(h)$coefficients[2,2],
+                           h_rsquared = summary(h)$r.squared,
+                           h_error = summary(h)$sigma)
+  
+  complete <- rbind(complete, frame)
+  }
+  complete
+}
+
+results <- regression(folder)  
+
+write.csv(results, "results without normalization.csv", row.names = FALSE)

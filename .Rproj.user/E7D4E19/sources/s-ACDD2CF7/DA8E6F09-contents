@@ -1,0 +1,212 @@
+####-----------------------------------------Fractals idea------------------------------------------------####
+
+#Library
+
+library(VoxR)
+library(rgl)
+library(rLiDAR)
+library(ggplot2)
+
+#Setwd
+setwd("K:/My Drive/LiDAR fractals paper/Trees")
+setwd("G:/My Drive/LiDAR fractals paper/Data/01-Trees for analysis")
+
+####Functionn
+
+#Imput
+
+data <- read.delim("Tree04.txt") #X,Y,Z data.frame
+head(data)
+
+#Fractal function ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#Imputs 
+
+
+fractals <- c(100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 
+              15, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0.5)
+
+#Function
+
+fractal <- function(data, fractals) {
+  xyz <- data[,1:3]
+
+  frame <- data.frame(Size = fractals, Count = NA, H = NA, Hmax = NA, Equitavility = NA)
+  
+  for(i in 1:length(fractals)) {
+    voxels <- vox(xyz, res= fractals[i])
+    frame[i, 2] <- length(voxels$nbpts) #Numero de voxels
+    points <- sum(voxels$nbpts)
+    frame[i, 3] <- -sum((voxels$nbpts/points) * log(voxels$nbpts/points)) #H index
+    frame[i, 4] <- log(length(voxels$nbpts)) #H max
+    frame[i, 5] <- frame[i, 3]/frame[i, 4] #Equitavility
+  }
+  print(frame)
+}
+
+#Tree metrics 
+
+treemetrics <- function(data) {
+  
+  xyz <- as.matrix(data[,1:3])
+  clLAS <- kmeans(xyz, 1)
+  id <- as.factor(clLAS$cluster)
+  
+  xyId <- cbind(xyz[,1:2],id)
+  Area <- chullLiDAR2D(xyId) ###Area
+  
+  xyzId <- cbind(xyz,id)
+  Crown <-chullLiDAR3D(xyzid=xyzId, plotit=FALSE, col= "forestgreen",alpha=0.5) #Volumen and Surface
+  
+  xyzi <- as.matrix(data[,c(1:3, 5)])
+  xyziId <- cbind(xyzi, id)
+  TreesMetrics <- CrownMetrics(xyziId)
+  
+  
+  frame <- data.frame(Filename = file, Area = Area$chullArea[1,2], Volumen = Volumen <- Crown[1,2], Surface = Crown[1,3])
+  frame <- cbind(frame, TreesMetrics)
+  
+}
+
+###All trees
+
+folder <- "Fractal"
+
+tree_run <- function(folder) {
+  files <- dir(paste("", getwd(), "/", folder, sep=""))
+  complete_frame <- NA
+  
+  for(i in 1:length(files)) {
+    data <- read.table(paste("", getwd(), "/", folder, "/", files[i], sep=""), sep = "\t", header = FALSE, skip = 1)
+    
+    ####Fractal analysis
+    
+    xyz <- data[,1:3]
+    xyz <- subset(xyz, xyz[,3] >= 1.37)
+    
+    frame <- data.frame(Size = fractals, Count = NA)
+    
+    for(ii in 1:length(fractals)) {
+      voxels <- vox(xyz, res= fractals[ii])
+      frame[ii, 2] <- length(voxels$nbpts)
+    }
+    
+    regression <- lm(log(Count) ~ log(Size), data = frame)
+    
+    ### Tree metrics
+    
+    xyz <- as.matrix(data[,1:3])
+    xyz <- subset(xyz[,1:3],xyz[,3] >= 1.37)
+    clLAS <- kmeans(xyz, 1)
+    id <- as.factor(clLAS$cluster)
+    
+    xyId <- cbind(xyz[,1:2],id)
+    Area <- chullLiDAR2D(xyId) ###Area
+    
+    xyzId <- cbind(xyz,id)
+    Crown <-chullLiDAR3D(xyzid=xyzId, plotit=FALSE, col= "forestgreen",alpha=0.5) #Volumen and Surface
+    
+    complete <- data.frame(filename = files[i],
+                           intercept = summary(regression)$coefficients[1,1],
+                           slope = summary(regression)$coefficients[2,1],
+                           std_intercept = summary(regression)$coefficients[1,2],
+                           std_slope = summary(regression)$coefficients[2,2],
+                           rsquared = summary(regression)$r.squared,
+                           errror = summary(regression)$sigma,
+                           crown_area = Area$chullArea[,2],
+                           crown_volume = Crown$crownvolume,
+                           crown_surface = Crown$crownsurface,
+                           height = max(data[,3])-min(data[,3]))
+    
+    complete_frame <- rbind(complete_frame, complete)
+    print(complete_frame[2:length(complete_frame$filename),])
+  }
+  write.csv(complete_frame[2:length(complete_frame$filename),], "results.csv", row.names = FALSE)
+  print(complete_frame[2:length(complete_frame$filename),])
+}
+
+run <- tree_run(folder)
+
+### Logistic
+
+data <- read.csv("Results.csv")
+
+data$coef <- abs(data$slope/log(data$crown_area))
+
+fit <- glm(Type ~ coef, data = data, family=binomial)
+data$proba <- 1- fit$fitted.values
+
+values <- data.frame(coef = seq(0.1, 0.8, length = 80))
+values$prediction <- 1 - predict(fit, newdata = values, type = "response")
+
+
+
+ggplot(values, aes(x=coef, y=prediction)) + 
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), colour = "cyan4",  formula = y~x, alpha=0.15, size=2) +
+  geom_point(data = data, aes(x=coef, y=proba), colour ="darkred", size = 5) +
+  scale_x_continuous(limits = c(0.1,0.7), expand=c(0,0)) +
+  scale_y_continuous(limits = c(0, 1), expand=c(0,0)) +
+  theme_bw(base_size = 17) +
+  theme(plot.background = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  xlab(expression(paste("Slope/Crown area"))) + ylab("Probability of a tree to present lianas") +
+  theme(legend.position="none")
+tiff('probability.tiff', units="in", width=7, height=5, res=600)
+dev.off()
+
+LASfile <- system.file("extdata", "LASexample1.las", package="rLiDAR")
+LAS <- readLAS(LASfile,short=TRUE)
+xyz <- subset(LAS[,1:3],LAS[,3] >= 1.37)
+set.seed(1)
+clLAS<-kmeans(xyz, 32)
+
+id<-as.factor(clLAS$cluster)
+xyid<-cbind(xyz[,1:2],id)
+chullTrees<-chullLiDAR2D(xyid)
+library(sp)
+plot(SpatialPoints(xyid[,1:2]),cex=0.5,col=xyid[,3])
+plot(chullTrees$chullPolygon,add=TRUE, border='green')
+
+
+
+
+data(chm)
+
+schm<-CHMsmoothing(chm, "mean", 5)
+fws<-5
+minht<-8.0
+treeList<-FindTreesCHM(schm, fws, minht)
+summary(treeList)
+library(raster)
+
+plot(chm, main="LiDAR-derived CHM")
+
+library(sp) 
+XY<-SpatialPoints(treeList[,1:2]) # Spatial points
+plot(XY, add=TRUE, col="red")        
+
+
+
+
+
+
+
+
+
+
+data <- as.data.frame(LAS)
+data <- subset(data, V3 >= 1.37)
+
+ggplot(data,aes(x= X,y= Y)) +
+  geom_point(aes(colour = Z)) +
+  theme_bw(base_size = 17) + coord_equal() +xlab("Longitude")+ ylab("Latitude") +
+  scale_fill_manual(name = "Heigth (m)")
+
+tiff('liana_xy.tiff', units="in", width=5, height=5, res=600)
+plot(data$V1, data$V2, cex = 0.5)
+dev.off()
+
+tiff('liana_xz.tiff', units="in", width=5, height=5, res=600)
+plot(data$V2, data$V3, cex = 0.5)
+dev.off()
+
+
+

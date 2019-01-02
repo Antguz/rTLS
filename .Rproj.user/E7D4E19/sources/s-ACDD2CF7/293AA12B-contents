@@ -1,0 +1,16 @@
+voxels <- function(cloud, voxel.size, precision) {
+  
+  xi <- round(min(cloud[,1]) - voxel.size/2, digits = precision)    ##  Buffer the minimum point value by half the voxel size to find the lower bound for the x,y, and z voxels
+  yi <- round(min(cloud[,2]) - voxel.size/2, digits = precision)
+  zi <- round(min(cloud[,3]) - voxel.size/2, digits = precision)
+
+  cloud$x_vox <- ceiling((cloud[,1]-xi)/voxel.size)    ##  Assign x, y, and z "voxel coordinates" to each point as a point attribute
+  cloud$y_vox <- ceiling((cloud[,2]-yi)/voxel.size)
+  cloud$z_vox <- ceiling((cloud[,3]-zi)/voxel.size)
+
+  voxels.cloud <- cloud %>% count(x_vox, y_vox, z_vox, sort = TRUE) #Cound the number of points per voxel
+  as.data.frame(voxels.cloud)
+
+}
+
+
