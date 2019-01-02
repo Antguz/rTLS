@@ -6,7 +6,7 @@
 #'
 #' @param data A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns or an object of class \code{neighborhood}.
 #' @param method A character string specifying the method to estimated the neighbors. It most be one of \code{"distance"} or \code{"knn"}.
-#' @param radius An integer of a length 1 representing the number of neighbors to consider. This will be used if \code{method = "distance"}.
+#' @param radius A \code{numeric} vector of a length 1 representing the distance to consider. This will be used if \code{method = "distance"}.
 #' @param k An integer of a length 1 representing the number of neighbors to consider. This will be used if \code{method = "knn"}.
 #' @param parallel Logical, if \code{TRUE} it use a parallel processing.
 #' @return A \code{data.frame} with the estimated parameters
