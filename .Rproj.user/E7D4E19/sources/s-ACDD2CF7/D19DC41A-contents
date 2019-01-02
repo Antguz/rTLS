@@ -1,10 +1,10 @@
 #' @import dplyr
 #'
-#' @title Subset neighboring points based on da istance
+#' @title Subset neighboring points
 #'
-#' @description Subset neighboring points based on a distance.
+#' @description Subset neighboring points based on a distance or knn
 #'
-#' @param x An object of class  \code{neighborhood}.
+#' @param x An object of class \code{neighborhood}.
 #' @param new_distance A numeric vector that swhich specifies the new distance to subset.
 #'
 #' @return An object of class "neighborhood" with a list per point of the neighboring points.
@@ -15,10 +15,10 @@
 #'
 #' ###Subset neighboring points from 0.2 to 0.1
 #' dis <- neighborhood(pc_tree, method = "distance", radius = 0.2, parallel = FALSE)
-#' sub_distance(dis, new_distance = 0.1)
+#' sub_neighborhood(dis, new_distance = 0.1)
 #'
 #' @export
-sub_distance <- function(x, new_distance) {
+sub_neighborhood <- function(x, new_distance) {
   sub <- llply(dis,
     .fun = function(x, new_distance) {x <- x[x[, 4] <= new_distance,]},
      new_distance = new_distance,
