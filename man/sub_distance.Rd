@@ -11,6 +11,9 @@ sub_distance(x, new_distance)
 
 \item{new_distance}{A numeric vector that swhich specifies the new distance to subset.}
 }
+\value{
+An object of class "neighborhood" with a list per point of the neighboring points.
+}
 \description{
 Subset neighboring points based on a distance.
 }

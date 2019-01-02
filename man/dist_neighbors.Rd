@@ -13,6 +13,9 @@ dist_neighbors(x, cloud, radius)
 
 \item{radius}{a numeric \code{vector} of a length 1 representing the minimum distance to consider neighboring points}
 }
+\value{
+A matrix with the xyz coordinates of the neighboring points and a fourth column with their distance
+}
 \description{
 Estimate the neighboring points of a targed point based on a radius
 }

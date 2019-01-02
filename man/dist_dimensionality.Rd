@@ -13,6 +13,9 @@ dist_dimensionality(x, cloud, radius)
 
 \item{radius}{a numeric vector of a length 1 representing the minimum distance to consider neighboring points.}
 }
+\value{
+A  \code{matrix} with the xyz coordinates of the neighboring points and a fourth column with their distance.
+}
 \description{
 Estimate the dimensionality of the neighboring points of a targed point based on a radius.
 }

@@ -8,7 +8,7 @@
 #' @param cloud an \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates
 #' @param radius an integer of a length 1 representing the number of neighbors to consider
 #'
-#' @value A \code{matrix} with the xyz coordinates of the neighboring points and a fourth column with their distance
+#' @return A \code{matrix} with the xyz coordinates of the neighboring points and a fourth column with their distance
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #'
 #' @examples
@@ -53,5 +53,5 @@ knn_dimensionality <- function(x, cloud, k) {
                         points = length(space[,1]))
   }
 
-  frame
+  return(frame)
 }

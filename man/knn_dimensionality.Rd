@@ -13,6 +13,9 @@ knn_dimensionality(x, cloud, k)
 
 \item{radius}{an integer of a length 1 representing the number of neighbors to consider}
 }
+\value{
+A \code{matrix} with the xyz coordinates of the neighboring points and a fourth column with their distance
+}
 \description{
 Estimate the dimensionality of neighboring points of a targed point based on knn
 }

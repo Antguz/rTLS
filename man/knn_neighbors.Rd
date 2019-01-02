@@ -13,6 +13,9 @@ knn_neighbors(x, cloud, k)
 
 \item{k}{an integer of a length 1 representing the number of neighbors to consider}
 }
+\value{
+A \code{matrix} with the xyz coordinates of the k neighboring points and a fourth column with their distance
+}
 \description{
 Estimate the neighboring points of a targed point based on a knn
 }

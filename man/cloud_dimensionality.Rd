@@ -17,6 +17,9 @@ cloud_dimensionality(data, method, radius, k, parallel)
 
 \item{parallel}{Logical, if \code{TRUE} it use a parallel processing.}
 }
+\value{
+A \code{data.frame} with the estimated parameters
+}
 \description{
 Estimate the dimensionality of the poits of a cloud. It estimate 10 parameters based on Wang et al. 2017.
 }

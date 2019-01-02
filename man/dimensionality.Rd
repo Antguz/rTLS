@@ -9,6 +9,9 @@ dimensionality(space)
 \arguments{
 \item{space}{a \code{matrix} or \code{data.frame} with xzy coordinate in the first three columns.}
 }
+\value{
+A \code{data.frame} with the estimated parameters
+}
 \description{
 Calculate the dimensionality of a cloud of neighboring points. It estimate 10 parameters based on Wang et al. 2017.
 }

@@ -10,7 +10,7 @@
 #' @param k An integer of a length 1 representing the number of neighbors to consider. This will be used if  \code{method = "knn"}.
 #' @param parallel Logical, if  \code{TRUE} it use a parallel processing.
 #'
-#' @return An object of class \code{neighborhood} with a list of neighboring points per point.
+#' @return An object of class \code{neighborhood} with a list per point of the neighboring points.
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #' @references Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.
 #'

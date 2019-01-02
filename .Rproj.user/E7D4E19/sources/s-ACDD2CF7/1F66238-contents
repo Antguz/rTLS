@@ -39,5 +39,4 @@ voxels <- function(cloud, voxel.size) {
   voxels.cloud$z_vox <- round(zc, max(nchar(sub('.','', cloud[,3])) - 1))
 
   return(voxels.cloud)
-
 }

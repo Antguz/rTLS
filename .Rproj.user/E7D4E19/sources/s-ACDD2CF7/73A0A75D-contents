@@ -9,7 +9,7 @@
 #' @param radius An integer of a length 1 representing the number of neighbors to consider. This will be used if \code{method = "distance"}.
 #' @param k An integer of a length 1 representing the number of neighbors to consider. This will be used if \code{method = "knn"}.
 #' @param parallel Logical, if \code{TRUE} it use a parallel processing.
-#' @value A \code{data.frame} with the estimated parameters
+#' @return A \code{data.frame} with the estimated parameters
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #' @references Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.
 #'

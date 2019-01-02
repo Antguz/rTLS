@@ -17,6 +17,9 @@ neighborhood(cloud, method, radius, k, parallel)
 
 \item{parallel}{Logical, if  \code{TRUE} it use a parallel processing.}
 }
+\value{
+An object of class \code{neighborhood} with a list of neighboring points per point.
+}
 \description{
 Estimate neighboring points based on two methods.
 }
