@@ -5,7 +5,7 @@
 #' @description Create cubes of a given distance in a point cloud though their voxelization. It use a modify version of the code used in Greaves et al. 2015.
 #'
 #' @param cloud A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns.
-#' @param voxel.size A \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud.
+#' @param voxel.size A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud.
 #' @return A \code{data.frame} with the xyz coordinates of the voxels created and a fourth column with the amount of points in a given voxel.
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #' @references Greaves, H. E., Vierling, L. A., Eitel, J. U., Boelman, N. T., Magney, T. S., Prager, C. M., & Griffin, K. L. (2015). Estimating aboveground biomass and leaf area of low-stature Arctic shrubs with terrestrial LiDAR. Remote Sensing of Environment, 164, 26-35.

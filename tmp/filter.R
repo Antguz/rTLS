@@ -25,7 +25,10 @@
 #'
 #'@export
 filter <- function(data, method, ) {
-  method == "SOR" ### Statistical Outlier Removal (use distance or knn and sigma)
+  if(method == "SOR") {
+
+  }
+  method ==  ### Statistical Outlier Removal (use n and sigma)
   method == "mnp" ### minimun number of points in a given distance (use distance and n)
   method == "by.value" ### filter by value (use value and column)
   method == "mean.distance" ### it use the mean distance as a thershold (use distance or knn and mean.thershold)

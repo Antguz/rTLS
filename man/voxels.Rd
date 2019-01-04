@@ -9,7 +9,7 @@ voxels(cloud, voxel.size)
 \arguments{
 \item{cloud}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns.}
 
-\item{voxel.size}{A \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud.}
+\item{voxel.size}{A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud.}
 }
 \value{
 A \code{data.frame} with the xyz coordinates of the voxels created and a fourth column with the amount of points in a given voxel.

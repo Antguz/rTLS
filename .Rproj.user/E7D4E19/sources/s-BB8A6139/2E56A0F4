@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1546620913513.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2265517024",
+    "id" : "2E56A0F4",
+    "lastKnownWriteTime" : 1546623519,
+    "last_content_update" : 1546623519553,
+    "path" : "C:/Users/Antonio Guzman/Desktop/rTLS/R/voxels.R",
+    "project_path" : "R/voxels.R",
+    "properties" : {
+        "cursorPosition" : "7,32",
+        "scrollLine" : "3"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
