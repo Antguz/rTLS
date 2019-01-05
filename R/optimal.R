@@ -1,13 +1,15 @@
 #' @import dplyr
 #'
-#' @title Point cloud filter
+#' @title An optimal voxel size, radius of a shpere, or k-neigboors.
 #'
-#' @description Perform a different filtering methods to a point cloud.
+#' @description Estimate the optimal voxel size, radius of a sphere, or number of k neigboors for a given point cloud based on information theory.
 #'
 #' @param data A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns.
-#' @param method A character string specifying the method to estimated the neighbors. It most be one of \code{"distance"} or \code{"knn"}.
-#' @param radius A \code{numeric} vector of a length 1 representing the distance to consider. This will be used if \code{method = "distance"}.
-#' @param k An integer of a length 1 representing the number of neighbors to consider. This will be used if \code{method = "knn"}.
+#' @param method A \code{character} describing the method to use. It most be one of \code{"voxels"}, \code{"radius"}, or \code{"knn"}.
+#' @param size  A positive \code{numeric} vector to test a range of sizes and select the optimal size. This will be used if \code{method = "voxels"} and if \code{method = "radius"}.
+#' @param k A positive \code{integer} vector to test a range of k-neigbors and select the optimal k. This will be used if \code{method = "knn"}.
+#'
+#'
 #' @param parallel Logical, if \code{TRUE} it use a parallel processing.
 #' @return A \code{data.frame} with the estimated parameters
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
@@ -24,13 +26,6 @@
 #' cloud_dimensionality(dist, method = "distance", radius = 0.2, parallel = FALSE)
 #'
 #'@export
-filter <- function(data, method, ) {
-  if(method == "SOR") {
-
-  }
-  method ==  ### Statistical Outlier Removal (use n and sigma)
-  method == "mnp" ### minimun number of points in a given distance (use distance and n)
-  method == "by.value" ### filter by value (use value and column)
-  method == "mean.distance" ### it use the mean distance as a thershold (use distance or knn and mean.thershold)
+optimal <- function(data, method, size, k, parallel) {
 
 }

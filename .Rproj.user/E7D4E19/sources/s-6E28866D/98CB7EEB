@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1546721521531.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "98CB7EEB",
+    "lastKnownWriteTime" : 1546395581,
+    "last_content_update" : 1546395581,
+    "path" : "C:/Users/Antonio Guzman/Desktop/rTLS/R/cloud_dimensionality.R",
+    "project_path" : "R/cloud_dimensionality.R",
+    "properties" : {
+        "cursorPosition" : "6,10",
+        "scrollLine" : "0",
+        "source_window_id" : ""
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
