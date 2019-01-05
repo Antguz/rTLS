@@ -8,12 +8,13 @@
 #' @param method A \code{character} describing the method to use. It most be one of \code{"voxels"}, \code{"radius"}, or \code{"knn"}.
 #' @param size  A positive \code{numeric} vector to test a range of sizes and select the optimal size. This will be used if \code{method = "voxels"} and if \code{method = "radius"}.
 #' @param k A positive \code{integer} vector to test a range of k-neigbors and select the optimal k. This will be used if \code{method = "knn"}.
-#'
-#'
+#' @param fraction A positive \code{numeric} number representing the fraction of points that will be randomly selected as a sample to estimate the optimal size or k. This will be used if \code{method = "radius"} and if \code{method = "knn"}. It most be a value between 0 and 1.#' @param parallel Logical, if \code{TRUE} it use a parallel processing.
+#' @param bootstrap A logical vector of length 1. If \code{bootstrap = TRUE}, it compute a bootstrap on the H index calculations.
+#' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates.
 #' @param parallel Logical, if \code{TRUE} it use a parallel processing.
+#'
 #' @return A \code{data.frame} with the estimated parameters
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
-#' @references Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.
 #'
 #' @examples
 #' data("pc_tree")
@@ -26,6 +27,18 @@
 #' cloud_dimensionality(dist, method = "distance", radius = 0.2, parallel = FALSE)
 #'
 #'@export
-optimal <- function(data, method, size, k, parallel) {
+optimal <- function(data, method, size, k, fraction, bootstrap, R, parallel) {
 
+  if(method == "voxels") {
+
+
+  }
+  else if(method == "radius") {
+
+  }
+  else if(method == "knn") {
+
+  }
+
+  sample(1:20,19)
 }

@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1546724240799.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "3C31598D",
+    "lastKnownWriteTime" : 1546393415,
+    "last_content_update" : 1546393415,
+    "path" : "C:/Users/Antonio Guzman/Desktop/rTLS/R/dist_dimensionality.R",
+    "project_path" : "R/dist_dimensionality.R",
+    "properties" : {
+        "cursorPosition" : "8,20",
+        "scrollLine" : "8"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
