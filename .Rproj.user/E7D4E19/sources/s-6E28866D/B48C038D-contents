@@ -6,7 +6,7 @@
 #'
 #' @param data A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns.
 #' @param method A \code{character} describing the method to use. It most be one of \code{"voxels"}, \code{"radius"}, or \code{"knn"}.
-#' @param size  A positive \code{numeric} vector to test a range of sizes and select the optimal size. This will be used if \code{method = "voxels"} and if \code{method = "radius"}.
+#' @param sizes  A positive \code{numeric} vector to test a range of sizes and select the optimal size. This will be used if \code{method = "voxels"} and if \code{method = "radius"}.
 #' @param k A positive \code{integer} vector to test a range of k-neigbors and select the optimal k. This will be used if \code{method = "knn"}.
 #' @param fraction A positive \code{numeric} number representing the fraction of points that will be randomly selected as a sample to estimate the optimal size or k. This will be used if \code{method = "radius"} and if \code{method = "knn"}. It most be a value between 0 and 1.#' @param parallel Logical, if \code{TRUE} it use a parallel processing.
 #' @param bootstrap A logical vector of length 1. If \code{bootstrap = TRUE}, it compute a bootstrap on the H index calculations.
@@ -27,9 +27,14 @@
 #' cloud_dimensionality(dist, method = "distance", radius = 0.2, parallel = FALSE)
 #'
 #'@export
-optimal <- function(data, method, size, k, fraction, bootstrap, R, parallel) {
+optimal <- function(data, method, sizes, k, fraction, bootstrap, R, parallel) {
 
   if(method == "voxels") {
+    results <- foreach(i = 1:length(sizes), .inorder = TRUE, .combine= 'rbind', .packages = c("dplyr", "boot"), .export=c("summary_voxels", "voxels", "shannon", "shannon_boot")) %dopar% {
+      vox <- voxels(data[,1:3], voxel.size = sizes[i])
+      sm <- summary_voxels(vox, voxel.size = sizes[i], bootstrap, R)
+    }
+
 
 
   }
@@ -42,3 +47,10 @@ optimal <- function(data, method, size, k, fraction, bootstrap, R, parallel) {
 
   sample(1:20,19)
 }
+
+vox_all <- function(cloud, voxel.size, bootstrap, R) {
+  frame <- summary_voxels(voxels(pc_tree, voxel.size), voxel.size, bootstrap, R)
+  return(frame)
+}
+
+vox_all(pc_tree, 0.8, FALSE)

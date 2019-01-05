@@ -40,3 +40,4 @@ voxels <- function(cloud, voxel.size) {
 
   return(voxels.cloud)
 }
+
