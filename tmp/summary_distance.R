@@ -1,11 +1,11 @@
 #' @import dplyr
 #'
-#' @title Voxels summary
+#' @title Spheres and knn summary
 #'
-#' @description Create a summary of the voxels created using the function \code{voxels}.
+#' @description Create a summary of the spheres and knn created using the function \code{dist_dimensionality}.
 #'
 #' @param data A \code{data.frame} with xyz coordinates of the voxels in the first three columns and a fourth column with the number of points in each voxel.
-#' @param voxel.size A positive \code{numeric} vector indicating the size used in \code{voxels}. It is needed to estimated metrics of density.1
+#' @param voxel.size A positive \code{numeric} vector indicating the radius of the sphere or the k to to use. It is needed to estimated metrics of density.1
 #' @param bootstrap A logical vector length 1 vector. If \code{bootstrap = TRUE}, it compute a bootstrap on the H index calculations.
 #' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates.
 #' @return A \code{data.frame} with with the summary of \code{data}.
@@ -54,17 +54,4 @@ summary_voxels <- function(data, voxel.size, bootstrap, R) {
     frame <- data.frame(Voxel.size, N_voxels, Volumen, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy, H_boot_mean, H_boot_sd, Equitavility_boot, Negentropy_boot)
   }
   return(frame)
-}
-
-shannon <- function(n_points) {
-  p.i <- n_points/sum(n_points)
-  H <- (-1) * sum(p.i * log(p.i))
-  return(H)
-}
-
-shannon_boot <- function(n_points, i) {
-  n_boot <- n_points[i]
-  p.i <- n_boot/sum(n_boot)
-  H <- (-1) * sum(p.i * log(p.i))
-  return(H)
 }

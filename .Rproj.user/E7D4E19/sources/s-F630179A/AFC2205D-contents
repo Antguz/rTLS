@@ -4,8 +4,7 @@
 #'
 #' @description Estimate the dimensionality of the poits of a cloud. It estimate 10 parameters based on Wang et al. 2017.
 #'
-#' @param cloud A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns or an object of class \code{neighborhood}.
-#' @param cloud_b A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns. This will be used if \code{cloud} is a \code{matrix} or \code{data.frame}. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.
+#' @param data A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns or an object of class \code{neighborhood}.
 #' @param method A character string specifying the method to estimated the neighbors. It most be one of \code{"distance"} or \code{"knn"}.
 #' @param radius A \code{numeric} vector of a length 1 representing the distance to consider. This will be used if \code{method = "distance"}.
 #' @param k An integer of a length 1 representing the number of neighbors to consider. This will be used if \code{method = "knn"}.
@@ -25,37 +24,39 @@
 #' cloud_dimensionality(dist, method = "distance", radius = 0.2, parallel = FALSE)
 #'
 #'@export
-cloud_dimensionality <- function(cloud, cloud_b = NULL, method, radius, k, parallel = NULL) {
+cloud_dimensionality <- function(data, method, radius, k, parallel) {
 
-  par <- ifelse(is.null(parallel) == TRUE, FALSE, ifelse(parallel == FALSE, FALSE, TRUE))
+  if(class(data) == "neighborhood") {  ####For objects of class "neighborhood"
 
-  if(class(cloud) == "neighborhood") {  ####For objects of class "neighborhood"
-    results <- ldply(cloud, .fun = dimensionality, .progress = "text", .parallel = par, .inform = FALSE)
-
+    if(parallel == TRUE) { ###Parallel TRUE
+      results <- ldply(data, .fun = dimensionality,
+                       .progress = "text", .parallel = TRUE, .inform = FALSE)
+      results
+    } else if(parallel == FALSE) {  ###Parallel FALSE
+      results <- ldply(data, .fun = dimensionality,
+                       .progress = "text", .parallel = FALSE, .inform = FALSE)
+      results
+    }
   } else {   ####For objects of class data.frame or matrix
 
-    if(is.null(cloud_b) == TRUE) {
+    if(parallel == TRUE) { ###Parallel TRUE
 
       if(method == "distance") {  #Method distance
         pack <- list(.packages = c("dplyr", "bio3d"))
-        results <- adply(cloud, .margins = 1, .fun = dist_dimensionality, cloud = cloud, radius = radius, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
-
+        results <- adply(cloud, .margins = 1, .fun = dist_dimensionality, cloud = cloud, radius = radius, .progress = "text", .parallel = TRUE, .paropts = pack, .inform = FALSE)
       } else if(method == "knn") { #Method knn
         pack <- list(.packages = c("dplyr", "nabor"))
-        results <- adply(cloud, .margins = 1, .fun = knn_dimensionality, cloud = cloud, k = k, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
+        results <- adply(cloud, .margins = 1, .fun = knn_dimensionality, cloud = cloud, k = k, .progress = "text", .parallel = TRUE, .paropts = pack, .inform = FALSE)
       }
 
-    } else if(is.null(cloud_b) == FALSE) {
+    } else if(parallel == FALSE) { ###Parallel FALSE
 
       if(method == "distance") {  #Method distance
-        pack <- list(.packages = c("dplyr", "bio3d"))
-        results <- adply(cloud, .margins = 1, .fun = dist_dimensionality, cloud = cloud_b, radius = radius, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
-
+        results <- adply(cloud, .margins = 1, .fun = dist_dimensionality, cloud = cloud, radius = radius, .progress = "text", .inform = FALSE)
       } else if(method == "knn") { #Method knn
-        pack <- list(.packages = c("dplyr", "nabor"))
-        results <- adply(cloud, .margins = 1, .fun = knn_dimensionality, cloud = cloud_b, k = k, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
+        results <- adply(cloud, .margins = 1, .fun = knn_dimensionality, cloud = cloud, k = k, .progress = "text", .inform = FALSE)
       }
     }
+    results
   }
-  results
 }

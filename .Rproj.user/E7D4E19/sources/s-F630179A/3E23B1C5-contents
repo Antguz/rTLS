@@ -1,0 +1,5 @@
+sub <- llply(neig,
+             .fun = function(x, new_distance) {x <- x[x[, 4] <= new_distance,]},
+             new_distance = new_distance,
+             .inform = FALSE,
+             .parallel = FALSE)
