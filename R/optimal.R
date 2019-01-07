@@ -4,7 +4,7 @@
 #'
 #' @description Estimate the optimal voxel size, radius of a sphere, or number of k neigboors for a given point cloud based on information theory.
 #'
-#' @param data A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns.
+#' @param cloud A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns.
 #' @param method A \code{character} describing the method to use. It most be one of \code{"voxels"}, \code{"radius"}, or \code{"knn"}.
 #' @param sizes  A positive \code{numeric} vector to test a range of sizes and select the optimal size. This will be used if \code{method = "voxels"} and if \code{method = "radius"}.
 #' @param k A positive \code{integer} vector to test a range of k-neigbors and select the optimal k. This will be used if \code{method = "knn"}.
@@ -27,23 +27,23 @@
 #' cloud_dimensionality(dist, method = "distance", radius = 0.2, parallel = FALSE)
 #'
 #'@export
-optimal <- function(data, method, sizes, k, fraction, bootstrap, R, parallel) {
+optimal <- function(cloud, method, sizes, k, fraction, bootstrap, R, parallel) {
 
   par <- ifelse(is.null(parallel) == TRUE, FALSE, ifelse(parallel == FALSE, FALSE, TRUE))
 
   if(method == "voxels") {
     results <- foreach(i = 1:length(sizes), .inorder = TRUE, .combine= 'rbind', .packages = c("dplyr", "boot"), .export=c("summary_voxels", "voxels", "shannon", "shannon_boot")) %dopar% {
-      vox <- voxels(data[,1:3], voxel.size = sizes[i])
+      vox <- voxels(cloud[,1:3], voxel.size = sizes[i])
       sm <- summary_voxels(vox, voxel.size = sizes[i], bootstrap, R)
     }
   }
   else if(method == "radius") {
-    n_points <- round(length(data[,1])*fraction, 0)
-    print(paste("", "Note: ", n_points, " of ", length(data[,1]), " points have been used as a sample", sep = ""))
-    sub <- sample(1:length(data[,1]), n_points)
-    sub <- data[sub[order(sub)],]
+    n_points <- round(length(cloud[,1])*fraction, 0)
+    print(paste("", "Note: ", n_points, " of ", length(cloud[,1]), " points have been used as a sample", sep = ""))
+    sub <- sample(1:length(cloud[,1]), n_points)
+    sub <- cloud[sub[order(sub)],]
 
-    neig <- neighborhood(sub, data, method = "distance", radius = max(sizes), parallel = par)
+    neig <- neighborhood(sub, cloud, method = "distance", radius = max(sizes), parallel = par)
 
     results <- NA
 
