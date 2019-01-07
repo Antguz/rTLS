@@ -26,7 +26,7 @@ data("pc_tree")
 
 ###Subset neighboring points from a radius 0.2 to a radius of 0.1
 dis <- neighborhood(pc_tree, method = "distance", radius = 0.2, parallel = FALSE)
-sub_neighborhood(dis, new_distance = 0.1)
+sub_neighborhood(dis, method = "distance", new_distance = 0.1)
 
 }
 \author{

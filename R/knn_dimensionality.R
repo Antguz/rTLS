@@ -37,7 +37,7 @@ knn_dimensionality <- function(x, cloud, k) {
                         sum_eigen = sum(eigval),
                         sur_var = min(eigval)/sum(eigval),
                         eigen_ratio = eigval[2]/eigval[2],
-                        points = length(space[,1]))
+                        n = length(space[,1]))
 
 
   } else if(length(space[,1]) < 3) {
@@ -50,7 +50,7 @@ knn_dimensionality <- function(x, cloud, k) {
                         sum_eigen = NA,
                         sur_var = NA,
                         eigen_ratio = NA,
-                        points = length(space[,1]))
+                        n = length(space[,1]))
   }
 
   return(frame)

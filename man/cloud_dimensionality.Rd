@@ -4,10 +4,13 @@
 \alias{cloud_dimensionality}
 \title{Point cloud dimensionality}
 \usage{
-cloud_dimensionality(data, method, radius, k, parallel)
+cloud_dimensionality(cloud, cloud_b = NULL, method, radius, k,
+  parallel = NULL)
 }
 \arguments{
-\item{data}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns or an object of class \code{neighborhood}.}
+\item{cloud}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns or an object of class \code{neighborhood}.}
+
+\item{cloud_b}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns. This will be used if \code{cloud} is a \code{matrix} or \code{data.frame}. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
 
 \item{method}{A character string specifying the method to estimated the neighbors. It most be one of \code{"distance"} or \code{"knn"}.}
 

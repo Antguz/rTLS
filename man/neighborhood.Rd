@@ -4,10 +4,12 @@
 \alias{neighborhood}
 \title{Neighboring points}
 \usage{
-neighborhood(cloud, method, radius, k, parallel)
+neighborhood(cloud, cloud_b = NULL, method, radius, k, parallel = NULL)
 }
 \arguments{
-\item{cloud}{A  \code{matrix} or  \code{data.frame} with xyz coordinates in the first three columns.}
+\item{cloud}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns.}
+
+\item{cloud_b}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns. If \code{cloud_b == NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
 
 \item{method}{A character string specifying the method to estimated the neighbors. It most be one of  \code{"distance"} or  \code{"knn"}.}
 
@@ -15,7 +17,7 @@ neighborhood(cloud, method, radius, k, parallel)
 
 \item{k}{An integer of a length 1 representing the number of neighbors to consider. This will be used if  \code{method = "knn"}.}
 
-\item{parallel}{Logical, if  \code{TRUE} it use a parallel processing.}
+\item{parallel}{Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.}
 }
 \value{
 An object of class \code{neighborhood} with a list of neighboring points per point.
@@ -42,9 +44,6 @@ neighborhood(pc_tree, method = "distance", radius = 0.2, parallel = TRUE)
 
 stopCluster(cores)
 
-}
-\references{
-Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.
 }
 \author{
 J. Antonio Guzman Q. and Ronny Hernandez

@@ -36,5 +36,6 @@ sub_neighborhood <- function(x, method, new_distance, new_k) {
                  .inform = FALSE,
                  .parallel = FALSE)
   }
+  class(sub) <- "neighborhood"
   return(sub)
 }

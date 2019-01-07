@@ -27,7 +27,7 @@
 #' cloud_dimensionality(dist, method = "distance", radius = 0.2, parallel = FALSE)
 #'
 #'@export
-optimal <- function(cloud, method, sizes, k, fraction, bootstrap, R, parallel) {
+optimal <- function(cloud, method, sizes, k, fraction, bootstrap, R, parallel = NULL) {
 
   par <- ifelse(is.null(parallel) == TRUE, FALSE, ifelse(parallel == FALSE, FALSE, TRUE))
 
@@ -50,15 +50,11 @@ optimal <- function(cloud, method, sizes, k, fraction, bootstrap, R, parallel) {
     for(i in 1:length(sizes)) {
       new_neig <- sub_neighborhood(neig, method = "distance", new_distance = sizes[i])
       dist <- cloud_dimensionality(new_neig)
+      sm <- summary_distance(dist, radius = sizes[i], bootstrap, R)
+      results <- rbind(results, sm)
+    }
 
-
-
-      frame <- data.frame(Radius.size = sizes[i],
-                          N_spheres = n_points,
-                          Volumen = ((4/3 *pi*sizes[i]^3)*n_points),
-                          Density_mean = mean(ascale$points/(4/3 *pi*sizes[i]^3)),
-                          Density_sd = mean(ascale$points/(4/3 *pi*sizes[i]^3))
-
+    results <- na.exclude(results)
 
     }
   }
@@ -69,9 +65,3 @@ optimal <- function(cloud, method, sizes, k, fraction, bootstrap, R, parallel) {
   sample(1:20,19)
 }
 
-vox_all <- function(cloud, voxel.size, bootstrap, R) {
-  frame <- summary_voxels(voxels(pc_tree, voxel.size), voxel.size, bootstrap, R)
-  return(frame)
-}
-
-vox_all(pc_tree, 0.8, FALSE)
