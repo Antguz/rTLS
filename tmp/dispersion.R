@@ -17,4 +17,5 @@
 #' @export
 dispersion <- function(xyz, space) {
 
+
 }
