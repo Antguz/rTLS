@@ -1,23 +1,29 @@
 #' @import dplyr
 #'
-#' @title Dimensionality, agregation, and dispersion of neighboring points
+#' @title Dimensionality of neighboring points based on knn
 #'
-#' @description Calculate the dimensionality of a cloud of neighboring points. It estimate 10 parameters based on Wang et al. 2017.
+#' @description Estimate the dimensionality of neighboring points of a targed point based on knn
 #'
-#' @param space a \code{matrix} or \code{data.frame} with xzy coordinate in the first three columns.
+#' @param x a \code{matrix} or \code{data.frame} of a point with xyz coordinates
+#' @param cloud an \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates
+#' @param radius an integer of a length 1 representing the number of neighbors to consider
 #'
-#' @return A \code{data.frame} with the estimated parameters
+#' @return A \code{matrix} with the xyz coordinates of the neighboring points and a fourth column with their distance
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
-#' @references Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.
 #'
 #' @examples
 #' data("pc_tree")
-#'
-#'#' neig <- neighborhood(pc_tree[50,], pc_tree, method = "distance", radius = 0.2)
-#' dimensionality(neig$niegborhood$`1`)
+#' knn_dimensionality(pc_tree[100,], pc_tree, k = 10)
 #'
 #' @export
-dimensionality <- function(space) {
+knn_dimensionality <- function(x, cloud, k) {
+  n_knn <- knn(data = as.matrix(cloud[,1:3]) , query = as.matrix(x[,1:3]), k = 10+1, eps = 0, searchtype = 1L, radius = 0)
+  kpoints <- as.vector(n_knn$nn.idx)[2:(k+1)]
+  distance <- as.vector(n_knn$nn.dists)[2:(k+1)]
+  cube <- as.data.frame(cloud[kpoints, 1:3])
+
+  space <- as.matrix(cube[, 1:3])
+
   if(length(space[,1]) >= 3) {
     pca <- prcomp(space[,1:3], center = TRUE, scale = FALSE, retx = FALSE)
     eigval <- pca$sdev^2
@@ -46,5 +52,6 @@ dimensionality <- function(space) {
                         eigen_ratio = NA,
                         n = length(space[,1]))
   }
+
   return(frame)
 }

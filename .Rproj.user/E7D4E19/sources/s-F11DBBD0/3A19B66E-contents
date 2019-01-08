@@ -13,7 +13,7 @@
 #' @examples
 #' data("pc_tree")
 #'
-#'#' neig <- neighborhood(pc_tree[50,], pc_tree, method = "distance", radius = 0.2)
+#' neig <- neighborhood(pc_tree[50,], pc_tree, method = "distance", radius = 0.2)
 #' dimensionality(neig$niegborhood$`1`)
 #'
 #' @export

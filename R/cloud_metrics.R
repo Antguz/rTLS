@@ -1,8 +1,8 @@
 #' @import dplyr
 #'
-#' @title Point cloud dimensionality
+#' @title Point cloud metrics
 #'
-#' @description Estimate the dimensionality of the poits of a cloud. It estimate 10 parameters based on Wang et al. 2017.
+#' @description Estimate different metrics on the poits of a cloud. It estimate 10 parameters based on Wang et al. 2017.
 #'
 #' @param cloud A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns or an object of class \code{neighborhood}.
 #' @param cloud_b A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns. This will be used if \code{cloud} is a \code{matrix} or \code{data.frame}. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.
@@ -18,14 +18,14 @@
 #' data("pc_tree")
 #'
 #' ###Run from an object of class data.frame or matrix
-#' cloud_dimensionality(pc_tree, method = "distance", radius = 0.2, parallel = FALSE)
+#' cloud_metrics(pc_tree, method = "distance", radius = 0.2, parallel = FALSE)
 #'
 #' ###Run from an object of class neighborhood
 #' dist <- neighborhood(pc_tree, method = "distance", radius = 0.2, parallel = FALSE)
-#' cloud_dimensionality(dist, method = "distance", radius = 0.2, parallel = FALSE)
+#' cloud_metrics(dist, method = "distance", radius = 0.2, parallel = FALSE)
 #'
 #'@export
-cloud_dimensionality <- function(cloud, cloud_b = NULL, method, radius, k, parallel = NULL) {
+cloud_metrics <- function(cloud, cloud_b = NULL, method, radius, k, parallel = NULL) {
 
   par <- ifelse(is.null(parallel) == TRUE, FALSE, ifelse(parallel == FALSE, FALSE, TRUE))
 
@@ -58,5 +58,5 @@ cloud_dimensionality <- function(cloud, cloud_b = NULL, method, radius, k, paral
       }
     }
   }
-  results
+  return(results)
 }

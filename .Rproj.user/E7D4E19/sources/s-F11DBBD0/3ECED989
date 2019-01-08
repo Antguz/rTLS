@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1546911113582.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "3ECED989",
+    "lastKnownWriteTime" : 1546911137,
+    "last_content_update" : 1546911137115,
+    "path" : "C:/Users/Antonio Guzman/Desktop/rTLS/R/cloud_metrics.R",
+    "project_path" : "R/cloud_metrics.R",
+    "properties" : {
+        "cursorPosition" : "27,0",
+        "scrollLine" : "18",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
