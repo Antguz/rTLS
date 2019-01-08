@@ -1,6 +1,6 @@
 #' @import dplyr
 #'
-#' @title Dimensionality of neighboring points based on a radius of a sphere.
+#' @title Dimensionality of neighboring points based on distance
 #'
 #' @description Estimate the dimensionality of the neighboring points of a targed point based on a radius.
 #'

@@ -1,0 +1,19 @@
+#' @import dplyr
+#'
+#' @title Dispersion, agregation, and mean distance neighboring points based in a sphere.
+#'
+#' @description Estimate the dimensionality of the neighboring points of a targed point based on a radius.
+#'
+#' @param x A \code{matrix} or \code{data.frame} of a point with xyz coordinates.
+#' @param cloud a \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates.
+#' @param radius a numeric vector of a length 1 representing the minimum distance to consider neighboring points.
+#'
+#' @return A  \code{matrix} with the xyz coordinates of the neighboring points and a fourth column with their distance.
+#' @author J. Antonio Guzman Q. and Ronny Hernandez
+#'
+#' @examples
+#' data("pc_tree")
+#' dist_dimensionality(pc_tree[100,], pc_tree, radius = 0.2)
+#'
+#' @export
+dispersion <-
