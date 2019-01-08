@@ -16,7 +16,7 @@
 #' dist_neighbors(pc_tree[100,], pc_tree, radius = 0.2)
 #'
 #' @export
-dist_neighbors <- function(x, cloud, radius) {
+sphere_neighbors <- function(x, cloud, radius) {
   cube <- cloud %>% filter(cloud[,1] <= (x[,1] + radius), cloud[,1] >= (x[,1] - radius),
                            cloud[,2] <= (x[,2] + radius), cloud[,2] >= (x[,2] - radius),
                            cloud[,3] <= (x[,3] + radius), cloud[,3] >= (x[,3] - radius))

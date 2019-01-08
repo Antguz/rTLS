@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1546916088707.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3792056003",
+    "id" : "204A73D5",
+    "lastKnownWriteTime" : 1546916099,
+    "last_content_update" : 1546916099398,
+    "path" : "C:/Users/Antonio Guzman/Desktop/rTLS/R/sphere_dimensionality.R",
+    "project_path" : "R/sphere_dimensionality.R",
+    "properties" : {
+        "cursorPosition" : "18,6",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
