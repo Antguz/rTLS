@@ -11,9 +11,9 @@ neighborhood(cloud, cloud_b = NULL, method, radius, k, parallel = NULL)
 
 \item{cloud_b}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns. If \code{cloud_b == NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
 
-\item{method}{A character string specifying the method to estimated the neighbors. It most be one of  \code{"distance"} or  \code{"knn"}.}
+\item{method}{A character string specifying the method to estimated the neighbors. It most be one of  \code{"sphere"} or  \code{"knn"}.}
 
-\item{radius}{An integer of a length 1 representing the number of neighbors to consider. This will be used if  \code{method = "distance"}.}
+\item{radius}{An integer of a length 1 representing the number of neighbors to consider. This will be used if  \code{method = "sphere"}.}
 
 \item{k}{An integer of a length 1 representing the number of neighbors to consider. This will be used if  \code{method = "knn"}.}
 
@@ -28,8 +28,8 @@ Estimate neighboring points based on two methods.
 \examples{
 data("pc_tree")
 
-###Estimate the niegborhood based on distance
-neighborhood(pc_tree, method = "distance", radius = 0.2, parallel = FALSE)
+###Estimate the niegborhood based in a sphere of a radius 0.2
+neighborhood(pc_tree, method = "sphere", radius = 0.2, parallel = FALSE)
 
 ###Estimate the niegborhood based on knn
 neighborhood(pc_tree, method = "knn", k = 10, parallel = FALSE)
@@ -40,7 +40,7 @@ detectCores() ### Number of cores of your computer
 cores <- makeCluster(4) ### Set number of cores to work
 registerDoParallel(cores)
 
-neighborhood(pc_tree, method = "distance", radius = 0.2, parallel = TRUE)
+neighborhood(pc_tree, method = "sphere", radius = 0.2, parallel = TRUE)
 
 stopCluster(cores)
 

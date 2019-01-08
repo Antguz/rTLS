@@ -4,14 +4,14 @@
 \alias{sub_neighborhood}
 \title{Subsample neighboring points}
 \usage{
-sub_neighborhood(x, method, new_distance, new_k)
+sub_neighborhood(x, method, new_radius, new_k)
 }
 \arguments{
 \item{x}{An object of class \code{neighborhood}.}
 
-\item{method}{A character string specifying the method to subsample the neighboring points. It most be one of \code{"distance"} or \code{"knn"}.}
+\item{method}{A character string specifying the method to subsample the neighboring points. It most be one of \code{"sphere"} or \code{"knn"}.}
 
-\item{new_distance}{A \code{numeric} vector of a length 1 representing the new distance to consider. This will be used if \code{method = "distance"}. To be functional, \code{"new_distance"} most be lower than \code{"distance"} used in \code{"neighborhood"}.}
+\item{new_radius}{A \code{numeric} vector of a length 1 representing the new radius to consider. This will be used if \code{method = "sphere"}. To be functional, \code{"new_radius"} most be lower than \code{"radius"} used in \code{"neighborhood"}.}
 
 \item{new_k}{An integer of a length 1 representing the new number of neighbors to consider. This will be used if \code{method = "knn"}.  To be functional, \code{"new_k"} most be lower than \code{"k"} used in \code{"neighborhood"}.}
 }
@@ -19,14 +19,14 @@ sub_neighborhood(x, method, new_distance, new_k)
 An object of class "neighborhood" with a list per point of the neighboring points.
 }
 \description{
-Subsample the neighboring points based on a distance or knn
+Subsample the neighboring points based in a radius of a shpere or knn.
 }
 \examples{
 data("pc_tree")
 
 ###Subset neighboring points from a radius 0.2 to a radius of 0.1
-dis <- neighborhood(pc_tree, method = "distance", radius = 0.2, parallel = FALSE)
-sub_neighborhood(dis, method = "distance", new_distance = 0.1)
+dis <- neighborhood(pc_tree, method = "sphere", radius = 0.2, parallel = FALSE)
+sub_neighborhood(dis, method = "sphere", new_radius = 0.1)
 
 }
 \author{

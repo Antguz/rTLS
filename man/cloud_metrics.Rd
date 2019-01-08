@@ -12,9 +12,9 @@ cloud_metrics(cloud, cloud_b = NULL, method, radius, k,
 
 \item{cloud_b}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns. This will be used if \code{cloud} is a \code{matrix} or \code{data.frame}. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
 
-\item{method}{A character string specifying the method to estimated the neighbors. It most be one of \code{"distance"} or \code{"knn"}.}
+\item{method}{A character string specifying the method to estimated the neighbors. It most be one of \code{"sphere"} or \code{"knn"}.}
 
-\item{radius}{A \code{numeric} vector of a length 1 representing the distance to consider. This will be used if \code{method = "distance"}.}
+\item{radius}{A \code{numeric} vector of a length 1 representing the radius of the sphere to consider. This will be used if \code{method = "sphere"}.}
 
 \item{k}{An integer of a length 1 representing the number of neighbors to consider. This will be used if \code{method = "knn"}.}
 
@@ -30,11 +30,11 @@ Estimate different metrics on the poits of a cloud. It estimate 10 parameters ba
 data("pc_tree")
 
 ###Run from an object of class data.frame or matrix
-cloud_metrics(pc_tree, method = "distance", radius = 0.2, parallel = FALSE)
+cloud_metrics(pc_tree, method = "sphere", radius = 0.2, parallel = FALSE)
 
 ###Run from an object of class neighborhood
-dist <- neighborhood(pc_tree, method = "distance", radius = 0.2, parallel = FALSE)
-cloud_metrics(dist, method = "distance", radius = 0.2, parallel = FALSE)
+dist <- neighborhood(pc_tree, method = "sphere", radius = 0.2, parallel = FALSE)
+cloud_metrics(dist, method = "sphere", radius = 0.2, parallel = FALSE)
 
 }
 \references{

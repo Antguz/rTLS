@@ -54,6 +54,5 @@ sphere_dimensionality <- function(x, cloud, radius) {
                         eigen_ratio = NA,
                         n = length(space[,1]))
   }
-
-  frame
+  return(frame)
 }

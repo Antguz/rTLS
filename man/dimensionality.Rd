@@ -2,7 +2,7 @@
 % Please edit documentation in R/dimensionality.R
 \name{dimensionality}
 \alias{dimensionality}
-\title{Dimensionality, agregation, and dispersion of neighboring points}
+\title{Dimensionality of the neighboring points.}
 \usage{
 dimensionality(space)
 }
@@ -18,7 +18,7 @@ Calculate the dimensionality of a cloud of neighboring points. It estimate 10 pa
 \examples{
 data("pc_tree")
 
-#' neig <- neighborhood(pc_tree[50,], pc_tree, method = "distance", radius = 0.2)
+#' neig <- neighborhood(pc_tree[50,], pc_tree, method = "sphere", radius = 0.2)
 dimensionality(neig$niegborhood$`1`)
 
 }

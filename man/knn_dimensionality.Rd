@@ -2,7 +2,7 @@
 % Please edit documentation in R/knn_dimensionality.R
 \name{knn_dimensionality}
 \alias{knn_dimensionality}
-\title{Dimensionality of neighboring points based on knn}
+\title{Dimensionality of neighboring points based on knn.}
 \usage{
 knn_dimensionality(x, cloud, k)
 }
@@ -11,7 +11,7 @@ knn_dimensionality(x, cloud, k)
 
 \item{cloud}{an \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates}
 
-\item{radius}{an integer of a length 1 representing the number of neighbors to consider}
+\item{k}{an integer of a length 1 representing the number of neighbors to consider}
 }
 \value{
 A \code{matrix} with the xyz coordinates of the neighboring points and a fourth column with their distance
