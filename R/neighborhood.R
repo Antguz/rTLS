@@ -11,8 +11,7 @@
 #' @param k An integer of a length 1 representing the number of neighbors to consider. This will be used if  \code{method = "knn"}.
 #' @param parallel Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.
 #'
-#'
-#' @return An object of class \code{neighborhood} with a list of neighboring points per point.
+#' @return An object of class \code{neighborhood} which is a nested list that describe the cloud point used (\code{cloud.used}), the parameter \code{radius} or \code{k} used, and the resulting neighbor points per point (\code{neigborhood}).
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #' @examples
 #' data("pc_tree")
@@ -43,18 +42,22 @@ neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = NU
     if(method == "distance") {  #Method distance
       pack <- list(.packages = c("dplyr", "bio3d"))
       results <- alply(cloud, .margins = 1, .fun = dist_neighbors, cloud = cloud, radius = radius, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
+      parameter <- radius
     } else if(method == "knn") { #Method knn
       pack <- list(.packages = c("dplyr", "nabor"))
       results <- alply(cloud, .margins = 1, .fun = knn_neighbors, cloud = cloud, k = k, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
+      parameter <- k
     }
   } else if(is.null(cloud_b) == FALSE) {
 
     if(method == "distance") {  #Method distance
       pack <- list(.packages = c("dplyr", "bio3d"))
       results <- alply(cloud, .margins = 1, .fun = dist_neighbors, cloud = cloud_b, radius = radius, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
+      parameter <- radius
     } else if(method == "knn") { #Method knn
       pack <- list(.packages = c("dplyr", "nabor"))
       results <- alply(cloud, .margins = 1, .fun = knn_neighbors, cloud = cloud_b, k = k, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
+      parameter <- k
     }
   }
 
@@ -63,10 +66,8 @@ neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = NU
              .inform = FALSE,
              .parallel = FALSE)
 
-  class(results) <- "neighborhood"
-  return(results)
+  final <- list(cloud.used = cloud, parameter = parameter, niegborhood = results)
+
+  class(final) <- "neighborhood"
+  return(final)
 }
-
-
-
-

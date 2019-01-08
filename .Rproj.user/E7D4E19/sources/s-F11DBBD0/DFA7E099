@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1546906679946.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "DFA7E099",
+    "lastKnownWriteTime" : 1546907030,
+    "last_content_update" : 1546907173102,
+    "path" : "C:/Users/Antonio Guzman/Desktop/rTLS/R/dimensionality.R",
+    "project_path" : "R/dimensionality.R",
+    "properties" : {
+        "cursorPosition" : "0,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

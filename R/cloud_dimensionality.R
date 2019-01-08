@@ -30,7 +30,8 @@ cloud_dimensionality <- function(cloud, cloud_b = NULL, method, radius, k, paral
   par <- ifelse(is.null(parallel) == TRUE, FALSE, ifelse(parallel == FALSE, FALSE, TRUE))
 
   if(class(cloud) == "neighborhood") {  ####For objects of class "neighborhood"
-    results <- ldply(cloud, .fun = dimensionality, .progress = "text", .parallel = par, .inform = FALSE)
+    results <- ldply(cloud$niegborhood, .fun = dimensionality, .progress = "text", .parallel = par, .inform = FALSE)
+    results <- cbind(cloud$cloud.used[,1:3], results[,2:11])
 
   } else {   ####For objects of class data.frame or matrix
 

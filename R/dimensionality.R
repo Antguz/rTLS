@@ -12,7 +12,9 @@
 #'
 #' @examples
 #' data("pc_tree")
-#' n <- neighborhood(pc_tree, method = "distance", radius = 0.2)
+#'
+#' neig <- neighborhood(pc_tree[50,], pc_tree, method = "distance", radius = 0.2)
+#' dimensionality(neig$niegborhood$`1`)
 #'
 #' @export
 dimensionality <- function(space) {
@@ -44,5 +46,5 @@ dimensionality <- function(space) {
                         eigen_ratio = NA,
                         n = length(space[,1]))
   }
-
+  return(frame)
 }

@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1546904197197.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "4B62831E",
+    "lastKnownWriteTime" : 1546905891,
+    "last_content_update" : 1546905891542,
+    "path" : "C:/Users/Antonio Guzman/Desktop/rTLS/R/neighborhood.R",
+    "project_path" : "R/neighborhood.R",
+    "properties" : {
+        "cursorPosition" : "19,77",
+        "scrollLine" : "8",
+        "source_window_id" : ""
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

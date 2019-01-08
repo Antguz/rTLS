@@ -20,7 +20,7 @@ neighborhood(cloud, cloud_b = NULL, method, radius, k, parallel = NULL)
 \item{parallel}{Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.}
 }
 \value{
-An object of class \code{neighborhood} with a list of neighboring points per point.
+An object of class \code{neighborhood} which is a nested list that describe the cloud point used (\code{cloud.used}), the parameter \code{radius} or \code{k} used, and the resulting neighbor points per point (\code{neigborhood}).
 }
 \description{
 Estimate neighboring points based on two methods.
