@@ -2,14 +2,14 @@
 #'
 #' @title Neighboring points based on knn
 #'
-#' @description Estimate the neighboring points of a targed point based on a knn
+#' @description Estimate the neighboring points of a targed point based on a knn.
 #'
-#' @param x a \code{matrix} or \code{data.frame} of a point with xyz coordinates
-#' @param cloud a \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates
-#' @param k an integer of a length 1 representing the number of neighbors to consider
+#' @param x A \code{matrix} or \code{data.frame} of a point with xyz coordinates.
+#' @param cloud A \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates.
+#' @param k An integer of a length 1 representing the number of neighbors to consider.
 #'
 #'
-#' @return A \code{matrix} with the xyz coordinates of the k neighboring points and a fourth column with their distance
+#' @return A \code{matrix} with the xyz coordinates of the k neighboring points and a fourth column with their distance.
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #'
 #' @examples
