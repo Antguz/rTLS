@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' data("pc_tree")
-#' dist_neighbors(pc_tree[100,], pc_tree, radius = 0.2)
+#' sphere_neighbors(pc_tree[100,], pc_tree, radius = 0.2)
 #'
 #' @export
 sphere_neighbors <- function(x, cloud, radius) {
@@ -25,6 +25,5 @@ sphere_neighbors <- function(x, cloud, radius) {
   cube$distance <- as.vector(dist.xyz(x[,1:3], cube[,1:3]))
   neig <- cube$distance <= radius & cube$distance > 0
   neig <- as.matrix(cube[neig, 1:4])
-  return(nieg)
+  return(neig)
 }
-
