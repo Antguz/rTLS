@@ -4,15 +4,17 @@
 \alias{voxels}
 \title{Voxelization of a point cloud}
 \usage{
-voxels(cloud, voxel.size)
+voxels(cloud, voxel.size, obj.voxel = TRUE)
 }
 \arguments{
 \item{cloud}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns.}
 
 \item{voxel.size}{A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud.}
+
+\item{obj.voxel}{Logical, if \code{obj.voxel = TRUE} it return an object of class \code{voxels}. If \code{obj.voxel = FALSE} it return a data.frame with the voxels created. \code{obj.voxel = TRUE} as default.}
 }
 \value{
-A \code{data.frame} with the xyz coordinates of the voxels created and a fourth column with the amount of points in a given voxel.
+If \code{obj.voxel = TRUE}, it return an object of class \code{voxels} wich is a list with the \code{cloud} and the parameter \code{voxel.size} used, and the \code{voxels} created. If \code{obj.voxel = FALSE} it return a data.frame with the voxels created.
 }
 \description{
 Create cubes of a given distance in a point cloud though their voxelization. It use a modify version of the code used in Greaves et al. 2015.

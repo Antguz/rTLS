@@ -6,7 +6,8 @@
 #'
 #' @param cloud A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns.
 #' @param voxel.size A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud.
-#' @return A \code{data.frame} with the xyz coordinates of the voxels created and a fourth column with the amount of points in a given voxel.
+#' @param obj.voxel Logical, if \code{obj.voxel = TRUE} it return an object of class \code{voxels}. If \code{obj.voxel = FALSE} it return a data.frame with the voxels created. \code{obj.voxel = TRUE} as default.
+#' @return If \code{obj.voxel = TRUE}, it return an object of class \code{voxels} wich is a list with the \code{cloud} and the parameter \code{voxel.size} used, and the \code{voxels} created. If \code{obj.voxel = FALSE} it return a data.frame with the voxels created.
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #' @references Greaves, H. E., Vierling, L. A., Eitel, J. U., Boelman, N. T., Magney, T. S., Prager, C. M., & Griffin, K. L. (2015). Estimating aboveground biomass and leaf area of low-stature Arctic shrubs with terrestrial LiDAR. Remote Sensing of Environment, 164, 26-35.
 #'
@@ -17,7 +18,7 @@
 #' voxels(pc_tree, voxel.size = 0.5)
 #'
 #'@export
-voxels <- function(cloud, voxel.size) {
+voxels <- function(cloud, voxel.size, obj.voxel = TRUE) {
 
   xi <- round(min(cloud[,1]) - voxel.size/2, digits = max(nchar(sub('.','', cloud[,1])) - 1))    ##  Buffer the minimum point value by half the voxel size to find the lower bound for the x,y, and z voxels
   yi <- round(min(cloud[,2]) - voxel.size/2, digits = max(nchar(sub('.','', cloud[,2])) - 1))
@@ -38,6 +39,17 @@ voxels <- function(cloud, voxel.size) {
   voxels.cloud$y_vox <- round(yc, max(nchar(sub('.','', cloud[,2])) - 1))
   voxels.cloud$z_vox <- round(zc, max(nchar(sub('.','', cloud[,3])) - 1))
 
-  return(voxels.cloud)
-}
 
+
+
+  if(obj.voxel == TRUE) {
+    parameter <- voxel.size
+    names(parameter) <- "voxel.size"
+    final <- list(cloud = cloud, parameter = parameter, voxels = voxels.cloud)
+    class(final) <- "voxels"
+
+  } else if(obj.voxel == FALSE) {
+    final <- voxels.cloud
+  }
+  return(final)
+}

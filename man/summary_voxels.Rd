@@ -4,7 +4,7 @@
 \alias{summary_voxels}
 \title{Voxels summary}
 \usage{
-summary_voxels(data, voxel.size, bootstrap = NULL, R)
+summary_voxels(data, voxel.size, bootstrap = FALSE, R)
 }
 \arguments{
 \item{data}{A \code{data.frame} with xyz coordinates of the voxels in the first three columns and a fourth column with the number of points in each voxel.}

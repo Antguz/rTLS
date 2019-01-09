@@ -5,12 +5,12 @@
 \title{Point cloud metrics}
 \usage{
 cloud_metrics(cloud, cloud_b = NULL, method, radius, k,
-  parallel = NULL)
+  parallel = FALSE)
 }
 \arguments{
 \item{cloud}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns or an object of class \code{neighborhood}.}
 
-\item{cloud_b}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns. This will be used if \code{cloud} is a \code{matrix} or \code{data.frame}. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
+\item{cloud_b}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
 
 \item{method}{A character string specifying the method to estimated the neighbors. It most be one of \code{"sphere"} or \code{"knn"}.}
 

@@ -28,9 +28,7 @@
 #' summary_voxels(vox, voxel.size = 0.5, bootstrap = TRUE, R = 1000)
 #'
 #'@export
-summary_voxels <- function(data, voxel.size, bootstrap = NULL, R) {
-
-  boo <- ifelse(is.null(bootstrap) == TRUE, FALSE, ifelse(bootstrap == FALSE, FALSE, TRUE))
+summary_voxels <- function(data, voxel.size, bootstrap = FALSE, R) {
 
   Voxel.size <- voxel.size
   N_voxels <- length(data$n) #Number de voxels
@@ -43,10 +41,10 @@ summary_voxels <- function(data, voxel.size, bootstrap = NULL, R) {
   Equitavility <- H/Hmax #Equitavility
   Negentropy <- Hmax - H #Negentropy
 
-  if(boo == FALSE ) {
+  if(bootstrap == FALSE ) {
     frame <- data.frame(Voxel.size, N_voxels, Volumen, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy)
 
-  } else if(boo == TRUE) {
+  } else if(bootstrap == TRUE) {
     h_boot <- boot(data$n, shannon_boot, R= R)$t
     H_boot_mean <- mean(h_boot) #H index with boot
     H_boot_sd <- sd(h_boot)

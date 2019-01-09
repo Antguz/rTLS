@@ -4,7 +4,7 @@
 \alias{summary_sphere}
 \title{Spheres summary}
 \usage{
-summary_sphere(data, radius, bootstrap = NULL, R)
+summary_sphere(data, radius, bootstrap = FALSE, R)
 }
 \arguments{
 \item{data}{A \code{data.frame} with xyz coordinates of the used points in the first three columns and nine more columns of metrics estimated from \code{cloud_dimensionality}.}

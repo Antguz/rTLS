@@ -29,9 +29,7 @@
 #' summary_sphere(dimen, radius = 0.5, bootstrap = TRUE, R = 1000)
 #'
 #'@export
-summary_sphere <- function(data, radius, bootstrap = NULL, R) {
-
-  boo <- ifelse(is.null(bootstrap) == TRUE, FALSE, ifelse(bootstrap == FALSE, FALSE, TRUE))
+summary_sphere <- function(data, radius, bootstrap = FALSE, R) {
 
   Sphere.radius <- radius
   N_spheres <- length(data$n) #Number de voxels
@@ -44,10 +42,10 @@ summary_sphere <- function(data, radius, bootstrap = NULL, R) {
   Equitavility <- H/Hmax #Equitavility
   Negentropy <- Hmax - H #Negentropy
 
-  if(boo == FALSE ) {
+  if(bootstrap == FALSE ) {
     frame <- data.frame(Sphere.radius, N_spheres, Volumen, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy)
 
-  } else if(boo == TRUE) {
+  } else if(bootstrap == TRUE) {
     h_boot <- boot(data$n, shannon_boot, R= R)$t
     H_boot_mean <- mean(h_boot) #H index with boot
     H_boot_sd <- sd(h_boot)

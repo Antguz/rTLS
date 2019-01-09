@@ -5,7 +5,7 @@
 #' @description Estimate different metrics on the poits of a cloud. It estimate 10 parameters based on Wang et al. 2017.
 #'
 #' @param cloud A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns or an object of class \code{neighborhood}.
-#' @param cloud_b A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns. This will be used if \code{cloud} is a \code{matrix} or \code{data.frame}. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.
+#' @param cloud_b A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.
 #' @param method A character string specifying the method to estimated the neighbors. It most be one of \code{"sphere"} or \code{"knn"}.
 #' @param radius A \code{numeric} vector of a length 1 representing the radius of the sphere to consider. This will be used if \code{method = "sphere"}.
 #' @param k An integer of a length 1 representing the number of neighbors to consider. This will be used if \code{method = "knn"}.
@@ -13,7 +13,6 @@
 #' @return A \code{data.frame} with the estimated parameters
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #' @references Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.
-#'
 #'
 #' @examples
 #' data("pc_tree")
@@ -26,9 +25,7 @@
 #' cloud_metrics(dist, method = "sphere", radius = 0.2, parallel = FALSE)
 #'
 #'@export
-cloud_metrics <- function(cloud, cloud_b = NULL, method, radius, k, parallel = NULL) {
-
-  par <- ifelse(is.null(parallel) == TRUE, FALSE, ifelse(parallel == FALSE, FALSE, TRUE))
+cloud_metrics <- function(cloud, cloud_b = NULL, method, radius, k, parallel = FALSE) {
 
   if(class(cloud) == "neighborhood") {  ####For objects of class "neighborhood"
     results <- ldply(cloud$niegborhood, .fun = dimensionality, .progress = "text", .parallel = par, .inform = FALSE)
@@ -40,22 +37,22 @@ cloud_metrics <- function(cloud, cloud_b = NULL, method, radius, k, parallel = N
 
       if(method == "sphere") {  #Method sphere
         pack <- list(.packages = c("dplyr", "bio3d"))
-        results <- adply(cloud, .margins = 1, .fun = sphere_dimensionality, cloud = cloud, radius = radius, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
+        results <- adply(cloud, .margins = 1, .fun = sphere_dimensionality, cloud = cloud, radius = radius, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
 
       } else if(method == "knn") { #Method knn
         pack <- list(.packages = c("dplyr", "nabor"))
-        results <- adply(cloud, .margins = 1, .fun = knn_dimensionality, cloud = cloud, k = k, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
+        results <- adply(cloud, .margins = 1, .fun = knn_dimensionality, cloud = cloud, k = k, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
       }
 
     } else if(is.null(cloud_b) == FALSE) {
 
       if(method == "sphere") {  #Method sphere
         pack <- list(.packages = c("dplyr", "bio3d"))
-        results <- adply(cloud, .margins = 1, .fun = sphere_dimensionality, cloud = cloud_b, radius = radius, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
+        results <- adply(cloud, .margins = 1, .fun = sphere_dimensionality, cloud = cloud_b, radius = radius, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
 
       } else if(method == "knn") { #Method knn
         pack <- list(.packages = c("dplyr", "nabor"))
-        results <- adply(cloud, .margins = 1, .fun = knn_dimensionality, cloud = cloud_b, k = k, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
+        results <- adply(cloud, .margins = 1, .fun = knn_dimensionality, cloud = cloud_b, k = k, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
       }
     }
   }

@@ -11,7 +11,7 @@
 #' @param k An integer of a length 1 representing the number of neighbors to consider. This will be used if  \code{method = "knn"}.
 #' @param parallel Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.
 #'
-#' @return An object of class \code{neighborhood} which is a nested list that describe the cloud point used (\code{cloud.used}), the parameter \code{radius} or \code{k} used, and the resulting neighbor points per point (\code{neigborhood}).
+#' @return An object of class \code{neighborhood} which is a nested list that describe the cloud point used (\code{cloud}), the parameter \code{radius} or \code{k} used, and the resulting neighbor points per point (\code{neigborhood}).
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #' @examples
 #' data("pc_tree")
@@ -33,20 +33,18 @@
 #' stopCluster(cores)
 #'
 #' @export
-neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = NULL) {
-
-  par <- ifelse(is.null(parallel) == TRUE, FALSE, ifelse(parallel == FALSE, FALSE, TRUE))
+neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = FALSE) {
 
   if(is.null(cloud_b) == TRUE) {
 
     if(method == "sphere") {  #Method sphere
       pack <- list(.packages = c("dplyr", "bio3d"))
-      results <- alply(cloud, .margins = 1, .fun = sphere_neighbors, cloud = cloud, radius = radius, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
+      results <- alply(cloud, .margins = 1, .fun = sphere_neighbors, cloud = cloud, radius = radius, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
       parameter <- radius
       names(parameter) <- "radius"
     } else if(method == "knn") { #Method knn
       pack <- list(.packages = c("dplyr", "nabor"))
-      results <- alply(cloud, .margins = 1, .fun = knn_neighbors, cloud = cloud, k = k, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
+      results <- alply(cloud, .margins = 1, .fun = knn_neighbors, cloud = cloud, k = k, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
       parameter <- k
       names(parameter) <- "k"
     }
@@ -54,12 +52,12 @@ neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = NU
 
     if(method == "sphere") {  #Method sphere
       pack <- list(.packages = c("dplyr", "bio3d"))
-      results <- alply(cloud, .margins = 1, .fun = sphere_neighbors, cloud = cloud_b, radius = radius, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
+      results <- alply(cloud, .margins = 1, .fun = sphere_neighbors, cloud = cloud_b, radius = radius, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
       parameter <- radius
       names(parameter) <- "radius"
     } else if(method == "knn") { #Method knn
       pack <- list(.packages = c("dplyr", "nabor"))
-      results <- alply(cloud, .margins = 1, .fun = knn_neighbors, cloud = cloud_b, k = k, .progress = "text", .parallel = par, .paropts = pack, .inform = FALSE)
+      results <- alply(cloud, .margins = 1, .fun = knn_neighbors, cloud = cloud_b, k = k, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
       parameter <- k
       names(parameter) <- "k"
     }
@@ -70,7 +68,7 @@ neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = NU
              .inform = FALSE,
              .parallel = FALSE)
 
-  final <- list(cloud.used = cloud, parameter = parameter, neighborhood = results)
+  final <- list(cloud = cloud, parameter = parameter, neighborhood = results)
 
   class(final) <- "neighborhood"
   return(final)

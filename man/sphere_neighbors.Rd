@@ -7,9 +7,9 @@
 sphere_neighbors(x, cloud, radius)
 }
 \arguments{
-\item{x}{A \code{matrix} or \code{data.frame} of a point with xyz coordinates.}
+\item{x}{A \code{matrix} or \code{data.frame} of the targed point with xyz coordinates.}
 
-\item{cloud}{A \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates.}
+\item{cloud}{A \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates to extract the neighboring points.}
 
 \item{radius}{A numeric \code{vector} of a length 1 representing the minimum distance to consider neighboring points.}
 }

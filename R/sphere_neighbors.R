@@ -4,8 +4,8 @@
 #'
 #' @description Estimate the neighboring points in a shpere around the targed point.
 #'
-#' @param x  A \code{matrix} or \code{data.frame} of a point with xyz coordinates.
-#' @param cloud A \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates.
+#' @param x  A \code{matrix} or \code{data.frame} of the targed point with xyz coordinates.
+#' @param cloud A \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates to extract the neighboring points.
 #' @param radius A numeric \code{vector} of a length 1 representing the minimum distance to consider neighboring points.
 #'
 #' @return A matrix with the xyz coordinates of the neighboring points and a fourth column with their distance.
