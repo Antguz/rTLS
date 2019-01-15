@@ -4,7 +4,8 @@
 \alias{cloud_metrics}
 \title{Point cloud metrics}
 \usage{
-cloud_metrics(cloud, cloud_b = NULL, method, radius, k,
+cloud_metrics(cloud, cloud_b = NULL, basic = TRUE, dispersion = TRUE,
+  dimensionality = TRUE, method, radius, k, n_replicates = NULL,
   parallel = FALSE)
 }
 \arguments{
@@ -12,11 +13,17 @@ cloud_metrics(cloud, cloud_b = NULL, method, radius, k,
 
 \item{cloud_b}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
 
+\item{basic}{Logical, if \code{TRUE} it estimate basic metrics. \code{basic = TRUE} as default.}
+
+\item{dispersion}{Logical, if \code{TRUE} it estimate dispersion metrics. \code{dispersion = TRUE} as default.}
+
+\item{dimensionality}{Logical, if \code{TRUE} it estimate dimensionality metrics. \code{dimensionality = TRUE} as default.}
+
 \item{method}{A character string specifying the method to estimated the neighbors. It most be one of \code{"sphere"} or \code{"knn"}.}
 
-\item{radius}{A \code{numeric} vector of a length 1 representing the radius of the sphere to consider. This will be used if \code{method = "sphere"}.}
+\item{radius}{A \code{numeric} vector of a length 1 representing the radius of the sphere to consider. This need be used if \code{method = "sphere"} and this may used if \code{method = "knn"}.}
 
-\item{k}{An integer of a length 1 representing the number of neighbors to consider. This will be used if \code{method = "knn"}.}
+\item{k}{An integer of a length 1 representing the number of neighbors to consider. This need be used if \code{method = "knn"}.}
 
 \item{parallel}{Logical, if \code{TRUE} it use a parallel processing.}
 }
@@ -30,7 +37,7 @@ Estimate different metrics on the poits of a cloud. It estimate 10 parameters ba
 data("pc_tree")
 
 ###Run from an object of class data.frame or matrix
-cloud_metrics(pc_tree, method = "sphere", radius = 0.2, parallel = FALSE)
+cloud_metrics(pc_tree, method = "sphere", radius = 0.2)
 
 ###Run from an object of class neighborhood
 dist <- neighborhood(pc_tree, method = "sphere", radius = 0.2, parallel = FALSE)
@@ -39,6 +46,9 @@ cloud_metrics(dist, method = "sphere", radius = 0.2, parallel = FALSE)
 }
 \references{
 Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.
+}
+\seealso{
+basic.metrics, dispersion, dimensionality
 }
 \author{
 J. Antonio Guzman Q. and Ronny Hernandez

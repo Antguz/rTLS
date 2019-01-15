@@ -25,10 +25,15 @@ dispersion <- function(space, radius = NULL, n_replicates = NULL) {
     n_replicates <- ifelse(is.null(n_replicates) == TRUE, length(space[,4]), n_replicates)
     radius <- ifelse(is.null(radius) == TRUE, max(space[,4]), radius)
 
-    frame <- data.frame(obs_distance = mean(space[,4]),
-                        exp_distance = mean(replicate(n_replicates, mean(runif(length(space[,4]), min = 0, max = radius)))),
-                        dispersion = obs_distance/exp_distance,
-                        aggregation = mean(1 - space[,4]/radius))
+    obs_distance <- mean(space[,4])
+    exp_distance <- mean(replicate(n_replicates, mean(runif(length(space[,4]), min = 0, max = radius))))
+    dispersion <- obs_distance/exp_distance
+    aggregation <- mean(1 - space[,4]/radius)
+
+    frame <- data.frame(obs_distance,
+                        exp_distance,
+                        dispersion,
+                        aggregation)
 
   } else if(length(space[,1]) < 3) {
 

@@ -7,7 +7,7 @@
 dimensionality(space)
 }
 \arguments{
-\item{space}{a \code{matrix} or \code{data.frame} with xzy coordinate in the first three columns.}
+\item{space}{A \code{matrix} or \code{data.frame} with xzy coordinate in the first three columns.}
 }
 \value{
 A \code{data.frame} with the estimated parameters
@@ -18,8 +18,8 @@ Calculate the dimensionality of a cloud of neighboring points. It estimate 10 pa
 \examples{
 data("pc_tree")
 
-#' neig <- neighborhood(pc_tree[50,], pc_tree, method = "sphere", radius = 0.2)
-dimensionality(neig$niegborhood$`1`)
+neig <- neighborhood(pc_tree[50,], pc_tree, method = "sphere", radius = 0.2)
+dimensionality(neig$neighborhood$`1`)
 
 }
 \references{

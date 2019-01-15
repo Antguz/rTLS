@@ -4,7 +4,7 @@
 #'
 #' @description Calculate the dimensionality of a cloud of neighboring points. It estimate 10 parameters based on Wang et al. 2017.
 #'
-#' @param space a \code{matrix} or \code{data.frame} with xzy coordinate in the first three columns.
+#' @param space A \code{matrix} or \code{data.frame} with xzy coordinate in the first three columns.
 #'
 #' @return A \code{data.frame} with the estimated parameters
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
@@ -13,8 +13,8 @@
 #' @examples
 #' data("pc_tree")
 #'
-#'#' neig <- neighborhood(pc_tree[50,], pc_tree, method = "sphere", radius = 0.2)
-#' dimensionality(neig$niegborhood$`1`)
+#' neig <- neighborhood(pc_tree[50,], pc_tree, method = "sphere", radius = 0.2)
+#' dimensionality(neig$neighborhood$`1`)
 #'
 #' @export
 dimensionality <- function(space) {
