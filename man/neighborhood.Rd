@@ -14,7 +14,7 @@ neighborhood(cloud, cloud_b = NULL, method, radius, k,
 
 \item{method}{A character string specifying the method to estimated the neighbors. It most be one of  \code{"sphere"} or  \code{"knn"}.}
 
-\item{radius}{An integer of a length 1 representing the number of neighbors to consider. This will be used if  \code{method = "sphere"}.}
+\item{radius}{An integer of a length 1 representing the number of neighbors to consider. This will be used if  \code{method = "sphere"}, and this may usted if \code{method = "knn"}.}
 
 \item{k}{An integer of a length 1 representing the number of neighbors to consider. This will be used if  \code{method = "knn"}.}
 

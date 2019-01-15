@@ -2,11 +2,13 @@
 #'
 #' @title Dispersion, agregation, and mean distance neighboring points.
 #'
-#' @description Estimate the dispersion, aggregation, and mean distance of the neighboring points.
+#' @description Estimate the dispersion, aggregation, and mean distance of the neighboring points to a target point..
 #'
 #' @param space A \code{matrix} or \code{data.frame} with xzy coordinates in the first three columns of the neighboring points and a four columns with the distance to the target point.
+#' @param radius A \code{numeric} vector of a length 1 representing the radius of the sphere which was considered. If \code{radius = NULL}, it use the maximun distance of \code{space} (\code{max(space[,4])}). \code{radius = NULL} as default.
+#' @n_replicates An \code{interger} of a length 1 representing the number of replicates to estimate the expected distance. If \code{n_replicates = NULL}, it use the same number of rows of \code{space}. \code{n_replicates = NULL} as default.
 #'
-#' @return A  \code{matrix} with the xyz coordinates of the neighboring points and a fourth column with their distance.
+#' @return A \code{data.frame} with four metrics: i) observed distance, ii) expected distance, iii) points dispersion, iv) aggregation to the target point.
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #'
 #' @examples
@@ -35,7 +37,7 @@ dispersion <- function(space, radius = NULL, n_replicates = NULL) {
                         dispersion = NA,
                         aggregation = NA)
   }
-  frame
+  return(frame)
 }
 
 

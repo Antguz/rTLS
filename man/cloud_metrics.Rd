@@ -21,7 +21,7 @@ cloud_metrics(cloud, cloud_b = NULL, method, radius, k,
 \item{parallel}{Logical, if \code{TRUE} it use a parallel processing.}
 }
 \value{
-A \code{data.frame} with the estimated parameters
+A \code{data.frame} with the estimated parameters.
 }
 \description{
 Estimate different metrics on the poits of a cloud. It estimate 10 parameters based on Wang et al. 2017.
