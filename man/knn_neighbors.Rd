@@ -4,7 +4,7 @@
 \alias{knn_neighbors}
 \title{Neighboring points based on knn}
 \usage{
-knn_neighbors(x, cloud, k)
+knn_neighbors(x, cloud, k, radius = NULL)
 }
 \arguments{
 \item{x}{A \code{matrix} or \code{data.frame} of a point with xyz coordinates.}
@@ -12,6 +12,8 @@ knn_neighbors(x, cloud, k)
 \item{cloud}{A \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates.}
 
 \item{k}{An integer of a length 1 representing the number of neighbors to consider.}
+
+\item{radius}{Optional. A \code{numeric} vector of a length 1 representing a priori radius from \code{x} to select the k nearest neighbors.   number of neighbors to consider. It speed up the calculations when \code{cloud} is too large.}
 }
 \value{
 A \code{matrix} with the xyz coordinates of the k neighboring points and a fourth column with their distance.
@@ -22,6 +24,7 @@ Estimate the neighboring points of a targed point based on a knn.
 \examples{
 data("pc_tree")
 knn_neighbors(pc_tree[100,], pc_tree, k = 10)
+knn_neighbors(pc_tree[100,], pc_tree, k = 10, radius = 0.5)
 
 }
 \author{
