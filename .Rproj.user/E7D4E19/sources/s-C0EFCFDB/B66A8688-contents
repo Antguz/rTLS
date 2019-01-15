@@ -1,0 +1,38 @@
+#' @import dplyr
+#'
+#' @title Distance between points
+#'
+#' @description Estimate the Euclidean distance between points with Cartesian coordinate system xyz.
+#' 
+#' @param point A \code{matrix} or \code{data.frame} of a target point with xyz coordinates in the first three columns.
+#' @param cloud A \code{matrix} or \code{data.frame} of points with xyz coordinates in the first three columns to estimate the distance of \code{point}
+#' @param targed.in.cloud Logic. If A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud.
+#' @param obj.voxel Logical. If \code{targed.in.cloud = TRUE}, \code{point} is in \code{cloud} and it is deleted.  \code{targed.in.cloud = TRUE} as default.
+#' @return If \code{obj.voxel = TRUE}, it return an object of class \code{voxels} wich is a list with the \code{cloud} and the parameter \code{voxel.size} used, and the \code{voxels} created. If \code{obj.voxel = FALSE} it return a data.frame with the voxels created.
+#' @author J. Antonio Guzman Q. and Ronny Hernandez
+#' 
+#'
+#' @examples
+#' data("pc_tree")
+#'
+#' ###On point 50 estimate the distance in comparision with each point in the point cloud.
+#' distance(pc_tree[50,], pc_tree)
+
+
+distance <- function(point, cloud, targed.in.cloud = TRUE) {
+  px <- (point[, 1] - cloud[,1])^2
+  py <- (point[, 2] - cloud[,2])^2
+  pz <- (point[, 3] - cloud[,3])^2
+  
+  dp <- sqrt(px + py + pz)
+  
+  if(targed.in.cloud == FALSE) {
+    return(dp)
+  
+  } else if(targed.in.cloud == TRUE) {
+    dp <- dp[dp > 0]
+    return(dp)
+  }
+}
+
+distance(point, cloud, targed.in.cloud = FALSE)
