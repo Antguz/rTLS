@@ -7,7 +7,7 @@
 #' @param cloud A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns or an object of class \code{neighborhood}.
 #' @param cloud_b A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.
 #' @param basic Logical, if \code{TRUE} it estimate basic metrics. \code{basic = TRUE} as default.
-#' @param dispersion Logical, if \code{TRUE} it estimate dispersion metrics. \code{dispersion = TRUE} as default.
+#' @param distribution Logical, if \code{TRUE} it estimate distribution metrics of points. \code{distribution = TRUE} as default.
 #' @param dimensionality Logical, if \code{TRUE} it estimate dimensionality metrics. \code{dimensionality = TRUE} as default.
 #' @param method A character string specifying the method to estimated the neighbors. It most be one of \code{"sphere"} or \code{"knn"}.
 #' @param radius A \code{numeric} vector of a length 1 representing the radius of the sphere to consider. This need be used if \code{method = "sphere"} and this may used if \code{method = "knn"}.
@@ -16,7 +16,7 @@
 #' @return A \code{data.frame} with the estimated parameters.
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #'
-#' @seealso basic.metrics, dispersion, dimensionality
+#' @seealso basic.metrics, distribution, dimensionality
 #'
 #' @references Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.
 #'
@@ -28,10 +28,10 @@
 #'
 #' ###Run from an object of class neighborhood
 #' dist <- neighborhood(pc_tree, method = "sphere", radius = 0.2, parallel = FALSE)
-#' cloud_metrics(dist, method = "sphere", radius = 0.2, parallel = FALSE)
+#' cloud_metrics(dist, parallel = FALSE)
 #'
 #'@export
-cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, dispersion = TRUE, dimensionality = TRUE, method, radius, k, n_replicates = NULL, parallel = FALSE) {
+cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = TRUE, dimensionality = TRUE, method, radius, k, n_replicates = NULL, parallel = FALSE) {
 
   if(class(cloud) != "neighborhood") {  ####For matrix or data.frame
     print("Calculating neighbors")
@@ -47,9 +47,9 @@ cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, dispersion = TRUE
     final <- cbind(final, basc)
   }
 
-  if(dispersion == TRUE) {
-    print("Calculating dispersion metrics")
-    disp <- ldply(cloud$neighborhood, .fun = dispersion, radius = radius, n_replicates = n_replicates, .progress = "text", .parallel = parallel, .id = NULL)
+  if(distribution == TRUE) {
+    print("Calculating distribution metrics")
+    disp <- ldply(cloud$neighborhood, .fun = distribution, radius = radius, n_replicates = n_replicates, .progress = "text", .parallel = parallel, .id = NULL)
     final <- cbind(final, disp)
   }
 

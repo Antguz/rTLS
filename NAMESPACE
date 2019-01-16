@@ -3,7 +3,7 @@
 export(basic.metrics)
 export(cloud_metrics)
 export(dimensionality)
-export(dispersion)
+export(distribution)
 export(knn_neighbors)
 export(neighborhood)
 export(sphere_neighbors)

@@ -19,7 +19,7 @@
 #' dispersion(neig$neighborhood$`1`, radius = neig$parameter)
 #'
 #' @export
-dispersion <- function(space, radius = NULL, n_replicates = NULL) {
+distribution <- function(space, radius = NULL, n_replicates = NULL) {
 
   if(length(space[,1]) >= 3) {
     n_replicates <- ifelse(is.null(n_replicates) == TRUE, length(space[,4]), n_replicates)
