@@ -7,7 +7,9 @@ Originally, *rTLS* was created by J. Antonio Guzman Q. (<antguz06@gmail.com>) at
 
 The current development of *rTLS* is focussed on four major process aplied on point clouds: i) filtering, ii) voxelization, iii) point neigborhood features, and iv) optimal voxel or sphere size. Specifically, the structure of the functions of *rTLS* can be aggruped as:
 
-###Major features include:
+
+
+### Major features include:
 
 * Support for major platforms: Windows, Linux, macOS.
 
@@ -30,7 +32,7 @@ The current development of *rTLS* is focussed on four major process aplied on po
 * Estimation of the optimal voxel and sphere size using information theory.
 
 
-###Installation
+### Installation
 
 
 You can install the rTLS using the CRAN plataform following
@@ -46,6 +48,6 @@ or using the development version in github following
 devtools::install_github("Antguz/rTLS")
 ```
 
-###Usage
+### Usage
 
 Currently rTLS
