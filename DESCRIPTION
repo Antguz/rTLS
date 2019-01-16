@@ -1,6 +1,6 @@
 Package: rTLS
-Title: A package to compute different metrics on point clouds derived from Terrestrial Laser Scanners
-Version: 0.0.1
+Title: A package to process point clouds derived from Terrestrial Laser Scanners
+Version: 1.0
 Authors@R: c(
   person("Antonio", "Guzman", role="cre", email="antguz06@gmail.com"),
   person("Ronny", "Hernandez", role="ctb", email="ronny.hernandezm@gmail.com"))
@@ -16,3 +16,5 @@ Suggests:
     rmarkdown
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
+
+
