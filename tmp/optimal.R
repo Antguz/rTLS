@@ -5,13 +5,13 @@
 #' @description Estimate the optimal voxel size, radius of a sphere, or number of k neigboors for a given point cloud based on information theory.
 #'
 #' @param cloud A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns.
-#' @param method A \code{character} describing the method to use. It most be one of \code{"voxels"}, \code{"radius"}, or \code{"knn"}.
-#' @param sizes  A positive \code{numeric} vector to test a range of sizes and select the optimal size. This will be used if \code{method = "voxels"} and if \code{method = "radius"}.
-#' @param k A positive \code{integer} vector to test a range of k-neigbors and select the optimal k. This will be used if \code{method = "knn"}.
-#' @param fraction A positive \code{numeric} number representing the fraction of points that will be randomly selected as a sample to estimate the optimal size or k. This will be used if \code{method = "radius"} and if \code{method = "knn"}. It most be a value between 0 and 1.#' @param parallel Logical, if \code{TRUE} it use a parallel processing.
+#' @param method A \code{character} describing the method to use. It most be one of \code{"voxels"}, \code{"sphere"}, or  \code{"knn"}.
+#' @param sizes  A positive \code{numeric} vector to test a range of sizes and select the optimal size. This need to be used if \code{method = "voxels"} or \code{method = "sphere"}.
+#' @param k A positive \code{integer} vector to test a range of k-neigbors and select the optimal k. This need to be used if \code{method = "knn"}.
+#' @param fraction A positive \code{numeric} number representing the fraction of points that will be randomly selected as a sample to estimate the optimal sphere size or k. This may used used if \code{method = "radius"} and if \code{method = "knn"}. It most be a value between 0 and 1.
 #' @param bootstrap A logical vector of length 1. If \code{bootstrap = TRUE}, it compute a bootstrap on the H index calculations.
 #' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates.
-#' @param parallel Logical, if \code{TRUE} it use a parallel processing.
+#' @param parallel Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.
 #'
 #' @return A \code{data.frame} with the estimated parameters
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
@@ -21,7 +21,7 @@
 #'
 #' ###Run from an object of class data.frame or matrix
 #'
-#' range.sizes <- c(0.2, 0.3, 0.4, 0.5)
+#' sizes <- c(0.2, 0.3, 0.4, 0.5)
 #'
 #' optimal(pc_tree, method = "distance", sizes = range.sizes, fraction = 0.01)
 #'
@@ -30,31 +30,32 @@
 #' cloud_dimensionality(dist, method = "distance", radius = 0.2, parallel = FALSE)
 #'
 #'@export
-optimal <- function(cloud, method, sizes, ks, fraction, bootstrap = NULL, R, parallel = NULL) {
-
-  par <- ifelse(is.null(parallel) == TRUE, FALSE, ifelse(parallel == FALSE, FALSE, TRUE))
-  boo <- ifelse(is.null(bootstrap) == TRUE, FALSE, ifelse(bootstrap == FALSE, FALSE, TRUE))
+optimal <- function(cloud, method, sizes, ks, fraction, bootstrap = FALSE, R, parallel = FALSE) {
 
   if(method == "voxels") { ###If method is voxels
+
     results <- foreach(i = 1:length(sizes), .inorder = TRUE, .combine= 'rbind', .packages = c("dplyr", "boot"), .export=c("summary_voxels", "voxels", "shannon", "shannon_boot")) %dopar% {
       vox <- voxels(cloud[,1:3], voxel.size = sizes[i])
-      sm <- summary_voxels(vox, voxel.size = sizes[i], boo, R)
+      sm <- summary_voxels(vox, bootstrap, R = R)
     }
 
-  } else if(method == "radius") { ###If method is radius
-    n_points <- round(length(cloud[,1])*fraction, 0)
-    print(paste("", "Note: ", n_points, " of ", length(cloud[,1]), " points have been used as a sample", sep = ""))
-    sub <- sample(1:length(cloud[,1]), n_points)
-    sub <- cloud[sub[order(sub)],]
+  } else if(method == "sphere") { ###If method is sphere
 
-    neig <- neighborhood(sub, cloud, method = "distance", radius = max(sizes), parallel = par)
+    n_points <- round(length(cloud[,1])*fraction, 0)
+
+    print(paste("", "Note: ", n_points, " of ", length(cloud[,1]), " points have been used as sample", sep = ""))
+    sub <- sample(1:length(cloud[,1]), n_points)
+    sub <- cloud[sub[order(sub)], 1:3]
+
+    print("Estimating neighborhood")
+    neig <- neighborhood(sub, cloud, method = "sphere", radius = max(sizes), parallel = parallel)
 
     results <- NA
 
     for(i in 1:length(sizes)) {
-      new_neig <- sub_neighborhood(neig, method = "distance", new_distance = sizes[i])
-      dist <- cloud_dimensionality(new_neig)
-      sm <- summary_distance(dist, radius = sizes[i], bootstrap, R)
+      new_neig <- sub_neighborhood(neig, method = "sphere", new_radius = sizes[i])
+      print("Calculating cloud metrics")
+      dist <- cloud_metrics(new_neig, basic = TRUE, distribution = TRUE, dimensionality = TRUE, parallel = parallel)
       results <- rbind(results, sm)
     }
 
