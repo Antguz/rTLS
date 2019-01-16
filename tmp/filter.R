@@ -25,7 +25,7 @@
 #'
 #'@export
 filter <- function(data, method, ) {
-  if(method == "SOR") {
+    if(method == "SOR") {
 
   }
   method ==  ### Statistical Outlier Removal (use n and sigma)

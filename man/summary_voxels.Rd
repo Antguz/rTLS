@@ -4,16 +4,16 @@
 \alias{summary_voxels}
 \title{Voxels summary}
 \usage{
-summary_voxels(data, voxel.size, bootstrap = FALSE, R)
+summary_voxels(vox.obj, bootstrap = FALSE, R)
 }
 \arguments{
-\item{data}{A \code{data.frame} with xyz coordinates of the voxels in the first three columns and a fourth column with the number of points in each voxel.}
-
-\item{voxel.size}{A positive \code{numeric} vector indicating the size used in \code{voxels}. It is needed to estimated metrics of density.1}
-
 \item{bootstrap}{A logical vector length 1 vector. If \code{bootstrap = TRUE}, it compute a bootstrap on the H index calculations. \code{bootstrap = FALSE} as default.}
 
 \item{R}{A positive \code{integer} of length 1 indicating the number of bootstrap replicates.}
+
+\item{data}{A \code{data.frame} with xyz coordinates of the voxels in the first three columns and a fourth column with the number of points in each voxel.}
+
+\item{voxel.size}{A positive \code{numeric} vector indicating the size used in \code{voxels}. It is needed to estimated metrics of density.1}
 }
 \value{
 A \code{data.frame} with with the summary of \code{data}.
@@ -33,10 +33,10 @@ data("pc_tree")
 vox <- voxels(pc_tree, voxel.size = 0.5)
 
 ###Summary voxels
-summary_voxels(vox, voxel.size = 0.5)
+summary_voxels(vox)
 
 ###Summary voxels and estimated the entropy using bootstrap with 1000 replicates
-summary_voxels(vox, voxel.size = 0.5, bootstrap = TRUE, R = 1000)
+summary_voxels(vox, bootstrap = TRUE, R = 1000)
 
 }
 \author{

@@ -45,7 +45,7 @@ voxels <- function(cloud, voxel.size, obj.voxel = TRUE) {
   if(obj.voxel == TRUE) {
     parameter <- voxel.size
     names(parameter) <- "voxel.size"
-    final <- list(cloud = cloud, parameter = parameter, voxels = voxels.cloud)
+    final <- list(cloud = cloud[,1:3], parameter = parameter, voxels = voxels.cloud)
     class(final) <- "voxels"
 
   } else if(obj.voxel == FALSE) {
