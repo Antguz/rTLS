@@ -4,10 +4,10 @@
 \alias{sub_neighborhood}
 \title{Subsample neighboring points}
 \usage{
-sub_neighborhood(x, method, new_radius, new_k)
+sub_neighborhood(neig.obj, method, new_radius, new_k)
 }
 \arguments{
-\item{x}{An object of class \code{neighborhood}.}
+\item{neig.obj}{An object of class \code{neighborhood}.}
 
 \item{method}{A character string specifying the method to subsample the neighboring points. It most be one of \code{"sphere"} or \code{"knn"}.}
 

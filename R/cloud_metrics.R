@@ -58,6 +58,5 @@ cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = TR
     dimen <- ldply(cloud$neighborhood, .fun = dimensionality, .progress = "text", .parallel = parallel, .id = NULL)
     final <- cbind(final, dimen)
   }
-
   return(final)
 }

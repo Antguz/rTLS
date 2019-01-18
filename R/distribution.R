@@ -16,7 +16,7 @@
 #'
 #' neig <- neighborhood(pc_tree[50,], pc_tree, method = "sphere", radius = 0.2)
 #'
-#' dispersion(neig$neighborhood$`1`, radius = neig$parameter)
+#' distribution(neig$neighborhood$`1`, radius = neig$parameter)
 #'
 #' @export
 distribution <- function(space, radius = NULL, n_replicates = NULL) {

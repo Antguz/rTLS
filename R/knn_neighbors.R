@@ -22,15 +22,11 @@ knn_neighbors <- function(x, cloud, k, radius = NULL) {
 
   if(is.null(radius) == TRUE) {
 
-    px <- (x[, 1] - cloud[,1])^2
-    py <- (x[, 2] - cloud[,2])^2
-    pz <- (x[, 3] - cloud[,3])^2
-
     space <- cloud[,1:3]
 
-    space$distance <- sqrt(px + py + pz)
+    space$distance <- sqrt((x[, 1] - cloud[,1])^2 + (x[, 2] - cloud[,2])^2 + (x[, 3] - cloud[,3])^2)
     space <-  space[space$distance > 0,]
-    space <- space[order(space$distance), ]
+    space <- arrange(space, distance)
 
   } else {
 
@@ -38,18 +34,12 @@ knn_neighbors <- function(x, cloud, k, radius = NULL) {
                              cloud[,2] <= (x[,2] + radius), cloud[,2] >= (x[,2] - radius),
                              cloud[,3] <= (x[,3] + radius), cloud[,3] >= (x[,3] - radius))
 
-    px <- (x[, 1] - space[,1])^2
-    py <- (x[, 2] - space[,2])^2
-    pz <- (x[, 3] - space[,3])^2
-
     space <- space[,1:3]
-
-    space$distance <- sqrt(px + py + pz)
+    space$distance <- sqrt((x[, 1] - space[,1])^2 + (x[, 2] - space[,2])^2 + (x[, 3] - space[,3])^2)
     space <-  space[space$distance <= radius & space$distance > 0,]
-    space <- space[order(space$distance), ]
+    space <- arrange(space, distance)
   }
 
   space <- space[c(1:k),]
-  space <- as.matrix(space)
   return(space)
 }

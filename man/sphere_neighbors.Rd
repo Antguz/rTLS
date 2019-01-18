@@ -14,7 +14,7 @@ sphere_neighbors(x, cloud, radius)
 \item{radius}{A numeric \code{vector} of a length 1 representing the minimum distance to consider neighboring points.}
 }
 \value{
-A matrix with the xyz coordinates of the neighboring points and a fourth column with their distance.
+A \code{data.frame} with the xyz coordinates of the neighboring points and a fourth column with their distance.
 }
 \description{
 Estimate the neighboring points in a shpere around the targed point.

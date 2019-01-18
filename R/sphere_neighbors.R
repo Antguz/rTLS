@@ -8,12 +8,12 @@
 #' @param cloud A \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates to extract the neighboring points.
 #' @param radius A numeric \code{vector} of a length 1 representing the minimum distance to consider neighboring points.
 #'
-#' @return A matrix with the xyz coordinates of the neighboring points and a fourth column with their distance.
+#' @return A \code{data.frame} with the xyz coordinates of the neighboring points and a fourth column with their distance.
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #'
 #' @examples
 #' data("pc_tree")
-#' sphere_neighbors(pc_tree[100,], pc_tree, radius = 0.2)
+#' sphere_neighbors(pc_tree[100,], pc_tree, radius = 0.5)
 #'
 #' @export
 sphere_neighbors <- function(x, cloud, radius) {
@@ -23,15 +23,11 @@ sphere_neighbors <- function(x, cloud, radius) {
 
   cube <- cube[,1:3]
 
-  px <- (x[, 1] - cube[,1])^2
-  py <- (x[, 2] - cube[,2])^2
-  pz <- (x[, 3] - cube[,3])^2
-
-  cube$distance <- sqrt(px + py + pz)
+  cube$distance <- sqrt((x[, 1] - cube[,1])^2 + (x[, 2] - cube[,2])^2 + (x[, 3] - cube[,3])^2)
 
   neig <- cube$distance <= radius & cube$distance > 0
+  cube <- cube[neig,]
 
-  neig <- as.matrix(cube[neig, 1:4])
-
-  neig
+  cube <- arrange(cube, distance)
+  return(cube)
 }
