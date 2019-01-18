@@ -5,7 +5,7 @@ This is an R package to that compiles a series of tools to process and calculate
 
 Originally, *rTLS* was created by J. Antonio Guzman Q. (<antguz06@gmail.com>) at the University of Alberta under the supervison of Dr. Arturo Sanchez (<arturo.sanchez@ualberta.ca>) and the supreme help of Ronny Hernandez (<ronny.hernandezm@gmail.com>). It compiles several functions that students at the [Centre for Earth Observation Sciences](https://www.ualberta.ca/faculties/centresinstitutes/centre-for-earth-observation-sciences) use to process their point cloud of vegetation.
 
-The current development of *rTLS* is focussed on four major process aplied on point clouds: i) filtering, ii) voxelization, iii) point neigborhood features, and iv) optimal voxel or sphere size. Specifically, the structure of the functions of *rTLS* can be aggruped as:
+The current development of *rTLS* is focussed on four major processes aplied on point clouds: i) filtering, ii) voxelization, iii) point neigborhood features, and iv) optimal voxel or sphere size. Specifically, the structure of the functions of *rTLS* can be aggruped as:
 
 ![](https://user-images.githubusercontent.com/7254767/51277964-6b730680-1996-11e9-97ea-3360bb47b51e.png)
 
