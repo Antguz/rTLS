@@ -21,7 +21,7 @@ Estimate the neighboring points in a shpere around the targed point.
 }
 \examples{
 data("pc_tree")
-sphere_neighbors(pc_tree[100,], pc_tree, radius = 0.2)
+sphere_neighbors(pc_tree[100,], pc_tree, radius = 0.5)
 
 }
 \author{
