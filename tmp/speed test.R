@@ -5,7 +5,7 @@
 ###With plyr
 #---------------------------------------#
 data(pc_tree)
-cloud <- pc_tree[1:1000,]
+cloud <- pc_tree[1:5000,]
 cloud_b <- pc_tree
 radius <- 0.5
 parallel = FALSE
@@ -17,7 +17,7 @@ system.time(results_1 <- alply(cloud, .margins = 1, .fun = sphere_neighbors, clo
 #---------------------------------------#
 data(pc_tree)
 pc_tree <- as_tibble(pc_tree)
-cloud <- pc_tree[1:1000,]
+cloud <- pc_tree[1:5000,]
 cloud_b <- pc_tree
 radius <- 0.5
 
@@ -28,7 +28,7 @@ system.time(results_2 <- cloud %>% by_row(..f = sphere_neighbors, cloud = cloud_
 #---------------------------------------#
 data(pc_tree)
 pc_tree <- as_tibble(pc_tree)
-cloud <- pc_tree[1:1000,]
+cloud <- pc_tree[1:5000,]
 cloud_b <- pc_tree
 radius <- 0.5
 
