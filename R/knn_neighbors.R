@@ -20,22 +20,26 @@
 #'@export
 knn_neighbors <- function(x, cloud, k, radius = NULL) {
 
+  xcoor <- as.numeric(x[1,1])
+  ycoor <- as.numeric(x[1,2])
+  zcoor <- as.numeric(x[1,3])
+
   if(is.null(radius) == TRUE) {
 
     space <- cloud[,1:3]
 
-    space$distance <- sqrt((x[, 1] - cloud[,1])^2 + (x[, 2] - cloud[,2])^2 + (x[, 3] - cloud[,3])^2)
+    space <- space %>% mutate(distance = sqrt((xcoor - space$X)^2 + (ycoor - space$Y)^2 + (zcoor - space$Z)^2))
     space <-  space[space$distance > 0,]
     space <- arrange(space, distance)
 
   } else {
 
-    space <- cloud %>% filter(cloud[,1] <= (x[,1] + radius), cloud[,1] >= (x[,1] - radius),
-                             cloud[,2] <= (x[,2] + radius), cloud[,2] >= (x[,2] - radius),
-                             cloud[,3] <= (x[,3] + radius), cloud[,3] >= (x[,3] - radius))
+    cube <- cloud %>% filter(cloud[,1] <= (xcoor + radius), cloud[,1] >= (xcoor - radius),
+                              cloud[,2] <= (ycoor + radius), cloud[,2] >= (ycoor - radius),
+                              cloud[,3] <= (zcoor + radius), cloud[,3] >= (zcoor - radius))
 
-    space <- space[,1:3]
-    space$distance <- sqrt((x[, 1] - space[,1])^2 + (x[, 2] - space[,2])^2 + (x[, 3] - space[,3])^2)
+    cube <- cube[,1:3]
+    space <- cube %>% mutate(distance = sqrt((xcoor - cube$X)^2 + (ycoor - cube$Y)^2 + (zcoor - cube$Z)^2))
     space <-  space[space$distance <= radius & space$distance > 0,]
     space <- arrange(space, distance)
   }

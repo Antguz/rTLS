@@ -30,8 +30,8 @@ sphere_neighbors <- function(x, cloud, radius) {
 
   cube <- cube %>% mutate(distance = sqrt((xcoor - cube$X)^2 + (ycoor - cube$Y)^2 + (zcoor - cube$Z)^2))
 
-  cube <- cube[cube$distance <= radius & cube$distance > 0,]
+  space <- cube[cube$distance <= radius & cube$distance > 0,]
 
-  cube <- arrange(cube, distance)
-  return(cube)
+  space <- arrange(space, distance)
+  return(space)
 }
