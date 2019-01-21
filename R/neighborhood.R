@@ -38,12 +38,12 @@ neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = FA
   if(is.null(cloud_b) == TRUE) {
 
     if(method == "sphere") {  #Method sphere
-      pack <- list(.packages = c("dplyr", "bio3d"))
+      pack <- list(.packages = c("dplyr"))
       results <- alply(cloud, .margins = 1, .fun = sphere_neighbors, cloud = cloud, radius = radius, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
       parameter <- radius
       names(parameter) <- "radius"
     } else if(method == "knn") { #Method knn
-      pack <- list(.packages = c("dplyr", "nabor"))
+      pack <- list(.packages = c("dplyr"))
       results <- alply(cloud, .margins = 1, .fun = knn_neighbors, cloud = cloud, k = k, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
       parameter <- k
       names(parameter) <- "k"
@@ -51,12 +51,12 @@ neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = FA
   } else if(is.null(cloud_b) == FALSE) {
 
     if(method == "sphere") {  #Method sphere
-      pack <- list(.packages = c("dplyr", "bio3d"))
+      pack <- list(.packages = c("dplyr"))
       results <- alply(cloud, .margins = 1, .fun = sphere_neighbors, cloud = cloud_b, radius = radius, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
       parameter <- radius
       names(parameter) <- "radius"
     } else if(method == "knn") { #Method knn
-      pack <- list(.packages = c("dplyr", "nabor"))
+      pack <- list(.packages = c("dplyr"))
       results <- alply(cloud, .margins = 1, .fun = knn_neighbors, cloud = cloud_b, k = k, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
       parameter <- k
       names(parameter) <- "k"

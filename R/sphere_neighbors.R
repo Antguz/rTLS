@@ -17,16 +17,20 @@
 #'
 #' @export
 sphere_neighbors <- function(x, cloud, radius) {
-  cube <- cloud %>% filter(cloud[,1] <= (x[,1] + radius), cloud[,1] >= (x[,1] - radius),
-                           cloud[,2] <= (x[,2] + radius), cloud[,2] >= (x[,2] - radius),
-                           cloud[,3] <= (x[,3] + radius), cloud[,3] >= (x[,3] - radius))
+
+  xcoor <- as.numeric(x[1,1])
+  ycoor <- as.numeric(x[1,2])
+  zcoor <- as.numeric(x[1,3])
+
+  cube <- cloud %>% filter(cloud[,1] <= (xcoor + radius), cloud[,1] >= (xcoor - radius),
+                           cloud[,2] <= (ycoor + radius), cloud[,2] >= (ycoor - radius),
+                           cloud[,3] <= (zcoor + radius), cloud[,3] >= (zcoor - radius))
 
   cube <- cube[,1:3]
 
-  cube$distance <- sqrt((x[, 1] - cube[,1])^2 + (x[, 2] - cube[,2])^2 + (x[, 3] - cube[,3])^2)
+  cube <- cube %>% mutate(distance = sqrt((xcoor - cube$X)^2 + (ycoor - cube$Y)^2 + (zcoor - cube$Z)^2))
 
-  neig <- cube$distance <= radius & cube$distance > 0
-  cube <- cube[neig,]
+  cube <- cube[cube$distance <= radius & cube$distance > 0,]
 
   cube <- arrange(cube, distance)
   return(cube)

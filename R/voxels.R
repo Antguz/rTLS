@@ -39,9 +39,6 @@ voxels <- function(cloud, voxel.size, obj.voxel = TRUE) {
   voxels.cloud$y_vox <- round(yc, max(nchar(sub('.','', cloud[,2])) - 1))
   voxels.cloud$z_vox <- round(zc, max(nchar(sub('.','', cloud[,3])) - 1))
 
-
-
-
   if(obj.voxel == TRUE) {
     parameter <- voxel.size
     names(parameter) <- "voxel.size"
