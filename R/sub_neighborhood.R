@@ -23,27 +23,15 @@
 sub_neighborhood <- function(neig.obj, method, new_radius, new_k) {
 
   if(method == "sphere") {
-    sub <- llply(neig.obj$neighborhood,
-                 .fun = function(x, new_radius) {x <- x[x[, 4] <= new_radius,]},
-                 new_radius = new_radius,
-                 .inform = FALSE,
-                 .parallel = FALSE)
-
+    sub <- neig.obj$neighborhood[distance <= new_radius]
     parameter <- new_radius
     names(parameter) <- "radius"
-
     final <- list(cloud = neig.obj$cloud, parameter = parameter, neighborhood = sub)
 
   } else if(method == "knn") {
-    sub <- llply(neig.obj$neighborhood,
-                 .fun = function(x, new_k) {x <- x[1:new_k,]},
-                 new_k = new_k,
-                 .inform = FALSE,
-                 .parallel = FALSE)
-
+    sub <- neig.obj$neighborhood[neig.obj$neighborhood[, .I[1:new_k], points]$V1]
     parameter <- new_k
     names(parameter) <- "k"
-
     final <- list(cloud = neig.obj$cloud, parameter = parameter, neighborhood = sub)
 
   }
