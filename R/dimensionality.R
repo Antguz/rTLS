@@ -30,7 +30,7 @@ dimensionality <- function(space) {
                         eigenentropy = -((eigval[1] * log(eigval[1])) + (eigval[2] * log(eigval[2])) + (eigval[3] * log(eigval[3]))),
                         sum_eigen = sum(eigval),
                         sur_var = min(eigval)/sum(eigval),
-                        eigen_ratio = eigval[2]/eigval[2])
+                        eigen_ratio_2D = eigval[2]/eigval[1])
 
 
   } else if(length(space[,1]) < 3) {
@@ -42,7 +42,7 @@ dimensionality <- function(space) {
                         eigenentropy = NA,
                         sum_eigen = NA,
                         sur_var = NA,
-                        eigen_ratio = NA)
+                        eigen_ratio_2D = NA)
   }
   return(frame)
 }

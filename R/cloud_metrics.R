@@ -43,19 +43,88 @@ cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = TR
 
   if(basic == TRUE) {
     print("Calculating basic metrics")
-    basc <- ldply(cloud$neighborhood, .fun = basic.metrics, radius = radius, .progress = "text", .parallel = parallel, .id = NULL)
+    basc <- ldply(cloud$neighborhood, .fun = function(space, radius = NULL) {
+
+      if(length(space[,1]) >= 1) {
+        radius <- ifelse(is.null(radius) == TRUE, max(space[,4]), radius)
+
+        n_neig <- length(space[,4])
+        neig_volumen <- ((4/3)*pi*(max(space[,4])^3))
+        sphere_volumen <- ((4/3)*pi*(radius^3))
+        density <- n_neig/sphere_volumen
+
+        frame <- data.frame(n_neig, neig_volumen, sphere_volumen, density)
+
+      } else if(length(space[,1]) < 1) {
+        frame <- data.frame(n_neig = NA, neig_volumen = NA, sphere_volumen = NA, density = NA)
+
+      }
+      return(frame)
+    }, radius = radius, .progress = "text", .parallel = parallel, .id = NULL)
     final <- cbind(final, basc)
   }
 
   if(distribution == TRUE) {
     print("Calculating distribution metrics")
-    disp <- ldply(cloud$neighborhood, .fun = distribution, radius = radius, n_replicates = n_replicates, .progress = "text", .parallel = parallel, .id = NULL)
+    disp <- ldply(cloud$neighborhood, .fun = function(space, radius = NULL, n_replicates = NULL) {
+
+      if(length(space[,1]) >= 3) {
+        n_replicates <- ifelse(is.null(n_replicates) == TRUE, length(space[,4]), n_replicates)
+        radius <- ifelse(is.null(radius) == TRUE, max(space[,4]), radius)
+
+        obs_distance <- mean(space[,4])
+        exp_distance <- mean(replicate(n_replicates, mean(runif(length(space[,4]), min = 0, max = radius))))
+        dispersion <- obs_distance/exp_distance
+        aggregation <- mean(1 - space[,4]/radius)
+
+        frame <- data.frame(obs_distance,
+                            exp_distance,
+                            dispersion,
+                            aggregation)
+
+      } else if(length(space[,1]) < 3) {
+
+        frame <- data.frame(obs_distance = NA,
+                            exp_distance = NA,
+                            dispersion = NA,
+                            aggregation = NA)
+      }
+      frame
+    }, radius = radius, n_replicates = n_replicates, .progress = "text", .parallel = parallel, .id = NULL)
     final <- cbind(final, disp)
   }
 
   if(dimensionality == TRUE) {
     print("Calculating dimensionality metrics")
-    dimen <- ldply(cloud$neighborhood, .fun = dimensionality, .progress = "text", .parallel = parallel, .id = NULL)
+    dimen <- ldply(cloud$neighborhood, .fun = function(space) {
+      if(length(space[,1]) >= 3) {
+        pca <- prcomp(space[,1:3], center = TRUE, scale = FALSE, retx = FALSE)
+        eigval <- pca$sdev^2
+
+        frame <- data.frame(linearity = (eigval[1]-eigval[2])/eigval[1],
+                            planarity = (eigval[2]-eigval[3])/eigval[1],
+                            scattering = eigval[3]/eigval[1],
+                            omnivariance = (eigval[1]*eigval[2]*eigval[3])^(1/3),
+                            anisotropy = (eigval[1]-eigval[3])/eigval[1],
+                            eigenentropy = -((eigval[1] * log(eigval[1])) + (eigval[2] * log(eigval[2])) + (eigval[3] * log(eigval[3]))),
+                            sum_eigen = sum(eigval),
+                            sur_var = min(eigval)/sum(eigval),
+                            eigen_ratio = eigval[2]/eigval[2])
+
+
+      } else if(length(space[,1]) < 3) {
+        frame <- data.frame(linearity = NA,
+                            planarity = NA,
+                            scattering = NA,
+                            omnivariance = NA,
+                            anisotropy = NA,
+                            eigenentropy = NA,
+                            sum_eigen = NA,
+                            sur_var = NA,
+                            eigen_ratio = NA)
+      }
+      frame
+    }, .progress = "text", .parallel = parallel, .id = NULL)
     final <- cbind(final, dimen)
   }
   return(final)
