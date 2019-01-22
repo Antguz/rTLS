@@ -1,5 +1,3 @@
-#' @import dplyr
-#'
 #' @title Dispersion, agregation, and mean distance neighboring points.
 #'
 #' @description Estimate the dispersion, aggregation, and mean distance of the neighboring points to a target point..

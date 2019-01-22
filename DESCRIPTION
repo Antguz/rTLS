@@ -1,11 +1,11 @@
 Package: rTLS
-Title: A package to process point clouds derived from Terrestrial Laser Scanners
+Title: A package to process point clouds derived from terrestrial LiDAR
 Version: 1.0
 Authors@R: c(
   person("Antonio", "Guzman", role="cre", email="antguz06@gmail.com"),
   person("Ronny", "Hernandez", role="ctb", email="ronny.hernandezm@gmail.com"))
 Description: A set of tools to calculate metrics and process point clouds derived from terrestrial LiDAR (Light Detection and Ranging).
-Depends: data.table, plyr, dplyr, furrr, foreach, doParallel, boot, rgl
+Depends: data.table, boot, rgl
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true

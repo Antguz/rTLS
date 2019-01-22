@@ -1,5 +1,3 @@
-#' @import dplyr
-#'
 #' @title Neighboring points
 #'
 #' @description Estimate neighboring points based on two methods.
@@ -17,56 +15,52 @@
 #' data("pc_tree")
 #'
 #' ###Estimate the niegborhood based in a sphere of a radius 0.2
-#' neighborhood(pc_tree, method = "sphere", radius = 0.2, parallel = FALSE)
+#' neighborhood(pc_tree, method = "sphere", radius = 0.2)
 #'
 #' ###Estimate the niegborhood based on knn
-#' neighborhood(pc_tree, method = "knn", k = 10, parallel = FALSE)
+#' neighborhood(pc_tree, method = "knn", k = 10)
 #'
-#' ###Parallel TRUE
-#' require(doParallel)
-#' detectCores() ### Number of cores of your computer
-#' cores <- makeCluster(4) ### Set number of cores to work
-#' registerDoParallel(cores)
-#'
-#' neighborhood(pc_tree, method = "sphere", radius = 0.2, parallel = TRUE)
-#'
-#' stopCluster(cores)
+#' ###Parallel TRUE with 4 threads
+#' neighborhood(pc_tree, method = "sphere", radius = 0.2, parallel = TRUE, threads = 4)
 #'
 #' @export
-neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = FALSE) {
+neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = FALSE, threads = NULL) {
 
-  if(is.null(cloud_b) == TRUE) {
-
-    if(method == "sphere") {  #Method sphere
-      pack <- list(.packages = c("dplyr"))
-      results <- alply(cloud, .margins = 1, .fun = sphere_neighbors, cloud = cloud, radius = radius, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
-      parameter <- radius
-      names(parameter) <- "radius"
-    } else if(method == "knn") { #Method knn
-      pack <- list(.packages = c("dplyr"))
-      results <- alply(cloud, .margins = 1, .fun = knn_neighbors, cloud = cloud, k = k, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
-      parameter <- k
-      names(parameter) <- "k"
-    }
-  } else if(is.null(cloud_b) == FALSE) {
-
-    if(method == "sphere") {  #Method sphere
-      pack <- list(.packages = c("dplyr"))
-      results <- alply(cloud, .margins = 1, .fun = sphere_neighbors, cloud = cloud_b, radius = radius, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
-      parameter <- radius
-      names(parameter) <- "radius"
-    } else if(method == "knn") { #Method knn
-      pack <- list(.packages = c("dplyr"))
-      results <- alply(cloud, .margins = 1, .fun = knn_neighbors, cloud = cloud_b, k = k, .progress = "text", .parallel = parallel, .paropts = pack, .inform = FALSE)
-      parameter <- k
-      names(parameter) <- "k"
-    }
+  if(is.null(cloud_b) == TRUE) { #Selecting the cloud to calculated the neighborhood
+    cloud_b <- cloud
   }
 
-  results <- llply(results,
-             .fun = function(x) {x <- x[order(x[,4]),]},
-             .inform = FALSE,
-             .parallel = FALSE)
+  cloud <- cloud[, 1:3] #Specify parameters as inputs.
+  cloud_b <- cloud_b[, 1:3]
+
+  colnames(cloud) <- c("X", "Y", "Z") #Change names of columns
+  colnames(cloud_b) <- c("X", "Y", "Z")
+
+  if(parallel == TRUE) { #Select parameters to make the method parallel.
+    if(is.null(threads) == TRUE) {
+      stop("Include the number of threads to use")
+    }
+    setDTthreads(threads = threads, restore_after_fork = TRUE)
+    print(paste("", "Threads to use: ", getDTthreads(), sep = ""))
+  }
+
+  #Calculating neighborhood
+  print("Calculating neighbors")
+  pb <- txtProgressBar(min = 0, max = nrow(cloud), style = 3) #Set progress bar
+
+  if(method == "sphere") {  #Method sphere
+    results <- cloud[, {setTxtProgressBar(pb, .GRP) ; sphere_neighbors(.SD, cloud_b, radius)}, by = seq_len(nrow(cloud))]
+    colnames(results) <- c("points", "X", "Y", "Z", "distance")
+    parameter <- radius
+    names(parameter) <- "radius"
+
+  } else if(method == "knn") { #Method knn
+    results <- cloud[, {setTxtProgressBar(pb, .GRP) ; knn_neighbors(.SD, cloud_b, k, radius)}, by = seq_len(nrow(cloud))]
+    colnames(results) <- c("points", "X", "Y", "Z", "distance")
+    parameter <- radius
+    names(parameter) <- "radius"
+
+  }
 
   final <- list(cloud = cloud, parameter = parameter, neighborhood = results)
 

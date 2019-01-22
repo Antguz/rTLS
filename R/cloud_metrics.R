@@ -1,5 +1,3 @@
-#' @import dplyr
-#'
 #' @title Point cloud metrics
 #'
 #' @description Estimate different metrics on the poits of a cloud. It estimate 10 parameters based on Wang et al. 2017.
