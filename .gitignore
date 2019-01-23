@@ -36,7 +36,6 @@ vignettes/*.pdf
 *.knit.md
 
 # Output data
-*.Rda
 *.pdf
 *.csv
 *.html
@@ -48,7 +47,6 @@ vignettes/*.pdf
 packrat/lib*
 
 # Proyect specific files
-# data/
 bin/
 html/
 img/
