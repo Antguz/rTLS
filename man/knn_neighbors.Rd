@@ -7,9 +7,9 @@
 knn_neighbors(x, cloud, k, radius = NULL)
 }
 \arguments{
-\item{x}{A \code{matrix} or \code{data.frame} of a point with xyz coordinates.}
+\item{x}{A \code{data.frame} or \code{data.table} of a point with xyz coordinates.}
 
-\item{cloud}{A \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates.}
+\item{cloud}{A \code{data.table} of a point cloud with xyz coordinates.}
 
 \item{k}{An integer of a length 1 representing the number of neighbors to consider.}
 

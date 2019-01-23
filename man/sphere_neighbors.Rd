@@ -7,9 +7,9 @@
 sphere_neighbors(x, cloud, radius)
 }
 \arguments{
-\item{x}{A \code{matrix} or \code{data.frame} of the targed point with xyz coordinates.}
+\item{x}{A \code{data.frame} or \code{data.table} of the targed point with xyz coordinates.}
 
-\item{cloud}{A \code{matrix} or \code{data.frame} of a point cloud with xyz coordinates to extract the neighboring points.}
+\item{cloud}{A \code{data.table} of a point cloud with xyz coordinates to extract the neighboring points.}
 
 \item{radius}{A numeric \code{vector} of a length 1 representing the minimum distance to consider neighboring points.}
 }
@@ -21,7 +21,7 @@ Estimate the neighboring points in a shpere around the targed point.
 }
 \examples{
 data("pc_tree")
-sphere_neighbors(pc_tree[100,], pc_tree, radius = 0.5)
+sphere_neighbors(pc_tree[100,], pc_tree, radius = 0.2)
 
 }
 \author{
