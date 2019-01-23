@@ -18,7 +18,7 @@
 #' basic.metrics(neig$neighborhood$`1`, radius = neig$parameter)
 #'
 #' @export
-basic.metrics <- function(space, radius = NULL) {
+basic_metrics <- function(space, radius = NULL) {
 
   if(length(space[,1]) >= 1) {
     radius <- ifelse(is.null(radius) == TRUE, max(space[,4]), radius)
