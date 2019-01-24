@@ -14,28 +14,28 @@
 #'
 #' neig <- neighborhood(pc_tree[50,], pc_tree, method = "sphere", radius = 0.2)
 #'
-#' distribution(neig$neighborhood$`1`, radius = neig$parameter)
+#' distribution(neig$neighborhood[, c(2:5)], radius = neig$parameter)
 #'
 #' @export
 distribution <- function(space, radius = NULL, n_replicates = NULL) {
 
-  if(length(space[,1]) >= 3) {
-    n_replicates <- ifelse(is.null(n_replicates) == TRUE, length(space[,4]), n_replicates)
-    radius <- ifelse(is.null(radius) == TRUE, max(space[,4]), radius)
+  if(nrow(space) >= 3) {
+    n_replicates <- ifelse(is.null(n_replicates) == TRUE, nrow(space), n_replicates)
+    radius <- ifelse(is.null(radius) == TRUE, max(space$distance), radius)
 
-    obs_distance <- mean(space[,4])
-    exp_distance <- mean(replicate(n_replicates, mean(runif(length(space[,4]), min = 0, max = radius))))
+    obs_distance <- mean(space$distance)
+    exp_distance <- mean(replicate(n_replicates, mean(runif(nrow(space), min = 0, max = radius))))
     dispersion <- obs_distance/exp_distance
-    aggregation <- mean(1 - space[,4]/radius)
+    aggregation <- mean(1 - space$distance/radius)
 
-    frame <- data.frame(obs_distance,
+    frame <- data.table(obs_distance,
                         exp_distance,
                         dispersion,
                         aggregation)
 
-  } else if(length(space[,1]) < 3) {
+  } else if(nrow(space) < 3) {
 
-    frame <- data.frame(obs_distance = NA,
+    frame <- data.table(obs_distance = NA,
                         exp_distance = NA,
                         dispersion = NA,
                         aggregation = NA)
