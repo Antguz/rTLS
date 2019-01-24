@@ -14,6 +14,7 @@
 #' data("pc_tree")
 #'
 #' neig <- neighborhood(pc_tree[50,], pc_tree, method = "sphere", radius = 0.2)
+#'
 #' dimensionality(neig$neighborhood[, c(2:4)])
 #'
 #' @export

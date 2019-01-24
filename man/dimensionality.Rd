@@ -19,7 +19,7 @@ Calculate the dimensionality of a cloud of neighboring points. It estimate 10 pa
 data("pc_tree")
 
 neig <- neighborhood(pc_tree[50,], pc_tree, method = "sphere", radius = 0.2)
-dimensionality(neig$neighborhood$`1`)
+dimensionality(neig$neighborhood[, c(2:4)])
 
 }
 \references{

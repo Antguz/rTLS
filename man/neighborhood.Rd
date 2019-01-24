@@ -30,7 +30,7 @@ Estimate neighboring points based on two methods.
 data("pc_tree")
 
 ###Estimate the niegborhood based in a sphere of a radius 0.2
-neighborhood(pc_tree, method = "sphere", radius = 0.2)
+neighborhood(pc_tree[50:100,] , pc_tree, method = "sphere", radius = 0.2)
 
 ###Estimate the niegborhood based on knn
 neighborhood(pc_tree, method = "knn", k = 10)

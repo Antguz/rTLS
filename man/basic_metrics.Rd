@@ -22,7 +22,7 @@ data("pc_tree")
 
 neig <- neighborhood(pc_tree[50,], pc_tree, method = "sphere", radius = 0.2)
 
-basic.metrics(neig$neighborhood$`1`, radius = neig$parameter)
+basic_metrics(neig$neighborhood[, 2:5], radius = neig$parameter)
 
 }
 \author{
