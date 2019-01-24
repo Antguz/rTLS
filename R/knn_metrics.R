@@ -1,10 +1,11 @@
-#' @title Sphere metrics on a target point
+#' @title k-nearest neighbors metrics on a target point
 #'
-#' @description Estimate different metrics on a neighborhood of a targed point using a sphere.
+#' @description Estimate different metrics on a neighborhood of a targed point using knn.
 #'
 #' @param x  A \code{data.table} or \code{data.frame} of a targed point with xyz coordinates.
 #' @param cloud A \code{data.table} of a point cloud with xyz coordinates to extract the neighboring points.
-#' @param radius A numeric \code{vector} of a length 1 representing the minimum distance to consider neighboring points.
+#' @param k An integer of a length 1 representing the number of neighbors to consider.
+#' @param radius Optional. A \code{numeric} vector of a length 1 representing a priori radius from \code{x} to select the k nearest neighbors. This speed up the calculations when \code{cloud} is too large.
 #' @param basic Logical, if \code{TRUE} it estimate basic metrics. \code{basic = TRUE} as default.
 #' @param distribution Logical, if \code{TRUE} it estimate distribution metrics of points. \code{distribution = TRUE} as default.
 #' @param dimensionality Logical, if \code{TRUE} it estimate dimensionality metrics. \code{dimensionality = TRUE} as default.
@@ -15,10 +16,10 @@
 #'
 #' @examples
 #' data("pc_tree")
-#' sphere_metrics(pc_tree[100,], pc_tree, radius = 0.2)
+#' knn_metrics(pc_tree[100,], pc_tree, k = 10, radius = 0.2)
 #'
 #' @export
-sphere_metrics <- function(x, cloud, radius, basic = TRUE, distribution = TRUE, dimensionality = TRUE, n_replicates = NULL) {
+knn_metrics <- function(x, cloud, k, radius = NULL, basic = TRUE, distribution = TRUE, dimensionality = TRUE, n_replicates = NULL) {
 
   colnames(cloud) <- c("X", "Y", "Z")
 
@@ -26,14 +27,25 @@ sphere_metrics <- function(x, cloud, radius, basic = TRUE, distribution = TRUE, 
   ycoor <- as.numeric(x[1,2])
   zcoor <- as.numeric(x[1,3])
 
-  cube <- cloud[between(X, xcoor - radius, xcoor + radius) & between(Y, ycoor - radius, ycoor + radius) & between(Z, zcoor - radius, zcoor + radius),] ###Set a cube to estimate the distance
+  if(is.null(radius) == TRUE) {
 
-  cube <- cube[,1:3]
+    space <- cloud[,1:3]
 
-  cube <- cube[, distance := sqrt((xcoor - cube$X)^2 + (ycoor - cube$Y)^2 + (zcoor - cube$Z)^2)] #Get the distance of the points in the cube
+    space <- space[, distance := sqrt((xcoor - space$X)^2 + (ycoor - space$Y)^2 + (zcoor - space$Z)^2)] #Get the distance of the points
+    space <- space[space$distance > 0,]
+    space <- setorder(space, distance)
 
-  space <- cube[cube$distance <= radius & cube$distance > 0,] #Create the sphere incide the cube
-  space <- setorder(space, distance) #Order points by distance
+  } else {
+
+    cube <- cloud[between(X, xcoor - radius, xcoor + radius) & between(Y, ycoor - radius, ycoor + radius) & between(Z, zcoor - radius, zcoor + radius),] ###Set a cube to estimate the distance
+
+    cube <- cube[,1:3]
+    cube <- cube[,distance := sqrt((xcoor - cube$X)^2 + (ycoor - cube$Y)^2 + (zcoor - cube$Z)^2)] #Get the distance of the points in the cube
+    space <- cube[cube$distance <= radius & cube$distance > 0,] #Create the sphere incide the cube
+    space <- setorder(space, distance) #Order points by distance
+  }
+
+  space <- space[c(1:k),]
 
   final <- data.table(X = xcoor, Y = ycoor, Z = zcoor)
 

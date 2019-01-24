@@ -45,17 +45,21 @@ neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = FA
     print(paste("", "Threads to use: ", getDTthreads(), sep = ""))
   }
 
-  #Calculating neighborhood
-  print("Calculating neighbors")
-  pb <- txtProgressBar(min = 0, max = nrow(cloud), style = 3) #Set progress bar
-
   if(method == "sphere") {  #Method sphere
+
+    print("Calculating spheres around points")
+    pb <- txtProgressBar(min = 0, max = nrow(cloud), style = 3) #Set progress bar
+
     results <- cloud[, {setTxtProgressBar(pb, .GRP) ; sphere_neighbors(.SD, cloud_b, radius)}, by = seq_len(nrow(cloud))]
     colnames(results) <- c("points", "X", "Y", "Z", "distance")
     parameter <- radius
     names(parameter) <- "radius"
 
   } else if(method == "knn") { #Method knn
+
+    print("Calculating knn")
+    pb <- txtProgressBar(min = 0, max = nrow(cloud), style = 3) #Set progress bar
+
     results <- cloud[, {setTxtProgressBar(pb, .GRP) ; knn_neighbors(.SD, cloud_b, k, radius)}, by = seq_len(nrow(cloud))]
     colnames(results) <- c("points", "X", "Y", "Z", "distance")
     parameter <- radius
