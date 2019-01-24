@@ -42,6 +42,3 @@ distribution <- function(space, radius = NULL, n_replicates = NULL) {
   }
   return(frame)
 }
-
-
-

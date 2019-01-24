@@ -19,7 +19,7 @@
 basic_metrics <- function(space, radius = NULL) {
 
   if(nrow(space) >= 1) {
-    radius <- ifelse(is.null(radius) == TRUE, max(space[,4]), radius)
+    radius <- ifelse(is.null(radius) == TRUE, max(space$distance), radius)
     n_neig <- nrow(space)
     neig_volumen <- ((4/3)*pi*(max(space$distance)^3))
     sphere_volumen <- ((4/3)*pi*(radius^3))
