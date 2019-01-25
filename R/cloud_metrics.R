@@ -27,15 +27,15 @@
 #' cloud_metrics(pc_tree[1:100,], pc_tree, method = "sphere", radius = 0.2)
 #'
 #' ###Run on the first 100 points of a point cloud of class data.table using a knn method with a k = 10.
-#' cloud_metrics(pc_tree[1:100,], pc_tree, method = "knn", k = 0.2)
+#' cloud_metrics(pc_tree[1:100,], pc_tree, method = "knn", k = 10)
 #'
 #'
-#' ###Run from an object of class neighborhood
-#' dist <- neighborhood(pc_tree, method = "sphere", radius = 0.2)
+#' ###Estimate neighborhood on first 100 points using a sphere method and a radius of 0.2 and then calculate their metrics
+#' dist <- neighborhood(pc_tree[1:100,], pc_tree, method = "sphere", radius = 0.2)
 #' cloud_metrics(dist)
 #'
 #'@export
-cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = TRUE, dimensionality = TRUE, method, radius = NULL, k, n_replicates = NULL, parallel = FALSE, threads = NULL) {
+cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = TRUE, dimensionality = TRUE, method = NULL, radius = NULL, k, n_replicates = NULL, parallel = FALSE, threads = NULL) {
 
   if(parallel == TRUE) { #Select parameters to make the method parallel.
     if(is.null(threads) == TRUE) {
@@ -45,33 +45,33 @@ cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = TR
     print(paste("", "Threads to use: ", getDTthreads(), sep = ""))
   }
 
-  if(class(pc_tree)[1] == "neighborhood") {  ####For a object of neighborhood
+  if(class(cloud)[1] == "neighborhood") {  ####For a object of neighborhood
     final <- cloud$cloud
     neig <- cloud$neighborhood
     radius <- ifelse(names(cloud$parameter) == "radius", cloud$parameter, NULL)
 
     if(basic == TRUE) {
       print("Calculating basic metrics")
-      pb <- txtProgressBar(min = 0, max = nrow(cloud), style = 3)
+      pb <- txtProgressBar(min = 0, max = nrow(final), style = 3)
       basc <- neig[, {setTxtProgressBar(pb, .GRP) ; basic_metrics(.SD, radius = radius)}, by = points]
       final <- cbind(final, basc[ , c(2:5)])
     }
 
     if(distribution == TRUE) {
       print("Calculating distribution metrics")
-      pb <- txtProgressBar(min = 0, max = nrow(cloud), style = 3)
+      pb <- txtProgressBar(min = 0, max = nrow(final), style = 3)
       disp <- neig[, {setTxtProgressBar(pb, .GRP) ; distribution(.SD, radius = radius, n_replicates = n_replicates)}, by = points]
       final <- cbind(final, disp[ , c(2:5)])
     }
 
     if(dimensionality == TRUE) {
       print("Calculating dimensionality metrics")
-      pb <- txtProgressBar(min = 0, max = nrow(cloud), style = 3)
+      pb <- txtProgressBar(min = 0, max = nrow(final), style = 3)
       dimen <- neig[, {setTxtProgressBar(pb, .GRP) ; dimensionality(.SD)}, by = points]
       final <- cbind(final, dimen[ , c(2:10)])
     }
 
-  } else if(class(pc_tree)[1] != "neighborhood") { ###For a object of class data.frame
+  } else if(class(cloud)[1] != "neighborhood") { ###For a object of class data.frame
 
     if(method == "sphere") {  ###If method is sphere
       print("calculating spheres and their metrics")
@@ -82,7 +82,7 @@ cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = TR
     } else if(method == "knn") { ###If method is knn
       print("calculating knn and their metrics")
       pb <- txtProgressBar(min = 0, max = nrow(cloud), style = 3)
-      final <- cloud[, knn_metrics(.SD, cloud_b, k, radius, basic, distribution, dimensionality, n_replicates), by = seq_len(nrow(cloud))]
+      final <- cloud[, {setTxtProgressBar(pb, .GRP) ; knn_metrics(.SD, cloud_b, k, radius, basic, distribution, dimensionality, n_replicates)}, by = seq_len(nrow(cloud))]
       final <- final[, 2:ncol(final)]
     }
   }

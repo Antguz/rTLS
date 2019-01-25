@@ -4,7 +4,7 @@
 \name{pc_tree}
 \alias{pc_tree}
 \title{Tree point cloud}
-\format{An object of class \code{data.frame} with 75848 rows and 3 columns.}
+\format{An object of class \code{data.table} (inherits from \code{data.frame}) with 75848 rows and 3 columns.}
 \usage{
 data(pc_tree)
 }

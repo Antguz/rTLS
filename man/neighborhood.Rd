@@ -8,17 +8,19 @@ neighborhood(cloud, cloud_b = NULL, method, radius, k,
   parallel = FALSE, threads = NULL)
 }
 \arguments{
-\item{cloud}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns.}
+\item{cloud}{A \code{data.table} with xyz coordinates in the first three columns.}
 
-\item{cloud_b}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns. If \code{cloud_b == NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
+\item{cloud_b}{A \code{data.table} with xyz coordinates in the first three columns. If \code{cloud_b == NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
 
 \item{method}{A character string specifying the method to estimated the neighbors. It most be one of  \code{"sphere"} or  \code{"knn"}.}
 
-\item{radius}{An integer of a length 1 representing the number of neighbors to consider. This will be used if  \code{method = "sphere"}, and this may usted if \code{method = "knn"}.}
+\item{radius}{An integer of a length 1 representing the number of neighbors to consider. This need to be used if  \code{method = "sphere"}, and this may usted if \code{method = "knn"}.}
 
-\item{k}{An integer of a length 1 representing the number of neighbors to consider. This will be used if  \code{method = "knn"}.}
+\item{k}{An integer of a length 1 representing the number of neighbors to consider. This need to be used if \code{method = "knn"}.}
 
 \item{parallel}{Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.}
+
+\item{threads}{An \code{integer} >= 0 describing the number of CPU use. This need to be used if  \code{parallel = TRUE}}
 }
 \value{
 An object of class \code{neighborhood} which is a nested list that describe the cloud point used (\code{cloud}), the parameter \code{radius} or \code{k} used, and the resulting neighbor points per point (\code{neigborhood}).

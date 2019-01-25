@@ -16,7 +16,7 @@
 #'
 #' @examples
 #' data("pc_tree")
-#' knn_metrics(pc_tree[100,], pc_tree, k = 10, radius = 0.2)
+#' knn_metrics(pc_tree[100,], pc_tree, k = 10)
 #'
 #' @export
 knn_metrics <- function(x, cloud, k, radius = NULL, basic = TRUE, distribution = TRUE, dimensionality = TRUE, n_replicates = NULL) {

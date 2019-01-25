@@ -5,13 +5,14 @@
 \title{Point cloud metrics}
 \usage{
 cloud_metrics(cloud, cloud_b = NULL, basic = TRUE,
-  distribution = TRUE, dimensionality = TRUE, method, radius, k,
-  n_replicates = NULL, parallel = FALSE)
+  distribution = TRUE, dimensionality = TRUE, method = NULL,
+  radius = NULL, k, n_replicates = NULL, parallel = FALSE,
+  threads = NULL)
 }
 \arguments{
-\item{cloud}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns or an object of class \code{neighborhood}.}
+\item{cloud}{A \code{data.table} with xyz coordinates in the first three columns or an object of class \code{neighborhood}.}
 
-\item{cloud_b}{A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
+\item{cloud_b}{A \code{data.table} with xyz coordinates in the first three columns. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
 
 \item{basic}{Logical, if \code{TRUE} it estimate basic metrics. \code{basic = TRUE} as default.}
 
@@ -26,6 +27,8 @@ cloud_metrics(cloud, cloud_b = NULL, basic = TRUE,
 \item{k}{An integer of a length 1 representing the number of neighbors to consider. This need be used if \code{method = "knn"}.}
 
 \item{parallel}{Logical, if \code{TRUE} it use a parallel processing.}
+
+\item{threads}{An \code{integer} >= 0 describing the number of CPU use. This need to be used if  \code{parallel = TRUE}}
 }
 \value{
 A \code{data.frame} with the estimated parameters.
@@ -36,12 +39,16 @@ Estimate different metrics on the poits of a cloud. It estimate 10 parameters ba
 \examples{
 data("pc_tree")
 
-###Run from an object of class data.frame or matrix
-cloud_metrics(pc_tree, method = "sphere", radius = 0.2)
+###Run on the first 100 points of a point cloud of class data.table using a sphere method with a radius of 0.2
+cloud_metrics(pc_tree[1:100,], pc_tree, method = "sphere", radius = 0.2)
 
-###Run from an object of class neighborhood
-dist <- neighborhood(pc_tree, method = "sphere", radius = 0.2, parallel = FALSE)
-cloud_metrics(dist, parallel = FALSE)
+###Run on the first 100 points of a point cloud of class data.table using a knn method with a k = 10.
+cloud_metrics(pc_tree[1:100,], pc_tree, method = "knn", k = 10)
+
+
+###Estimate neighborhood on first 100 points using a sphere method and a radius of 0.2 and then calculate their metrics
+dist <- neighborhood(pc_tree[1:100,], pc_tree, method = "sphere", radius = 0.2)
+cloud_metrics(dist)
 
 }
 \references{
