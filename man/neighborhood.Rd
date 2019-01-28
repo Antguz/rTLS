@@ -5,7 +5,7 @@
 \title{Neighboring points}
 \usage{
 neighborhood(cloud, cloud_b = NULL, method, radius, k,
-  parallel = FALSE, threads = NULL)
+  parallel = FALSE, cores = NULL)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with xyz coordinates in the first three columns.}
@@ -20,7 +20,7 @@ neighborhood(cloud, cloud_b = NULL, method, radius, k,
 
 \item{parallel}{Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.}
 
-\item{threads}{An \code{integer} >= 0 describing the number of CPU use. This need to be used if  \code{parallel = TRUE}}
+\item{cores}{An \code{integer} >= 0 describing the number of cores use. This need to be used if  \code{parallel = TRUE}}
 }
 \value{
 An object of class \code{neighborhood} which is a nested list that describe the cloud point used (\code{cloud}), the parameter \code{radius} or \code{k} used, and the resulting neighbor points per point (\code{neigborhood}).
@@ -32,13 +32,13 @@ Estimate neighboring points based on two methods.
 data("pc_tree")
 
 ###Estimate the niegborhood based in a sphere of a radius 0.2
-neighborhood(pc_tree[50:100,] , pc_tree, method = "sphere", radius = 0.2)
+neighborhood(pc_tree, method = "sphere", radius = 0.2)
 
 ###Estimate the niegborhood based on knn
 neighborhood(pc_tree, method = "knn", k = 10)
 
-###Parallel TRUE with 4 threads
-neighborhood(pc_tree, method = "sphere", radius = 0.2, parallel = TRUE, threads = 4)
+###Parallel TRUE with 4 cores
+neighborhood(pc_tree, method = "sphere", radius = 0.2, parallel = TRUE, cores = 4)
 
 }
 \author{
