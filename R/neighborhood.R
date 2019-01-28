@@ -83,6 +83,7 @@ neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = FA
         return(results[, c(5, 1:4)])
       }
 
+      results <- results[order(points)]
       parameter <- radius
       names(parameter) <- "radius"
 
@@ -99,6 +100,7 @@ neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = FA
         return(results[, c(5, 1:4)])
       }
 
+      results <- results[order(points)]
       parameter <- k
       names(parameter) <- "k"
 

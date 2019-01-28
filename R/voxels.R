@@ -15,7 +15,7 @@
 #' data("pc_tree")
 #'
 #' ###Create voxels of a size of 0.5.
-#' voxels(pc_tree, voxel.size = 0.24)
+#' voxels(pc_tree, voxel.size = 0.5)
 #'
 #'@export
 voxels <- function(cloud, voxel.size, obj.voxel = TRUE) {
@@ -29,9 +29,9 @@ voxels <- function(cloud, voxel.size, obj.voxel = TRUE) {
                  round(min(vox[,2]) - voxel.size/2, digits = max_digits),
                  round(min(vox[,3]) - voxel.size/2, digits = max_digits))
 
-  vox <- vox[, c("X", "Y", "Z") := c(ceiling((cloud[,1]-min_point[1])/voxel.size), ##  Assign x, y, and z "voxel coordinates" to each point as a point attribute
-                                            ceiling((cloud[,2]-min_point[2])/voxel.size),
-                                            ceiling((cloud[,3]-min_point[3])/voxel.size)), by = .I]
+  vox <- vox[, c("X", "Y", "Z") := c(ceiling((cloud[,1] - min_point[1])/voxel.size), ##  Assign x, y, and z "voxel coordinates" to each point as a point attribute
+                                   ceiling((cloud[,2]- min_point[2])/voxel.size),
+                                   ceiling((cloud[,3]- min_point[3])/voxel.size)), by = .I]
 
   vox <- vox[ , .N, by = .(X, Y, Z)] #Cound the number of points per voxel
 

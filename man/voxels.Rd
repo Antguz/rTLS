@@ -23,7 +23,7 @@ Create cubes of a given distance in a point cloud though their voxelization. It 
 data("pc_tree")
 
 ###Create voxels of a size of 0.5.
-voxels(pc_tree, voxel.size = 0.24)
+voxels(pc_tree, voxel.size = 0.5)
 
 }
 \references{
