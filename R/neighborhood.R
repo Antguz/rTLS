@@ -8,24 +8,31 @@
 #' @param radius An integer of a length 1 representing the number of neighbors to consider. This need to be used if  \code{method = "sphere"}, and this may usted if \code{method = "knn"}.
 #' @param k An integer of a length 1 representing the number of neighbors to consider. This need to be used if \code{method = "knn"}.
 #' @param parallel Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.
-#' @param cores An \code{integer} >= 0 describing the number of cores use. This need to be used if  \code{parallel = TRUE}
+#' @param cores An \code{integer} >= 0 describing the number of cores use. This need to be used if \code{parallel = TRUE}.
 #'
 #' @return An object of class \code{neighborhood} which is a nested list that describe the cloud point used (\code{cloud}), the parameter \code{radius} or \code{k} used, and the resulting neighbor points per point (\code{neigborhood}).
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #' @examples
 #' data("pc_tree")
 #'
-#' ###Estimate the niegborhood based in a sphere of a radius 0.2
-#' neighborhood(pc_tree, method = "sphere", radius = 0.2)
+#' ###Apply funtion on 1000 random rows of a point cloud
+#' cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
 #'
-#' ###Estimate the niegborhood based on knn
-#' neighborhood(pc_tree, method = "knn", k = 10)
+#' ##With out using parallel processin
+#' #Estimate the niegborhood based in the sphere method using a radius of 0.2.
+#' neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2)
 #'
-#' ###Parallel TRUE with 4 cores
-#' neighborhood(pc_tree, method = "sphere", radius = 0.2, parallel = TRUE, cores = 4)
+#' #Estimate the niegborhood based on the knn method using a k = 10.
+#' neighborhood(cloud.random, pc_tree, method = "knn", k = 10)
+#'
+#' #Estimate the niegborhood based on the knn method using a k = 10 and a fixed radius of 0.5.
+#' neighborhood(cloud.random, pc_tree, method = "knn", k = 10, radius = 0.2)
+#'
+#' #Parallel TRUE with 4 cores
+#' neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2, parallel = TRUE, cores = 4)
 #'
 #' @export
-neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = FALSE, cores = NULL) {
+neighborhood <- function(cloud, cloud_b = NULL, method, radius = NULL, k, parallel = FALSE, cores = NULL) {
 
   if(is.null(cloud_b) == TRUE) { #Selecting the cloud to calculated the neighborhood
     cloud_b <- cloud
@@ -40,6 +47,10 @@ neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = FA
   if(parallel == FALSE) {
 
     if(method == "sphere") {  #Method sphere
+
+      if(is.null(radius) == TRUE) {
+        stop("argument radius is missing")
+      }
 
       print("Calculating spheres around points")
       pb <- txtProgressBar(min = 0, max = nrow(cloud), style = 3) #Set progress bar
@@ -71,6 +82,10 @@ neighborhood <- function(cloud, cloud_b = NULL, method, radius, k, parallel = FA
     registerDoSNOW(cl)
 
     if(method == "sphere") {  #Method sphere
+
+      if(is.null(radius) == TRUE) {
+        stop("argument radius is missing")
+      }
 
       print("Calculating spheres around points")
       pb <- txtProgressBar(min = 0, max = nrow(cloud), style = 3)

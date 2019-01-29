@@ -2,7 +2,7 @@
 #'
 #' @description Create a summary of the voxels or future voxels.
 #'
-#' @param voxels An object of class \code{voxels} or a \code{data.table} with xyz coordinates of the point cloud in the first three columns. If \code{class(voxels) == "data.table"}, the function first apply the \code{voxels()} function.
+#' @param voxels An object of class \code{voxels} using the \code{voxels()} function.
 #' @param voxel.size A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud. This need to be used if \code{class(voxels) != "voxels"}.
 #' @param bootstrap A logical vector length 1 vector. If \code{bootstrap = TRUE}, it compute a bootstrap on the H index calculations. \code{bootstrap = FALSE} as default.
 #' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates.
@@ -22,65 +22,34 @@
 #' vox <- voxels(pc_tree, voxel.size = 0.5)
 #' summary_voxels(vox, bootstrap = TRUE, R = 1000)
 #'
-#' ###Apply a summary of future voxels on a point cloud using a voxel.size of 0.5.
-#' summary_voxels(pc_tree, voxel.size = 0.5)
-#'
-#' ###Apply a summary of future voxels using bootstrap in the shannon index with 1000 replicates
-#' summary_voxels(pc_tree, voxel.size = 0.5, bootstrap = TRUE, R = 1000)
-#'
 #'@export
 summary_voxels <- function(voxels, voxel.size = NULL, bootstrap = FALSE, R) {
 
-  if(class(voxels)[1] == "voxels") {
+  if(class(voxels)[1] != "voxels") {
+    stop("An object from voxels() need to be used")
+  }
 
-    Voxel.size <- voxels$parameter
-    N_voxels <- nrow(voxels$voxels)
-    Volumen <- (Voxel.size^3)*N_voxels
-    Density_mean <- mean(voxels$voxels$N/(Voxel.size^3))
-    Density_sd <- sd(voxels$voxels$N/(Voxel.size^3))
-    H <- shannon(voxels$voxels$N) #H index
-    Hmax <- shannon(rep(1, nrow(voxels$voxels))) #H max
-    Equitavility <- H/Hmax #Equitavility
-    Negentropy <- Hmax - H #Negentropy
+  Voxel.size <- voxels$parameter
+  N_voxels <- nrow(voxels$voxels)
+  Volumen <- (Voxel.size^3)*N_voxels
+  Density_mean <- mean(voxels$voxels$N/(Voxel.size^3))
+  Density_sd <- sd(voxels$voxels$N/(Voxel.size^3))
+  H <- shannon(voxels$voxels$N) #H index
+  Hmax <- shannon(rep(1, nrow(voxels$voxels))) #H max
+  Equitavility <- H/Hmax #Equitavility
+  Negentropy <- Hmax - H #Negentropy
 
-    if(bootstrap == FALSE ) {
-      frame <- data.frame(Voxel.size, N_voxels, Volumen, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy)
+  if(bootstrap == FALSE ) {
+    frame <- data.table(Voxel.size, N_voxels, Volumen, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy)
 
-    } else if(bootstrap == TRUE) {
-      h_boot <- boot(voxels$voxels$N, shannon_boot, R= R)$t
-      H_boot_mean <- mean(h_boot) #H index with boot
-      H_boot_sd <- sd(h_boot)
-      Equitavility_boot <- H_boot_mean/Hmax #Equitavility based on boot
-      Negentropy_boot <- Hmax - H_boot_mean #Negentropy based on boot
+  } else if(bootstrap == TRUE) {
+    h_boot <- boot(voxels$voxels$N, shannon_boot, R= R)$t
+    H_boot_mean <- mean(h_boot) #H index with boot
+    H_boot_sd <- sd(h_boot)
+    Equitavility_boot <- H_boot_mean/Hmax #Equitavility based on boot
+    Negentropy_boot <- Hmax - H_boot_mean #Negentropy based on boot
 
-      frame <- data.frame(Voxel.size, N_voxels, Volumen, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy, H_boot_mean, H_boot_sd, Equitavility_boot, Negentropy_boot)
-    }
-  } else if(class(voxels)[1] == "data.table") {
-
-    voxels <- voxels(voxels, voxel.size = 0.5, obj.voxel = FALSE) #Create voxels
-
-    Voxel.size <- voxel.size
-    N_voxels <- nrow(voxels)
-    Volumen <- (Voxel.size^3)*N_voxels
-    Density_mean <- mean(voxels$N/(Voxel.size^3))
-    Density_sd <- sd(voxels$N/(Voxel.size^3))
-    H <- shannon(voxels$N) #H index
-    Hmax <- shannon(rep(1, nrow(voxels))) #H max
-    Equitavility <- H/Hmax #Equitavility
-    Negentropy <- Hmax - H #Negentropy
-
-    if(bootstrap == FALSE ) {
-      frame <- data.frame(Voxel.size, N_voxels, Volumen, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy)
-
-    } else if(bootstrap == TRUE) {
-      h_boot <- boot(voxels$N, shannon_boot, R= R)$t
-      H_boot_mean <- mean(h_boot) #H index with boot
-      H_boot_sd <- sd(h_boot)
-      Equitavility_boot <- H_boot_mean/Hmax #Equitavility based on boot
-      Negentropy_boot <- Hmax - H_boot_mean #Negentropy based on boot
-
-      frame <- data.frame(Voxel.size, N_voxels, Volumen, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy, H_boot_mean, H_boot_sd, Equitavility_boot, Negentropy_boot)
-    }
+    frame <- data.table(Voxel.size, N_voxels, Volumen, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy, H_boot_mean, H_boot_sd, Equitavility_boot, Negentropy_boot)
   }
   return(frame)
 }

@@ -3,9 +3,9 @@
 
 This is an R package to that compiles a series of tools to process and calculate metrics on point clouds derived from terrestrial LiDAR (Light Detection and Ranging) data.
 
-Originally, ___rTLS___ was created by J. Antonio Guzman Q. (<antguz06@gmail.com>) at the University of Alberta under the supervision of Dr. Arturo Sanchez (<arturo.sanchez@ualberta.ca>) and the supreme help of Ronny Hernandez (<ronny.hernandezm@gmail.com>). It compiles several functions that students at the [Centre for Earth Observation Sciences](https://www.ualberta.ca/faculties/centresinstitutes/centre-for-earth-observation-sciences) use to process their point cloud of vegetation.
+Originally, ___rTLS___ was created by J. Antonio Guzman Q. (<antguz06@gmail.com>) at the University of Alberta under the supervision of Dr. Arturo Sanchez (<arturo.sanchez@ualberta.ca>) and the supreme help of Ronny Hernandez (<ronny.hernandezm@gmail.com>). It compiles several functions that students at the [Centre for Earth Observation Sciences](https://www.ualberta.ca/faculties/centresinstitutes/centre-for-earth-observatiTheon-sciences) use to process their point cloud of vegetation.
 
-___rTLS___ goal is to provide a single environment to process point clouds as fast as it can be done. That it is why the ___rTLS___ coding has been evolving using different packages (e.g., `plyr`, `dplyr`, `purrr`, `data.table`).  In the future, if there is a faster way to run our main routines, we will probably change our code!
+___rTLS___ goal is to provide a single environment to process point clouds as fast as it can be done. That it is why the ___rTLS___ coding has been evolving using different packages starting with `plyr`, going through `dplyr`-`purrr`, and landing on `data.table`. The current code has been enhanced using  `foreach` for parallel procesing with the help of `doSNOW`. In the future, if there is a faster way to run our main routines, we will probably change our code!
 
 The current development of ___rTLS___ is focussed on four major processes applied on point clouds: i) filtering, ii) voxelization, iii) point neighborhood features, and iv) optimal voxel or sphere size. Specifically, the structure of the functions of ___rTLS___ can be grouped as:
 
@@ -53,3 +53,4 @@ devtools::install_github("Antguz/rTLS")
 ### Usage
 
 Currently rTLS
+

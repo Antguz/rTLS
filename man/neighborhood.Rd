@@ -4,7 +4,7 @@
 \alias{neighborhood}
 \title{Neighboring points}
 \usage{
-neighborhood(cloud, cloud_b = NULL, method, radius, k,
+neighborhood(cloud, cloud_b = NULL, method, radius = NULL, k,
   parallel = FALSE, cores = NULL)
 }
 \arguments{
@@ -20,7 +20,7 @@ neighborhood(cloud, cloud_b = NULL, method, radius, k,
 
 \item{parallel}{Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.}
 
-\item{cores}{An \code{integer} >= 0 describing the number of cores use. This need to be used if  \code{parallel = TRUE}}
+\item{cores}{An \code{integer} >= 0 describing the number of cores use. This need to be used if \code{parallel = TRUE}.}
 }
 \value{
 An object of class \code{neighborhood} which is a nested list that describe the cloud point used (\code{cloud}), the parameter \code{radius} or \code{k} used, and the resulting neighbor points per point (\code{neigborhood}).
@@ -31,14 +31,21 @@ Estimate neighboring points based on two methods.
 \examples{
 data("pc_tree")
 
-###Estimate the niegborhood based in a sphere of a radius 0.2
-neighborhood(pc_tree, method = "sphere", radius = 0.2)
+###Apply funtion on 1000 random rows of a point cloud
+cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
 
-###Estimate the niegborhood based on knn
-neighborhood(pc_tree, method = "knn", k = 10)
+##With out using parallel processin
+#Estimate the niegborhood based in the sphere method using a radius of 0.2.
+neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2)
 
-###Parallel TRUE with 4 cores
-neighborhood(pc_tree, method = "sphere", radius = 0.2, parallel = TRUE, cores = 4)
+#Estimate the niegborhood based on the knn method using a k = 10.
+neighborhood(cloud.random, pc_tree, method = "knn", k = 10)
+
+#Estimate the niegborhood based on the knn method using a k = 10 and a fixed radius of 0.5.
+neighborhood(cloud.random, pc_tree, method = "knn", k = 10, radius = 0.2)
+
+#Parallel TRUE with 4 cores
+neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2, parallel = TRUE, cores = 4)
 
 }
 \author{

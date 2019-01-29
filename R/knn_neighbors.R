@@ -32,16 +32,18 @@ knn_neighbors <- function(x, cloud, k, radius = NULL) {
     space <- space[space$distance > 0,]
     space <- setorder(space, distance)
 
-  } else {
+  } else if(is.null(radius) == FALSE){
+
+    cube <- cloud[,1:3]
 
     cube <- cloud[between(X, xcoor - radius, xcoor + radius) & between(Y, ycoor - radius, ycoor + radius) & between(Z, zcoor - radius, zcoor + radius),] ###Set a cube to estimate the distance
 
-    cube <- cube[,1:3]
     cube <- cube[,distance := sqrt((xcoor - cube$X)^2 + (ycoor - cube$Y)^2 + (zcoor - cube$Z)^2)] #Get the distance of the points in the cube
-    space <- cube[cube$distance <= radius & cube$distance > 0,] #Create the sphere incide the cube
+    space <- cube[cube$distance > 0,]
     space <- setorder(space, distance) #Order points by distance
   }
 
-  space <- space[c(1:k),] #Select the k points
+  space <- na.exclude(space[c(1:k),]) #Select the k points
+
   return(space)
 }

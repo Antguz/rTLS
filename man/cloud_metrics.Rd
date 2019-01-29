@@ -6,8 +6,7 @@
 \usage{
 cloud_metrics(cloud, cloud_b = NULL, basic = TRUE,
   distribution = TRUE, dimensionality = TRUE, method = NULL,
-  radius = NULL, k, n_replicates = NULL, parallel = FALSE,
-  threads = NULL)
+  radius = NULL, k, n_replicates = NULL, parallel = FALSE, cores)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with xyz coordinates in the first three columns or an object of class \code{neighborhood}.}
@@ -28,7 +27,7 @@ cloud_metrics(cloud, cloud_b = NULL, basic = TRUE,
 
 \item{parallel}{Logical, if \code{TRUE} it use a parallel processing.}
 
-\item{threads}{An \code{integer} >= 0 describing the number of CPU use. This need to be used if  \code{parallel = TRUE}}
+\item{cores}{An \code{integer} >= 0 describing the number of cores use. This need to be used if  \code{parallel = TRUE}.}
 }
 \value{
 A \code{data.frame} with the estimated parameters.
@@ -39,16 +38,26 @@ Estimate different metrics on the poits of a cloud. It estimate 10 parameters ba
 \examples{
 data("pc_tree")
 
-###Run on the first 100 points of a point cloud of class data.table using a sphere method with a radius of 0.2
-cloud_metrics(pc_tree[1:100,], pc_tree, method = "sphere", radius = 0.2)
+###On objects of class neighborhood
+##Calculate the neighborhood of 1000 random rows of a point cloud using the sphere method and a radius of 0.2.
+cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
+dist <- neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2)
 
-###Run on the first 100 points of a point cloud of class data.table using a knn method with a k = 10.
-cloud_metrics(pc_tree[1:100,], pc_tree, method = "knn", k = 10)
-
-
-###Estimate neighborhood on first 100 points using a sphere method and a radius of 0.2 and then calculate their metrics
-dist <- neighborhood(pc_tree[1:100,], pc_tree, method = "sphere", radius = 0.2)
+#Estimate metrics without using parallel.
 cloud_metrics(dist)
+
+#Estimate matrics using parallel processing with 4 cores.
+cloud_metrics(dist, parallel = TRUE, cores = 4)
+
+###On objects of class data.table.
+##Select 1000 random rows of a point cloud.
+cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
+
+#Estimate metrics without using parallel by creating spheres of a radius of 0.2.
+cloud_metrics(cloud.random, pc_tree, method = "sphere", radius = 0.2)
+
+#Estimate metrics metrics in parallel using 4 cores by creating spheres of a radius of 0.2.
+cloud_metrics(cloud.random, pc_tree, method = "sphere", radius = 0.2, parallel = TRUE, cores = 4)
 
 }
 \references{

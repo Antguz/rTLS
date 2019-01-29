@@ -7,7 +7,7 @@
 summary_voxels(voxels, voxel.size = NULL, bootstrap = FALSE, R)
 }
 \arguments{
-\item{voxels}{An object of class \code{voxels} or a \code{data.table} with xyz coordinates of the point cloud in the first three columns. If \code{class(voxels) == "data.table"}, the function first apply the \code{voxels()} function.}
+\item{voxels}{An object of class \code{voxels} using the \code{voxels()} function.}
 
 \item{voxel.size}{A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud. This need to be used if \code{class(voxels) != "voxels"}.}
 
@@ -32,12 +32,6 @@ data("pc_tree")
 ###Apply a summary on a product of voxels using bootstrap with 1000 replicates
 vox <- voxels(pc_tree, voxel.size = 0.5)
 summary_voxels(vox, bootstrap = TRUE, R = 1000)
-
-###Apply a summary of future voxels on a point cloud using a voxel.size of 0.5.
-summary_voxels(pc_tree, voxel.size = 0.5)
-
-###Apply a summary of future voxels using bootstrap in the shannon index with 1000 replicates
-summary_voxels(pc_tree, voxel.size = 0.5, bootstrap = TRUE, R = 1000)
 
 }
 \author{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/distribution.R
 \name{distribution}
 \alias{distribution}
-\title{Dispersion, agregation, and mean distance neighboring points.}
+\title{Dispersion, agregation, and mean distance of neighboring points.}
 \usage{
 distribution(space, radius = NULL, n_replicates = NULL)
 }

@@ -1,4 +1,4 @@
-#' @title Dispersion, agregation, and mean distance neighboring points.
+#' @title Dispersion, agregation, and mean distance of neighboring points.
 #'
 #' @description Estimate the dispersion, aggregation, and mean distance of the neighboring points to a target point..
 #'
