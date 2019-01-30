@@ -7,7 +7,7 @@
 distribution(space, radius = NULL, n_replicates = NULL)
 }
 \arguments{
-\item{space}{A \code{matrix} or \code{data.frame} with xzy coordinates in the first three columns of the neighboring points and a four columns with the distance to the target point.}
+\item{space}{A \code{data.table} with xzy coordinates in the first three columns of the neighboring points and a four columns with the distance to the target point.}
 
 \item{radius}{A \code{numeric} vector of a length 1 representing the radius of the sphere which was considered. If \code{radius = NULL}, it use the maximun distance of \code{space} (\code{max(space[,4])}). \code{radius = NULL} as default.}
 }
