@@ -5,7 +5,7 @@ Authors@R: c(
   person("Antonio", "Guzman", role="cre", email="antguz06@gmail.com"),
   person("Ronny", "Hernandez", role="ctb", email="ronny.hernandezm@gmail.com"))
 Description: A set of tools to calculate metrics and process point clouds derived from terrestrial LiDAR (Light Detection and Ranging).
-Depends: data.table, foreach, doSNOW, boot, rgl
+Depends: data.table, foreach, doSNOW, boot, rgl, sp
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
