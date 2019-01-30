@@ -1,5 +1,3 @@
-#' @import dplyr
-#'
 #' @title Subsample neighboring points
 #'
 #' @description Subsample the neighboring points based in a radius of a shpere or knn.

@@ -1,5 +1,3 @@
-#' @import dplyr
-#'
 #' @title Dimensionality of the neighboring points.
 #'
 #' @description Calculate the dimensionality of a cloud of neighboring points. It estimate 10 parameters based on Wang et al. 2017.

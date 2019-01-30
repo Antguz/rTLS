@@ -1,5 +1,3 @@
-#' @import dplyr
-#'
 #' @title Voxelization of a point cloud
 #'
 #' @description Create cubes of a given distance in a point cloud though their voxelization. It use a modify version of the code used in Greaves et al. 2015.
