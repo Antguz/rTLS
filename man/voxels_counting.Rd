@@ -5,26 +5,26 @@
 \title{Voxels counting}
 \usage{
 voxels_counting(cloud, voxel.range = NULL, bootstrap = FALSE, R,
-  parallel = FALSE, cores)
+  parallel = FALSE, cores = NULL)
 }
 \arguments{
-\item{cloud}{A \code{data.table} with xyz coordinates in the first three columns.}
+\item{cloud}{A \code{data.table} with xyz coordinates of the point clouds in the first three columns.}
 
 \item{voxel.range}{A positive numeric vector describing the different voxel size to perform. If \code{voxel.range = NULL}, it use 10 voxel sizes by defaul. See details.}
 
-\item{bootstrap}{Logical, if \code{bootstrap = TRUE}, it compute a bootstrap on the H index calculations. \code{bootstrap = FALSE} as default.}
+\item{bootstrap}{Logical, if \code{bootstrap = TRUE}, it computes a bootstrap on the H index calculations. \code{bootstrap = FALSE} as default.}
 
 \item{R}{A positive \code{integer} of length 1 indicating the number of bootstrap replicates.}
 
-\item{parallel}{Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.}
+\item{parallel}{Logical, if \code{TRUE} it uses a parallel processing. \code{FALSE} as default.}
 
-\item{cores}{An \code{integer} >= 0 describing the number of cores use. This need to be used if \code{parallel = TRUE}.}
+\item{cores}{An \code{integer} >= 0 describing the number of cores to use. This need to be used if \code{parallel = TRUE}.}
 }
 \value{
-A \code{data.table} with the summary with their features.
+A \code{data.table} with the summary of the voxels created with their features.
 }
 \description{
-On a point cloud create voxels of different size using the \code{voxels} function, and then return a summary of their features.
+Creates voxels of different size on a point cloud using the \code{voxels()} function, and then return a summary of their features.
 }
 \examples{
 

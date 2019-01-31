@@ -7,15 +7,15 @@
 basic_metrics(space, radius = NULL)
 }
 \arguments{
-\item{space}{A \code{matrix} or \code{data.frame} with xzy coordinates in the first three columns of the neighboring points and a four columns with the distance to the target point.}
+\item{space}{A \code{data.table} with *XYZ* coordinates of the neighboring points in the first three columns and a four column with their distance to the target point.}
 
-\item{radius}{A \code{numeric} vector of a length 1 representing the radius of the sphere that was consider. If \code{radius = NULL}, it use the maximun distance of \code{space} (\code{max(space[,4])}). \code{radius = NULL} as default.}
+\item{radius}{A \code{numeric} vector of a length 1 representing the radius of the sphere that was used. If \code{radius = NULL}, it uses the maximum distance of \code{space} (\code{max(space[,4])}). \code{radius = NULL} as default.}
 }
 \value{
-A \code{data.frame} with four metrics: i) number of neighboring points, ii) volume occupied by neighbors, iii) volume of the sphere used, and iv) density of points based on the volumen of the sphere. If \code{radius = NULL}, the volumnen occupied by neighbors and the volumen of the sphere are the same.
+A \code{data.table} with four metrics: i) the number of neighboring points, ii) the volume occupied by neighbors, iii) volume of the sphere used, and iv) density of points based on the sphere size. If \code{radius = NULL}, the volume occupied by neighbors and the volume of the sphere is the same.
 }
 \description{
-Estimate basic metrics of the surrunding neigboring points created based on a target point.
+It estimate basic metrics of the surrounding neighboring points created based on a target point.
 }
 \examples{
 data("pc_tree")
