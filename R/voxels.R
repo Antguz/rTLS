@@ -10,38 +10,34 @@
 #'
 #' @examples
 #' data("pc_tree")
-#' data("test")
-#'
-#'
 #'
 #' ###Create voxels of a size of 0.5.
-#' voxels(pc_tree, voxel.size = 0.5)
+#' voxels(pc_tree, voxel.size = 50)
 #'
-#'@export
+#' @export
 voxels <- function(cloud, voxel.size, obj.voxels = TRUE) {
 
+  colnames(cloud) <- c("X", "Y", "Z")
   vox <- cloud[,1:3]
   colnames(vox) <- c("X", "Y", "Z")
 
-  max_digits <- max(decimals(vox$X), decimals(vox$Y), decimals(vox$Z))
+  max_digits <- max(decimals(vox$X), decimals(vox$Y), decimals(vox$Z)) ###Number of digist
 
-  min_point <- c(round(min(cloud[,1]) - voxel.size/2, digits = max_digits),    ##  Buffer the minimum point value by half the voxel size to find the lower bound for the XYZ voxels
-                 round(min(cloud[,2]) - voxel.size/2, digits = max_digits),
-                 round(min(cloud[,3]) - voxel.size/2, digits = max_digits))
+  vox$X <- vox$X - min(cloud$X) ###Rescale to positive values
+  vox$Y <- vox$Y - min(cloud$Y)
+  vox$Z <- vox$Z - min(cloud$Z)
 
-  vox$X <- ifelse(min_point[1] < 0, ceiling((cloud[,1] + min_point[1])/voxel.size),  ceiling((cloud[,1] - min_point[1])/voxel.size)) ###Create intergers
-  vox$Y <- ifelse(min_point[2] < 0, ceiling((cloud[,2] + min_point[2])/voxel.size),  ceiling((cloud[,2] - min_point[2])/voxel.size))
-  vox$Z <- ifelse(min_point[3] < 0, ceiling((cloud[,3] + min_point[3])/voxel.size),  ceiling((cloud[,3] - min_point[3])/voxel.size))
+  min_point <- round(-voxel.size/2, digits = max_digits)   ##  Buffer the minimum point value by half the voxel size to find the lower bound for the XYZ voxels
+
+  vox$X <- ceiling((vox$X - min_point)/voxel.size)
+  vox$Y <- ceiling((vox$Y - min_point)/voxel.size)
+  vox$Z <- ceiling((vox$Z - min_point)/voxel.size)
 
   vox <- vox[ , .N, by = .(X, Y, Z)] #Cound the number of points per voxel
 
-  vox$X <- ((vox$X - min(vox$X))/(max(vox$X)-min(vox$X))) * (length(unique(vox$X))-1) ###Rescale intergers
-  vox$Y <- ((vox$Y - min(vox$Y))/(max(vox$Y)-min(vox$Y))) * (length(unique(vox$Y))-1)
-  vox$Z <- ((vox$Z - min(vox$Z))/(max(vox$Z)-min(vox$Z))) * (length(unique(vox$Z))-1)
-
-  vox$X <- round(min(cloud[,1]) +(vox$X*voxel.size), max_digits) #Set coordinates
-  vox$Y <- round(min(cloud[,2]) + (vox$Y*voxel.size), max_digits)
-  vox$Z <- round(min(cloud[,3]) + (vox$Z*voxel.size), max_digits)
+  vox$X <- round(min(cloud[,1]) + ((vox$X-1)*voxel.size), max_digits) #Set coordinates
+  vox$Y <- round(min(cloud[,2]) + ((vox$Y-1)*voxel.size), max_digits)
+  vox$Z <- round(min(cloud[,3]) + ((vox$Z-1)*voxel.size), max_digits)
 
   if(obj.voxels == TRUE) {
     parameter <- voxel.size
