@@ -27,10 +27,12 @@
 #' @export
 voxels_counting <- function(cloud, voxel.range = NULL, bootstrap = FALSE, R, parallel = FALSE, cores = NULL) {
 
+  colnames(cloud) <- c("X", "Y", "Z")
+
   if(is.null(voxel.range) == TRUE) { ###Default voxel.range
     ranges <- c(max(cloud[,1]) - min(cloud[,1]), max(cloud[,2]) - min(cloud[,2]), max(cloud[,3]) - min(cloud[,3]))
-    max.range <- ranges[which.max(ranges)]*2
-    voxel.range <- c(max.range, max.range/2, max.range/4, max.range/8, max.range/16, max.range/32, max.range/64, max.range/128, max.range/256, max.range/512)
+    max.range <- ranges[which.max(ranges)] + 0.001
+    voxel.range <- c(max.range, max.range/2, max.range/4, max.range/8, max.range/16, max.range/32, max.range/64, max.range/128, max.range/256, max.range/512, max.range/1024)
   }
 
 
@@ -72,4 +74,10 @@ voxels_counting <- function(cloud, voxel.range = NULL, bootstrap = FALSE, R, par
 
   }
   return(results)
+}
+
+decimals <- function(x) {
+  n <- 0
+  while (!isTRUE(all.equal(floor(x),x)) & n <= 1e6) { x <- x*10; n <- n+1 }
+  return (n)
 }

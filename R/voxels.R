@@ -22,22 +22,21 @@ voxels <- function(cloud, voxel.size, obj.voxels = TRUE) {
   colnames(vox) <- c("X", "Y", "Z")
 
   max_digits <- max(decimals(vox$X), decimals(vox$Y), decimals(vox$Z)) ###Number of digist
+  min_point <- as.numeric(paste("0.", paste(format(rep(0, max_digits-1)), collapse = ''), "1", sep = ""))   ##  Buffer the minimum point value by half the voxel size to find the lower bound for the XYZ voxels
 
-  vox$X <- vox$X - min(cloud$X) ###Rescale to positive values
-  vox$Y <- vox$Y - min(cloud$Y)
-  vox$Z <- vox$Z - min(cloud$Z)
+  vox$X <- round((vox$X - min(cloud$X)) + min_point, max_digits) ###Rescale to positive values
+  vox$Y <- round((vox$Y - min(cloud$Y)) + min_point, max_digits)
+  vox$Z <- round((vox$Z - min(cloud$Z)) + min_point, max_digits)
 
-  min_point <- round(-voxel.size/2, digits = max_digits)   ##  Buffer the minimum point value by half the voxel size to find the lower bound for the XYZ voxels
-
-  vox$X <- ceiling((vox$X - min_point)/voxel.size)
-  vox$Y <- ceiling((vox$Y - min_point)/voxel.size)
-  vox$Z <- ceiling((vox$Z - min_point)/voxel.size)
+  vox$X <- round(ceiling(vox$X/voxel.size), max_digits)
+  vox$Y <- round(ceiling(vox$Y/voxel.size), max_digits)
+  vox$Z <- round(ceiling(vox$Z/voxel.size), max_digits)
 
   vox <- vox[ , .N, by = .(X, Y, Z)] #Cound the number of points per voxel
 
-  vox$X <- round(min(cloud[,1]) + ((vox$X-1)*voxel.size), max_digits) #Set coordinates
-  vox$Y <- round(min(cloud[,2]) + ((vox$Y-1)*voxel.size), max_digits)
-  vox$Z <- round(min(cloud[,3]) + ((vox$Z-1)*voxel.size), max_digits)
+  vox$X <- round((min(cloud[,1]) + ((vox$X-1)*voxel.size) + (voxel.size/2)), max_digits) #Set coordinates
+  vox$Y <- round((min(cloud[,2]) + ((vox$Y-1)*voxel.size) + (voxel.size/2)), max_digits)
+  vox$Z <- round((min(cloud[,3]) + ((vox$Z-1)*voxel.size)) + (voxel.size/2), max_digits)
 
   if(obj.voxels == TRUE) {
     parameter <- voxel.size
