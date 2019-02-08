@@ -3,7 +3,6 @@
 #' @description Create a summary of the voxels or future voxels.
 #'
 #' @param voxels An object of class \code{voxels} using the \code{voxels()} function.
-#' @param voxel.size A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud. This need to be used if \code{class(voxels) != "voxels"}.
 #' @param bootstrap A logical vector length 1 vector. If \code{bootstrap = TRUE}, it compute a bootstrap on the H index calculations. \code{bootstrap = FALSE} as default.
 #' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates.
 #'
@@ -23,7 +22,7 @@
 #' summary_voxels(vox, bootstrap = TRUE, R = 1000)
 #'
 #'@export
-summary_voxels <- function(voxels, voxel.size = NULL, bootstrap = FALSE, R) {
+summary_voxels <- function(voxels, voxel.size = NULL, bootstrap = FALSE, R = NULL) {
 
   if(class(voxels)[1] != "voxels") {
     stop("An object from voxels() need to be used")
@@ -43,6 +42,11 @@ summary_voxels <- function(voxels, voxel.size = NULL, bootstrap = FALSE, R) {
     frame <- data.table(Voxel.size, N_voxels, Volumen, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy)
 
   } else if(bootstrap == TRUE) {
+
+    if(is.null(R) == TRUE) {
+      stop("Select the number of bootstrap replicates (R)")
+    }
+
     h_boot <- boot(voxels$voxels$N, shannon_boot, R= R)$t
     H_boot_mean <- mean(h_boot) #H index with boot
     H_boot_sd <- sd(h_boot)

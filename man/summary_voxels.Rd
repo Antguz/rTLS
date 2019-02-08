@@ -4,12 +4,11 @@
 \alias{summary_voxels}
 \title{Voxels summary}
 \usage{
-summary_voxels(voxels, voxel.size = NULL, bootstrap = FALSE, R)
+summary_voxels(voxels, voxel.size = NULL, bootstrap = FALSE,
+  R = NULL)
 }
 \arguments{
 \item{voxels}{An object of class \code{voxels} using the \code{voxels()} function.}
-
-\item{voxel.size}{A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud. This need to be used if \code{class(voxels) != "voxels"}.}
 
 \item{bootstrap}{A logical vector length 1 vector. If \code{bootstrap = TRUE}, it compute a bootstrap on the H index calculations. \code{bootstrap = FALSE} as default.}
 
