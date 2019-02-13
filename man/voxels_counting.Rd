@@ -4,13 +4,15 @@
 \alias{voxels_counting}
 \title{Voxels counting}
 \usage{
-voxels_counting(cloud, voxel.range = NULL, bootstrap = FALSE, R,
-  parallel = FALSE, cores = NULL)
+voxels_counting(cloud, voxel.range = NULL, random = FALSE,
+  bootstrap = FALSE, R, parallel = FALSE, cores = NULL)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with xyz coordinates of the point clouds in the first three columns.}
 
 \item{voxel.range}{A positive numeric vector describing the different voxel size to perform. If \code{voxel.range = NULL}, it use 10 voxel sizes by defaul. See details.}
+
+\item{random}{Logical. If \code{TRUE}, it generates voxels on a set of random points created using the same number of points and _xyz_ range of \code{cloud}. \code{FALSE} as default.}
 
 \item{bootstrap}{Logical, if \code{bootstrap = TRUE}, it computes a bootstrap on the H index calculations. \code{bootstrap = FALSE} as default.}
 

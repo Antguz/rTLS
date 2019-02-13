@@ -2,7 +2,7 @@
 #'
 #' @description Create a summary of the voxels or future voxels.
 #'
-#' @param voxels An object of class \code{voxels} using the \code{voxels()} function.
+#' @param voxels An object of class \code{voxels} created using the \code{voxels()} function.
 #' @param bootstrap A logical vector length 1 vector. If \code{bootstrap = TRUE}, it compute a bootstrap on the H index calculations. \code{bootstrap = FALSE} as default.
 #' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates.
 #'
@@ -22,7 +22,7 @@
 #' summary_voxels(vox, bootstrap = TRUE, R = 1000)
 #'
 #'@export
-summary_voxels <- function(voxels, voxel.size = NULL, bootstrap = FALSE, R = NULL) {
+summary_voxels <- function(voxels, bootstrap = FALSE, R = NULL) {
 
   if(class(voxels)[1] != "voxels") {
     stop("An object from voxels() need to be used")

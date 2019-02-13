@@ -2,9 +2,12 @@
 #'
 #' @description Create cubes of a given distance in a point cloud though their voxelization. It use a modify version of the code used in Greaves et al. 2015.
 #'
-#' @param cloud A \code{matrix} or \code{data.frame} with xyz coordinates in the first three columns.
+#' @param cloud A \code{matrix} or \code{data.frame} with _xyz_ coordinates in the first three columns.
 #' @param voxel.size A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud.
-#' @return If \code{obj.voxels = TRUE}, it return an object of class \code{voxels} wich is a list with the \code{cloud} and the parameter \code{voxel.size} used, and the \code{voxels} created. If \code{obj.voxel = FALSE} it return a data.frame with the voxels created.
+#' @param random Logical. If \code{TRUE}, it generates voxels on a set of random points created using the same number of points and _xyz_ range of \code{cloud}. \code{FALSE} as default.
+#' @obj.voxels Logical. If \code{obj.voxel = TRUE}, it returns an object of class \code{"voxels"}, If \code{obj.voxel = FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel. \code{TRUE} as default
+#'
+#' @return If \code{obj.voxel = TRUE}, it return an object of class \code{"voxels"} wich contain a list with the points used to create the voxels, the parameter \code{voxel.size}, and the \code{voxels} created. If \code{obj.voxel = FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel.
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #' @references Greaves, H. E., Vierling, L. A., Eitel, J. U., Boelman, N. T., Magney, T. S., Prager, C. M., & Griffin, K. L. (2015). Estimating aboveground biomass and leaf area of low-stature Arctic shrubs with terrestrial LiDAR. Remote Sensing of Environment, 164, 26-35.
 #'
@@ -12,16 +15,31 @@
 #' data("pc_tree")
 #'
 #' ###Create voxels of a size of 0.5.
-#' voxels(pc_tree, voxel.size = 50)
+#' voxels(pc_tree, voxel.size = 0.5)
+#'
+#' ###Returns just the coordinates of the voxels and the number of points in each voxel
+#' voxels(pc_tree, voxel.size = 0.5, obj.voxel = FALSE)
+#'
+#' ###Create a random cloud based on a point cloud and return voxels
+#' voxels(pc_tree, voxel.size = 0.5, random = TRUE)
 #'
 #' @export
-voxels <- function(cloud, voxel.size, obj.voxels = TRUE) {
+voxels <- function(cloud, voxel.size, random = FALSE, obj.voxels = TRUE) {
 
+  cloud <- cloud[,1:3]
   colnames(cloud) <- c("X", "Y", "Z")
-  vox <- cloud[,1:3]
-  colnames(vox) <- c("X", "Y", "Z")
 
-  max_digits <- max(decimals(vox$X), decimals(vox$Y), decimals(vox$Z)) ###Number of digist
+  if(random == FALSE) {
+    vox <- cloud
+
+  } else if(random == TRUE) {
+    vox <- data.table(X = runif(nrow(cloud), min(cloud$X), max(cloud$X)),
+                      Y = runif(nrow(cloud), min(cloud$Y), max(cloud$Y)),
+                      Z = runif(nrow(cloud), min(cloud$Z), max(cloud$Z)))
+    vox_final <- vox
+  }
+
+  max_digits <- max(decimals(cloud$X), decimals(cloud$Y), decimals(cloud$Z)) ###Number of digist
   min_point <- as.numeric(paste("0.", paste(format(rep(0, max_digits-1)), collapse = ''), "1", sep = ""))   ##  Buffer the minimum point value by half the voxel size to find the lower bound for the XYZ voxels
 
   vox$X <- round((vox$X - min(cloud$X)) + min_point, max_digits) ###Rescale to positive values
@@ -41,7 +59,14 @@ voxels <- function(cloud, voxel.size, obj.voxels = TRUE) {
   if(obj.voxels == TRUE) {
     parameter <- voxel.size
     names(parameter) <- "voxel.size"
-    final <- list(cloud = cloud, parameter = parameter, voxels = vox)
+
+    if(random == FALSE) {
+      final <- list(cloud = cloud, parameter = parameter, voxels = vox)
+
+    } else if(random == TRUE) {
+      final <- list(cloud = vox_final, parameter = parameter, voxels = vox)
+    }
+
     class(final) <- "voxels"
 
   } else {

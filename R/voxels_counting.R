@@ -4,6 +4,7 @@
 #'
 #' @param cloud A \code{data.table} with xyz coordinates of the point clouds in the first three columns.
 #' @param voxel.range A positive numeric vector describing the different voxel size to perform. If \code{voxel.range = NULL}, it use 10 voxel sizes by defaul. See details.
+#' @param random Logical. If \code{TRUE}, it generates voxels on a set of random points created using the same number of points and _xyz_ range of \code{cloud}. \code{FALSE} as default.
 #' @param bootstrap Logical, if \code{bootstrap = TRUE}, it computes a bootstrap on the H index calculations. \code{bootstrap = FALSE} as default.
 #' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates.
 #' @param parallel Logical, if \code{TRUE} it uses a parallel processing. \code{FALSE} as default.
@@ -25,7 +26,7 @@
 #' voxels_counting(pc_tree, bootstrap = TRUE, R = 1000, parallel = TRUE, cores = 4)
 #'
 #' @export
-voxels_counting <- function(cloud, voxel.range = NULL, bootstrap = FALSE, R, parallel = FALSE, cores = NULL) {
+voxels_counting <- function(cloud, voxel.range = NULL, random = FALSE, bootstrap = FALSE, R, parallel = FALSE, cores = NULL) {
 
   colnames(cloud) <- c("X", "Y", "Z")
 
@@ -34,7 +35,6 @@ voxels_counting <- function(cloud, voxel.range = NULL, bootstrap = FALSE, R, par
     max.range <- ranges[which.max(ranges)] + 0.001
     voxel.range <- c(max.range, max.range/2, max.range/4, max.range/8, max.range/16, max.range/32, max.range/64, max.range/128, max.range/256, max.range/512, max.range/1024)
   }
-
 
   if(parallel == TRUE) { ###If parallel is true
 
@@ -48,7 +48,7 @@ voxels_counting <- function(cloud, voxel.range = NULL, bootstrap = FALSE, R, par
 
     #Run in parallel
     results <- foreach(i = 1:length(voxel.range), .inorder = FALSE, .combine= rbind, .packages = c("data.table", "rTLS"), .options.snow = opts) %dopar% {
-      vox <- voxels(cloud, voxel.size = voxel.range[i])
+      vox <- voxels(cloud, voxel.size = voxel.range[i], random = random)
       summary <- summary_voxels(vox, bootstrap = bootstrap, R = R)
       return(summary)
     }
@@ -65,13 +65,11 @@ voxels_counting <- function(cloud, voxel.range = NULL, bootstrap = FALSE, R, par
     #Run without using parallel
     results <- foreach(i = 1:length(voxel.range), .inorder = FALSE, .combine= rbind) %do% {
       setTxtProgressBar(pb, i)
-      vox <- voxels(cloud, voxel.size = voxel.range[i])
+      vox <- voxels(cloud, voxel.size = voxel.range[i], random = random)
       summary <- summary_voxels(vox, bootstrap = bootstrap, R = R)
       return(summary)
     }
-
     results <- results[order(Voxel.size)]
-
   }
   return(results)
 }
