@@ -5,7 +5,7 @@
 #' @param cloud A \code{matrix} or \code{data.frame} with _xyz_ coordinates in the first three columns.
 #' @param voxel.size A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud.
 #' @param random Logical. If \code{TRUE}, it generates voxels on a set of random points created using the same number of points and _xyz_ range of \code{cloud}. \code{FALSE} as default.
-#' @obj.voxels Logical. If \code{obj.voxel = TRUE}, it returns an object of class \code{"voxels"}, If \code{obj.voxel = FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel. \code{TRUE} as default
+#' @param obj.voxels Logical. If \code{obj.voxel = TRUE}, it returns an object of class \code{"voxels"}, If \code{obj.voxel = FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel. \code{TRUE} as default
 #'
 #' @return If \code{obj.voxel = TRUE}, it return an object of class \code{"voxels"} wich contain a list with the points used to create the voxels, the parameter \code{voxel.size}, and the \code{voxels} created. If \code{obj.voxel = FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel.
 #' @author J. Antonio Guzman Q. and Ronny Hernandez

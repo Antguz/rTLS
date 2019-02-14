@@ -12,6 +12,8 @@ voxels(cloud, voxel.size, random = FALSE, obj.voxels = TRUE)
 \item{voxel.size}{A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud.}
 
 \item{random}{Logical. If \code{TRUE}, it generates voxels on a set of random points created using the same number of points and _xyz_ range of \code{cloud}. \code{FALSE} as default.}
+
+\item{obj.voxels}{Logical. If \code{obj.voxel = TRUE}, it returns an object of class \code{"voxels"}, If \code{obj.voxel = FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel. \code{TRUE} as default}
 }
 \value{
 If \code{obj.voxel = TRUE}, it return an object of class \code{"voxels"} wich contain a list with the points used to create the voxels, the parameter \code{voxel.size}, and the \code{voxels} created. If \code{obj.voxel = FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel.

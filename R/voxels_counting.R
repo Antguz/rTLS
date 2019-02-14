@@ -48,8 +48,8 @@ voxels_counting <- function(cloud, voxel.range = NULL, random = FALSE, bootstrap
 
     #Run in parallel
     results <- foreach(i = 1:length(voxel.range), .inorder = FALSE, .combine= rbind, .packages = c("data.table", "rTLS"), .options.snow = opts) %dopar% {
-      vox <- voxels(cloud, voxel.size = voxel.range[i], random = random)
-      summary <- summary_voxels(vox, bootstrap = bootstrap, R = R)
+      vox <- voxels(cloud, voxel.size = voxel.range[i], random = random, obj.voxels = FALSE)
+      summary <- summary_voxels(vox, voxel.size = voxel.range[i], bootstrap = bootstrap, R = R)
       return(summary)
     }
 
@@ -65,8 +65,8 @@ voxels_counting <- function(cloud, voxel.range = NULL, random = FALSE, bootstrap
     #Run without using parallel
     results <- foreach(i = 1:length(voxel.range), .inorder = FALSE, .combine= rbind) %do% {
       setTxtProgressBar(pb, i)
-      vox <- voxels(cloud, voxel.size = voxel.range[i], random = random)
-      summary <- summary_voxels(vox, bootstrap = bootstrap, R = R)
+      vox <- voxels(cloud, voxel.size = voxel.range[i], random = random, obj.voxels = FALSE)
+      summary <- summary_voxels(vox, voxel.size = voxel.range[i], bootstrap = bootstrap, R = R)
       return(summary)
     }
     results <- results[order(Voxel.size)]
