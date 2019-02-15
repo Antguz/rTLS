@@ -9,7 +9,7 @@ cloud_metrics(cloud, cloud_b = NULL, basic = TRUE,
   radius = NULL, k, n_replicates = NULL, parallel = FALSE, cores)
 }
 \arguments{
-\item{cloud}{A \code{data.table} with xyz coordinates in the first three columns or an object of class \code{neighborhood}.}
+\item{cloud}{A \code{data.table} with xyz coordinates in the first three columns or an object of class \code{"neighborhood"}.}
 
 \item{cloud_b}{A \code{data.table} with xyz coordinates in the first three columns. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
 

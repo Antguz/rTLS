@@ -2,7 +2,7 @@
 #'
 #' @description Estimate different metrics on the poits of a cloud. It estimate 10 parameters based on Wang et al. 2017.
 #'
-#' @param cloud A \code{data.table} with xyz coordinates in the first three columns or an object of class \code{neighborhood}.
+#' @param cloud A \code{data.table} with xyz coordinates in the first three columns or an object of class \code{"neighborhood"}.
 #' @param cloud_b A \code{data.table} with xyz coordinates in the first three columns. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.
 #' @param basic Logical, if \code{TRUE} it estimate basic metrics. \code{basic = TRUE} as default.
 #' @param distribution Logical, if \code{TRUE} it estimate distribution metrics of points. \code{distribution = TRUE} as default.
