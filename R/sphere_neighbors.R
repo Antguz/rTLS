@@ -29,6 +29,12 @@ sphere_neighbors <- function(x, cloud, radius) {
   cube <- cube[,distance := sqrt((xcoor - cube$X)^2 + (ycoor - cube$Y)^2 + (zcoor - cube$Z)^2)] #Get the distance of the points in the cube
 
   space <- cube[cube$distance <= radius & cube$distance > 0,] #Create the sphere incide the cube
-  space <- setorder(space, distance) #Order points by distance
-  return(space)
+
+  if(nrow(space) < 1) {
+    return(space[1,])
+
+  } else {
+    space <- setorder(space, distance) #Order points by distance
+    return(space)
+  }
 }

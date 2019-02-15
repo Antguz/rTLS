@@ -45,5 +45,10 @@ knn_neighbors <- function(x, cloud, k, radius = NULL) {
 
   space <- na.exclude(space[c(1:k),]) #Select the k points
 
-  return(space)
+  if(nrow(space) < 1) {
+    return(space[1,])
+
+  } else {
+    return(space)
+  }
 }
