@@ -17,8 +17,9 @@
 #' @examples
 #' data("pc_tree")
 #'
-#' ###Create voxels of a size of 0.5.
-#' voxels(pc_tree, voxel.size = 0.5)
+#' ###Create voxels of a size of 0.5. and extract the number of voxels in the vertigal gradient
+#' vox <- voxels(pc_tree, voxel.size = 0.5)
+#' wavefrom(vox, method = "voxels", values.perc = TRUE, height.perc = TRUE)
 #'
 #' ###Returns just the coordinates of the voxels and the number of points in each voxel
 #' voxels(pc_tree, voxel.size = 0.5, obj.voxel = FALSE)
@@ -61,7 +62,7 @@ wavefrom <- function(voxels, voxel.size = NULL, method, values.perc = TRUE, heig
 
   if(height.perc == TRUE) {  ###Select representation for height if percentage is true________________________________________________________
     height <- cubes[ , .N, by = .(Z)][,1]
-    height <- (height$Z-(min(height$Z)-size/2))/((max(height$Z)+size/2)-(min(height$Z)-size/2))
+    height <- (height$Z-(min(height$Z)-size/2))/((max(height$Z)+size/2)-(min(height$Z)-size/2))*100
     x.names <- "Height (%)"
 
   } else if(height.perc == FALSE) { ###Select the representation for height if percentage is false
@@ -95,7 +96,7 @@ wavefrom <- function(voxels, voxel.size = NULL, method, values.perc = TRUE, heig
   }
 
   frame <- data.table(height, values)
-  colnames(frame) <- c("x", "y")
+  colnames(frame) <- c(x.names, y.names)
 
   return(frame)
 }
