@@ -36,6 +36,10 @@ voxels_counting <- function(cloud, voxel.range = NULL, random = FALSE, bootstrap
     voxel.range <- c(max.range, max.range/2, max.range/4, max.range/8, max.range/16, max.range/32, max.range/64, max.range/128, max.range/256, max.range/512, max.range/1024)
   }
 
+  if(random == TRUE) {
+    set.seed(round(runif(1, 1, 100000), 0))
+  }
+
   if(parallel == TRUE) { ###If parallel is true
 
     cl <- makeCluster(cores, outfile="") #Make clusters
