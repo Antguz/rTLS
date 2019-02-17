@@ -9,7 +9,7 @@ min_distance(cloud, parallel = FALSE, cores = NULL)
 \arguments{
 \item{cloud}{A \code{data.table} with xyz coordinates in the first three columns.}
 
-\item{parallel}{Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.}
+\item{parallel}{Logical, if \code{TRUE} it use a parallel processing to estimate distances between points. \code{FALSE} as default.}
 
 \item{cores}{An \code{integer} >= 0 describing the number of cores use. This need to be used if \code{parallel = TRUE}.}
 }
@@ -17,7 +17,7 @@ min_distance(cloud, parallel = FALSE, cores = NULL)
 A \code{numeric} vector describing the minimun distance between points.
 }
 \description{
-Estimate the minimun distance between points in a point cloud.
+Estimate the minimum distance between points in a point cloud.
 }
 \examples{
 data("pc_tree")

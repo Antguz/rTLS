@@ -1,9 +1,9 @@
 #' @title Minimun distance between points
 #'
-#' @description Estimate the minimun distance between points in a point cloud.
+#' @description Estimate the minimum distance between points in a point cloud.
 #'
 #' @param cloud A \code{data.table} with xyz coordinates in the first three columns.
-#' @param parallel Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.
+#' @param parallel Logical, if \code{TRUE} it use a parallel processing to estimate distances between points. \code{FALSE} as default.
 #' @param cores An \code{integer} >= 0 describing the number of cores use. This need to be used if \code{parallel = TRUE}.
 #'
 #' @return A \code{numeric} vector describing the minimun distance between points.

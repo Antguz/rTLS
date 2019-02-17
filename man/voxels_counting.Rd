@@ -4,21 +4,24 @@
 \alias{voxels_counting}
 \title{Voxels counting}
 \usage{
-voxels_counting(cloud, voxel.range = NULL, random = FALSE,
-  bootstrap = FALSE, R, parallel = FALSE, cores = NULL)
+voxels_counting(cloud, voxel.range = NULL, bootstrap = FALSE,
+  R = NULL, random = FALSE, minDistance = NULL, parallel = FALSE,
+  cores = NULL)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with xyz coordinates of the point clouds in the first three columns.}
 
 \item{voxel.range}{A positive numeric vector describing the different voxel size to perform. If \code{voxel.range = NULL}, it use 10 voxel sizes by defaul. See details.}
 
-\item{random}{Logical. If \code{TRUE}, it generates voxels on a set of random points created using the same number of points and _xyz_ range of \code{cloud}. \code{FALSE} as default.}
-
 \item{bootstrap}{Logical, if \code{bootstrap = TRUE}, it computes a bootstrap on the H index calculations. \code{bootstrap = FALSE} as default.}
 
-\item{R}{A positive \code{integer} of length 1 indicating the number of bootstrap replicates.}
+\item{R}{A positive \code{integer} of length 1 indicating the number of bootstrap replicates. This need to be used if \code{bootstrap = TRUE}.}
 
-\item{parallel}{Logical, if \code{TRUE} it uses a parallel processing. \code{FALSE} as default.}
+\item{random}{Logical. If \code{TRUE}, it generates voxels on a random point cloud created using the same number of points and _xyz_ range of \code{cloud}, and a minimun distance between points. \code{FALSE} as default.}
+
+\item{minDistance}{A positive \code{numeric} vector of length 1 describing the future minimun distance between points. This need to be used if \code{random = TRUE}. If \code{random = TRUE} and \code{minDistance = NULL}, it automatically estimate the minimun distance using \code{min_distance()}.}
+
+\item{parallel}{Logical, if \code{TRUE} it uses a parallel processing for the voxelization. If \code{random = TRUE} and \code{minDistance = NULL}, it also use parallel processing to estimate the minimun distance between points. \code{FALSE} as default.}
 
 \item{cores}{An \code{integer} >= 0 describing the number of cores to use. This need to be used if \code{parallel = TRUE}.}
 }

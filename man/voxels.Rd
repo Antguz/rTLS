@@ -4,16 +4,23 @@
 \alias{voxels}
 \title{Voxelization of a point cloud}
 \usage{
-voxels(cloud, voxel.size, random = FALSE, obj.voxels = TRUE)
+voxels(cloud, voxel.size, obj.voxels = TRUE, random = FALSE,
+  minDistance = NULL, parallel = FALSE, cores = NULL)
 }
 \arguments{
 \item{cloud}{A \code{matrix} or \code{data.frame} with _xyz_ coordinates in the first three columns.}
 
 \item{voxel.size}{A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud.}
 
-\item{random}{Logical. If \code{TRUE}, it generates voxels on a set of random points created using the same number of points and _xyz_ range of \code{cloud}. \code{FALSE} as default.}
+\item{obj.voxels}{Logical. If \code{obj.voxel = TRUE}, it returns an object of class \code{"voxels"}, If \code{obj.voxel = FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel. \code{TRUE} as default.}
 
-\item{obj.voxels}{Logical. If \code{obj.voxel = TRUE}, it returns an object of class \code{"voxels"}, If \code{obj.voxel = FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel. \code{TRUE} as default}
+\item{random}{Logical. If \code{TRUE}, it generates voxels on a random point cloud created using the same number of points and _xyz_ range of \code{cloud}, and a minimun distance between points. \code{FALSE} as default.}
+
+\item{minDistance}{A positive \code{numeric} vector describing the minimun distance between points. This need to be used if \code{random = TRUE}. If \code{random = TRUE} and \code{minDistance = NULL}, it automatically estimate the minimun distance using \code{min_distance()}.}
+
+\item{parallel}{Logical. If \code{TRUE}, it estimate the \code{minDistance} using parallel processing if \code{minDistance = NULL}.}
+
+\item{cores}{An \code{integer} >= 0 describing the number of cores use. This need to be used if \code{parallel = TRUE}.}
 }
 \value{
 If \code{obj.voxel = TRUE}, it return an object of class \code{"voxels"} wich contain a list with the points used to create the voxels, the parameter \code{voxel.size}, and the \code{voxels} created. If \code{obj.voxel = FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel.
@@ -30,8 +37,14 @@ voxels(pc_tree, voxel.size = 0.5)
 ###Returns just the coordinates of the voxels and the number of points in each voxel
 voxels(pc_tree, voxel.size = 0.5, obj.voxel = FALSE)
 
-###Create a random cloud based on a point cloud and return voxels
-voxels(pc_tree, voxel.size = 0.5, random = TRUE)
+###Create a random cloud based on a previus point cloud with a known minimun point distance of 0.05 and return voxels
+voxels(pc_tree, voxel.size = 0.5, random = TRUE, minDistance = 0.05)
+
+###Create a random cloud based on a previus point cloud with a unknown minimun point distance and return voxels
+voxels(pc_tree, voxel.size = 0.5, random = TRUE, minDistance = 0.05)
+
+###Create a random cloud based on a previus point cloud with a unknown minimun point distance that will be estimated using parallel processing.
+voxels(pc_tree, voxel.size = 0.5, random = TRUE, parallel = TRUE, cores = 4)
 
 }
 \references{
