@@ -18,7 +18,7 @@
 #' @export
 random_cloud <- function(npoints, limits, minDistance) {
 
-  max_points <- length(seq(limits[1], limits[2], minDistance))*length(seq(limits[3], limits[4], minDistance))*length(seq(limits[5], limits[6], minDistance))
+  max_points <- as.numeric(length(seq(limits[1], limits[2], minDistance)))*as.numeric(length(seq(limits[3], limits[4], minDistance)))*as.numeric(length(seq(limits[5], limits[6], minDistance)))
 
   if(npoints > max_points) {
     stop(paste("", "It is not posible to create ", npoints, " points using the defined minDistance with these limits", sep = ""))
