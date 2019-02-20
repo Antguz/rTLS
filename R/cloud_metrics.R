@@ -26,13 +26,13 @@
 #' ###On objects of class neighborhood
 #' ##Calculate the neighborhood of 1000 random rows of a point cloud using the sphere method and a radius of 0.2.
 #' cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
-#' dist <- neighborhood(cloud.random, pc_tree, method = "sphere", radius = 1)
+#' dist <- neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2)
 #'
 #' #Estimate metrics without using parallel.
-#' cloud_metrics(dist)
+#' cloud_metrics(dist, distribution = FALSE)
 #'
 #' #Estimate matrics using parallel processing with 4 cores.
-#' cloud_metrics(dist, parallel = TRUE, cores = 4)
+#' cloud_metrics(dist, distribution = FALSE, parallel = TRUE, cores = 4)
 #'
 #' ###On objects of class data.table.
 #' ##Select 1000 random rows of a point cloud.
