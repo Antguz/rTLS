@@ -26,7 +26,7 @@
 #' ###On objects of class neighborhood
 #' ##Calculate the neighborhood of 1000 random rows of a point cloud using the sphere method and a radius of 0.2.
 #' cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
-#' dist <- neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.05)
+#' dist <- neighborhood(cloud.random, pc_tree, method = "sphere", radius = 1)
 #'
 #' #Estimate metrics without using parallel.
 #' cloud_metrics(dist)
@@ -118,27 +118,31 @@ cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = TR
 
       final <- foreach(i = 1:nrow(cloud$cloud), .inorder = FALSE, .combine= rbind, .packages = c("data.table", "rTLS"), .options.snow = opts) %dopar% {
 
-        final <- cloud$cloud[i]
+        final <- data.table(points = i)
 
         if(basic == TRUE) {
-          basc <- basic_metrics(cloud$neighborhood[points == i, 2:5], radius = radius)
-          final <- cbind(final, basc)
+          basc <- cloud$neighborhood[points == i, basic_metrics(.SD, radius = radius), by = points]
+          final <- cbind(final, basc[,2:ncol(basc)])
         }
 
         if(distribution == TRUE) {
-          disp <- distribution(cloud$neighborhood[points == i, 2:5], radius = radius, n_replicates = n_replicates)
-          final <- cbind(final, disp)
+          disp <- cloud$neighborhood[points == i, distribution(.SD, radius = radius, n_replicates = n_replicates), by = points]
+          final <- cbind(final, disp[,2:ncol(disp)])
         }
 
         if(dimensionality == TRUE) {
-          dimen <- dimensionality(cloud$neighborhood[points == i, 2:4])
-          final <- cbind(final, dimen)
+          dimen <- cloud$neighborhood[points == i, dimensionality(.SD), by = points]
+          final <- cbind(final, dimen[,2:ncol(dimen)])
         }
 
         final
       }
 
       close(pb)
+
+      final <- final[order(points)] ###Order of the results
+
+      final <- cbind(cloud$cloud, final[, 2:ncol(final)]) ###Cbind with the point cloud
 
     } else if(class(cloud)[1] != "neighborhood") { ###For a object of class data.table
 
