@@ -18,6 +18,8 @@
 #' @export
 dimensionality <- function(space) {
 
+  space <- na.exclude(space)
+
   if(nrow(space) >= 3) {
     pca <- prcomp(space[,1:3], center = TRUE, scale = FALSE, retx = FALSE)
     eigval <- pca$sdev^2
@@ -34,15 +36,15 @@ dimensionality <- function(space) {
 
 
   } else if(nrow(space) < 3) {
-    frame <- data.table(linearity = NA,
-                        planarity = NA,
-                        scattering = NA,
-                        omnivariance = NA,
-                        anisotropy = NA,
-                        eigenentropy = NA,
-                        sum_eigen = NA,
-                        sur_var = NA,
-                        eigen_ratio_2D = NA)
+    frame <- data.table(linearity = as.numeric(NA),
+                        planarity = as.numeric(NA),
+                        scattering = as.numeric(NA),
+                        omnivariance = as.numeric(NA),
+                        anisotropy = as.numeric(NA),
+                        eigenentropy = as.numeric(NA),
+                        sum_eigen = as.numeric(NA),
+                        sur_var = as.numeric(NA),
+                        eigen_ratio_2D = as.numeric(NA))
   }
   return(frame)
 }

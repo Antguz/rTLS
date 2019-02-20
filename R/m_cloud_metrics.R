@@ -30,13 +30,13 @@
 #' dist <- neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2)
 #'
 #' #Estimate on three different scales scales of spheres (0.2, 0.1, 0.05) without parallel
-#' m_cloud_metrics(dist, radius.range = c(0.2, 0.1, 0.05), parallel = FALSE)
+#' m_cloud_metrics(dist, radius.range = c(0.2, 0.1, 0.01), parallel = FALSE)
 #'
 #' #Estimate metrics using three different scales of spheres (1, 0.9, 0.8) with parallel
 #' m_cloud_metrics(dist, radius.range = c(0.2, 0.1, 0.05), parallel = TRUE, cores = 4)
 #'
 #' @export
-m_cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = TRUE, dimensionality = TRUE, method = NULL, radius.range = NULL, k.range, n_replicates = NULL, parallel = FALSE, cores) {
+m_cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = TRUE, dimensionality = TRUE, method = NULL, radius.range = NULL, k.range, n_replicates = NULL, parallel = FALSE, cores = NULL) {
 
   if(class(cloud)[1] == "neighborhood") { ### For a object of neighborhood
     if(names(cloud$parameter) == "radius") { ###If method sphere is selected
@@ -51,7 +51,7 @@ m_cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = 
         new_cloud <- sub_neighborhood(cloud, method = "sphere", new_radius = radius.range[i])
         metrics <- cloud_metrics(new_cloud,  basic = basic, distribution = distribution, dimensionality = dimensionality, n_replicates = n_replicates, parallel = parallel, cores = cores)
         colnames(metrics) <- c("X", "Y", "Z", paste("", colnames(metrics[,4:ncol(metrics)]), "_(", radius.range[i], ")", sep = ""))
-        final <- merge(final, metrics, by = c("X", "Y", "Z"), all.x = TRUE, all.y = TRUE)
+        final <- merge(final, metrics, by = c("X", "Y", "Z"))
       }
     }
     else if(names(cloud$parameter) == "k") { ###If method knn is selected
@@ -66,7 +66,7 @@ m_cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = 
         new_cloud <- sub_neighborhood(cloud, method = "knn", new_k = k.range[i])
         metrics <- cloud_metrics(new_cloud,  basic = basic, distribution = distribution, dimensionality = dimensionality, n_replicates = n_replicates, parallel = parallel, cores = cores)
         colnames(metrics) <- c("X", "Y", "Z", paste("", colnames(metrics[,4:ncol(metrics)]), "_(", k.range[i], ")", sep = ""))
-        final <- merge(final, metrics, by = c("X", "Y", "Z"), all.x = TRUE, all.y = TRUE)
+        final <- merge(final, metrics, by = c("X", "Y", "Z"))
       }
     }
 
@@ -85,7 +85,7 @@ m_cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = 
         new_cloud <- sub_neighborhood(cloud, method = "sphere", new_radius = radius.range[i])
         metrics <- cloud_metrics(new_cloud,  basic = basic, distribution = distribution, dimensionality = dimensionality, n_replicates = n_replicates, parallel = parallel, cores = cores)
         colnames(metrics) <- c("X", "Y", "Z", paste("", colnames(metrics[,4:ncol(metrics)]), "_(", radius.range[i], ")", sep = ""))
-        final <- merge(final, metrics, by = c("X", "Y", "Z"), all.x = TRUE, all.y = TRUE)
+        final <- merge(final, metrics, by = c("X", "Y", "Z"))
       }
 
     } else if(method == "knn") { ### If knn is selected
@@ -102,7 +102,7 @@ m_cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = 
         new_cloud <- sub_neighborhood(cloud, method = "knn", new_k = k.range[i])
         metrics <- cloud_metrics(new_cloud,  basic = basic, distribution = distribution, dimensionality = dimensionality, n_replicates = n_replicates, parallel = parallel, cores = cores)
         colnames(metrics) <- c("X", "Y", "Z", paste("", colnames(metrics[,4:ncol(metrics)]), "_(", k.range[i], ")", sep = ""))
-        final <- merge(final, metrics, by = c("X", "Y", "Z"), all.x = TRUE, all.y = TRUE)
+        final <- merge(final, metrics, by = c("X", "Y", "Z"))
       }
     }
   }

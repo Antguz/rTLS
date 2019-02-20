@@ -51,7 +51,12 @@ cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = TR
 
     if(class(cloud)[1] == "neighborhood") {  ####For a object of neighborhood
       final <- cloud$cloud
-      radius <- ifelse(names(cloud$parameter) == "radius", cloud$parameter, NULL)
+
+      if(names(cloud$parameter) == "radius") {
+        radius <- cloud$parameter
+      } else {
+        radius <- NULL
+      }
 
       if(basic == TRUE) {
         print("Calculating basic metrics")
@@ -100,7 +105,11 @@ cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = TR
 
     if(class(cloud)[1] == "neighborhood") {  ####For a object of neighborhood
 
-      radius <- ifelse(names(cloud$parameter) == "radius", cloud$parameter, NULL)
+      if(names(cloud$parameter) == "radius") {
+        radius <- cloud$parameter
+      } else {
+        radius <- NULL
+      }
 
       print("Calculating metrics")
       pb <- txtProgressBar(min = 0, max = nrow(cloud$cloud), style = 3)

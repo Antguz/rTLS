@@ -19,6 +19,8 @@
 #' @export
 distribution <- function(space, radius = NULL, n_replicates = NULL) {
 
+  space <- na.exclude(space)
+
   if(nrow(space) >= 3) {
     n_replicates <- ifelse(is.null(n_replicates) == TRUE, nrow(space), n_replicates)
     radius <- ifelse(is.null(radius) == TRUE, max(space$distance), radius)
@@ -35,10 +37,10 @@ distribution <- function(space, radius = NULL, n_replicates = NULL) {
 
   } else if(nrow(space) < 3) {
 
-    frame <- data.table(obs_distance = NA,
-                        exp_distance = NA,
-                        dispersion = NA,
-                        aggregation = NA)
+    frame <- data.table(obs_distance = as.numeric(NA),
+                        exp_distance = as.numeric(NA),
+                        dispersion = as.numeric(NA),
+                        aggregation = as.numeric(NA))
   }
   return(frame)
 }

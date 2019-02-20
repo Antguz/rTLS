@@ -18,6 +18,8 @@
 #' @export
 basic_metrics <- function(space, radius = NULL) {
 
+  space <- na.exclude(space)
+
   if(nrow(space) >= 1) {
     radius <- ifelse(is.null(radius) == TRUE, max(space$distance), radius)
     n_neig <- nrow(space)
@@ -28,8 +30,12 @@ basic_metrics <- function(space, radius = NULL) {
     frame <- data.table(n_neig, neig_volumen, sphere_volumen, density)
 
   } else if(nrow(space) < 1) {
-    frame <- data.table(n_neig = NA, neig_volumen = NA, sphere_volumen = NA, density = NA)
+    frame <- data.table(n_neig = as.integer(NA),
+                        neig_volumen = as.numeric(NA),
+                        sphere_volumen = as.numeric(NA),
+                        density = as.numeric(NA))
 
   }
+
   return(frame)
 }
