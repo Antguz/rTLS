@@ -7,7 +7,7 @@
 m_cloud_metrics(cloud, cloud_b = NULL, basic = TRUE,
   distribution = TRUE, dimensionality = TRUE, method = NULL,
   radius.range = NULL, k.range, n_replicates = NULL,
-  parallel = FALSE, cores)
+  parallel = FALSE, cores = NULL)
 }
 \arguments{
 \item{cloud}{An object of class \code{"neighborhood"} or a \code{data.table} with xyz coordinates in the first three columns.}
@@ -46,7 +46,7 @@ cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
 dist <- neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2)
 
 #Estimate on three different scales scales of spheres (0.2, 0.1, 0.05) without parallel
-m_cloud_metrics(dist, radius.range = c(0.2, 0.1, 0.05), parallel = FALSE)
+m_cloud_metrics(dist, radius.range = c(0.2, 0.1, 0.01), parallel = FALSE)
 
 #Estimate metrics using three different scales of spheres (1, 0.9, 0.8) with parallel
 m_cloud_metrics(dist, radius.range = c(0.2, 0.1, 0.05), parallel = TRUE, cores = 4)

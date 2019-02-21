@@ -24,9 +24,12 @@ Subsample the neighboring points based in a radius of a shpere or knn.
 \examples{
 data("pc_tree")
 
+#' ##Calculate the neighborhood of 1000 random rows of a point cloud using the sphere method and a radius of 0.2.
+cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
+dist <- neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2)
+
 ###Subset neighboring points from a radius 0.2 to a radius of 0.1
-dis <- neighborhood(pc_tree, method = "sphere", radius = 0.2, parallel = FALSE)
-sub_neighborhood(dis, method = "sphere", new_radius = 0.1)
+sub_neighborhood(dist, method = "sphere", new_radius = 0.1)
 
 }
 \author{

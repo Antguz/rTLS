@@ -24,7 +24,7 @@
 #' filter(pc_tree, method = "mnp", radius = 0.5, mnp = 100, parallel = TRUE, cores = 8)
 #'
 #' @export
-filter <- function(cloud, method, k, radius = NULL, nSigma, mnp, parallel = FALSE, cores = NULL, plot = TRUE) {
+cloud_filter <- function(cloud, method, k, radius = NULL, nSigma, mnp, parallel = FALSE, cores = NULL, plot = TRUE) {
 
   if(method == "sor") {
 
