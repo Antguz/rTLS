@@ -4,18 +4,18 @@
 \alias{veg_structure}
 \title{Vegetation structure}
 \usage{
-veg_structure(voxels, k = NULL)
+veg_structure(voxels, k = 0.5)
 }
 \arguments{
-\item{voxels}{A \code{"voxels"} object.}
+\item{voxels}{A \code{"voxels"} object, created with \code{voxels()}.}
 
-\item{k}{A coefficient of extinction. If \code{NULL}, 0.5 is assumed as a proxy to characterize the vegetation properties.}
+\item{k}{A \code{numeric} vector of length 1 representing the coefficient of extinction. If \code{NULL}, 0.5 is assumed as a proxy to characterize the vegetation properties.}
 }
 \value{
-If \code{obj.voxel = TRUE}, it return an object of class \code{"voxels"} wich contain a list with the points used to create the voxels, the parameter \code{voxel.size}, and the \code{voxels} created. If \code{obj.voxel = FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel.
+It return a \code{data.table} wich contain the vertical layer (Z), the number of points at each layer, the gap fraction (GF), and the Leaf Area Density (LAD).
 }
 \description{
-Estimates the vegetation structure of the vertical profile of a point cloud based using voxel approach.
+Estimates the gap fraction and leaf area density of the vertical profile of a point cloud using the Bouvier et al. 2015 method.
 }
 \examples{
 data("pc_tree")
@@ -29,6 +29,9 @@ veg_structure(vox)
 }
 \references{
 Bouvier, M., Durrieu, S., Fournier, R. a, & Renaud, J. (2015).  Generalizing predictive models of forest inventory attributes using an area-based approach with airborne las data. Remote Sensing of Environment, 156, 322-334. http://doi.org/10.1016/j.rse.2014.10.004
+}
+\seealso{
+\link[rTLS:voxels]{voxels}
 }
 \author{
 J. Antonio Guzman Q. and Ronny Hernandez
