@@ -46,7 +46,7 @@ artificial_stands <- function(files, n.trees, dimension, sample = TRUE, replace 
     plot(spatial_plotXY)
   }
 
-  stant <- data.table(X = NA, Y = NA, Z = NA, files = NA) ###Final stant to create
+  stant <- NA ###Final stant to create
   spatial_stant <- NA
 
   print(paste("", "Creating an artificial forest stant of ", dimension[1], "x", dimension[2], " with ", n.trees, " trees", sep = ""))  #Progress bar
@@ -92,6 +92,9 @@ artificial_stands <- function(files, n.trees, dimension, sample = TRUE, replace 
       ps_crown <- Polygons(list(p_crown), ID = as.character(i))
       spatial_stant <- SpatialPolygons(list(ps_crown))
 
+      tree$files <- filestoread[i]
+      stant <- tree
+
       if(plot == TRUE) {
         plot(spatial_stant, add = TRUE)
         points(newcentroidXY[1], newcentroidXY[2], col = "red")
@@ -104,29 +107,30 @@ artificial_stands <- function(files, n.trees, dimension, sample = TRUE, replace 
 
       repeat {
         treecoordinates <- c(runif(1, 0, dimension[1]), runif(1, 0, dimension[2]))  ####Move the tree to their new position
-        tree$X <- tree$X + treecoordinates[1]
-        tree$Y <- tree$Y + treecoordinates[2]
-        basetree <- subset(tree, Z >= 0 & Z <= 0.1)
+        tree_try <- tree
+        tree_try$X <- tree_try$X + treecoordinates[1]
+        tree_try$Y <- tree_try$Y + treecoordinates[2]
+        basetree <- subset(tree_try, Z >= 0 & Z <= 0.1)
         newcentroidXY <- c(mean(basetree$X), mean(basetree$Y))
 
-        ch <- chull(tree[,1:2]) ###Crown in their space XY space
-        crown <- tree[ch, 1:2]
+        ch <- chull(tree_try[,1:2]) ###Crown in their space XY space
+        crown <- tree_try[ch, 1:2]
         p_crown <- Polygon(crown)
         ps_crown <- Polygons(list(p_crown), ID = i)
         spatial_crown <- SpatialPolygons(list(ps_crown))
 
-        overlay <- gIntersection(spatial_crown, spatial_stant, byid = FALSE)
-        percentage <- gArea(overlay)/gArea(spatial_crown)*100
+        area_intercepted <- gArea(spatial_crown) - (gArea(gUnion(spatial_crown, spatial_stant)) - gArea(spatial_stant))
+        percentage <- area_intercepted/gArea(spatial_crown)*100
 
-        if(overlap >= percentage) {
+        if(percentage <= overlap) {
 
           if(plot == TRUE) {
             plot(spatial_crown, add = TRUE)
             points(newcentroidXY[1], newcentroidXY[2], col = "red")
           }
 
-          tree$files <- files[i]
-          stant <- rbind(stant, tree)
+          tree_try$files <- filestoread[i]
+          stant <- rbind(stant, tree_try)
 
           spatial_stant <- gUnion(spatial_crown, spatial_stant)
 
