@@ -48,17 +48,18 @@ artificial_stands <- function(files, n.trees, dimension, sample = TRUE, replace 
 
   stant <- NA ###Final stant to create
   spatial_stant <- NA
+  tcoordinates <- data.table(files = filestoread, Xcoordinate = NA, Ycoordinate = NA, CA = NA, Hmax = NA)
 
   print(paste("", "Creating an artificial forest stant of ", dimension[1], "x", dimension[2], " with ", n.trees, " trees", sep = ""))  #Progress bar
-  pb <- txtProgressBar(min = 0, max = n.trees, style = 3)
-  progress <- function(n) setTxtProgressBar(pb, n)
-  opts <- list(progress=progress)
+  pb <- txtProgressBar(min = 0, max = length(filestoread), style = 3)
 
-  results <- foreach(i = 1:n.trees, .inorder = TRUE, .combine= rbind, .packages = c("data.table", "sp", "rTLS", "rgeos"), .options.snow = opts) %do% {  ####Conduct the loop
+  results <- foreach(i = 1:n.trees, .inorder = TRUE, .combine= rbind, .packages = c("data.table", "sp", "rTLS", "rgeos")) %do% {  ####Conduct the loop
+
+    setTxtProgressBar(pb, i)
 
     ###Reading of the files-------------------------------------------------------------------
 
-    tree <- fread(filestoread[i], sep = "\t")
+    tree <- fread(filestoread[i])
     colnames(tree) <- c("X", "Y", "Z")
     tree$Z <- tree$Z - min(tree$Z)
 
@@ -99,6 +100,12 @@ artificial_stands <- function(files, n.trees, dimension, sample = TRUE, replace 
         plot(spatial_stant, add = TRUE)
         points(newcentroidXY[1], newcentroidXY[2], col = "red")
       }
+
+      tcoordinates$Xcoordinate[i] <- newcentroidXY[1]   ###Information of each tree for tcoordinates
+      tcoordinates$Ycoordinate[i] <- newcentroidXY[2]
+      tcoordinates$CA[i] <- gArea(spatial_stant)
+      tcoordinates$Hmax[i] <- max(tree$Z)
+
     }
 
     if(i > 1) {  ###Dealing with other trees ---------------------------------------------
@@ -134,6 +141,11 @@ artificial_stands <- function(files, n.trees, dimension, sample = TRUE, replace 
 
           spatial_stant <- gUnion(spatial_crown, spatial_stant)
 
+          tcoordinates$Xcoordinate[i] <- newcentroidXY[1]   ###Information of each tree for tcoordinates
+          tcoordinates$Ycoordinate[i] <- newcentroidXY[2]
+          tcoordinates$CA[i] <- gArea(spatial_crown)
+          tcoordinates$Hmax[i] <- max(tree_try$Z)
+
           break
         }
 
@@ -141,5 +153,7 @@ artificial_stands <- function(files, n.trees, dimension, sample = TRUE, replace 
       }
     }
   }
+  final <- list(Trees = tcoordinates, Cloud = stant)
+  return(final)
 }
 
