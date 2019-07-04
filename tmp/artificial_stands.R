@@ -18,50 +18,47 @@
 #'
 #' @export
 
-artificial_stands <- function(files, n.trees, dimension, sample = TRUE, replace = TRUE, overlap = NULL, rotation = TRUE, degrees = NULL, plot = TRUE, ...) {
+artificial_stands <- function(files, n.trees, dimension, sample = TRUE, replace = TRUE, overlap = 0, rotation = TRUE, degrees = NULL, plot = TRUE, ...) {
 
   if(length(files) < n.trees & replace == FALSE) { ###Asumtion on the number of files to use and trees selected.
-    stop("The number of tress to use without replacement is lower than the number of files")
+    stop("The number of files selected without replacement is lower than the number of trees to use")
+  }
+
+  if(sample == TRUE) { ###Selecting the order of files and files to use
+    order <- sample(1:length(files), n.trees, replace = replace)
+    filestoread <- files[order]
+  } else {
+    filestoread <- files
   }
 
   if(rotation == TRUE) {
     if(is.null(degrees) == TRUE) {
       degrees <- runif(n.trees, 0.0, 360.0)
     } else if(length(degrees) != n.trees) {
-      stop("Rotation angles need to be provided for each n.trees")
+      stop("Rotation angles need to be provided for each n.trees as a numeric verctor")
     }
   }
-
-  if(is.true(sample) == TRUE) {
-    order <- sample(1:n.trees, replace = replace)
-    trees <- files[order]
-  }
-
-  stant <- data.table(X = NA, Y = NA, Z = NA, files)
 
   if(plot == TRUE) { ####If plot obtion is truee
     plotXY <- matrix(c(0, 0, dimension[1], 0, dimension[1], dimension[2], 0, dimension[2], 0 , 0), ncol = 2, byrow = TRUE)
     p_plotXY <- Polygon(plotXY)
     spatial_plotXY <- SpatialPolygons(list(Polygons(list(p_plotXY), ID = "plot")))
     plot(spatial_plotXY)
-
-    xpcoordinates <- c(0, 0, dimension[1], dimension[1])
-    ypcoordinates <- c(0, dimension[2], 0, dimension[2])
-    plotXY <- cbind(xpcoordinates, ypcoordinates)
-    plotXY <- Polygon(cbind(xpcoordinates, ypcoordinates))
-    ps_plotXY <- Polygons(list(plotXY),1)
-    spatial_plotXY <- SpatialPolygons(list(ps_plotXY))
-    plot(spatial_plotXY)
   }
 
   stant <- data.table(X = NA, Y = NA, Z = NA, files = NA) ###Final stant to create
-  spatial_crown <- NA
+  spatial_stant <- NA
 
-  results <- foreach(i = 1:n.trees, .inorder = TRUE, .combine= rbind, .packages = c("data.table", "rTLS"), .options.snow = opts) %dopar% {  ####Conduct the loop
+  print(paste("", "Creating an artificial forest stant of ", dimension[1], "x", dimension[2], " with ", n.trees, " trees", sep = ""))  #Progress bar
+  pb <- txtProgressBar(min = 0, max = n.trees, style = 3)
+  progress <- function(n) setTxtProgressBar(pb, n)
+  opts <- list(progress=progress)
+
+  results <- foreach(i = 1:n.trees, .inorder = TRUE, .combine= rbind, .packages = c("data.table", "sp", "rTLS", "rgeos"), .options.snow = opts) %do% {  ####Conduct the loop
 
     ###Reading of the files-------------------------------------------------------------------
 
-    tree <- fread(files[i], sep = "\t")
+    tree <- fread(filestoread[i], sep = "\t")
     colnames(tree) <- c("X", "Y", "Z")
     tree$Z <- tree$Z - min(tree$Z)
 
@@ -76,13 +73,36 @@ artificial_stands <- function(files, n.trees, dimension, sample = TRUE, replace 
       tree$Y <- newXY[,2]
     }
 
-      basetree <- subset(tree, Z >= 0 & Z <= 0.1) ####Move the tree to their base centroid
-      centroidXY <- c(mean(basetree$X), mean(basetree$Y))
-      tree$X <- tree$X - centroidXY[1]
-      tree$Y <- tree$Y - centroidXY[2]
+    basetree <- subset(tree, Z >= 0 & Z <= 0.1) ####Move the tree to their base centroid
+    centroidXY <- c(mean(basetree$X), mean(basetree$Y))
+    tree$X <- tree$X - centroidXY[1]
+    tree$Y <- tree$Y - centroidXY[2]
 
 
-      if(i == 1) {  ###Dealing with the first tree ---------------------------------------------
+    if(i == 1) {  ###Dealing with the first tree ---------------------------------------------
+      treecoordinates <- c(runif(1, 0, dimension[1]), runif(1, 0, dimension[2]))  ####Move the tree to their new position
+      tree$X <- tree$X + treecoordinates[1]
+      tree$Y <- tree$Y + treecoordinates[2]
+      basetree <- subset(tree, Z >= 0 & Z <= 0.1)
+      newcentroidXY <- c(mean(basetree$X), mean(basetree$Y))
+
+      ch <- chull(tree[,1:2]) ###Crown in their space XY space
+      crown <- tree[ch, 1:2]
+      p_crown <- Polygon(crown)
+      ps_crown <- Polygons(list(p_crown), ID = as.character(i))
+      spatial_stant <- SpatialPolygons(list(ps_crown))
+
+      if(plot == TRUE) {
+        plot(spatial_stant, add = TRUE)
+        points(newcentroidXY[1], newcentroidXY[2], col = "red")
+      }
+    }
+
+    if(i > 1) {  ###Dealing with other trees ---------------------------------------------
+
+      try <- 1
+
+      repeat {
         treecoordinates <- c(runif(1, 0, dimension[1]), runif(1, 0, dimension[2]))  ####Move the tree to their new position
         tree$X <- tree$X + treecoordinates[1]
         tree$Y <- tree$Y + treecoordinates[2]
@@ -92,31 +112,30 @@ artificial_stands <- function(files, n.trees, dimension, sample = TRUE, replace 
         ch <- chull(tree[,1:2]) ###Crown in their space XY space
         crown <- tree[ch, 1:2]
         p_crown <- Polygon(crown)
-        ps_crown <- Polygons(list(p_crown),1)
+        ps_crown <- Polygons(list(p_crown), ID = i)
         spatial_crown <- SpatialPolygons(list(ps_crown))
 
-        tree$files <- files[i]
-        stant <- rbind(stant, tree)
+        overlay <- gIntersection(spatial_crown, spatial_stant, byid = FALSE)
+        percentage <- gArea(overlay)/gArea(spatial_crown)*100
 
-        if(plot == TRUE) {
-          plot(spatial_crown, add = TRUE)
-          points(newcentroidXY[1], newcentroidXY[2], col = "red")
-        }
-      }
+        if(overlap >= percentage) {
 
-      if(i >= 2) {  ###Dealing with other trees ---------------------------------------------
-        repeat {
-
-
-
-          if(x == x) {
-            break
+          if(plot == TRUE) {
+            plot(spatial_crown, add = TRUE)
+            points(newcentroidXY[1], newcentroidXY[2], col = "red")
           }
+
+          tree$files <- files[i]
+          stant <- rbind(stant, tree)
+
+          spatial_stant <- gUnion(spatial_crown, spatial_stant)
+
+          break
         }
+
+        try <- try + 1
       }
-
-
+    }
   }
-
-
 }
+
