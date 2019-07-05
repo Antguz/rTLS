@@ -3,7 +3,7 @@
 #' @description Creates voxels of different size on a point cloud using the \code{voxels()} function, and then return a summary of their features.
 #'
 #' @param cloud A \code{data.table} with xyz coordinates of the point clouds in the first three columns.
-#' @param voxel.range A positive numeric vector describing the different voxel size to perform. If \code{voxel.range = NULL}, it use 10 voxel sizes by defaul. See details.
+#' @param voxel.range A positive \code{numeric} vector describing the different voxel size to perform. If \code{NULL}, it use 10 voxel sizes by defaul based on the largest range of XYZ. See details.
 #' @param bootstrap Logical, if \code{bootstrap = TRUE}, it computes a bootstrap on the H index calculations. \code{bootstrap = FALSE} as default.
 #' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates. This need to be used if \code{bootstrap = TRUE}.
 #' @param random Logical. If \code{TRUE}, it generates voxels on a random point cloud created using the same number of points and _xyz_ range of \code{cloud}, and a minimun distance between points. \code{FALSE} as default.

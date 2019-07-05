@@ -11,7 +11,7 @@ voxels_counting(cloud, voxel.range = NULL, bootstrap = FALSE,
 \arguments{
 \item{cloud}{A \code{data.table} with xyz coordinates of the point clouds in the first three columns.}
 
-\item{voxel.range}{A positive numeric vector describing the different voxel size to perform. If \code{voxel.range = NULL}, it use 10 voxel sizes by defaul. See details.}
+\item{voxel.range}{A positive \code{numeric} vector describing the different voxel size to perform. If \code{NULL}, it use 10 voxel sizes by defaul based on the largest range of XYZ. See details.}
 
 \item{bootstrap}{Logical, if \code{bootstrap = TRUE}, it computes a bootstrap on the H index calculations. \code{bootstrap = FALSE} as default.}
 

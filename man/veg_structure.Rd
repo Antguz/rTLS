@@ -4,12 +4,14 @@
 \alias{veg_structure}
 \title{Vegetation structure}
 \usage{
-veg_structure(voxels, k = 0.5)
+veg_structure(voxels, k = 0.5, grid = FALSE)
 }
 \arguments{
 \item{voxels}{A \code{"voxels"} object, created with \code{voxels()}.}
 
 \item{k}{A \code{numeric} vector of length 1 representing the coefficient of extinction. If \code{NULL}, 0.5 is assumed as a proxy to characterize the vegetation properties.}
+
+\item{grid}{\code{Logic}. If \code{TRUE}}
 }
 \value{
 It return a \code{data.table} wich contain the vertical layer (Z), the number of points at each layer, the gap fraction (GF), and the Leaf Area Density (LAD).

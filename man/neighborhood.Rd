@@ -34,7 +34,7 @@ data("pc_tree")
 ###Apply funtion on 1000 random rows of a point cloud
 cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
 
-##With out using parallel processin
+##With out using parallel processing
 #Estimate the niegborhood based in the sphere method using a radius of 0.2.
 neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2)
 
