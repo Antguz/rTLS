@@ -8,6 +8,9 @@
 \usage{
 data(pc_tree)
 }
+\value{
+A data.frame where the rows represent the points and the three columns represent the xyz coordinates.
+}
 \description{
 Data from a point cloud of a tree with a spatial point resolution of 0.05 mm
 }

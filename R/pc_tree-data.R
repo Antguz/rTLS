@@ -10,7 +10,7 @@
 #'
 #' @references Guzman, Sharp, Alencastro, Sanchez-Azofeifa. 2018. To be published.
 #'
-#' @value A data.frame where the rows represent the points and the three columns represent the xyz coordinates.
+#' @return A data.frame where the rows represent the points and the three columns represent the xyz coordinates.
 #'
 #' @examples
 #' data("pc_tree")
