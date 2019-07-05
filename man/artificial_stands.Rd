@@ -15,28 +15,41 @@ artificial_stands(files, n.trees, dimension, coordinates = NULL,
 
 \item{dimension}{A positive \code{numeric} vector of length two describing the width and length of the future forest stand.}
 
-\item{coordinates}{A \code{data.table} or \code{matrix} of two columns and with \code{nrows} equal to \code{n.trees} describing the basal coordinates of the point clouds in the future stant. If \code{NULL}, it use random basal coordinates based on stant dimention. \code{NULL} as default.}
+\item{coordinates}{A \code{data.table} or \code{matrix} of two columns and with \code{nrows} equal to \code{n.trees} describing the basal coordinates of the point clouds in the future stant. If \code{NULL}, it uses random basal coordinates based on stand dimension. \code{NULL} as default.}
 
-\item{sample}{Logical. If \code{TRUE}, it perform a sample of the \code{files} to determine the order to build the artificial stand. If \code{FALSE}, it use the file order described in \code{files}. \code{TRUE} as default.}
+\item{sample}{Logical. If \code{TRUE}, it performs a sample of the \code{files} to determine the order to build the artificial stand. If \code{FALSE}, it use the file order described in \code{files}. \code{TRUE} as default.}
 
-\item{replace}{Logical. If \code{TRUE}, it perform a sample selection with replacement if \code{sample = TRUE} to determine the order to build the artificial stand. Usefull if the \code{n.trees} is lower than \code{length(files)}. \code{TRUE} as default.}
+\item{replace}{Logical. If \code{TRUE}, it performs a sample selection with a replacement if \code{sample = TRUE} to determine the order to build the artificial stand. Useful if the \code{n.trees} is lower than \code{length(files)}. \code{TRUE} as default.}
 
 \item{overlap}{A positive \code{numeric} vector between 0 and 100 describing the overlap percentage of a given the tree crowns in the future forest stand. If \code{NULL}, the degree of overlap is not controlled.}
 
-\item{rotation}{Logical. If \code{TRUE}, it perform a random rotation in the x and y axis of the point cloud. \code{TRUE} as default.}
+\item{rotation}{Logical. If \code{TRUE}, it performs a random rotation in the x and y axis of the point cloud. \code{TRUE} as default.}
 
-\item{degrees}{A positive \code{numeric} vector describing the degree or degrees of rotaion of the point cloud in the future stand. The \code{length(degree)} should be the same as \code{n.trees}. If \code{NULL}, it creates random degrees of rotation for each \code{n.trees}.}
+\item{degrees}{A positive \code{numeric} vector describing the degree or degrees of rotation of the point cloud in the future stand. The \code{length(degree)} should be the same as \code{n.trees}. If \code{NULL}, it creates random degrees of rotation for each \code{n.trees}.}
 
-\item{plot}{Logical. If \code{TRUE}, it provides a visual tracking of the distribution of each tree in the artificial stand. This can not be exported as return object.}
+\item{plot}{Logical. If \code{TRUE}, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.}
 }
 \value{
 A \code{list} which contain a \code{data.table} (Trees) with the information of the point clouds used and their current coordinates (Trees), and another \code{data.table} with that compile all the point clouds used.
 }
 \description{
-Create artificial forest stands of a given area using tree point clouds.
+Create an artificial forest stand of a given area using tree point clouds.
 }
 \examples{
+#Export a point cloud to be imported
+data(pc_tree)
+fwrite(pc_tree, "pc_tree.txt", sep = "\\t")
 
+###Creates a stand of 15x15 repeating four times the same point cloud and random coordinates and a crown overlap of 10\%
+files <- rep("pc_tree.txt", 4)
+artificial_stands(files, n.trees = 4, dimension = c(15, 15), coordinates = NULL, sample = FALSE, replace = FALSE, overlap = 10, rotation = TRUE, degrees = NULL, plot = TRUE)
+
+###Creates a stand of 15x15 repeating four times the same point cloud with establish locations.
+location <- data.table(X = c(5, 10, 10, 5), Y = c(5, 5, 10, 10))
+artificial_stands(files, n.trees = 4, dimension = c(15, 15), coordinates = location, sample = FALSE, replace = FALSE, overlap = NULL, rotation = TRUE, degrees = NULL, plot = TRUE)
+
+#Remove the file
+file.remove("pc_tree.txt")
 
 }
 \author{

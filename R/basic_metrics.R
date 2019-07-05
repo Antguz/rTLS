@@ -1,6 +1,6 @@
 #' @title Basic metrics of the neighboring points.
 #'
-#' @description It estimate basic metrics of the surrounding neighboring points created based on a target point.
+#' @description It estimates basic metrics of the surrounding neighboring points created based on a target point.
 #'
 #' @param space A \code{data.table} with *XYZ* coordinates of the neighboring points in the first three columns and a four column with their distance to the target point.
 #' @param radius A \code{numeric} vector of a length 1 representing the radius of the sphere that was used. If \code{radius = NULL}, it uses the maximum distance of \code{space} (\code{max(space[,4])}). \code{radius = NULL} as default.
@@ -10,9 +10,7 @@
 #'
 #' @examples
 #' data("pc_tree")
-#'
 #' neig <- neighborhood(pc_tree[50,], pc_tree, method = "sphere", radius = 0.2)
-#'
 #' basic_metrics(neig$neighborhood[, 2:5], radius = neig$parameter)
 #'
 #' @export

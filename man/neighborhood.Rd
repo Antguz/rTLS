@@ -23,10 +23,10 @@ neighborhood(cloud, cloud_b = NULL, method, radius = NULL, k,
 \item{cores}{An \code{integer} >= 0 describing the number of cores use. This need to be used if \code{parallel = TRUE}.}
 }
 \value{
-An object of class \code{neighborhood} which is a nested list that describe the cloud point used (\code{cloud}), the parameter \code{radius} or \code{k} used, and the resulting neighbor points per point (\code{neigborhood}).
+An object of class \code{neighborhood} which is a nested list that describes the cloud point used (\code{cloud}), the parameter \code{radius} or \code{k} used, and the resulting neighbor points per point (\code{neighborhood}).
 }
 \description{
-Estimate neighboring points based on two methods.
+Estimates neighboring points based on two methods: sphere and knn.
 }
 \examples{
 data("pc_tree")

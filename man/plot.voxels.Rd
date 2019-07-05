@@ -4,7 +4,7 @@
 \alias{plot.voxels}
 \title{Plot method for voxels}
 \usage{
-\method{plot}{voxels}(voxels, add.points = TRUE, add.voxels = TRUE,
+plot.voxels(voxels, add.points = TRUE, add.voxels = TRUE,
   border = TRUE, fill = TRUE, gradientcol = FALSE, points.size = 1,
   pointscol = "black", fillcol = "forestgreen", lwd = 0.5,
   alpha = 0.1, ...)

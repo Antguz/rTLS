@@ -1,6 +1,6 @@
 #' @title Neighboring points
 #'
-#' @description Estimate neighboring points based on two methods.
+#' @description Estimates neighboring points based on two methods: sphere and knn.
 #'
 #' @param cloud A \code{data.table} with xyz coordinates in the first three columns.
 #' @param cloud_b A \code{data.table} with xyz coordinates in the first three columns. If \code{cloud_b == NULL}, \code{cloud_b == cloud}. \code{NULL} as default.
@@ -10,7 +10,7 @@
 #' @param parallel Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.
 #' @param cores An \code{integer} >= 0 describing the number of cores use. This need to be used if \code{parallel = TRUE}.
 #'
-#' @return An object of class \code{neighborhood} which is a nested list that describe the cloud point used (\code{cloud}), the parameter \code{radius} or \code{k} used, and the resulting neighbor points per point (\code{neigborhood}).
+#' @return An object of class \code{neighborhood} which is a nested list that describes the cloud point used (\code{cloud}), the parameter \code{radius} or \code{k} used, and the resulting neighbor points per point (\code{neighborhood}).
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #' @examples
 #' data("pc_tree")

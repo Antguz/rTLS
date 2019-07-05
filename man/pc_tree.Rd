@@ -4,18 +4,15 @@
 \name{pc_tree}
 \alias{pc_tree}
 \title{Tree point cloud}
-\format{An object of class \code{data.table} (inherits from \code{data.frame}) with 75848 rows and 3 columns.}
+\format{A \code{data.table} where the rows represent the points and the three columns represent the xyz coordinates.}
 \usage{
 data(pc_tree)
 }
-\value{
-A data.frame where the rows represent the points and the three columns represent the xyz coordinates.
-}
 \description{
-Data from a point cloud of a tree with a spatial point resolution of 0.05 mm
+Data from a point cloud of a tree with a spatial point resolution of 0.05 mm.
 }
 \examples{
-data("pc_tree")
+data(pc_tree)
 head(pc_tree)
 plot3d(pc_tree)
 }

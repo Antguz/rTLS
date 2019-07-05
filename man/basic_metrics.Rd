@@ -15,13 +15,11 @@ basic_metrics(space, radius = NULL)
 A \code{data.table} with four metrics: i) the number of neighboring points, ii) the volume occupied by neighbors, iii) volume of the sphere used, and iv) density of points based on the sphere size. If \code{radius = NULL}, the volume occupied by neighbors and the volume of the sphere is the same.
 }
 \description{
-It estimate basic metrics of the surrounding neighboring points created based on a target point.
+It estimates basic metrics of the surrounding neighboring points created based on a target point.
 }
 \examples{
 data("pc_tree")
-
 neig <- neighborhood(pc_tree[50,], pc_tree, method = "sphere", radius = 0.2)
-
 basic_metrics(neig$neighborhood[, 2:5], radius = neig$parameter)
 
 }
