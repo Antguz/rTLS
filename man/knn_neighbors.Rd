@@ -4,16 +4,16 @@
 \alias{knn_neighbors}
 \title{Neighboring points based on knn}
 \usage{
-knn_neighbors(x, cloud, k, radius = NULL)
+knn_neighbors(targed, cloud, k, radius = NULL)
 }
 \arguments{
-\item{x}{A \code{data.frame} or \code{data.table} of a point with xyz coordinates.}
-
 \item{cloud}{A \code{data.table} of a point cloud with xyz coordinates.}
 
 \item{k}{An integer of a length 1 representing the number of neighbors to consider.}
 
 \item{radius}{Optional. A \code{numeric} vector of a length 1 representing a priori radius from \code{x} to select the k nearest neighbors.   number of neighbors to consider. It speed up the calculations when \code{cloud} is too large.}
+
+\item{x}{A \code{data.frame} or \code{data.table} of a point with xyz coordinates.}
 }
 \value{
 A \code{matrix} with the xyz coordinates of the k neighboring points and a fourth column with their distance.

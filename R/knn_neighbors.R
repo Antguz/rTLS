@@ -16,13 +16,14 @@
 #' knn_neighbors(pc_tree[100,], pc_tree, k = 10, radius = 0.5)
 #'
 #'@export
-knn_neighbors <- function(x, cloud, k, radius = NULL) {
+knn_neighbors <- function(targed, cloud, k, radius = NULL) {
 
+  colnames(targed) <- c("X", "Y", "Z")
   colnames(cloud) <- c("X", "Y", "Z")
 
-  xcoor <- as.numeric(x[1,1]) ###Set coordinates of interest
-  ycoor <- as.numeric(x[1,2])
-  zcoor <- as.numeric(x[1,3])
+  xcoor <- targed$X[1] ###Set coordinates of interest
+  ycoor <- targed$Y[1]
+  zcoor <- targed$Z[1]
 
   if(is.null(radius) == TRUE) {
 

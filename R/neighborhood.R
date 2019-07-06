@@ -13,12 +13,12 @@
 #' @return An object of class \code{neighborhood} which is a nested list that describes the cloud point used (\code{cloud}), the parameter \code{radius} or \code{k} used, and the resulting neighbor points per point (\code{neighborhood}).
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #' @examples
-#' data("pc_tree")
+#' data(pc_tree)
 #'
 #' ###Apply funtion on 1000 random rows of a point cloud
 #' cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
 #'
-#' ##With out using parallel processing
+#' ##Without using parallel processing
 #' #Estimate the niegborhood based in the sphere method using a radius of 0.2.
 #' neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2)
 #'
@@ -49,7 +49,7 @@ neighborhood <- function(cloud, cloud_b = NULL, method, radius = NULL, k, parall
     if(method == "sphere") {  #Method sphere
 
       if(is.null(radius) == TRUE) {
-        stop("argument radius is missing")
+        stop("Argument radius is missing")
       }
 
       print("Calculating spheres around points")

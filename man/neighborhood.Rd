@@ -29,12 +29,12 @@ An object of class \code{neighborhood} which is a nested list that describes the
 Estimates neighboring points based on two methods: sphere and knn.
 }
 \examples{
-data("pc_tree")
+data(pc_tree)
 
 ###Apply funtion on 1000 random rows of a point cloud
 cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
 
-##With out using parallel processing
+##Without using parallel processing
 #Estimate the niegborhood based in the sphere method using a radius of 0.2.
 neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2)
 
