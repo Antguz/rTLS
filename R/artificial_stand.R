@@ -1,11 +1,11 @@
-#' @title Artificial forest stands
+#' @title Artificial Forest Stands
 #'
 #' @description Create an artificial forest stand of a given area using tree point clouds.
 #'
 #' @param files A \code{character} vector describing the file name or path of the tree point cloud to use.
 #' @param n.trees A positive \code{numeric} vector describing the number of point clouds to use.
 #' @param dimension A positive \code{numeric} vector of length two describing the width and length of the future forest stand.
-#' @param coordinates A \code{data.table} or \code{matrix} of two columns and with \code{nrows} equal to \code{n.trees} describing the basal coordinates of the point clouds in the future stant. If \code{NULL}, it uses random basal coordinates based on stand dimension. \code{NULL} as default.
+#' @param coordinates A \code{data.table} of two columns and with \code{nrows} equal to \code{n.trees} describing the basal coordinates of the point clouds in the future stant. If \code{NULL}, it uses random basal coordinates based on stand dimension. \code{NULL} as default.
 #' @param sample Logical. If \code{TRUE}, it performs a sample of the \code{files} to determine the order to build the artificial stand. If \code{FALSE}, it use the file order described in \code{files}. \code{TRUE} as default.
 #' @param replace Logical. If \code{TRUE}, it performs a sample selection with a replacement if \code{sample = TRUE} to determine the order to build the artificial stand. Useful if the \code{n.trees} is lower than \code{length(files)}. \code{TRUE} as default.
 #' @param overlap A positive \code{numeric} vector between 0 and 100 describing the overlap percentage of a given the tree crowns in the future forest stand. If \code{NULL}, the degree of overlap is not controlled.
@@ -13,7 +13,7 @@
 #' @param degrees A positive \code{numeric} vector describing the degree or degrees of rotation of the point cloud in the future stand. The \code{length(degree)} should be the same as \code{n.trees}. If \code{NULL}, it creates random degrees of rotation for each \code{n.trees}.
 #' @param plot Logical. If \code{TRUE}, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.
 #'
-#' @return A \code{list} which contain a \code{data.table} (Trees) with the information of the point clouds used and their current coordinates (Trees), and another \code{data.table} with that compile all the point clouds used.
+#' @return A \code{list} which contain a \code{data.table} (Trees) with the information of the point clouds used and their current coordinates in the stand, and another \code{data.table} with that compile all the point clouds used.
 #' @author J. Antonio Guzmán Q.
 #'
 #' @examples
@@ -97,7 +97,7 @@ artificial_stands <- function(files, n.trees, dimension, coordinates = NULL, sam
 
     ###Reading of the files-------------------------------------
 
-    tree <- fread(filestoread[i], ...)
+    tree <- fread(filestoread[i])
     colnames(tree) <- c("X", "Y", "Z")
     tree$Z <- tree$Z - min(tree$Z)
 
@@ -121,7 +121,8 @@ artificial_stands <- function(files, n.trees, dimension, coordinates = NULL, sam
     if(i == 1) {  ###Dealing with the first tree ----------------
 
       if(is.null(coordinates) != TRUE) { ####Move the tree to their new position
-        treecoordinates <- c(coordinates[i,1], coordinates[i,2])
+        colnames(coordinates) <- c("X", "Y")
+        treecoordinates <- c(coordinates$X[i], coordinates$Y[i])
       } else {
         treecoordinates <- c(runif(1, 0, dimension[1]), runif(1, 0, dimension[2]))
       }
@@ -158,7 +159,8 @@ artificial_stands <- function(files, n.trees, dimension, coordinates = NULL, sam
 
       repeat {
         if(is.null(coordinates) != TRUE) { ####Move the tree to their new position
-          treecoordinates <- c(coordinates[i,1], coordinates[i,2])
+          colnames(coordinates) <- c("X", "Y")
+          treecoordinates <- c(coordinates$X[i], coordinates$Y[i])
         } else {
           treecoordinates <- c(runif(1, 0, dimension[1]), runif(1, 0, dimension[2]))
         }

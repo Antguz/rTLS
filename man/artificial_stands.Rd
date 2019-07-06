@@ -2,7 +2,7 @@
 % Please edit documentation in R/artificial_stand.R
 \name{artificial_stands}
 \alias{artificial_stands}
-\title{Artificial forest stands}
+\title{Artificial Forest Stands}
 \usage{
 artificial_stands(files, n.trees, dimension, coordinates = NULL,
   sample = TRUE, replace = TRUE, overlap = 0, rotation = TRUE,
@@ -15,7 +15,7 @@ artificial_stands(files, n.trees, dimension, coordinates = NULL,
 
 \item{dimension}{A positive \code{numeric} vector of length two describing the width and length of the future forest stand.}
 
-\item{coordinates}{A \code{data.table} or \code{matrix} of two columns and with \code{nrows} equal to \code{n.trees} describing the basal coordinates of the point clouds in the future stant. If \code{NULL}, it uses random basal coordinates based on stand dimension. \code{NULL} as default.}
+\item{coordinates}{A \code{data.table} of two columns and with \code{nrows} equal to \code{n.trees} describing the basal coordinates of the point clouds in the future stant. If \code{NULL}, it uses random basal coordinates based on stand dimension. \code{NULL} as default.}
 
 \item{sample}{Logical. If \code{TRUE}, it performs a sample of the \code{files} to determine the order to build the artificial stand. If \code{FALSE}, it use the file order described in \code{files}. \code{TRUE} as default.}
 
@@ -30,7 +30,7 @@ artificial_stands(files, n.trees, dimension, coordinates = NULL,
 \item{plot}{Logical. If \code{TRUE}, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.}
 }
 \value{
-A \code{list} which contain a \code{data.table} (Trees) with the information of the point clouds used and their current coordinates (Trees), and another \code{data.table} with that compile all the point clouds used.
+A \code{list} which contain a \code{data.table} (Trees) with the information of the point clouds used and their current coordinates in the stand, and another \code{data.table} with that compile all the point clouds used.
 }
 \description{
 Create an artificial forest stand of a given area using tree point clouds.

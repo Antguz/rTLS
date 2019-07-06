@@ -2,29 +2,32 @@
 % Please edit documentation in R/knn_neighbors.R
 \name{knn_neighbors}
 \alias{knn_neighbors}
-\title{Neighboring points based on knn}
+\title{Neighboring Points Based on Knn}
 \usage{
-knn_neighbors(targed, cloud, k, radius = NULL)
+knn_neighbors(x, cloud, k, radius = NULL)
 }
 \arguments{
-\item{cloud}{A \code{data.table} of a point cloud with xyz coordinates.}
+\item{x}{A \code{data.table} of the target point with three columns of the *XYZ* coordinates.}
 
-\item{k}{An integer of a length 1 representing the number of neighbors to consider.}
+\item{cloud}{A \code{data.table} of a point cloud with three columns of the *XYZ* coordinates to extract the neighboring points.}
 
-\item{radius}{Optional. A \code{numeric} vector of a length 1 representing a priori radius from \code{x} to select the k nearest neighbors.   number of neighbors to consider. It speed up the calculations when \code{cloud} is too large.}
+\item{k}{An \code{integer} of a length 1 representing the number of neighbors to consider.}
 
-\item{x}{A \code{data.frame} or \code{data.table} of a point with xyz coordinates.}
+\item{radius}{Optional. A \code{numeric} vector of a length 1 representing a-priori radius from \code{x} to select the k nearest neighbors. This option speed-up the search of neighboring points in highly dense point cloud, but it should be used with caution since small radios may exclude neighboring points.}
 }
 \value{
-A \code{matrix} with the xyz coordinates of the k neighboring points and a fourth column with their distance.
+A \code{data.frame} with the three columns of the *XYZ* coordinates of the neighboring points and a fourth column with their distance.
 }
 \description{
-Estimate the neighboring points of a targed point based on a knn.
+Estimate the neighboring points of a target point based on knn.
+}
+\details{
+If a neighboring point presents a distance equal to zero, this is automatically removed. This is conducted to avoid \code{x} points that are already embedded in \code{cloud}.
 }
 \examples{
 data("pc_tree")
-knn_neighbors(pc_tree[100,], pc_tree, k = 10)
-knn_neighbors(pc_tree[100,], pc_tree, k = 10, radius = 0.5)
+knn_neighbors(x = pc_tree[100,], cloud = pc_tree, k = 10)
+knn_neighbors(x = pc_tree[100,], cloud = pc_tree, k = 10, radius = 0.5)
 
 }
 \author{

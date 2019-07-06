@@ -2,28 +2,34 @@
 % Please edit documentation in R/sphere_neighbors.R
 \name{sphere_neighbors}
 \alias{sphere_neighbors}
-\title{Neighboring points in a sphere}
+\title{Neighboring Points in a Sphere}
 \usage{
-sphere_neighbors(targed, cloud, radius)
+sphere_neighbors(x, cloud, radius)
 }
 \arguments{
-\item{cloud}{A \code{data.table} of a point cloud with xyz coordinates to extract the neighboring points.}
+\item{x}{A \code{data.table} of the target point with three columns of the *XYZ* coordinates.}
+
+\item{cloud}{A \code{data.table} of a point cloud with three columns of the *XYZ* coordinates to extract the neighboring points.}
 
 \item{radius}{A numeric \code{vector} of a length 1 representing the minimum distance to consider neighboring points.}
-
-\item{x}{A \code{data.table} of the targed point with xyz coordinates.}
 }
 \value{
-A \code{data.frame} with the xyz coordinates of the neighboring points and a fourth column with their distance.
+A \code{data.frame} with the three columns of the *XYZ* coordinates of the neighboring points and a fourth column with their distance.
 }
 \description{
-Estimate the neighboring points in a shpere around the targed point.
+Estimate the neighboring points in a sphere around the target point.
+}
+\details{
+If a neighboring point presents a distance equal to zero, this is automatically removed. This is conducted to avoid \code{x} points that are already embedded in \code{cloud}.
 }
 \examples{
 data("pc_tree")
 x <- pc_tree[100,]
-sphere_neighbors(targed = x, cloud = pc_tree, radius = 0.2)
+sphere_neighbors(x = x, cloud = pc_tree, radius = 0.2)
 
+}
+\seealso{
+\code{\link{knn_neighbors}}, \code{\link{neighborhood}}
 }
 \author{
 J. Antonio Guzman Q. and Ronny Hernandez
