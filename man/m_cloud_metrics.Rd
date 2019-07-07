@@ -2,7 +2,7 @@
 % Please edit documentation in R/m_cloud_metrics.R
 \name{m_cloud_metrics}
 \alias{m_cloud_metrics}
-\title{Point cloud metrics at different scales}
+\title{Point Cloud Metrics at Multiple Scales}
 \usage{
 m_cloud_metrics(cloud, cloud_b = NULL, basic = TRUE,
   distribution = TRUE, dimensionality = TRUE, method = NULL,
@@ -10,31 +10,31 @@ m_cloud_metrics(cloud, cloud_b = NULL, basic = TRUE,
   parallel = FALSE, cores = NULL)
 }
 \arguments{
-\item{cloud}{An object of class \code{"neighborhood"} or a \code{data.table} with xyz coordinates in the first three columns.}
+\item{cloud}{An object of class \code{"neighborhood"} or \code{data.table} with *XYZ* coordinates in the first three columns.}
 
-\item{cloud_b}{A \code{data.table} with xyz coordinates in the first three columns. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
+\item{cloud_b}{A \code{data.table} with *XYZ* coordinates in the first three columns. If \code{cloud_b = NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
 
-\item{basic}{Logical, if \code{TRUE} it estimate basic metrics. \code{basic = TRUE} as default.}
+\item{basic}{Logical, if \code{TRUE} it estimates \code{\link{basic_metrics}}. \code{basic = TRUE} as default.}
 
-\item{distribution}{Logical, if \code{TRUE} it estimate distribution metrics of points. \code{distribution = TRUE} as default.}
+\item{distribution}{Logical, if \code{TRUE} it estimates \code{\link{distribution}} metrics of points. \code{distribution = TRUE} as default.}
 
-\item{dimensionality}{Logical, if \code{TRUE} it estimate dimensionality metrics. \code{dimensionality = TRUE} as default.}
+\item{dimensionality}{Logical, if \code{TRUE} it estimates \code{\link{dimensionality}} metrics. \code{dimensionality = TRUE} as default.}
 
-\item{method}{A character string specifying the method to estimate neighbors. It most be one of \code{"sphere"} or \code{"knn"}.}
+\item{method}{A \code{character} string specifying the method to estimate neighbors. It most be one of \code{"sphere"} or \code{"knn"}.}
 
-\item{radius.range}{A positive \code{numeric} vector representing the range of radius of the spheres to consider. This need be used if \code{method = "sphere"}. This may be used if \code{method = "knn"}, but this need to be a numeric vector of length 1.}
+\item{radius.range}{A positive \code{numeric} vector representing the range of spheres radius to consider. This need be used if \code{method = "sphere"}. This may be used if \code{method = "knn"}, but this should to be a \code{numeric} vector of length 1.}
 
-\item{k.range}{An integer of a length 1 representing the number of neighbors to consider. This need be used if \code{method = "knn"}.}
+\item{k.range}{An \code{integer} of a length 1 representing the number of neighbors to consider. This need be used if \code{method = "knn"}.}
 
 \item{parallel}{Logical, if \code{TRUE} it use a parallel processing.}
 
-\item{cores}{An \code{integer} >= 0 describing the number of cores use. This need to be used if  \code{parallel = TRUE}.}
+\item{cores}{An \code{integer} >= 0 describing the number of cores use. This need to be used if \code{parallel = TRUE}.}
 }
 \value{
-A \code{data.frame} with the estimated parameters.
+A \code{data.table} with the estimated parameters.
 }
 \description{
-Estimate different metrics on the poits of a cloud using different scales. It estimate 10 parameters based on Wang et al. 2017.
+Estimate different metrics on the poits of a cloud using multiple scales.
 }
 \examples{
 
@@ -42,21 +42,18 @@ data("pc_tree")
 
 ###On objects of class neighborhood
 ##Calculate the neighborhood of 1000 random rows of a point cloud using the sphere method and a radius of 0.2.
-cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
-dist <- neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2)
+cloud.random <- pc_tree[sample(nrow(pc_tree), 100), ]
+dist <- neighborhood(cloud.random, pc_tree, method = "sphere", radius = 5)
 
-#Estimate on three different scales scales of spheres (0.2, 0.1, 0.05) without parallel
-m_cloud_metrics(dist, radius.range = c(0.2, 0.1, 0.01), parallel = FALSE)
+#Estimate on three different scales scales of spheres (5, 2.5) without parallel
+m_cloud_metrics(dist, radius.range = c(5, 2.5), n_replicates = 10, parallel = FALSE)
 
-#Estimate metrics using three different scales of spheres (1, 0.9, 0.8) with parallel
-m_cloud_metrics(dist, radius.range = c(0.2, 0.1, 0.05), parallel = TRUE, cores = 4)
+#Estimate metrics using three different scales of spheres (5, 2.5) with parallel
+m_cloud_metrics(dist, radius.range = c(5, 2.5), n_replicates = 10, parallel = TRUE, cores = 4)
 
-}
-\references{
-Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.
 }
 \seealso{
-basic.metrics, distribution, dimensionality
+\code{\link{basic_metrics}}, \code{\link{distribution}}, \code{\link{dimensionality}}, \code{\link{cloud_metrics}}, \code{\link{neighborhood}}
 }
 \author{
 J. Antonio Guzman Q. and Ronny Hernandez

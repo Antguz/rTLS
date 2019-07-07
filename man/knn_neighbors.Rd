@@ -9,7 +9,7 @@ knn_neighbors(x, cloud, k, radius = NULL)
 \arguments{
 \item{x}{A \code{data.table} of the target point with three columns of the *XYZ* coordinates.}
 
-\item{cloud}{A \code{data.table} of a point cloud with three columns of the *XYZ* coordinates to extract the neighboring points.}
+\item{cloud}{A \code{data.table} of with three columns of the *XYZ* coordinates to extract the neighboring points.}
 
 \item{k}{An \code{integer} of a length 1 representing the number of neighbors to consider.}
 
@@ -29,6 +29,9 @@ data("pc_tree")
 knn_neighbors(x = pc_tree[100,], cloud = pc_tree, k = 10)
 knn_neighbors(x = pc_tree[100,], cloud = pc_tree, k = 10, radius = 0.5)
 
+}
+\seealso{
+\code{\link{sphere_neighbors}}, \code{\link{neighborhood}}
 }
 \author{
 J. Antonio Guzman Q. and Ronny Hernandez

@@ -6,7 +6,7 @@
 #'
 #' @usage data(pc_tree)
 #'
-#' @format A \code{data.table} where the rows represent the points and the three columns represent the xyz coordinates.
+#' @format A \code{data.table} where the rows represent the points and the three columns represent the *XYZ* coordinates.
 #'
 #' @keywords datasets
 #'

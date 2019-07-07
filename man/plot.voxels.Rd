@@ -2,9 +2,9 @@
 % Please edit documentation in R/plot.voxels.R
 \name{plot.voxels}
 \alias{plot.voxels}
-\title{Plot method for voxels}
+\title{Plot Method for Voxels}
 \usage{
-\method{plot}{voxels}(voxels, add.points = TRUE, add.voxels = TRUE,
+plot.voxels(voxels, add.points = TRUE, add.voxels = TRUE,
   border = TRUE, fill = TRUE, gradientcol = FALSE, points.size = 1,
   pointscol = "black", fillcol = "forestgreen", lwd = 0.5,
   alpha = 0.1, ...)
@@ -12,15 +12,15 @@
 \arguments{
 \item{voxels}{A \code{"voxels"} object.}
 
-\item{add.points}{Logical, if \code{TRUE} it add the original points used to perform the voxalization. \code{TRUE} as default.}
+\item{add.points}{Logical, if \code{TRUE} it adds the original points used to perform the voxalization. \code{TRUE} as default.}
 
-\item{add.voxels}{Logical, if \code{TRUE} it add the voxels created. \code{TRUE} as default.}
+\item{add.voxels}{Logical, if \code{TRUE} it adds the voxels created. \code{TRUE} as default.}
 
-\item{border}{Logical, if \code{TRUE} it add a line on the borders of each voxel. \code{TRUE} as default.}
+\item{border}{Logical, if \code{TRUE} it adds a line on the borders of each voxel. \code{TRUE} as default.}
 
-\item{fill}{Logical, if \code{TRUE} it fill each voxels with colors. \code{TRUE} as default.}
+\item{fill}{Logical, if \code{TRUE} it fills each voxels with colors. \code{TRUE} as default.}
 
-\item{gradientcol}{Logical, if \code{TRUE} it use a gradient of colors based on the number of points in each voxels. \code{FALSE} as default.}
+\item{gradientcol}{Logical, if \code{TRUE} it uses a gradient of colors based on the number of points in each voxels. \code{FALSE} as default.}
 
 \item{points.size}{The points size, a positive number to use if plot \code{add.points = TRUE}.}
 
@@ -32,10 +32,10 @@
 
 \item{alpha}{A positive numeric vector describing the transparency of the voxels to fill. This value most be between 0.0 (fully transparent) .. 1.0 (opaque).}
 
-\item{...}{General arguments passed to rgl.}
+\item{...}{General arguments passed to \code{\link{rgl}}.}
 }
 \description{
-The \code{plot} method for voxels created on point clouds using \code{voxels()} function.
+The \code{plot} method for voxels created on point clouds using \code{\link{voxels}} function.
 }
 \examples{
 data("pc_tree")
@@ -46,7 +46,7 @@ plot.voxels(vox)
 
 }
 \seealso{
-\code{voxels}
+\code{\link{voxels}}
 }
 \author{
 J. Antonio Guzman Q. and Ronny Hernandez

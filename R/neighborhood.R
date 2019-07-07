@@ -1,17 +1,26 @@
-#' @title Neighboring points
+#' @title Neighboring Points
 #'
 #' @description Estimates neighboring points based on two methods: sphere and knn.
 #'
-#' @param cloud A \code{data.table} with xyz coordinates in the first three columns.
-#' @param cloud_b A \code{data.table} with xyz coordinates in the first three columns. If \code{cloud_b == NULL}, \code{cloud_b == cloud}. \code{NULL} as default.
-#' @param method A character string specifying the method to estimated the neighbors. It most be one of  \code{"sphere"} or  \code{"knn"}.
-#' @param radius An integer of a length 1 representing the number of neighbors to consider. This need to be used if  \code{method = "sphere"}, and this may usted if \code{method = "knn"}.
-#' @param k An integer of a length 1 representing the number of neighbors to consider. This need to be used if \code{method = "knn"}.
+#' @param cloud A \code{data.table} with three columns representing the *XYZ* coordinates of a point cloud.
+#' @param cloud_b A \code{data.table} with three columns representing the *XYZ* coordinates of a point cloud to extract the neighboring points. If \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.
+#' @param method A \code{character} string specifying the method to estimated the neighbors. It most be one of  \code{"sphere"} or  \code{"knn"}.
+#' @param radius An \code{numeric} vector of a length 1 representing the number of neighbors to consider. This need to be used if  \code{method = "sphere"}, and this may usted if \code{method = "knn"}.
+#' @param k An \code{integer} of a length 1 representing the number of neighbors to consider. This need to be used if \code{method = "knn"}.
 #' @param parallel Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.
-#' @param cores An \code{integer} >= 0 describing the number of cores use. This need to be used if \code{parallel = TRUE}.
+#' @param cores An \code{integer >= 0}  describing the number of cores use. This need to be used if \code{parallel = TRUE}.
+#'
+#' @importFrom parallel makeCluster
+#' @importFrom parallel stopCluster
+#' @importFrom doSNOW registerDoSNOW
+#' @importFrom foreach foreach
+#' @importFrom foreach %dopar%
 #'
 #' @return An object of class \code{neighborhood} which is a nested list that describes the cloud point used (\code{cloud}), the parameter \code{radius} or \code{k} used, and the resulting neighbor points per point (\code{neighborhood}).
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
+#'
+#' @seealso \code{\link{knn_neighbors}}, \code{\link{sphere_neighbors}}, \code{\link{cloud_metrics}}
+#'
 #' @examples
 #' data(pc_tree)
 #'

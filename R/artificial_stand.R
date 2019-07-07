@@ -2,10 +2,10 @@
 #'
 #' @description Create an artificial forest stand of a given area using tree point clouds.
 #'
-#' @param files A \code{character} vector describing the file name or path of the tree point cloud to use.
+#' @param files A \code{character} vector describing the file name or path of the tree point cloud to use. Those files most contain three columns representing the *XYZ* coordinates of a given point cloud.
 #' @param n.trees A positive \code{numeric} vector describing the number of point clouds to use.
 #' @param dimension A positive \code{numeric} vector of length two describing the width and length of the future forest stand.
-#' @param coordinates A \code{data.table} of two columns and with \code{nrows} equal to \code{n.trees} describing the basal coordinates of the point clouds in the future stant. If \code{NULL}, it uses random basal coordinates based on stand dimension. \code{NULL} as default.
+#' @param coordinates A \code{data.table} of two columns and with \code{nrows} equal to \code{n.trees} describing the basal *XYZ* coordinates of the point clouds in the future stand. If \code{NULL}, it uses random basal coordinates based on stand dimension. \code{NULL} as default.
 #' @param sample Logical. If \code{TRUE}, it performs a sample of the \code{files} to determine the order to build the artificial stand. If \code{FALSE}, it use the file order described in \code{files}. \code{TRUE} as default.
 #' @param replace Logical. If \code{TRUE}, it performs a sample selection with a replacement if \code{sample = TRUE} to determine the order to build the artificial stand. Useful if the \code{n.trees} is lower than \code{length(files)}. \code{TRUE} as default.
 #' @param overlap A positive \code{numeric} vector between 0 and 100 describing the overlap percentage of a given the tree crowns in the future forest stand. If \code{NULL}, the degree of overlap is not controlled.
@@ -15,6 +15,24 @@
 #'
 #' @return A \code{list} which contain a \code{data.table} (Trees) with the information of the point clouds used and their current coordinates in the stand, and another \code{data.table} with that compile all the point clouds used.
 #' @author J. Antonio Guzmán Q.
+#'
+#' @importFrom sp Polygon
+#' @importFrom sp Polygons
+#' @importFrom sp SpatialPolygons
+#' @importFrom sp plot
+#' @importFrom rgeos gArea
+#' @importFrom rgeos gUnion
+#' @importFrom foreach foreach
+#' @importFrom foreach %do%
+#' @importFrom stats runif
+#' @importFrom data.table data.table
+#' @importFrom data.table fread
+#' @importFrom utils txtProgressBar
+#' @importFrom utils setTxtProgressBar
+#' @importFrom grDevices chull
+#' @importFrom graphics points
+#'
+#' @seealso \code{\link{voxels_counting}}
 #'
 #' @examples
 #' #Export a point cloud to be imported
@@ -97,7 +115,7 @@ artificial_stands <- function(files, n.trees, dimension, coordinates = NULL, sam
 
     ###Reading of the files-------------------------------------
 
-    tree <- fread(filestoread[i])
+    tree <- fread(filestoread[i], ...)
     colnames(tree) <- c("X", "Y", "Z")
     tree$Z <- tree$Z - min(tree$Z)
 
@@ -222,4 +240,3 @@ artificial_stands <- function(files, n.trees, dimension, coordinates = NULL, sam
   final <- list(Trees = tcoordinates, Cloud = stant)
   return(final)
 }
-

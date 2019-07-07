@@ -27,6 +27,7 @@ data("pc_tree")
 x <- pc_tree[100,]
 sphere_neighbors(x = x, cloud = pc_tree, radius = 0.2)
 
+
 }
 \seealso{
 \code{\link{knn_neighbors}}, \code{\link{neighborhood}}

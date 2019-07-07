@@ -3,7 +3,7 @@
 #' @description Estimate the neighboring points of a target point based on knn.
 #'
 #' @param x A \code{data.table} of the target point with three columns of the *XYZ* coordinates.
-#' @param cloud A \code{data.table} of a point cloud with three columns of the *XYZ* coordinates to extract the neighboring points.
+#' @param cloud A \code{data.table} of with three columns of the *XYZ* coordinates to extract the neighboring points.
 #' @param k An \code{integer} of a length 1 representing the number of neighbors to consider.
 #' @param radius Optional. A \code{numeric} vector of a length 1 representing a-priori radius from \code{x} to select the k nearest neighbors. This option speed-up the search of neighboring points in highly dense point cloud, but it should be used with caution since small radios may exclude neighboring points.
 #'

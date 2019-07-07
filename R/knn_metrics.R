@@ -1,18 +1,20 @@
-#' @title k-nearest neighbors metrics on a target point
+#' @title K-nearest Neighbors Metrics on a Target Point
 #'
-#' @description Estimate different metrics on a neighborhood of a targed point using knn.
+#' @description Estimate different metrics on a neighborhood of a target point using knn.
 #'
-#' @param x  A \code{data.table} or \code{data.frame} of a targed point with xyz coordinates.
-#' @param cloud A \code{data.table} of a point cloud with xyz coordinates to extract the neighboring points.
-#' @param k An integer of a length 1 representing the number of neighbors to consider.
-#' @param radius Optional. A \code{numeric} vector of a length 1 representing a priori radius from \code{x} to select the k nearest neighbors. This speed up the calculations when \code{cloud} is too large.
-#' @param basic Logical, if \code{TRUE} it estimate basic metrics. \code{basic = TRUE} as default.
-#' @param distribution Logical, if \code{TRUE} it estimate distribution metrics of points. \code{distribution = TRUE} as default.
-#' @param dimensionality Logical, if \code{TRUE} it estimate dimensionality metrics. \code{dimensionality = TRUE} as default.
-#' @param n_replicates A positive \code{interger} of a length 1 representing the number of replicates to estimate the expected distance. If \code{n_replicates = NULL}, it uses the number of neighboring points calculated. \code{n_replicates = NULL} as default.
+#' @param x  A \code{data.table} of the target point with three columns of the *XYZ* coordinates.
+#' @param cloud A \code{data.table} of a point cloud with three columns of the *XYZ* coordinates to extract the neighboring points.
+#' @param k An \code{integer} of a length 1 representing the number of neighbors to consider.
+#' @param radius Optional. A \code{numeric} vector of a length 1 representing a priori radius from \code{x} to select the k-nearest neighbors. This speed up the calculations when \code{cloud} is too large.
+#' @param basic Logical, if \code{TRUE} it estimates \code{\link{basic_metrics}}. \code{TRUE} as default.
+#' @param distribution Logical, if \code{TRUE} it estimates \code{\link{distribution}} metrics of points. \code{TRUE} as default.
+#' @param dimensionality Logical, if \code{TRUE} it estimates \code{\link{dimensionality}} metrics. \code{TRUE} as default.
+#' @param n_replicates If \code{distribution = TRUE}, a positive \code{interger} of a length 1 representing the number of replicates to estimate the expected distance. If \code{n_replicates = NULL}, it uses the number of neighboring points calculated. \code{NULL} as default.
 #'
-#' @return A \code{data.table} with the xyz coordinates of the target point and the computed metrics by \code{basic.metrics()}, \code{distribution()}, and \code{dimensionality()} functions.
-#' @author J. Antonio Guzman Q. and Ronny Hernandez
+#' @seealso \code{\link{basic_metrics}}, \code{\link{distribution}}, \code{\link{dimensionality}}, \code{\link{cloud_metrics}}
+#'
+#' @return A \code{data.table} with the *XYZ* coordinates of the target point and the computed metrics.
+#' @author J. Antonio Guzmán Q.
 #'
 #' @examples
 #' data("pc_tree")
@@ -37,7 +39,9 @@ knn_metrics <- function(x, cloud, k, radius = NULL, basic = TRUE, distribution =
 
   } else {
 
-    cube <- cloud[between(X, xcoor - radius, xcoor + radius) & between(Y, ycoor - radius, ycoor + radius) & between(Z, zcoor - radius, zcoor + radius),] ###Set a cube to estimate the distance
+    cube <- cloud[X >= (xcoor - radius) & X <= (xcoor + radius) & ###Set a cube to estimate the distance
+                  Y >= (ycoor - radius) & Y <= (ycoor + radius) &
+                  Z >= (zcoor - radius) & Z <= (zcoor + radius)]
 
     cube <- cube[,1:3]
     cube <- cube[,distance := sqrt((xcoor - cube$X)^2 + (ycoor - cube$Y)^2 + (zcoor - cube$Z)^2)] #Get the distance of the points in the cube

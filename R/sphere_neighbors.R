@@ -10,12 +10,13 @@
 #' @details If a neighboring point presents a distance equal to zero, this is automatically removed. This is conducted to avoid \code{x} points that are already embedded in \code{cloud}.
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #'
+#' @seealso \code{\link{knn_neighbors}}, \code{\link{neighborhood}}
+#'
 #' @examples
 #' data("pc_tree")
 #' x <- pc_tree[100,]
 #' sphere_neighbors(x = x, cloud = pc_tree, radius = 0.2)
 #'
-#' @seealso \code{\link{knn_neighbors}}, \code{\link{neighborhood}}
 #'
 #' @export
 sphere_neighbors <- function(x, cloud, radius) {

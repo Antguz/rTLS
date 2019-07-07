@@ -2,21 +2,21 @@
 % Please edit documentation in R/sub_neighborhood.R
 \name{sub_neighborhood}
 \alias{sub_neighborhood}
-\title{Subsample neighboring points}
+\title{Subsample Neighboring Points}
 \usage{
 sub_neighborhood(neig.obj, method, new_radius, new_k)
 }
 \arguments{
-\item{neig.obj}{An object of class \code{neighborhood}.}
+\item{neig.obj}{An object of class \code{"neighborhood"}.}
 
-\item{method}{A character string specifying the method to subsample the neighboring points. It most be one of \code{"sphere"} or \code{"knn"}.}
+\item{method}{A \code{character} string specifying the method to subsample the neighboring points. It most be one of \code{"sphere"} or \code{"knn"}.}
 
-\item{new_radius}{A \code{numeric} vector of a length 1 representing the new radius to consider. This will be used if \code{method = "sphere"}. To be functional, \code{"new_radius"} most be lower than \code{"radius"} used in \code{"neighborhood"}.}
+\item{new_radius}{A \code{numeric} vector of a length 1 representing the new radius to consider. This will be used if \code{method = "sphere"}. To be functional, \code{"new_radius"} most be lower than \code{"radius"} used in \code{\link{neighborhood}}.}
 
-\item{new_k}{An integer of a length 1 representing the new number of neighbors to consider. This will be used if \code{method = "knn"}.  To be functional, \code{"new_k"} most be lower than \code{"k"} used in \code{"neighborhood"}.}
+\item{new_k}{An integer of a length 1 representing the new number of neighbors to consider. This will be used if \code{method = "knn"}. To be functional, \code{"new_k"} most be lower than \code{"k"} used in \code{\link{neighborhood}}.}
 }
 \value{
-An object of class "neighborhood" with a list per point of the neighboring points.
+An object of class \code{\link{neighborhood}} with a list per point of the neighboring points.
 }
 \description{
 Subsample the neighboring points based in a radius of a shpere or knn.
@@ -32,6 +32,9 @@ dist <- neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2)
 sub_neighborhood(dist, method = "sphere", new_radius = 0.1)
 
 }
+\seealso{
+\code{\link{knn_neighbors}}, \code{\link{sphere_neighbors}}, \code{\link{neighborhood}}
+}
 \author{
-J. Antonio Guzman Q. and Ronny Hernandez
+J. Antonio Guzmán  Q.
 }

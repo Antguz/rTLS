@@ -9,31 +9,31 @@ cloud_metrics(cloud, cloud_b = NULL, basic = TRUE,
   radius = NULL, k, n_replicates = NULL, parallel = FALSE, cores)
 }
 \arguments{
-\item{cloud}{A \code{data.table} with xyz coordinates in the first three columns or an object of class \code{"neighborhood"}.}
+\item{cloud}{A \code{data.table} with *XYZ* coordinates in the first three columns or an object of class \code{"neighborhood"}.}
 
-\item{cloud_b}{A \code{data.table} with xyz coordinates in the first three columns. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
+\item{cloud_b}{A \code{data.table} with *XYZ* coordinates in the first three columns. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
 
-\item{basic}{Logical, if \code{TRUE} it estimate basic metrics. \code{basic = TRUE} as default.}
+\item{basic}{Logical, if \code{TRUE} it estimates \code{\link{basic_metrics}}. \code{TRUE} as default.}
 
-\item{distribution}{Logical, if \code{TRUE} it estimate distribution metrics of points. \code{distribution = TRUE} as default.}
+\item{distribution}{Logical, if \code{TRUE} it estimates \code{\link{distribution}} metrics of points. \code{TRUE} as default.}
 
-\item{dimensionality}{Logical, if \code{TRUE} it estimate dimensionality metrics. \code{dimensionality = TRUE} as default.}
+\item{dimensionality}{Logical, if \code{TRUE} it estimates \code{\link{dimensionality}} metrics. \code{TRUE} as default.}
 
-\item{method}{A character string specifying the method to estimated the neighbors. It most be one of \code{"sphere"} or \code{"knn"}.}
+\item{method}{A character string specifying the method to estimate the neighbors. It most be one of \code{"sphere"} or \code{"knn"}.}
 
-\item{radius}{A \code{numeric} vector of a length 1 representing the radius of the sphere to consider. This need be used if \code{method = "sphere"} and this may used if \code{method = "knn"}.}
+\item{radius}{A \code{numeric} vector of a length 1 representing the radius of the sphere to consider. This needs be used if \code{method = "sphere"} and may used if \code{method = "knn"}.}
 
-\item{k}{An integer of a length 1 representing the number of neighbors to consider. This need be used if \code{method = "knn"}.}
+\item{k}{An integer of a length 1 representing the number of neighbors to consider. This needs be used if \code{method = "knn"}.}
 
-\item{parallel}{Logical, if \code{TRUE} it use a parallel processing.}
+\item{parallel}{Logical, if \code{TRUE} it uses parallel processing.}
 
-\item{cores}{An \code{integer} >= 0 describing the number of cores use. This need to be used if  \code{parallel = TRUE}.}
+\item{cores}{An \code{integer} >= 0 describing the number of cores use. This needs to be used if  \code{parallel = TRUE}.}
 }
 \value{
 A \code{data.frame} with the estimated parameters.
 }
 \description{
-Estimate different metrics on the poits of a cloud. It estimate 10 parameters based on Wang et al. 2017.
+Estimate different metrics on the poits of a cloud.
 }
 \examples{
 data("pc_tree")
@@ -60,12 +60,9 @@ cloud_metrics(cloud.random, pc_tree, method = "sphere", radius = 0.2)
 cloud_metrics(cloud.random, pc_tree, method = "sphere", radius = 0.2, parallel = TRUE, cores = 4)
 
 }
-\references{
-Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.
-}
 \seealso{
-basic.metrics, distribution, dimensionality
+\code{\link{basic_metrics}}, \code{\link{distribution}}, \code{\link{dimensionality}}, \code{\link{neighborhood}}
 }
 \author{
-J. Antonio Guzman Q. and Ronny Hernandez
+J. Antonio Guzmán Q. and Ronny Hernandez
 }

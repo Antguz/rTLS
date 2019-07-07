@@ -2,20 +2,26 @@
 % Please edit documentation in R/tree_metrics.R
 \name{tree_metrics}
 \alias{tree_metrics}
-\title{Tree metrics}
+\title{Tree Metrics}
 \usage{
-tree_metrics(cloud, region.diameter = NULL)
+tree_metrics(cloud, region.diameter = NULL, relocateZ = TRUE)
 }
 \arguments{
-\item{cloud}{A \code{data.table} with xyz coordinates in the first three columns.}
+\item{cloud}{A \code{data.table} of the target point with three columns of the *XYZ* coordinates.}
 
-\item{region.diameter}{A numeric \code{vector} of length 2 indicating the lower and higher region to subset the point cloud and get the diameter. If \code{cloud_b} with xyz coordinates in the first three columns. If \code{region.diameter = NULL}, it use \code{c(1.25, 1.35)}. \code{NULL} as default.}
+\item{region.diameter}{A \code{numeric} vector of length 2 indicating the lower and higher region to subset the point cloud and get the diameter. If \code{region.diameter = NULL}, it use \code{c(1.25, 1.35)}. \code{NULL} as default.}
+
+\item{relocateZ}{Logical, if \code{TRUE} it relocates the *Z* coordinates to a minimum coordinate of zero based on the current \code{min(cloud[,3])}. Useful if the base value (*Z*) of a tree point cloud is not topography corrected.}
 }
 \value{
 A \code{data.table} with the tree hight, crown area, and diameter
 }
 \description{
-Estimate the tree height, crown area, and diameter at breast height
+Estimate the tree height, crown area, and the diameter at breast height of a tree point cloud
+}
+\details{
+The tree height is estimated based on the maximum value of *Z*, the crown area is calculated applying a convex hull on the point cloud,
+while the DBH is calculated extracting the area of the convex hull on the subset of points between \code{region.diameter}, and then estimating the diameter of a circle.
 }
 \examples{
 data("pc_tree")
@@ -23,7 +29,7 @@ tree_metrics(pc_tree)
 
 }
 \seealso{
-cloud_metrics
+\code{\link{voxels}}, \code{\link{cloud_metrics}}, \code{\link{neighborhood}}
 }
 \author{
 J. Antonio Guzman Q. and Ronny Hernandez

@@ -9,13 +9,13 @@ artificial_stands(files, n.trees, dimension, coordinates = NULL,
   degrees = NULL, plot = TRUE, ...)
 }
 \arguments{
-\item{files}{A \code{character} vector describing the file name or path of the tree point cloud to use.}
+\item{files}{A \code{character} vector describing the file name or path of the tree point cloud to use. Those files most contain three columns representing the *XYZ* coordinates of a given point cloud.}
 
 \item{n.trees}{A positive \code{numeric} vector describing the number of point clouds to use.}
 
 \item{dimension}{A positive \code{numeric} vector of length two describing the width and length of the future forest stand.}
 
-\item{coordinates}{A \code{data.table} of two columns and with \code{nrows} equal to \code{n.trees} describing the basal coordinates of the point clouds in the future stant. If \code{NULL}, it uses random basal coordinates based on stand dimension. \code{NULL} as default.}
+\item{coordinates}{A \code{data.table} of two columns and with \code{nrows} equal to \code{n.trees} describing the basal *XYZ* coordinates of the point clouds in the future stand. If \code{NULL}, it uses random basal coordinates based on stand dimension. \code{NULL} as default.}
 
 \item{sample}{Logical. If \code{TRUE}, it performs a sample of the \code{files} to determine the order to build the artificial stand. If \code{FALSE}, it use the file order described in \code{files}. \code{TRUE} as default.}
 
@@ -51,6 +51,9 @@ artificial_stands(files, n.trees = 4, dimension = c(15, 15), coordinates = locat
 #Remove the file
 file.remove("pc_tree.txt")
 
+}
+\seealso{
+\code{\link{voxels_counting}}
 }
 \author{
 J. Antonio Guzmán Q.

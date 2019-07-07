@@ -2,39 +2,42 @@
 % Please edit documentation in R/knn_metrics.R
 \name{knn_metrics}
 \alias{knn_metrics}
-\title{k-nearest neighbors metrics on a target point}
+\title{K-nearest Neighbors Metrics on a Target Point}
 \usage{
 knn_metrics(x, cloud, k, radius = NULL, basic = TRUE,
   distribution = TRUE, dimensionality = TRUE, n_replicates = NULL)
 }
 \arguments{
-\item{x}{A \code{data.table} or \code{data.frame} of a targed point with xyz coordinates.}
+\item{x}{A \code{data.table} of the target point with three columns of the *XYZ* coordinates.}
 
-\item{cloud}{A \code{data.table} of a point cloud with xyz coordinates to extract the neighboring points.}
+\item{cloud}{A \code{data.table} of a point cloud with three columns of the *XYZ* coordinates to extract the neighboring points.}
 
-\item{k}{An integer of a length 1 representing the number of neighbors to consider.}
+\item{k}{An \code{integer} of a length 1 representing the number of neighbors to consider.}
 
-\item{radius}{Optional. A \code{numeric} vector of a length 1 representing a priori radius from \code{x} to select the k nearest neighbors. This speed up the calculations when \code{cloud} is too large.}
+\item{radius}{Optional. A \code{numeric} vector of a length 1 representing a priori radius from \code{x} to select the k-nearest neighbors. This speed up the calculations when \code{cloud} is too large.}
 
-\item{basic}{Logical, if \code{TRUE} it estimate basic metrics. \code{basic = TRUE} as default.}
+\item{basic}{Logical, if \code{TRUE} it estimates \code{\link{basic_metrics}}. \code{TRUE} as default.}
 
-\item{distribution}{Logical, if \code{TRUE} it estimate distribution metrics of points. \code{distribution = TRUE} as default.}
+\item{distribution}{Logical, if \code{TRUE} it estimates \code{\link{distribution}} metrics of points. \code{TRUE} as default.}
 
-\item{dimensionality}{Logical, if \code{TRUE} it estimate dimensionality metrics. \code{dimensionality = TRUE} as default.}
+\item{dimensionality}{Logical, if \code{TRUE} it estimates \code{\link{dimensionality}} metrics. \code{TRUE} as default.}
 
-\item{n_replicates}{A positive \code{interger} of a length 1 representing the number of replicates to estimate the expected distance. If \code{n_replicates = NULL}, it uses the number of neighboring points calculated. \code{n_replicates = NULL} as default.}
+\item{n_replicates}{If \code{distribution = TRUE}, a positive \code{interger} of a length 1 representing the number of replicates to estimate the expected distance. If \code{n_replicates = NULL}, it uses the number of neighboring points calculated. \code{NULL} as default.}
 }
 \value{
-A \code{data.table} with the xyz coordinates of the target point and the computed metrics by \code{basic.metrics()}, \code{distribution()}, and \code{dimensionality()} functions.
+A \code{data.table} with the *XYZ* coordinates of the target point and the computed metrics.
 }
 \description{
-Estimate different metrics on a neighborhood of a targed point using knn.
+Estimate different metrics on a neighborhood of a target point using knn.
 }
 \examples{
 data("pc_tree")
 knn_metrics(pc_tree[100,], pc_tree, k = 10)
 
 }
+\seealso{
+\code{\link{basic_metrics}}, \code{\link{distribution}}, \code{\link{dimensionality}}, \code{\link{cloud_metrics}}
+}
 \author{
-J. Antonio Guzman Q. and Ronny Hernandez
+J. Antonio Guzmán Q.
 }

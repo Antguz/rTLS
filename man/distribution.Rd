@@ -2,30 +2,36 @@
 % Please edit documentation in R/distribution.R
 \name{distribution}
 \alias{distribution}
-\title{Dispersion, agregation, and mean distance of neighboring points.}
+\title{Dispersion, Agregation, and Mean Distance of Neighboring Points.}
 \usage{
 distribution(space, radius = NULL, n_replicates = NULL)
 }
 \arguments{
-\item{space}{A \code{data.table} with xzy coordinates in the first three columns of the neighboring points and a four columns with the distance to the target point.}
+\item{space}{A \code{data.table} with *XYZ* coordinates of the neighboring points in the first three columns and a four column with their distance to the target point.}
 
-\item{radius}{A \code{numeric} vector of a length 1 representing the radius of the sphere which was considered. If \code{radius = NULL}, it use the maximun distance of \code{space} (\code{max(space[,4])}). \code{radius = NULL} as default.}
+\item{radius}{A \code{numeric} vector of a length 1 representing the radius of the sphere which was considered. If \code{NULL}, it use the maximun distance of \code{space} (\code{max(space[,4])}). \code{NULL} as default.}
 
-\item{n_replicates}{An \code{interger} of a length 1 representing the number of replicates to estimate the expected distance. If \code{n_replicates = NULL}, it use the same number of rows of \code{space}. \code{n_replicates = NULL} as default.}
+\item{n_replicates}{An \code{interger} of a length 1 representing the number of replicates to estimate the expected distance. If \code{NULL}, it use the same number of rows of \code{space}. \code{NULL} as default.}
 }
 \value{
-A \code{data.frame} with four metrics: i) observed distance, ii) expected distance, iii) points dispersion, iv) aggregation to the target point.
+A \code{data.table} with four metrics: i) observed mean distance, ii) expected mean distance, iii) points dispersion, iv) mean aggregation to the target point.
 }
 \description{
 Estimate the dispersion, aggregation, and mean distance of the neighboring points to a target point..
 }
+\details{
+The observed mean distance is estimated based on the average value of \code{space[,4]}.
+The expected mean distance is computed on the average of \link{runif} values replicated n times using a range between 0 and \code{radius}.
+The points dispersion is the ratio of observed mean distance and expected mean distance. The mean aggregation is estimated based on \code{mean(1 - space[4]/radius}.
+}
 \examples{
 data("pc_tree")
-
 neig <- neighborhood(pc_tree[50,], pc_tree, method = "sphere", radius = 0.2)
-
 distribution(neig$neighborhood[, c(2:5)], radius = neig$parameter)
 
+}
+\seealso{
+\code{\link{basic_metrics}}, \code{\link{dimensionality}}, \code{\link{cloud_metrics}}, \code{\link{neighborhood}}
 }
 \author{
 J. Antonio Guzman Q. and Ronny Hernandez

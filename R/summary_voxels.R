@@ -1,4 +1,4 @@
-#' @title Voxels summary
+#' @title Voxels Summary
 #'
 #' @description Create a summary of the voxels or future voxels.
 #'
@@ -10,10 +10,14 @@
 #' @return A \code{data.table} with with the summary of \code{voxels}.
 #'
 #' @details The function estimate 9 main statistics of the voxels. Specifically, the first three columns (ei. \code{Voxel.size}, \code{N_voxels}, \code{Volumen}) describe the size of the voxel used, the number of voxels created, and the total volumen they represent.
-#' Following columns represent the mean (\code{Density_mean}) and sd (\code{Density_sd}) of the density of points per voxel. Columns 6:10 provide metrics calculated using the Shannon index. Specifically, \code{H} describe the entropy, \code{H_max} the maximun entropy, \code{Equitavility} the ratio between \code{H} and \code{Hmax}, and \code{Negentropy} describe the product of \code{Hmax} - \code{H}.
-#' If \code{bootstrap = TRUE} four more columns are created (10:13). These represent the mean and sd of the H index estimated using bootstrap (\code{H_boot_mean} and \code{H_boot_sd}), the \code{Equtavility_boot} as the ratio of the ratio between \code{H_boot_sd} and \code{Hmax}, and \code{Negentropy_boot} as the product \code{Hmax} - \code{H_boot_mean}.
+#' Following columns represent the mean (\code{Density_mean}) and sd (\code{Density_sd}) of the density of points per voxel. Columns 6:10 provide metrics calculated using the Shannon Index. Specifically, \code{H} describe the entropy, \code{H_max} the maximun entropy, \code{Equitavility} the ratio between \code{H} and \code{Hmax}, and \code{Negentropy} describe the product of \code{Hmax} - \code{H}.
+#' If \code{bootstrap = TRUE} four more columns are created (10:13). These represent the \code{mean} and \code{sd} of the H index estimated using bootstrap (\code{H_boot_mean} and \code{H_boot_sd}), the \code{Equtavility_boot} as the ratio of the ratio between \code{H_boot_sd} and \code{Hmax}, and \code{Negentropy_boot} as the product \code{Hmax} - \code{H_boot_mean}.
 #'
-#' @author J. Antonio Guzman Q. and Ronny Hernandez
+#' @author J. Antonio Guzmán Q.
+#'
+#' @importFrom boot boot
+#'
+#' @seealso \code{\link{voxels}}, \code{\link{voxels_counting}}, \code{\link{plot.voxels}}
 #'
 #' @examples
 #' data("pc_tree")

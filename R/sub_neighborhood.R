@@ -1,14 +1,16 @@
-#' @title Subsample neighboring points
+#' @title Subsample Neighboring Points
 #'
 #' @description Subsample the neighboring points based in a radius of a shpere or knn.
 #'
-#' @param neig.obj An object of class \code{neighborhood}.
-#' @param method A character string specifying the method to subsample the neighboring points. It most be one of \code{"sphere"} or \code{"knn"}.
-#' @param new_radius A \code{numeric} vector of a length 1 representing the new radius to consider. This will be used if \code{method = "sphere"}. To be functional, \code{"new_radius"} most be lower than \code{"radius"} used in \code{"neighborhood"}.
-#' @param new_k An integer of a length 1 representing the new number of neighbors to consider. This will be used if \code{method = "knn"}.  To be functional, \code{"new_k"} most be lower than \code{"k"} used in \code{"neighborhood"}.
+#' @param neig.obj An object of class \code{"neighborhood"}.
+#' @param method A \code{character} string specifying the method to subsample the neighboring points. It most be one of \code{"sphere"} or \code{"knn"}.
+#' @param new_radius A \code{numeric} vector of a length 1 representing the new radius to consider. This will be used if \code{method = "sphere"}. To be functional, \code{"new_radius"} most be lower than \code{"radius"} used in \code{\link{neighborhood}}.
+#' @param new_k An integer of a length 1 representing the new number of neighbors to consider. This will be used if \code{method = "knn"}. To be functional, \code{"new_k"} most be lower than \code{"k"} used in \code{\link{neighborhood}}.
 #'
-#' @return An object of class "neighborhood" with a list per point of the neighboring points.
-#' @author J. Antonio Guzman Q. and Ronny Hernandez
+#' @return An object of class \code{\link{neighborhood}} with a list per point of the neighboring points.
+#' @author J. Antonio Guzmán  Q.
+#'
+#' @seealso \code{\link{knn_neighbors}}, \code{\link{sphere_neighbors}}, \code{\link{neighborhood}}
 #'
 #' @examples
 #' data("pc_tree")

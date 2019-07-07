@@ -2,14 +2,14 @@
 % Please edit documentation in R/min_distance.R
 \name{min_distance}
 \alias{min_distance}
-\title{Minimun distance between points}
+\title{Minimun Distance Between Points}
 \usage{
 min_distance(cloud, parallel = FALSE, cores = NULL)
 }
 \arguments{
-\item{cloud}{A \code{data.table} with xyz coordinates in the first three columns.}
+\item{cloud}{A \code{data.table} with *XYZ* coordinates in the first three columns representing a point cloud.}
 
-\item{parallel}{Logical, if \code{TRUE} it use a parallel processing to estimate distances between points. \code{FALSE} as default.}
+\item{parallel}{Logical, if \code{TRUE} it uses a parallel processing to estimate the distance between points. \code{FALSE} as default.}
 
 \item{cores}{An \code{integer} >= 0 describing the number of cores use. This need to be used if \code{parallel = TRUE}.}
 }
@@ -22,11 +22,13 @@ Estimate the minimum distance between points in a point cloud.
 \examples{
 data("pc_tree")
 
-###Estimate the minimun distance of a point cloud
-min_distance(pc_tree)
+###Estimate the minimun distance of 1000 random rows of a point cloud
+cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
+min_distance(cloud.random)
 
-###Estimate the minimun distance of a point cloud using parallel processing with 4 cores
-min_distance(pc_tree, parallel = TRUE, cores = 4)
+###Estimate the minimun distance of 1000 random rows of a point cloud using parallel processing with 4 cores
+cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
+min_distance(cloud.random, parallel = TRUE, cores = 4)
 
 }
 \author{

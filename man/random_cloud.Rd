@@ -2,22 +2,25 @@
 % Please edit documentation in R/random_cloud.R
 \name{random_cloud}
 \alias{random_cloud}
-\title{Random point cloud}
+\title{Random Point Cloud}
 \usage{
 random_cloud(npoints, limits, minDistance)
 }
 \arguments{
 \item{npoints}{A positive \code{numeric} vector of length 1 describing the number of points to create.}
 
-\item{limits}{A \code{numeric} vector of length 6 representing the minimun and maximun of x, y, and z coordinates.}
+\item{limits}{A \code{numeric} vector of length 6 representing the minimun and maximun of *XYZ* coordinates.}
 
-\item{minDistance}{A positive \code{numeric} vector of length 1 describing the future minimun distance between points.}
+\item{minDistance}{A positive \code{numeric} vector of length 1 describing the minimun distance between points.}
 }
 \value{
-A \code{data.table} whit three columns representing the xyz coordinates.
+A \code{data.table} whit three columns representing the *XYZ* coordinates.
 }
 \description{
-Creates a random point cloud using a given number of points, xyz limints, and minimun distance between them.
+Creates a random point cloud using a given number of points, *XYZ* limints, and minimun distance between them.
+}
+\details{
+This function create points based on the established \code{limits} and \code{minDistance} between points. It is useful more than a random number generator since the user can have control of the minimum spatial resolution of the point cloud.
 }
 \examples{
 
@@ -27,5 +30,5 @@ random_cloud(npoints = 1000, limits =  range, minDistance = 0.5)
 
 }
 \author{
-J. Antonio Guzman Q. and Ronny Hernandez
+J. Antonio Guzmán Q.
 }

@@ -4,7 +4,7 @@
 \name{pc_tree}
 \alias{pc_tree}
 \title{Tree point cloud}
-\format{A \code{data.table} where the rows represent the points and the three columns represent the xyz coordinates.}
+\format{A \code{data.table} where the rows represent the points and the three columns represent the *XYZ* coordinates.}
 \usage{
 data(pc_tree)
 }

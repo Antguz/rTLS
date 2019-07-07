@@ -5,23 +5,18 @@
 \title{Voxels counting}
 \usage{
 voxels_counting(cloud, voxel.range = NULL, bootstrap = FALSE,
-  R = NULL, random = FALSE, minDistance = NULL, parallel = FALSE,
-  cores = NULL)
+  R = NULL, parallel = FALSE, cores = NULL)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with xyz coordinates of the point clouds in the first three columns.}
 
 \item{voxel.range}{A positive \code{numeric} vector describing the different voxel size to perform. If \code{NULL}, it use 10 voxel sizes by defaul based on the largest range of XYZ. See details.}
 
-\item{bootstrap}{Logical, if \code{bootstrap = TRUE}, it computes a bootstrap on the H index calculations. \code{bootstrap = FALSE} as default.}
+\item{bootstrap}{Logical. If \code{TRUE}, it computes a bootstrap on the H index calculations. \code{FALSE} as default.}
 
 \item{R}{A positive \code{integer} of length 1 indicating the number of bootstrap replicates. This need to be used if \code{bootstrap = TRUE}.}
 
-\item{random}{Logical. If \code{TRUE}, it generates voxels on a random point cloud created using the same number of points and _xyz_ range of \code{cloud}, and a minimun distance between points. \code{FALSE} as default.}
-
-\item{minDistance}{A positive \code{numeric} vector of length 1 describing the future minimun distance between points. This need to be used if \code{random = TRUE}. If \code{random = TRUE} and \code{minDistance = NULL}, it automatically estimate the minimun distance using \code{min_distance()}.}
-
-\item{parallel}{Logical, if \code{TRUE} it uses a parallel processing for the voxelization. If \code{random = TRUE} and \code{minDistance = NULL}, it also use parallel processing to estimate the minimun distance between points. \code{FALSE} as default.}
+\item{parallel}{Logical, if \code{TRUE} it uses a parallel processing for the voxelization. \code{FALSE} as default.}
 
 \item{cores}{An \code{integer} >= 0 describing the number of cores to use. This need to be used if \code{parallel = TRUE}.}
 }
@@ -29,7 +24,7 @@ voxels_counting(cloud, voxel.range = NULL, bootstrap = FALSE,
 A \code{data.table} with the summary of the voxels created with their features.
 }
 \description{
-Creates voxels of different size on a point cloud using the \code{voxels()} function, and then return a summary of their features.
+Creates voxels of different size on a point cloud using the \code{\link{voxels}} function, and then return a \code{\link{summary_voxels}} of their features.
 }
 \examples{
 
@@ -45,6 +40,9 @@ voxels_counting(pc_tree, bootstrap = TRUE, R = 1000)
 voxels_counting(pc_tree, bootstrap = TRUE, R = 1000, parallel = TRUE, cores = 4)
 
 }
+\seealso{
+\code{\link{voxels}}, \code{\link{summary_voxels}}, \code{\link{plot.voxels}}
+}
 \author{
-J. Antonio Guzman Q. and Ronny Hernandez
+J. Antonio Guzmán Q.
 }
