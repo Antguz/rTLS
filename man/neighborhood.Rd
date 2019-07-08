@@ -44,8 +44,10 @@ neighborhood(cloud.random, pc_tree, method = "knn", k = 10)
 #Estimate the niegborhood based on the knn method using a k = 10 and a fixed radius of 0.5.
 neighborhood(cloud.random, pc_tree, method = "knn", k = 10, radius = 0.2)
 
+\dontrun{
 #Parallel TRUE with 4 cores
 neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2, parallel = TRUE, cores = 4)
+}
 
 }
 \seealso{

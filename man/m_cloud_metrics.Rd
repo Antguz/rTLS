@@ -26,6 +26,8 @@ m_cloud_metrics(cloud, cloud_b = NULL, basic = TRUE,
 
 \item{k.range}{An \code{integer} of a length 1 representing the number of neighbors to consider. This need be used if \code{method = "knn"}.}
 
+\item{n_replicates}{An \code{interger} of a length 1 representing the number of replicates to estimate the expected distance. This needs to be used if \code{distribution = TRUE}.If \code{NULL}, it uses the number of neighbors per point. \code{NULL} as default.}
+
 \item{parallel}{Logical, if \code{TRUE} it use a parallel processing.}
 
 \item{cores}{An \code{integer} >= 0 describing the number of cores use. This need to be used if \code{parallel = TRUE}.}
@@ -48,8 +50,10 @@ dist <- neighborhood(cloud.random, pc_tree, method = "sphere", radius = 5)
 #Estimate on three different scales scales of spheres (5, 2.5) without parallel
 m_cloud_metrics(dist, radius.range = c(5, 2.5), n_replicates = 10, parallel = FALSE)
 
+\dontrun{
 #Estimate metrics using three different scales of spheres (5, 2.5) with parallel
 m_cloud_metrics(dist, radius.range = c(5, 2.5), n_replicates = 10, parallel = TRUE, cores = 4)
+}
 
 }
 \seealso{

@@ -3,18 +3,23 @@
 \docType{data}
 \name{pc_tree}
 \alias{pc_tree}
-\title{Tree point cloud}
-\format{A \code{data.table} where the rows represent the points and the three columns represent the *XYZ* coordinates.}
+\title{A Tree Point Cloud}
+\format{A \code{data.table} with three columns, which are:
+\describe{
+\item{X}{the "X" coordinate}
+\item{Y}{the "Y coordinate}
+\item{Z}{the "Z" coordinate}
+}}
 \usage{
 data(pc_tree)
 }
 \description{
-Data from a point cloud of a tree with a spatial point resolution of 0.05 mm.
+A \code{data.table} from a point cloud of a tree with a spatial point resolution of 0.05 mm.
 }
 \examples{
 data(pc_tree)
 head(pc_tree)
-plot3d(pc_tree)
+
 }
 \references{
 Guzman, Sharp, Alencastro, Sanchez-Azofeifa. 2018. To be published.

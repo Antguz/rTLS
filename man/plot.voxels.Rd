@@ -4,13 +4,13 @@
 \alias{plot.voxels}
 \title{Plot Method for Voxels}
 \usage{
-plot.voxels(voxels, add.points = TRUE, add.voxels = TRUE,
+\method{plot}{voxels}(voxels, add.points = TRUE, add.voxels = TRUE,
   border = TRUE, fill = TRUE, gradientcol = FALSE, points.size = 1,
   pointscol = "black", fillcol = "forestgreen", lwd = 0.5,
   alpha = 0.1, ...)
 }
 \arguments{
-\item{voxels}{A \code{"voxels"} object.}
+\item{voxels}{Object of class \code{"voxels"} from \code{\link{voxels}}.}
 
 \item{add.points}{Logical, if \code{TRUE} it adds the original points used to perform the voxalization. \code{TRUE} as default.}
 
@@ -35,19 +35,19 @@ plot.voxels(voxels, add.points = TRUE, add.voxels = TRUE,
 \item{...}{General arguments passed to \code{\link{rgl}}.}
 }
 \description{
-The \code{plot} method for voxels created on point clouds using \code{\link{voxels}} function.
+The \code{plot} method for objects of class \code{"voxels"} created using the \code{\link{voxels}} function.
 }
 \examples{
 data("pc_tree")
 
 ###Create voxels of a size of 0.5.
 vox <- voxels(pc_tree, voxel.size = 0.5)
-plot.voxels(vox)
+plot(vox)
 
 }
 \seealso{
 \code{\link{voxels}}
 }
 \author{
-J. Antonio Guzman Q. and Ronny Hernandez
+J. Antonio Guzmán Q.
 }

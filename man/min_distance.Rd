@@ -26,9 +26,11 @@ data("pc_tree")
 cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
 min_distance(cloud.random)
 
+\dontrun{
 ###Estimate the minimun distance of 1000 random rows of a point cloud using parallel processing with 4 cores
 cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
 min_distance(cloud.random, parallel = TRUE, cores = 4)
+}
 
 }
 \author{

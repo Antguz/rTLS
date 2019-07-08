@@ -28,6 +28,8 @@ artificial_stands(files, n.trees, dimension, coordinates = NULL,
 \item{degrees}{A positive \code{numeric} vector describing the degree or degrees of rotation of the point cloud in the future stand. The \code{length(degree)} should be the same as \code{n.trees}. If \code{NULL}, it creates random degrees of rotation for each \code{n.trees}.}
 
 \item{plot}{Logical. If \code{TRUE}, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.}
+
+\item{...}{Parameters passed to \code{\link{fread}} for the reading of \code{files}.}
 }
 \value{
 A \code{list} which contain a \code{data.table} (Trees) with the information of the point clouds used and their current coordinates in the stand, and another \code{data.table} with that compile all the point clouds used.
@@ -36,20 +38,16 @@ A \code{list} which contain a \code{data.table} (Trees) with the information of 
 Create an artificial forest stand of a given area using tree point clouds.
 }
 \examples{
-#Export a point cloud to be imported
-data(pc_tree)
-fwrite(pc_tree, "pc_tree.txt", sep = "\\t")
+#Import an example point cloud
+path <- system.file("extdata", "pc_tree.txt", package = "rTLS")
 
 ###Creates a stand of 15x15 repeating four times the same point cloud and random coordinates and a crown overlap of 10\%
-files <- rep("pc_tree.txt", 4)
+files <- rep(path, 4)
 artificial_stands(files, n.trees = 4, dimension = c(15, 15), coordinates = NULL, sample = FALSE, replace = FALSE, overlap = 10, rotation = TRUE, degrees = NULL, plot = TRUE)
 
 ###Creates a stand of 15x15 repeating four times the same point cloud with establish locations.
 location <- data.table(X = c(5, 10, 10, 5), Y = c(5, 5, 10, 10))
 artificial_stands(files, n.trees = 4, dimension = c(15, 15), coordinates = location, sample = FALSE, replace = FALSE, overlap = NULL, rotation = TRUE, degrees = NULL, plot = TRUE)
-
-#Remove the file
-file.remove("pc_tree.txt")
 
 }
 \seealso{

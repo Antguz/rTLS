@@ -11,13 +11,13 @@ Description: A package that compiles a set of tools to process and calculate met
 Depends: 
     R (>= 3.6.0),
     data.table (>= 1.12.2),
-    rgl (>= 0.100.24)
 Imports:
     boot (>= 1.3-22), 
     doSNOW (>= 1.0.16), 
     foreach (>= 1.4.4),
     parallel (>= 3.6.0), 
     rgeos (>= 0.4-3),
+    rgl (>= 0.100.24),
     sp (>= 1.3-1)
 Suggests: 
     knitr,

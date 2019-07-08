@@ -1,4 +1,4 @@
-#' @title Voxels counting
+#' @title Voxels Counting
 #'
 #' @description Creates voxels of different size on a point cloud using the \code{\link{voxels}} function, and then return a \code{\link{summary_voxels}} of their features.
 #'
@@ -30,8 +30,10 @@
 #' #Voxels counting using boostrap on the H indixes with 1000 repetitions
 #' voxels_counting(pc_tree, bootstrap = TRUE, R = 1000)
 #'
+#' \dontrun{
 #' #Voxels counting using bootstrap on the H indices with 1000 repetitions and applying parallel processing with 4 cores.
 #' voxels_counting(pc_tree, bootstrap = TRUE, R = 1000, parallel = TRUE, cores = 4)
+#' }
 #'
 #' @export
 voxels_counting <- function(cloud, voxel.range = NULL, bootstrap = FALSE, R = NULL, parallel = FALSE, cores = NULL) {

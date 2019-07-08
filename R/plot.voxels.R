@@ -1,8 +1,9 @@
 #' @title Plot Method for Voxels
 #'
-#' @description The \code{plot} method for voxels created on point clouds using \code{\link{voxels}} function.
+#' @description The \code{plot} method for objects of class \code{"voxels"} created using the \code{\link{voxels}} function.
 #'
-#' @param voxels A \code{"voxels"} object.
+#' @aliases plot.voxels
+#' @param voxels Object of class \code{"voxels"} from \code{\link{voxels}}.
 #' @param add.points Logical, if \code{TRUE} it adds the original points used to perform the voxalization. \code{TRUE} as default.
 #' @param add.voxels Logical, if \code{TRUE} it adds the voxels created. \code{TRUE} as default.
 #' @param border Logical, if \code{TRUE} it adds a line on the borders of each voxel. \code{TRUE} as default.
@@ -15,7 +16,7 @@
 #' @param alpha A positive numeric vector describing the transparency of the voxels to fill. This value most be between 0.0 (fully transparent) .. 1.0 (opaque).
 #' @param ... General arguments passed to \code{\link{rgl}}.
 #'
-#' @author J. Antonio Guzman Q. and Ronny Hernandez
+#' @author J. Antonio Guzmán Q.
 #'
 #' @seealso \code{\link{voxels}}
 #'
@@ -24,9 +25,19 @@
 #'
 #' ###Create voxels of a size of 0.5.
 #' vox <- voxels(pc_tree, voxel.size = 0.5)
-#' plot.voxels(vox)
+#' plot(vox)
 #'
-#'@export
+#' @rdname plot.voxels
+#' @method plot voxels
+#' @importFrom grDevices colorRampPalette
+#' @importFrom rgl plot3d
+#' @importFrom rgl shade3d
+#' @importFrom rgl cube3d
+#' @importFrom rgl %>%
+#' @importFrom rgl translate3d
+#' @importFrom rgl points3d
+#'
+#' @export
 plot.voxels <- function(voxels, add.points = TRUE, add.voxels = TRUE, border = TRUE, fill = TRUE, gradientcol = FALSE, points.size = 1, pointscol = "black", fillcol = "forestgreen", lwd = 0.5, alpha = 0.10, ...) {
 
   if(class(voxels)[1] != "voxels") {

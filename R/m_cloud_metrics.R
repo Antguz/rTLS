@@ -10,6 +10,7 @@
 #' @param method A \code{character} string specifying the method to estimate neighbors. It most be one of \code{"sphere"} or \code{"knn"}.
 #' @param radius.range A positive \code{numeric} vector representing the range of spheres radius to consider. This need be used if \code{method = "sphere"}. This may be used if \code{method = "knn"}, but this should to be a \code{numeric} vector of length 1.
 #' @param k.range An \code{integer} of a length 1 representing the number of neighbors to consider. This need be used if \code{method = "knn"}.
+#' @param n_replicates An \code{interger} of a length 1 representing the number of replicates to estimate the expected distance. This needs to be used if \code{distribution = TRUE}.If \code{NULL}, it uses the number of neighbors per point. \code{NULL} as default.
 #' @param parallel Logical, if \code{TRUE} it use a parallel processing.
 #' @param cores An \code{integer} >= 0 describing the number of cores use. This need to be used if \code{parallel = TRUE}.
 #'
@@ -30,8 +31,10 @@
 #' #Estimate on three different scales scales of spheres (5, 2.5) without parallel
 #' m_cloud_metrics(dist, radius.range = c(5, 2.5), n_replicates = 10, parallel = FALSE)
 #'
+#' \dontrun{
 #' #Estimate metrics using three different scales of spheres (5, 2.5) with parallel
 #' m_cloud_metrics(dist, radius.range = c(5, 2.5), n_replicates = 10, parallel = TRUE, cores = 4)
+#' }
 #'
 #' @export
 m_cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = TRUE, dimensionality = TRUE, method = NULL, radius.range = NULL, k.range, n_replicates = NULL, parallel = FALSE, cores = NULL) {

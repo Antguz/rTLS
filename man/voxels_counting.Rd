@@ -2,7 +2,7 @@
 % Please edit documentation in R/voxels_counting.R
 \name{voxels_counting}
 \alias{voxels_counting}
-\title{Voxels counting}
+\title{Voxels Counting}
 \usage{
 voxels_counting(cloud, voxel.range = NULL, bootstrap = FALSE,
   R = NULL, parallel = FALSE, cores = NULL)
@@ -36,8 +36,10 @@ voxels_counting(pc_tree)
 #Voxels counting using boostrap on the H indixes with 1000 repetitions
 voxels_counting(pc_tree, bootstrap = TRUE, R = 1000)
 
+\dontrun{
 #Voxels counting using bootstrap on the H indices with 1000 repetitions and applying parallel processing with 4 cores.
 voxels_counting(pc_tree, bootstrap = TRUE, R = 1000, parallel = TRUE, cores = 4)
+}
 
 }
 \seealso{

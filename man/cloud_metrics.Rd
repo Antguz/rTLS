@@ -25,6 +25,8 @@ cloud_metrics(cloud, cloud_b = NULL, basic = TRUE,
 
 \item{k}{An integer of a length 1 representing the number of neighbors to consider. This needs be used if \code{method = "knn"}.}
 
+\item{n_replicates}{An \code{interger} of a length 1 representing the number of replicates to estimate the expected distance. This needs to be used if \code{distribution = TRUE}.If \code{NULL}, it uses the number of neighbors per point. \code{NULL} as default.}
+
 \item{parallel}{Logical, if \code{TRUE} it uses parallel processing.}
 
 \item{cores}{An \code{integer} >= 0 describing the number of cores use. This needs to be used if  \code{parallel = TRUE}.}
@@ -44,10 +46,12 @@ cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
 dist <- neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2)
 
 #Estimate metrics without using parallel.
-cloud_metrics(dist, distribution = FALSE)
+cloud_metrics(dist)
 
+\dontrun{
 #Estimate matrics using parallel processing with 4 cores.
-cloud_metrics(dist, distribution = FALSE, parallel = TRUE, cores = 4)
+cloud_metrics(dist, parallel = TRUE, cores = 4)
+}
 
 ###On objects of class data.table.
 ##Select 1000 random rows of a point cloud.
@@ -56,8 +60,10 @@ cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
 #Estimate metrics without using parallel by creating spheres of a radius of 0.2.
 cloud_metrics(cloud.random, pc_tree, method = "sphere", radius = 0.2)
 
+\dontrun{
 #Estimate metrics metrics in parallel using 4 cores by creating spheres of a radius of 0.2.
 cloud_metrics(cloud.random, pc_tree, method = "sphere", radius = 0.2, parallel = TRUE, cores = 4)
+}
 
 }
 \seealso{
