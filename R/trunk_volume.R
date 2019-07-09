@@ -1,6 +1,6 @@
 #' @title Tree Trunk Volume
 #'
-#' @description Estimates the tree trunk volume of a point cloud using the \code{\link{alphashape3d}} package.
+#' @description Estimates the tree trunk volume of a point cloud using the \code{\link[pkg]{alphashape3d}} package.
 #'
 #' @param cloud A \code{data.table} with three columns representing the *XYZ* coordinates of a point cloud.
 #' @param max.height A \code{numeric} vector to contemplate points in the cloud lower than a specific height. If \code{NULL}, it performs the α-shape on the entire point cloud.
@@ -9,7 +9,7 @@
 #' @param ... General arguments passed to \code{ashape3d}.
 #'
 #' @details This is an adaptation of the code develop by Lafarge & Pateiro-Lopez (2017) based on Edelsbrunner & Mucke (1994) for the quick extraction of the tree trunk volume.
-#' Therefore, if you use this code we kindly suggest that you cite these documents in your research.
+#' Therefore, if you use this code we kindly suggest to cite these documents in your research.
 #'
 #' @return A \code{numeric} vector with the estimated trunk volume.
 #' @author J. Antonio Guzmán Q.
