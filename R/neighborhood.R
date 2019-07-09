@@ -15,9 +15,11 @@
 #' @importFrom doSNOW registerDoSNOW
 #' @importFrom foreach foreach
 #' @importFrom foreach %dopar%
+#' @importFrom data.table .GRP
+#' @importFrom data.table .SD
 #'
 #' @return An object of class \code{neighborhood} which is a nested list that describes the cloud point used (\code{cloud}), the parameter \code{radius} or \code{k} used, and the resulting neighbor points per point (\code{neighborhood}).
-#' @author J. Antonio Guzman Q. and Ronny Hernandez
+#' @author J. Antonio Guzmán Q.
 #'
 #' @seealso \code{\link{knn_neighbors}}, \code{\link{sphere_neighbors}}, \code{\link{cloud_metrics}}
 #'

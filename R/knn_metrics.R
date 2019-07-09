@@ -16,6 +16,10 @@
 #' @return A \code{data.table} with the *XYZ* coordinates of the target point and the computed metrics.
 #' @author J. Antonio Guzmán Q.
 #'
+#' @importFrom stats na.exclude
+#' @importFrom data.table :=
+#' @importFrom data.table setorder
+#'
 #' @examples
 #' data("pc_tree")
 #' knn_metrics(pc_tree[100,], pc_tree, k = 10)

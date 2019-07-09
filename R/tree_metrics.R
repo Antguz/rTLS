@@ -13,6 +13,7 @@
 #' while the DBH is calculated extracting the area of the convex hull on the subset of points between \code{region.diameter}, and then estimating the diameter of a circle.
 #'
 #' @importFrom sp Polygon
+#' @importFrom data.table between
 #'
 #' @seealso \code{\link{voxels}}, \code{\link{cloud_metrics}}, \code{\link{neighborhood}}
 #'
@@ -20,7 +21,7 @@
 #' data("pc_tree")
 #' tree_metrics(pc_tree)
 #'
-#'@export
+#' @export
 tree_metrics <- function(cloud, region.diameter = NULL, relocateZ = TRUE) {
 
   colnames(cloud[,1:3]) <- c("X", "Y", "Z")

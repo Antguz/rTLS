@@ -19,6 +19,8 @@
 #' @importFrom doSNOW registerDoSNOW
 #' @importFrom foreach foreach
 #' @importFrom foreach %dopar%
+#' @importFrom data.table .GRP
+#' @importFrom data.table .SD
 #'
 #' @return A \code{data.frame} with the estimated parameters.
 #' @author J. Antonio Guzmán Q. and Ronny Hernandez

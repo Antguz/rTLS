@@ -8,9 +8,12 @@
 #'
 #' @return A \code{data.frame} with the three columns of the *XYZ* coordinates of the neighboring points and a fourth column with their distance.
 #' @details If a neighboring point presents a distance equal to zero, this is automatically removed. This is conducted to avoid \code{x} points that are already embedded in \code{cloud}.
-#' @author J. Antonio Guzman Q. and Ronny Hernandez
+#' @author J. Antonio Guzmán Q.
 #'
 #' @seealso \code{\link{knn_neighbors}}, \code{\link{neighborhood}}
+#'
+#' @importFrom data.table :=
+#' @importFrom data.table setorder
 #'
 #' @examples
 #' data("pc_tree")

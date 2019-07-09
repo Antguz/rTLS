@@ -8,9 +8,12 @@
 #'
 #' @return A \code{data.table} with the estimated parameters.
 #' @author J. Antonio Guzmán Q. and Ronny Hernandez
-#' @references Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.
+#' @references Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry. Remote Sensing & Spatial Information Sciences, 4. <doi:10.5194/isprs-annals-IV-2-W4-157-2017>
 #'
 #' @seealso \code{\link{basic_metrics}}, \code{\link{distribution}}, \code{\link{cloud_metrics}}, \code{\link{neighborhood}}
+#'
+#' @importFrom stats na.exclude
+#' @importFrom stats prcomp
 #'
 #' @examples
 #' data("pc_tree")

@@ -15,6 +15,9 @@
 #' @return A \code{data.table} with the *XYZ* coordinates of the target point and the computed metrics.
 #' @author J. Antonio Guzmán Q.
 #'
+#' @importFrom data.table :=
+#' @importFrom data.table setorder
+#'
 #' @examples
 #' data("pc_tree")
 #' sphere_metrics(pc_tree[100,], pc_tree, radius = 0.2)
@@ -28,7 +31,9 @@ sphere_metrics <- function(x, cloud, radius, basic = TRUE, distribution = TRUE, 
   ycoor <- as.numeric(x[1,2])
   zcoor <- as.numeric(x[1,3])
 
-  cube <- cloud[between(X, xcoor - radius, xcoor + radius) & between(Y, ycoor - radius, ycoor + radius) & between(Z, zcoor - radius, zcoor + radius),] ###Set a cube to estimate the distance
+  cube <- cloud[X >= (xcoor - radius) & X <= (xcoor + radius) & ###Set a cube to estimate the distance
+                Y >= (ycoor - radius) & Y <= (ycoor + radius) &
+                Z >= (zcoor - radius) & Z <= (zcoor + radius)]
 
   cube <- cube[,1:3]
 

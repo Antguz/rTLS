@@ -1,7 +1,8 @@
 #' @title Voxels Summary
 #'
-#' @description Create a summary of the voxels or future voxels.
+#' @description Create a summary objects of class \code{"voxels"} created using the \code{\link{voxels}}.
 #'
+#' @aliases summary.voxels
 #' @param voxels An object of class \code{voxels} created using the \code{voxels()} function or a \code{data.table} describing the voxels coordinates and their number of points produced using \code{voxels()}.
 #' @param voxel.size A positive \code{numeric} vector with the size of the voxel. This need to be used if \code{class(voxels) != "voxels"}. It use the same dimentional scale of the point cloud.
 #' @param bootstrap A logical vector length 1 vector. If \code{bootstrap = TRUE}, it compute a bootstrap on the H index calculations. \code{bootstrap = FALSE} as default.
@@ -15,7 +16,10 @@
 #'
 #' @author J. Antonio Guzmán Q.
 #'
+#' @rdname summary.voxels
+#' @method summary voxels
 #' @importFrom boot boot
+#' @importFrom stats sd
 #'
 #' @seealso \code{\link{voxels}}, \code{\link{voxels_counting}}, \code{\link{plot.voxels}}
 #'
@@ -24,14 +28,14 @@
 #'
 #' ###Apply a summary on a object of class "voxels" using bootstrap with 1000 replicates
 #' vox <- voxels(pc_tree, voxel.size = 0.5)
-#' summary_voxels(vox, bootstrap = TRUE, R = 1000)
+#' summary(vox, bootstrap = TRUE, R = 1000)
 #'
 #' ###Apply a summary on a product from the function voxels "voxels" using bootstrap with 1000 replicates
 #' vox <- voxels(pc_tree, voxel.size = 0.5, obj.voxels = FALSE)
-#' summary_voxels(vox, voxel.size = 0.5, bootstrap = TRUE, R = 1000)
+#' summary(vox, voxel.size = 0.5, bootstrap = TRUE, R = 1000)
 #'
 #' @export
-summary_voxels <- function(voxels, voxel.size = NULL, bootstrap = FALSE, R = NULL) {
+summary.voxels <- function(voxels, voxel.size = NULL, bootstrap = FALSE, R = NULL) {
 
   if(class(voxels)[1] != "voxels") {
     if(is.null(voxel.size) == TRUE) {

@@ -34,5 +34,5 @@ distribution(neig$neighborhood[, c(2:5)], radius = neig$parameter)
 \code{\link{basic_metrics}}, \code{\link{dimensionality}}, \code{\link{cloud_metrics}}, \code{\link{neighborhood}}
 }
 \author{
-J. Antonio Guzman Q. and Ronny Hernandez
+J. Antonio Guzmán Q.
 }

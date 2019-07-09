@@ -34,5 +34,5 @@ knn_neighbors(x = pc_tree[100,], cloud = pc_tree, k = 10, radius = 0.5)
 \code{\link{sphere_neighbors}}, \code{\link{neighborhood}}
 }
 \author{
-J. Antonio Guzman Q. and Ronny Hernandez
+J. Antonio Guzmán Q.
 }

@@ -54,5 +54,5 @@ neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2, parallel = 
 \code{\link{knn_neighbors}}, \code{\link{sphere_neighbors}}, \code{\link{cloud_metrics}}
 }
 \author{
-J. Antonio Guzman Q. and Ronny Hernandez
+J. Antonio Guzmán Q.
 }

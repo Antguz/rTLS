@@ -11,7 +11,9 @@
 #'
 #' @references Greaves, H. E., Vierling, L. A., Eitel, J. U., Boelman, N. T., Magney, T. S., Prager, C. M., & Griffin, K. L. (2015). Estimating aboveground biomass and leaf area of low-stature Arctic shrubs with terrestrial LiDAR. Remote Sensing of Environment, 164, 26-35.
 #'
-#' @seealso \code{\link{voxels_counting}}, \code{\link{plot.voxels}}
+#' @seealso \code{\link{voxels_counting}}, \code{\link{plot.voxels}}, \code{\link{summary.voxels}}
+#'
+#' @importFrom data.table .N
 #'
 #' @examples
 #' data("pc_tree")

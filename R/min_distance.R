@@ -7,7 +7,12 @@
 #' @param cores An \code{integer} >= 0 describing the number of cores use. This need to be used if \code{parallel = TRUE}.
 #'
 #' @return A \code{numeric} vector describing the minimun distance between points.
-#' @author J. Antonio Guzman Q. and Ronny Hernandez
+#' @author J. Antonio Guzmán Q.
+#'
+#' @importFrom data.table .GRP
+#' @importFrom data.table .SD
+#'
+#'
 #' @examples
 #' data("pc_tree")
 #'

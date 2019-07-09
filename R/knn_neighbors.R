@@ -8,11 +8,15 @@
 #' @param radius Optional. A \code{numeric} vector of a length 1 representing a-priori radius from \code{x} to select the k nearest neighbors. This option speed-up the search of neighboring points in highly dense point cloud, but it should be used with caution since small radios may exclude neighboring points.
 #'
 #' @return A \code{data.frame} with the three columns of the *XYZ* coordinates of the neighboring points and a fourth column with their distance.
-#' @author J. Antonio Guzman Q. and Ronny Hernandez
+#' @author J. Antonio Guzmán Q.
 #'
 #' @details If a neighboring point presents a distance equal to zero, this is automatically removed. This is conducted to avoid \code{x} points that are already embedded in \code{cloud}.
 #'
 #' @seealso \code{\link{sphere_neighbors}}, \code{\link{neighborhood}}
+#'
+#' @importFrom stats na.exclude
+#' @importFrom data.table :=
+#' @importFrom data.table setorder
 #'
 #' @examples
 #' data("pc_tree")

@@ -24,7 +24,7 @@ voxels_counting(cloud, voxel.range = NULL, bootstrap = FALSE,
 A \code{data.table} with the summary of the voxels created with their features.
 }
 \description{
-Creates voxels of different size on a point cloud using the \code{\link{voxels}} function, and then return a \code{\link{summary_voxels}} of their features.
+Creates voxels of different size on a point cloud using the \code{\link{voxels}} function, and then return a \code{\link{summary.voxels}} of their features.
 }
 \examples{
 
@@ -43,7 +43,7 @@ voxels_counting(pc_tree, bootstrap = TRUE, R = 1000, parallel = TRUE, cores = 4)
 
 }
 \seealso{
-\code{\link{voxels}}, \code{\link{summary_voxels}}, \code{\link{plot.voxels}}
+\code{\link{voxels}}, \code{\link{summary.voxels}}, \code{\link{plot.voxels}}
 }
 \author{
 J. Antonio Guzmán Q.

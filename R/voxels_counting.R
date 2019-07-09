@@ -1,6 +1,6 @@
 #' @title Voxels Counting
 #'
-#' @description Creates voxels of different size on a point cloud using the \code{\link{voxels}} function, and then return a \code{\link{summary_voxels}} of their features.
+#' @description Creates voxels of different size on a point cloud using the \code{\link{voxels}} function, and then return a \code{\link{summary.voxels}} of their features.
 #'
 #' @param cloud A \code{data.table} with xyz coordinates of the point clouds in the first three columns.
 #' @param voxel.range A positive \code{numeric} vector describing the different voxel size to perform. If \code{NULL}, it use 10 voxel sizes by defaul based on the largest range of XYZ. See details.
@@ -16,7 +16,7 @@
 #' @importFrom foreach %dopar%
 #' @importFrom foreach %do%
 #'
-#' @seealso \code{\link{voxels}}, \code{\link{summary_voxels}}, \code{\link{plot.voxels}}
+#' @seealso \code{\link{voxels}}, \code{\link{summary.voxels}}, \code{\link{plot.voxels}}
 #'
 #' @return A \code{data.table} with the summary of the voxels created with their features.
 #' @author J. Antonio Guzmán Q.
@@ -62,7 +62,7 @@ voxels_counting <- function(cloud, voxel.range = NULL, bootstrap = FALSE, R = NU
     #Run in parallel
     results <- foreach(i = 1:length(voxel.range), .inorder = FALSE, .combine= rbind, .packages = c("data.table", "rTLS"), .options.snow = opts) %dopar% {
       vox <- voxels(cloud_touse, voxel.size = voxel.range[i], obj.voxels = FALSE)
-      summary <- summary_voxels(vox, voxel.size = voxel.range[i], bootstrap = bootstrap, R = R)
+      summary <- summary.voxels(vox, voxel.size = voxel.range[i], bootstrap = bootstrap, R = R)
       return(summary)
     }
 
@@ -79,7 +79,7 @@ voxels_counting <- function(cloud, voxel.range = NULL, bootstrap = FALSE, R = NU
     results <- foreach(i = 1:length(voxel.range), .inorder = FALSE, .combine= rbind) %do% {
       setTxtProgressBar(pb, i)
       vox <- voxels(cloud_touse, voxel.size = voxel.range[i], obj.voxels = FALSE)
-      summary <- summary_voxels(vox, voxel.size = voxel.range[i], bootstrap = bootstrap, R = R)
+      summary <- summary.voxels(vox, voxel.size = voxel.range[i], bootstrap = bootstrap, R = R)
       return(summary)
     }
     results <- results[order(Voxel.size)]

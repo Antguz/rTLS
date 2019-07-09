@@ -25,7 +25,7 @@ dimensionality(neig$neighborhood[, c(2:4)])
 
 }
 \references{
-Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry, Remote Sensing & Spatial Information Sciences, 4.
+Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry. Remote Sensing & Spatial Information Sciences, 4. <doi:10.5194/isprs-annals-IV-2-W4-157-2017>
 }
 \seealso{
 \code{\link{basic_metrics}}, \code{\link{distribution}}, \code{\link{cloud_metrics}}, \code{\link{neighborhood}}

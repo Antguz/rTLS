@@ -10,6 +10,8 @@
 #' @return An object of class \code{\link{neighborhood}} with a list per point of the neighboring points.
 #' @author J. Antonio Guzmán  Q.
 #'
+#' @importFrom data.table .I
+#'
 #' @seealso \code{\link{knn_neighbors}}, \code{\link{sphere_neighbors}}, \code{\link{neighborhood}}
 #'
 #' @examples

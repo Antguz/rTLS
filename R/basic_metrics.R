@@ -5,10 +5,13 @@
 #' @param space A \code{data.table} with *XYZ* coordinates of the neighboring points in the first three columns and a four column with their distance to the target point.
 #' @param radius A \code{numeric} vector of a length 1 representing the radius of the sphere that was used. If \code{NULL}, it uses the maximum distance of \code{space} (\code{max(space[,4])}). \code{NULL} as default.
 #'
-#' @return A \code{data.table} with four metrics: i) the number of neighboring points, ii) the volume occupied by neighbors, iii) volume of the sphere used, and iv) density of points based on the sphere size. If \code{NULL}, the volume occupied by neighbors and the volume of the sphere is the same.
+#' @return A \code{data.table} with four columns, which represent metrics: i) the number of neighboring points, ii) the volume occupied by neighbors, iii) volume of the sphere used, and iv) density of points based on the sphere size. If \code{NULL}, the volume occupied by neighbors and the volume of the sphere is the same.
+#'
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #'
 #' @seealso \code{\link{distribution}}, \code{\link{dimensionality}}, \code{\link{cloud_metrics}}, \code{\link{neighborhood}}
+#'
+#' @importFrom stats na.exclude
 #'
 #' @examples
 #' data("pc_tree")

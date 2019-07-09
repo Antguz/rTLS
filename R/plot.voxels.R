@@ -18,7 +18,7 @@
 #'
 #' @author J. Antonio Guzmán Q.
 #'
-#' @seealso \code{\link{voxels}}
+#' @seealso \code{\link{voxels}}, \code{\link{voxels_counting}}, \code{\link{summary.voxels}}
 #'
 #' @examples
 #' data("pc_tree")

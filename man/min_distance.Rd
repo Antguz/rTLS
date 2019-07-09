@@ -34,5 +34,5 @@ min_distance(cloud.random, parallel = TRUE, cores = 4)
 
 }
 \author{
-J. Antonio Guzman Q. and Ronny Hernandez
+J. Antonio Guzmán Q.
 }
