@@ -23,9 +23,9 @@ artificial_stands(files, n.trees, dimension, coordinates = NULL,
 
 \item{overlap}{A positive \code{numeric} vector between 0 and 100 describing the overlap percentage of a given the tree crowns in the future forest stand. If \code{NULL}, the degree of overlap is not controlled.}
 
-\item{rotation}{Logical. If \code{TRUE}, it performs a random rotation in the x and y axis of the point cloud. \code{TRUE} as default.}
+\item{rotation}{Logical. If \code{TRUE}, it performs a rotation in yaw axis of the point cloud. \code{TRUE} as default.}
 
-\item{degrees}{A positive \code{numeric} vector describing the degree or degrees of rotation of the point cloud in the future stand. The \code{length(degree)} should be the same as \code{n.trees}. If \code{NULL}, it creates random degrees of rotation for each \code{n.trees}.}
+\item{degrees}{A positive \code{numeric} vector describing the degrees of rotation of the point clouds in the future stand. The \code{length(degree)} should be the same as \code{n.trees}. If \code{NULL}, it creates random degrees of rotation for each \code{n.trees}.}
 
 \item{plot}{Logical. If \code{TRUE}, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.}
 
@@ -47,7 +47,7 @@ artificial_stands(files, n.trees = 4, dimension = c(15, 15), coordinates = NULL,
 
 ###Creates a stand of 15x15 repeating four times the same point cloud with establish locations.
 location <- data.table(X = c(5, 10, 10, 5), Y = c(5, 5, 10, 10))
-artificial_stands(files, n.trees = 4, dimension = c(15, 15), coordinates = location, sample = FALSE, replace = FALSE, overlap = NULL, rotation = TRUE, degrees = NULL, plot = TRUE)
+a <- artificial_stands(files, n.trees = 4, dimension = c(15, 15), coordinates = location, sample = FALSE, replace = FALSE, overlap = NULL, rotation = TRUE, degrees = NULL, plot = TRUE)
 
 }
 \seealso{

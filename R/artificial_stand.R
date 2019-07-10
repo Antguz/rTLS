@@ -9,8 +9,8 @@
 #' @param sample Logical. If \code{TRUE}, it performs a sample of the \code{files} to determine the order to build the artificial stand. If \code{FALSE}, it use the file order described in \code{files}. \code{TRUE} as default.
 #' @param replace Logical. If \code{TRUE}, it performs a sample selection with a replacement if \code{sample = TRUE} to determine the order to build the artificial stand. Useful if the \code{n.trees} is lower than \code{length(files)}. \code{TRUE} as default.
 #' @param overlap A positive \code{numeric} vector between 0 and 100 describing the overlap percentage of a given the tree crowns in the future forest stand. If \code{NULL}, the degree of overlap is not controlled.
-#' @param rotation Logical. If \code{TRUE}, it performs a random rotation in the x and y axis of the point cloud. \code{TRUE} as default.
-#' @param degrees A positive \code{numeric} vector describing the degree or degrees of rotation of the point cloud in the future stand. The \code{length(degree)} should be the same as \code{n.trees}. If \code{NULL}, it creates random degrees of rotation for each \code{n.trees}.
+#' @param rotation Logical. If \code{TRUE}, it performs a rotation in yaw axis of the point cloud. \code{TRUE} as default.
+#' @param degrees A positive \code{numeric} vector describing the degrees of rotation of the point clouds in the future stand. The \code{length(degree)} should be the same as \code{n.trees}. If \code{NULL}, it creates random degrees of rotation for each \code{n.trees}.
 #' @param plot Logical. If \code{TRUE}, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.
 #' @param ... Parameters passed to \code{\link{fread}} for the reading of \code{files}.
 #'
@@ -45,7 +45,7 @@
 #'
 #' ###Creates a stand of 15x15 repeating four times the same point cloud with establish locations.
 #' location <- data.table(X = c(5, 10, 10, 5), Y = c(5, 5, 10, 10))
-#' artificial_stands(files, n.trees = 4, dimension = c(15, 15), coordinates = location, sample = FALSE, replace = FALSE, overlap = NULL, rotation = TRUE, degrees = NULL, plot = TRUE)
+#' a <- artificial_stands(files, n.trees = 4, dimension = c(15, 15), coordinates = location, sample = FALSE, replace = FALSE, overlap = NULL, rotation = TRUE, degrees = NULL, plot = TRUE)
 #'
 #' @export
 artificial_stands <- function(files, n.trees, dimension, coordinates = NULL, sample = TRUE, replace = TRUE, overlap = 0, rotation = TRUE, degrees = NULL, plot = TRUE, ...) {
@@ -77,7 +77,7 @@ artificial_stands <- function(files, n.trees, dimension, coordinates = NULL, sam
     if(is.null(degrees) == TRUE) {
       degrees <- runif(n.trees, 0.0, 360.0)
     } else if(length(degrees) != n.trees) {
-      stop("The length of dregrees differ from n.trees")
+      stop("The length of degrees differ from n.trees")
     }
   }
 
@@ -118,20 +118,14 @@ artificial_stands <- function(files, n.trees, dimension, coordinates = NULL, sam
 
     ###Positioning in the plot and rotation of the clouds-------
 
-    if(is.null(rotation) == TRUE) {  ###If rotation ocur
-      treeXY <- tree[,1:2]
-      cosangle <- cos(degrees[i])
-      sinangle <- sin(degrees[i])
-      newXY <- as.matrix(treeXY) %*% t(matrix(c(cosangle, sinangle, -sinangle, cosangle), 2,2))
-      tree$X <- newXY[,1]
-      tree$Y <- newXY[,2]
-    }
-
     basetree <- subset(tree, Z >= 0 & Z <= 0.1) ####Move the tree to their base centroid
     centroidXY <- c(mean(basetree$X), mean(basetree$Y))
-    tree$X <- tree$X - centroidXY[1]
-    tree$Y <- tree$Y - centroidXY[2]
 
+    if(rotation == TRUE) {  ###If rotation ocur
+      tree <- move_rotate(tree, move = c(centroidXY[1], centroidXY[2], 0), rotate = c(0, 0, degrees[i]))
+    } else {
+      tree <- move_rotate(tree, move = c(centroidXY[1], centroidXY[2], 0), rotate = NULL)
+    }
 
     if(i == 1) {  ###Dealing with the first tree ----------------
 
@@ -142,8 +136,8 @@ artificial_stands <- function(files, n.trees, dimension, coordinates = NULL, sam
         treecoordinates <- c(runif(1, 0, dimension[1]), runif(1, 0, dimension[2]))
       }
 
-      tree$X <- tree$X + treecoordinates[1]
-      tree$Y <- tree$Y + treecoordinates[2]
+      tree <- move_rotate(tree, move = c(-treecoordinates[1], -treecoordinates[2], 0), rotate = NULL)
+
       basetree <- subset(tree, Z >= 0 & Z <= 0.1)
       newcentroidXY <- c(mean(basetree$X), mean(basetree$Y))
 
@@ -180,9 +174,8 @@ artificial_stands <- function(files, n.trees, dimension, coordinates = NULL, sam
           treecoordinates <- c(runif(1, 0, dimension[1]), runif(1, 0, dimension[2]))
         }
 
-        tree_try <- tree
-        tree_try$X <- tree_try$X + treecoordinates[1]
-        tree_try$Y <- tree_try$Y + treecoordinates[2]
+        tree_try <- move_rotate(tree, move = c(-treecoordinates[1], -treecoordinates[2], 0), rotate = NULL)
+
         basetree <- subset(tree_try, Z >= 0 & Z <= 0.1)
         newcentroidXY <- c(mean(basetree$X), mean(basetree$Y))
 
