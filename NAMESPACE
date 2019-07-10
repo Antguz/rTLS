@@ -2,9 +2,9 @@
 
 S3method(plot,voxels)
 S3method(summary,voxels)
-export(angles)
 export(artificial_stands)
 export(basic_metrics)
+export(cloud_angles)
 export(cloud_metrics)
 export(dimensionality)
 export(distribution)
