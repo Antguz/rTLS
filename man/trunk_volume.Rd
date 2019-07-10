@@ -21,7 +21,7 @@ trunk_volume(cloud, max.height = NULL, alpha = 0.2, plot = TRUE, ...)
 A \code{numeric} vector with the estimated trunk volume.
 }
 \description{
-Estimates the tree trunk volume of a point cloud using the \code{\link{alphashape3d}} package.
+Estimates the tree trunk volume of a point cloud using the \code{\link[alphashape3d]{ashape3d}} package.
 }
 \details{
 This is an adaptation of the code develop by Lafarge & Pateiro-Lopez (2017) based on Edelsbrunner & Mucke (1994) for the quick extraction of the tree trunk volume.

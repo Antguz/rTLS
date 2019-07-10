@@ -16,11 +16,11 @@
 #' @examples
 #'
 #' data(pc_tree)
-#' coordinates <- c(mean(pc_tree$X), mean(pc_tree$Y), 0)
-#' angles(pc_tree, coordinates)
+#' coordinates <- c(mean(pc_tree$X), mean(pc_tree$Y), mean(pc_tree$X))
+#' cloud_angles(pc_tree, coordinates)
 #'
 #' @export
-angles <- function(cloud, coordinates) {
+cloud_angles <- function(cloud, coordinates) {
 
   colnames(cloud[,1:3]) <- c("X", "Y", "Z")
 
