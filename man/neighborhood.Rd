@@ -18,7 +18,7 @@ neighborhood(cloud, cloud_b = NULL, method, radius = NULL, k,
 
 \item{k}{An \code{integer} of a length 1 representing the number of neighbors to consider. This need to be used if \code{method = "knn"}.}
 
-\item{parallel}{Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.}
+\item{parallel}{Logical, if \code{TRUE} it use parallel processing. \code{FALSE} as default.}
 
 \item{cores}{An \code{integer >= 0}  describing the number of cores use. This need to be used if \code{parallel = TRUE}.}
 }

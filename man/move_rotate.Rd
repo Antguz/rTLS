@@ -27,7 +27,7 @@ Likewise, \code{rotate} assumes that roll has an effect on the *X* axis, the pit
 
 data(pc_tree)
 coordinates <- c(mean(pc_tree$X), mean(pc_tree$Y), mean(pc_tree$Z))
-degrees <- c(0, 0, 90)
+degrees <- c(90, 0, 0)
 move_rotate(pc_tree, coordinates, degrees)
 
 }

@@ -21,9 +21,16 @@
 #'
 #' @author J. Antonio Guzmán Q.
 #'
-#' @importFrom
-#' @importFrom
-#' @importFrom
+#' @importFrom data.table between
+#' @importFrom data.table CJ
+#' @importFrom foreach foreach
+#' @importFrom foreach %do%
+#' @importFrom foreach %dopar%
+#' @importFrom parallel makeCluster
+#' @importFrom parallel stopCluster
+#' @importFrom doSNOW registerDoSNOW
+#' @importFrom utils txtProgressBar
+#' @importFrom utils setTxtProgressBar
 #'
 #' @seealso \code{\link{}}
 #'
@@ -157,5 +164,6 @@ fstructure <- function(scan, zenith.range, zenith.bands, azimuth.range, TLS.reso
   }
 
   results[, Pgap := (1- (returns_below/shots)), by = seq_len(nrow(frame))]
+  return(results)
 }
 
