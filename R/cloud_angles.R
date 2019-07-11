@@ -16,11 +16,18 @@
 #' @examples
 #'
 #' data(pc_tree)
+#' cloud_angles(pc_tree)
 #' coordinates <- c(mean(pc_tree$X), mean(pc_tree$Y), mean(pc_tree$X))
 #' cloud_angles(pc_tree, coordinates)
 #'
 #' @export
-cloud_angles <- function(cloud, coordinates) {
+cloud_angles <- function(cloud, coordinates = NULL) {
+
+  if(is.null(coordinates) == TRUE) {
+    coordinates <- c(X = 0, Y = 0, Z = 0)
+  } else if(class(coordinates) != "numeric" | length(coordinates) != 3) {
+    stop("Coordinates needs to be a numeric vector of length 3 representing XYZ")
+  }
 
   colnames(cloud[,1:3]) <- c("X", "Y", "Z")
 

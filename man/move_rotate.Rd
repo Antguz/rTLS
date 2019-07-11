@@ -26,9 +26,9 @@ Likewise, \code{rotate} assumes that pitch has an effect on the *X* axis, the ro
 \examples{
 
 data(pc_tree)
-cloud <- pc_tree
-move <- c(mean(pc_tree$X), mean(pc_tree$Y), mean(pc_tree$Z))
-rotate <- c(0, 0, 180)
+coordinates <- c(mean(pc_tree$X), mean(pc_tree$Y), mean(pc_tree$Z))
+degrees <- c(0, 0, 180)
+move_rotate(pc_tree, coordinates, degrees)
 
 }
 \author{

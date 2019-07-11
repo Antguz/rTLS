@@ -16,9 +16,9 @@
 #' @examples
 #'
 #' data(pc_tree)
-#' cloud <- pc_tree
-#' move <- c(mean(pc_tree$X), mean(pc_tree$Y), mean(pc_tree$Z))
-#' rotate <- c(0, 0, 180)
+#' coordinates <- c(mean(pc_tree$X), mean(pc_tree$Y), mean(pc_tree$Z))
+#' degrees <- c(0, 0, 180)
+#' move_rotate(pc_tree, coordinates, degrees)
 #'
 #' @export
 move_rotate <- function(cloud, move, rotate) {
@@ -48,7 +48,7 @@ move_rotate <- function(cloud, move, rotate) {
   } else if(class(rotate) != "numeric") {
     stop("Rotate needs to be a numeric vector")
 
-  } else if(length(move) != 3) {
+  } else if(length(rotate) != 3) {
     stop("Rotate needs to be a numeric vector of length 3")
 
   } else {
@@ -79,6 +79,5 @@ move_rotate <- function(cloud, move, rotate) {
                                               (Ayx*X + Ayy*Y + Ayz*Z),
                                               (Azx*X + Azy*Y + Azz*Z)), by = seq_len(nrow(cloud))]
   }
-
   return(cloud)
 }

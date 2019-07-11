@@ -4,7 +4,7 @@
 \alias{cloud_angles}
 \title{Zenith and Azimuth of a Point Cloud}
 \usage{
-cloud_angles(cloud, coordinates)
+cloud_angles(cloud, coordinates = NULL)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with three columns describing the *XYZ* coordinates of a point cloud.}
@@ -25,6 +25,7 @@ If a point from \code{cloud} presents the same *XY* coordinates than \code{coord
 \examples{
 
 data(pc_tree)
+cloud_angles(pc_tree)
 coordinates <- c(mean(pc_tree$X), mean(pc_tree$Y), mean(pc_tree$X))
 cloud_angles(pc_tree, coordinates)
 
