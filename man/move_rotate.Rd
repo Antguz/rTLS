@@ -11,7 +11,7 @@ move_rotate(cloud, move, rotate)
 
 \item{move}{A \code{numeric} vector of length three describing the *XYZ* coordinates to move \code{cloud}.}
 
-\item{rotate}{A \code{numeric} vector of length three describing the rotation angles (degrees) for the pitch, roll, and yaw.}
+\item{rotate}{A \code{numeric} vector of length three describing the rotation angles (degrees) for the roll, pitch, and yaw.}
 }
 \value{
 A \code{data.table} with the rotation and move applied to \code{cloud}.
@@ -21,13 +21,13 @@ Moves a point cloud based on *XYZ* coordinates, and rotates it based on the pitc
 }
 \details{
 \code{move} conducts a substraction between \code{cloud} less \code{move} coordinates. If \code{NULL}, it does not apply \code{move}.
-Likewise, \code{rotate} assumes that pitch has an effect on the *X* axis, the roll on the *Y* axis, and the yaw on the *Z* axis. If \code{NULL}, it does not apply \code{rotate}.
+Likewise, \code{rotate} assumes that roll has an effect on the *X* axis, the pitch on the *Y* axis, and the yaw on the *Z* axis. If \code{NULL}, it does not apply \code{rotate}.
 }
 \examples{
 
 data(pc_tree)
 coordinates <- c(mean(pc_tree$X), mean(pc_tree$Y), mean(pc_tree$Z))
-degrees <- c(0, 0, 180)
+degrees <- c(0, 0, 90)
 move_rotate(pc_tree, coordinates, degrees)
 
 }

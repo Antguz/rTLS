@@ -4,10 +4,10 @@
 #'
 #' @param cloud A \code{data.table} with three columns describing the *XYZ* coordinates of a point cloud.
 #' @param move A \code{numeric} vector of length three describing the *XYZ* coordinates to move \code{cloud}.
-#' @param rotate A \code{numeric} vector of length three describing the rotation angles (degrees) for the pitch, roll, and yaw.
+#' @param rotate A \code{numeric} vector of length three describing the rotation angles (degrees) for the roll, pitch, and yaw.
 #'
 #' @details \code{move} conducts a substraction between \code{cloud} less \code{move} coordinates. If \code{NULL}, it does not apply \code{move}.
-#' Likewise, \code{rotate} assumes that pitch has an effect on the *X* axis, the roll on the *Y* axis, and the yaw on the *Z* axis. If \code{NULL}, it does not apply \code{rotate}.
+#' Likewise, \code{rotate} assumes that roll has an effect on the *X* axis, the pitch on the *Y* axis, and the yaw on the *Z* axis. If \code{NULL}, it does not apply \code{rotate}.
 #'
 #' @return A \code{data.table} with the rotation and move applied to \code{cloud}.
 #'
@@ -17,11 +17,13 @@
 #'
 #' data(pc_tree)
 #' coordinates <- c(mean(pc_tree$X), mean(pc_tree$Y), mean(pc_tree$Z))
-#' degrees <- c(0, 0, 180)
+#' degrees <- c(90, 0, 0)
 #' move_rotate(pc_tree, coordinates, degrees)
 #'
 #' @export
 move_rotate <- function(cloud, move, rotate) {
+
+  colnames(cloud)[1:3] <- c("X", "Y", "Z")
 
   ####Move the point cloud---------------------------------------
 
@@ -75,9 +77,9 @@ move_rotate <- function(cloud, move, rotate) {
     Azy <- cosb*sinc
     Azz <- cosb*cosc
 
-    cloud <- cloud[, c("X", "Y", "Z") := list((Axx*X + Axy*Y + Axz*Z),
-                                              (Ayx*X + Ayy*Y + Ayz*Z),
-                                              (Azx*X + Azy*Y + Azz*Z)), by = seq_len(nrow(cloud))]
+    cloud[, c("X", "Y", "Z") := list((Axx*X + Axy*Y + Axz*Z),
+                                     (Ayx*X + Ayy*Y + Ayz*Z),
+                                     (Azx*X + Azy*Y + Azz*Z)), by = seq_len(nrow(cloud))]
   }
   return(cloud)
 }

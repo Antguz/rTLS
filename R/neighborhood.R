@@ -7,7 +7,7 @@
 #' @param method A \code{character} string specifying the method to estimated the neighbors. It most be one of  \code{"sphere"} or  \code{"knn"}.
 #' @param radius An \code{numeric} vector of a length 1 representing the number of neighbors to consider. This need to be used if  \code{method = "sphere"}, and this may usted if \code{method = "knn"}.
 #' @param k An \code{integer} of a length 1 representing the number of neighbors to consider. This need to be used if \code{method = "knn"}.
-#' @param parallel Logical, if \code{TRUE} it use a parallel processing. \code{FALSE} as default.
+#' @param parallel Logical, if \code{TRUE} it use parallel processing. \code{FALSE} as default.
 #' @param cores An \code{integer >= 0}  describing the number of cores use. This need to be used if \code{parallel = TRUE}.
 #'
 #' @importFrom parallel makeCluster
