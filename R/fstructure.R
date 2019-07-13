@@ -95,10 +95,8 @@ fstructure <- function(scan, zenith.range, zenith.bands, azimuth.range, TLS.reso
 
   scanner <- CJ(zenith = seq(TLS.frame[1], TLS.frame[2], TLS.resolution[1]),
               azimuth = seq(TLS.frame[3], TLS.frame[4], TLS.resolution[2]))
-
-  scanner[ , c("X", "Y", "Z") := list((cos((azimuth*pi)/180) * sin((zenith*pi)/180)),
-                                    (sin((azimuth*pi)/180) * sin((zenith*pi)/180)),
-                                    (cos((zenith*pi)/180))), by = seq_len(nrow(scanner))]
+  scanner$distance <- 1
+  scanner <- polar_to_cartesian(scaner)
 
   scanner[, 3:5] <- move_rotate(scanner[,3:5], move = NULL, rotate = c(TLS.angles[1], TLS.angles[2], TLS.angles[3]))
   scanner <- cloud_angles(scanner[,3:5], NULL)
