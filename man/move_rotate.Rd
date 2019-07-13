@@ -17,7 +17,7 @@ move_rotate(cloud, move, rotate)
 A \code{data.table} with the rotation and move applied to \code{cloud}.
 }
 \description{
-Moves a point cloud based on *XYZ* coordinates, and rotates it based on the pitch, roll, and yaw angles.
+Moves a point cloud based on *XYZ* coordinates, and rotates it based on the roll, pitch, and yaw angles.
 }
 \details{
 \code{move} conducts a substraction between \code{cloud} less \code{move} coordinates. If \code{NULL}, it does not apply \code{move}.

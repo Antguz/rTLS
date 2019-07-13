@@ -4,11 +4,11 @@
 #'
 #' @param polar A \code{data.table} with three columns describing the zenith, azimuth, and distance of a point.
 #'
-#' @return A \code{data.table} with three columns describing the *XYZ* cartesian coordinates
+#' @return A \code{data.table} with three columns describing the *XYZ* of the cartesian coordinates.
 #'
 #' @author J. Antonio Guzmán Q.
 #'
-#' @seealso \code{\link{}}
+#' @seealso \code{\link{cartesian_to_polar}}
 #'
 #' @examples
 #'

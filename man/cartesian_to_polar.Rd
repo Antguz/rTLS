@@ -30,6 +30,9 @@ anchor <- c(1, 1, 1)
 cartesian_to_polar(pc_tree, anchor)
 
 }
+\seealso{
+\code{\link{polar_to_cartesian}}
+}
 \author{
 J. Antonio Guzmán Q.
 }

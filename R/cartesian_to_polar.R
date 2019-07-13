@@ -13,6 +13,8 @@
 #'
 #' @author J. Antonio Guzmán Q.
 #'
+#' @seealso \code{\link{polar_to_cartesian}}
+#'
 #' @examples
 #'
 #' data(pc_tree)

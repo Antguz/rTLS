@@ -10,7 +10,7 @@ polar_to_cartesian(polar)
 \item{polar}{A \code{data.table} with three columns describing the zenith, azimuth, and distance of a point.}
 }
 \value{
-A \code{data.table} with three columns describing the *XYZ* cartesian coordinates
+A \code{data.table} with three columns describing the *XYZ* of the cartesian coordinates.
 }
 \description{
 Convert from polar to cartesian coordinates.
@@ -28,7 +28,7 @@ rgl::plot3d(hemicloud)
 
 }
 \seealso{
-\code{\link{}}
+\code{\link{cartesian_to_polar}}
 }
 \author{
 J. Antonio Guzmán Q.

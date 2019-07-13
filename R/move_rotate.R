@@ -1,6 +1,6 @@
 #' @title Moves and Rotates a Point Cloud
 #'
-#' @description Moves a point cloud based on *XYZ* coordinates, and rotates it based on the pitch, roll, and yaw angles.
+#' @description Moves a point cloud based on *XYZ* coordinates, and rotates it based on the roll, pitch, and yaw angles.
 #'
 #' @param cloud A \code{data.table} with three columns describing the *XYZ* coordinates of a point cloud.
 #' @param move A \code{numeric} vector of length three describing the *XYZ* coordinates to move \code{cloud}.
@@ -77,9 +77,20 @@ move_rotate <- function(cloud, move, rotate) {
     Azy <- cosb*sinc
     Azz <- cosb*cosc
 
-    cloud[, c("X", "Y", "Z") := list((Axx*X + Axy*Y + Axz*Z),
-                                     (Ayx*X + Ayy*Y + Ayz*Z),
-                                     (Azx*X + Azy*Y + Azz*Z)), by = seq_len(nrow(cloud))]
+    if(rotate[1] != 0) {
+      cloud[, c("X") := list((Axx*X + Axy*Y + Axz*Z)), by = seq_len(nrow(cloud))]
+
+    }
+
+    if(rotate[2] != 0) {
+      cloud[, c("Y") := list((Ayx*X + Ayy*Y + Ayz*Z)), by = seq_len(nrow(cloud))]
+
+    }
+
+    if(rotate[3] != 0) {
+      cloud[, c("Z") := list((Azx*X + Azy*Y + Azz*Z)), by = seq_len(nrow(cloud))]
+    }
   }
+
   return(cloud)
 }
