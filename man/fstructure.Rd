@@ -33,7 +33,7 @@ If \code{NULL}, it assumes that the angles are \code{c(pitch = 0, roll = 0, yaw 
 \item{cores}{An \code{integer >= 0} describing the number of cores use. This need to be used if \code{parallel = TRUE}.}
 }
 \value{
-
+A \code{data.table}
 }
 \description{
 Estimates the forest structure of discrete returns from a TLS scan.
@@ -42,16 +42,19 @@ Estimates the forest structure of discrete returns from a TLS scan.
 
 }
 \examples{
-scan <- fread("C:/Users/josea/Documents/Github/tmp/hemi.txt", sep = "\\t")
+scan <- fread("C:/Users/josea/Documents/Github/tmp/Example.txt", sep = "\\t")
+scan <- scan[, 1:3]
 zenith.range <- c(50.0000, 70.0000)
 zenith.bands <- 5
 azimuth.range <- c(0.0000, 360.0000)
 TLS.resolution <- c(0.0400, 0.0400)
 TLS.coordinates <- c(0, 0, 0)
 TLS.frame <- c(30.0000, 150.0000, 0, 360.0000)
-TLS.angles <- c(-0.60531428717225377, 1.3143536309079467, 172.09018411223335)
+TLS.angles <- c(-1.135, 2.434, 147.247)
+parallel <- TRUE
+cores <- 4
 
-
+a <- fstructure(scan, zenith.range, zenith.bands, azimuth.range, TLS.resolution, TLS.coordinates, TLS.frame, TLS.angles, parallel, cores )
 
 }
 \seealso{

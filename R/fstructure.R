@@ -15,9 +15,10 @@
 #' If \code{NULL}, it assumes that the angles are \code{c(pitch = 0, roll = 0, yaw = 0)}.
 #' @param parallel Logical, if \code{TRUE} it use parallel processing on the estimation of shots and returns. \code{FALSE} as default.
 #' @param cores An \code{integer >= 0} describing the number of cores use. This need to be used if \code{parallel = TRUE}.
+#'
 #' @details
 #'
-#' @return
+#' @return A \code{data.table}
 #'
 #' @author J. Antonio Guzmán Q.
 #'
@@ -35,16 +36,19 @@
 #' @seealso \code{\link{}}
 #'
 #' @examples
-#' scan <- fread("C:/Users/josea/Documents/Github/tmp/hemi.txt", sep = "\t")
+#' scan <- fread("C:/Users/josea/Documents/Github/tmp/Example.txt", sep = "\t")
+#' scan <- scan[, 1:3]
 #' zenith.range <- c(50.0000, 70.0000)
 #' zenith.bands <- 5
 #' azimuth.range <- c(0.0000, 360.0000)
 #' TLS.resolution <- c(0.0400, 0.0400)
 #' TLS.coordinates <- c(0, 0, 0)
 #' TLS.frame <- c(30.0000, 150.0000, 0, 360.0000)
-#' TLS.angles <- c(-0.60531428717225377, 1.3143536309079467, 172.09018411223335)
+#' TLS.angles <- c(-1.135, 2.434, 147.247)
+#' parallel <- TRUE
+#' cores <- 4
 #'
-#'
+#' a <- fstructure(scan, zenith.range, zenith.bands, azimuth.range, TLS.resolution, TLS.coordinates, TLS.frame, TLS.angles, parallel, cores )
 #'
 #' @export
 fstructure <- function(scan, zenith.range, zenith.bands, azimuth.range, TLS.resolution, TLS.coordinates = NULL, TLS.frame = NULL, TLS.angles = NULL, parallel = FALSE, cores = NULL) {
@@ -52,8 +56,8 @@ fstructure <- function(scan, zenith.range, zenith.bands, azimuth.range, TLS.reso
   colnames(scan)[1:3] <- c("X", "Y", "Z")
 
   ###Validate assumptions-------------------------------------------------------------------------------------------------------
-  if(is.null(cores) == TRUE) {
-    stop("Select the number of cores")
+  if(parallel == TRUE & is.null(cores) == TRUE) {
+    stop("Select the number of cores to use parallel processing")
   }
 
   if(is.null(TLS.coordinates) == TRUE) {
@@ -89,20 +93,15 @@ fstructure <- function(scan, zenith.range, zenith.bands, azimuth.range, TLS.reso
 
   ###Estimate the number of scanner pulses in a given zenith and azimuth range --------------------------------------------------------------
 
-  model <- CJ(zenith = seq(TLS.frame[1], TLS.frame[2], 1),
-              azimuth = seq(TLS.frame[3], TLS.frame[4], 1))
+  scanner <- CJ(zenith = seq(TLS.frame[1], TLS.frame[2], TLS.resolution[1]),
+              azimuth = seq(TLS.frame[3], TLS.frame[4], TLS.resolution[2]))
 
-  model[ , c("X", "Y", "Z") := list((cos((azimuth*pi)/180) * sin((zenith*pi)/180)),
+  scanner[ , c("X", "Y", "Z") := list((cos((azimuth*pi)/180) * sin((zenith*pi)/180)),
                                     (sin((azimuth*pi)/180) * sin((zenith*pi)/180)),
-                                    (cos((zenith*pi)/180))), by = seq_len(nrow(model))]
+                                    (cos((zenith*pi)/180))), by = seq_len(nrow(scanner))]
 
-  model[, 3:5] <- move_rotate(model[,3:5], move = NULL, rotate = c(TLS.angles[1], TLS.angles[2], TLS.angles[3]))
-  model[, 1:2] <- cloud_angles(model[,3:5], NULL)
-
-  new.frame <- c(min(model$zenith), max(model$zenith), min(model$azimuth), max(model$azimuth))
-
-  scanner <- CJ(zenith = seq((new.frame[1] + (TLS.resolution[1]/2)), new.frame[2], TLS.resolution[1]),
-                azimuth = seq((new.frame[3] + (TLS.resolution[1]/2)), new.frame[4], TLS.resolution[2]))
+  scanner[, 3:5] <- move_rotate(scanner[,3:5], move = NULL, rotate = c(TLS.angles[1], TLS.angles[2], TLS.angles[3]))
+  scanner <- cloud_angles(scanner[,3:5], NULL)
 
   scanner <- scanner[between(zenith, zenith.range[1], zenith.range[2]) , 1:2]
 
@@ -164,6 +163,7 @@ fstructure <- function(scan, zenith.range, zenith.bands, azimuth.range, TLS.reso
   }
 
   results[, Pgap := (1- (returns_below/shots)), by = seq_len(nrow(frame))]
+  results[, L := (-1.1*log10(Pgap))]
+
   return(results)
 }
-
