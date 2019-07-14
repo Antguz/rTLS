@@ -16,9 +16,10 @@
 #' @examples
 #'
 #' data(pc_tree)
+#' rgl::plot3d(pc_tree)
 #' coordinates <- c(mean(pc_tree$X), mean(pc_tree$Y), mean(pc_tree$Z))
-#' degrees <- c(90, 0, 0)
-#' move_rotate(pc_tree, coordinates, degrees)
+#' degrees <- c(45, 45, 0)
+#' rgl::plot3d(move_rotate(pc_tree, coordinates, degrees))
 #'
 #' @export
 move_rotate <- function(cloud, move, rotate) {
@@ -56,39 +57,24 @@ move_rotate <- function(cloud, move, rotate) {
   } else {
     rotate <- rotate*pi/180 #convert degrees to radiants
 
-    cosa <- cos(rotate[3])
-    sina <- sin(rotate[3])
-
-    cosb <- cos(rotate[1])
-    sinb <- sin(rotate[1])
-
-    cosc <- cos(rotate[2])
-    sinc <- sin(rotate[2])
-
-    Axx <- cosa*cosb
-    Axy <- cosa*sinb*sinc - sina*cosc
-    Axz <- cosa*sinb*cosc + sina*sinc
-
-    Ayx <- sina*cosb
-    Ayy <- sina*sinb*sinc + cosa*cosc
-    Ayz <- sina*sinb*cosc - cosa*sinc
-
-    Azx <- -sinb
-    Azy <- cosb*sinc
-    Azz <- cosb*cosc
-
-    if(rotate[1] != 0) {
-      cloud[, c("X") := list((Axx*X + Axy*Y + Axz*Z)), by = seq_len(nrow(cloud))]
+    if(rotate[3] != 0) {
+      cloud[, c("X", "Y") := list(((X * cos(rotate[3])) - (Y * sin(rotate[3]))),
+                                 ((X * sin(rotate[3])) + (Y * cos(rotate[3])))),
+                                          by = seq_len(nrow(cloud))]
 
     }
 
     if(rotate[2] != 0) {
-      cloud[, c("Y") := list((Ayx*X + Ayy*Y + Ayz*Z)), by = seq_len(nrow(cloud))]
+      cloud[, c("X", "Z") := list(((X * cos(rotate[2])) - (Z * sin(rotate[2]))),
+                                  ((X * sin(rotate[2])) + (Z * cos(rotate[2])))),
+                                    by = seq_len(nrow(cloud))]
 
     }
 
-    if(rotate[3] != 0) {
-      cloud[, c("Z") := list((Azx*X + Azy*Y + Azz*Z)), by = seq_len(nrow(cloud))]
+    if(rotate[1] != 0) {
+      cloud[, c("Y", "Z") := list(((Y * cos(rotate[1])) - (Z * sin(rotate[1]))),
+                                  ((Y * sin(rotate[1])) + (Z * cos(rotate[1])))),
+                                    by = seq_len(nrow(cloud))]
     }
   }
 

@@ -5,6 +5,8 @@
 #' @param cartesian A \code{data.table} with three columns describing the *XYZ* coordinates of a point cloud.
 #' @param anchor A \code{numeric} vector of length three which describe the *XYZ* anchor coordinate for reference to get the polar coordinates.
 #' If \code{NULL}, it assumes that the reference coordinate is \code{c(X = 0, Y = 0, Z = 0)}.
+#' @param digits A \code{numeric} vector of length 1 describing the decimal numbers to \code{\link{round}} the zenith and azimuth angles. If \code{NULL}, \code{\link{round}} does not apply. \code{NULL} as default.
+#'
 #'
 #' @details It assumes that the positive *Z* axis is the reference vector for the zenith angle. Likewise, it assumes that the *Y* axis is the north-south direction (positive to negative) for the azimuth angle.
 #' If a point from \code{cartesian} presents the same *XY* coordinates than \code{anchor}, \code{angles} returns \code{NA}.
@@ -23,7 +25,7 @@
 #' cartesian_to_polar(pc_tree, anchor)
 #'
 #' @export
-cartesian_to_polar <- function(cartesian, anchor = NULL) {
+cartesian_to_polar <- function(cartesian, anchor = NULL, digits = NULL) {
 
   if(is.null(anchor) == TRUE) {
     anchor <- c(X = 0, Y = 0, Z = 0)
@@ -51,6 +53,10 @@ cartesian_to_polar <- function(cartesian, anchor = NULL) {
   cartesian <- cartesian[X == anchor[1] & Y < anchor[2], azimuth := 180]
   cartesian <- cartesian[X < anchor[1] & Y == anchor[2], azimuth := 270]
   cartesian <- cartesian[X == anchor[1] & Y == anchor[2], azimuth := NA]
+
+  if(is.null(digits) != TRUE) {
+    cartesian[, c("zenith", "azimuth") := round(.SD, digits), .SDcols= c("zenith", "azimuth")]
+  }
 
   return(cartesian[, c(5,6,4)])
 }

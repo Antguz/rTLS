@@ -4,10 +4,12 @@
 \alias{polar_to_cartesian}
 \title{Polar to Cartesian Coordinates}
 \usage{
-polar_to_cartesian(polar)
+polar_to_cartesian(polar, digits = NULL)
 }
 \arguments{
 \item{polar}{A \code{data.table} with three columns describing the zenith, azimuth, and distance of a point.}
+
+\item{digits}{A \code{numeric} vector of length 1 describing the decimal numbers to \code{\link{round}} the cartesian coordinates. If \code{NULL}, \code{\link{round}} does not apply. \code{NULL} as default.}
 }
 \value{
 A \code{data.table} with three columns describing the *XYZ* of the cartesian coordinates.

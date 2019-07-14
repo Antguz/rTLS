@@ -44,10 +44,11 @@ Estimates the forest structure of discrete returns from a TLS scan.
 \examples{
 scan <- fread("C:/Users/josea/Documents/Github/tmp/Example.txt", sep = "\\t")
 scan <- scan[, 1:3]
+scan[, c("X", "Y", "Z") := round(.SD, 5), .SDcols= c("X", "Y", "Z")]
 zenith.range <- c(50.0000, 70.0000)
-zenith.bands <- 5
+zenith.bands <- 6
 azimuth.range <- c(0.0000, 360.0000)
-TLS.resolution <- c(0.0400, 0.0400)
+TLS.resolution <- c(0.04, 0.04)
 TLS.coordinates <- c(0, 0, 0)
 TLS.frame <- c(30.0000, 150.0000, 0, 360.0000)
 TLS.angles <- c(-1.135, 2.434, 147.247)

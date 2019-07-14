@@ -38,10 +38,11 @@
 #' @examples
 #' scan <- fread("C:/Users/josea/Documents/Github/tmp/Example.txt", sep = "\t")
 #' scan <- scan[, 1:3]
+#' scan[, c("X", "Y", "Z") := round(.SD, 5), .SDcols= c("X", "Y", "Z")]
 #' zenith.range <- c(50.0000, 70.0000)
-#' zenith.bands <- 5
+#' zenith.bands <- 6
 #' azimuth.range <- c(0.0000, 360.0000)
-#' TLS.resolution <- c(0.0400, 0.0400)
+#' TLS.resolution <- c(0.04, 0.04)
 #' TLS.coordinates <- c(0, 0, 0)
 #' TLS.frame <- c(30.0000, 150.0000, 0, 360.0000)
 #' TLS.angles <- c(-1.135, 2.434, 147.247)
@@ -80,26 +81,27 @@ fstructure <- function(scan, zenith.range, zenith.bands, azimuth.range, TLS.reso
 
   ###Estimates reaturns angles based on the TLS coordinates--------------------------------------------------------------------------------------
 
-  scan[, h := Z - TLS.coordinates[3]]
-  scan <- scan[h >= 0,]
+  scan <- cbind(scan, cartesian_to_polar(scan[, 1:3], TLS.coordinates, 3)[,1:2])
 
-  #Turn the scan based on the yaw
-  if(TLS.angles[3] != 0) {
-    scan <- move_rotate(scan, move = NULL, rotate = c(0, 0, TLS.angles[3]))
+  if(returns == "multiple") {
+    pulses <- scan[, .(w = 1/.N), by = c("zenith", "azimuth")]
+    scan <- merge(scan, pulses, by = c("zenith", "azimuth"))
+    scan <- scan[, c(3,4,5,1,2,6)]
   }
 
-  scan <- cbind(scan, cloud_angles(scan, TLS.coordinates))
   scan <- scan[between(zenith, zenith.range[1], zenith.range[2]),]
+  scan[, h := Z - TLS.coordinates[3]]
+  scan <- scan[h >= 0,]
 
   ###Estimate the number of scanner pulses in a given zenith and azimuth range --------------------------------------------------------------
 
   scanner <- CJ(zenith = seq(TLS.frame[1], TLS.frame[2], TLS.resolution[1]),
               azimuth = seq(TLS.frame[3], TLS.frame[4], TLS.resolution[2]))
-  scanner$distance <- 1
-  scanner <- polar_to_cartesian(scaner)
+  scanner$distance <- 1.000
+  scanner <- polar_to_cartesian(scanner, digits = 5)
 
-  scanner[, 3:5] <- move_rotate(scanner[,3:5], move = NULL, rotate = c(TLS.angles[1], TLS.angles[2], TLS.angles[3]))
-  scanner <- cloud_angles(scanner[,3:5], NULL)
+  scanner <- move_rotate(scanner, move = NULL, rotate = c(TLS.angles[1], TLS.angles[2], TLS.angles[3]))
+  scanner <- cartesian_to_polar(scanner, NULL, digits = 3)
 
   scanner <- scanner[between(zenith, zenith.range[1], zenith.range[2]) , 1:2]
 
@@ -129,10 +131,17 @@ fstructure <- function(scan, zenith.range, zenith.bands, azimuth.range, TLS.reso
       setTxtProgressBar(pb, i)
 
       frame$shots[i] <- nrow(scanner[between(zenith, frame$min.zenith[i], frame$max.zenith[i])])
-      frame$returns_below[i] <- nrow(scan[between(zenith, frame$min.zenith[i], frame$max.zenith[i]) & Z <= frame$h[i]])
+      returns <- scan[between(zenith, frame$min.zenith[i], frame$max.zenith[i]) & Z <= frame$h[i]]
 
-      return(frame[i])
+      if(returns == "multiple") {
+        frame$returns_below[i] <- sum(returns$w)
 
+      } else {
+        frame$returns_below[i] <- nrow(returns)
+
+      }
+
+        return(frame[i])
     }
   }
 
@@ -148,10 +157,16 @@ fstructure <- function(scan, zenith.range, zenith.bands, azimuth.range, TLS.reso
 
     results <- foreach(i = 1:nrow(frame), .inorder = FALSE, .combine= rbind, .packages = c("data.table"), .options.snow = opts) %dopar% {
 
-      setTxtProgressBar(pb, i)
-
       frame$shots[i] <- nrow(scanner[between(zenith, frame$min.zenith[i], frame$max.zenith[i])])
-      frame$returns_below[i] <- nrow(scan[between(zenith, frame$min.zenith[i], frame$max.zenith[i]) & Z <= frame$h[i]])
+      returns <- scan[between(zenith, frame$min.zenith[i], frame$max.zenith[i]) & Z <= frame$h[i]]
+
+      if(returns == "multiple") {
+        frame$returns_below[i] <- sum(returns$w)
+
+      } else {
+        frame$returns_below[i] <- nrow(returns)
+
+      }
 
       return(frame[i])
     }

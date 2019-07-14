@@ -12,6 +12,8 @@ voxels_counting(cloud, voxel.sizes = NULL, min.size, bootstrap = FALSE,
 
 \item{voxel.sizes}{A positive \code{numeric} vector describing the different voxel size to perform. If \code{NULL}, it use 10 voxel sizes by defaul based on the largest range of XYZ. See details.}
 
+\item{min.size}{A positive \code{numeric} vector of length 1 describing the minimum voxel size to perform. This is required if \code{voxel.sizes = NULL}.}
+
 \item{bootstrap}{Logical. If \code{TRUE}, it computes a bootstrap on the H index calculations. \code{FALSE} as default.}
 
 \item{R}{A positive \code{integer} of length 1 indicating the number of bootstrap replicates. This need to be used if \code{bootstrap = TRUE}.}
@@ -19,8 +21,6 @@ voxels_counting(cloud, voxel.sizes = NULL, min.size, bootstrap = FALSE,
 \item{parallel}{Logical, if \code{TRUE} it uses a parallel processing for the voxelization. \code{FALSE} as default.}
 
 \item{cores}{An \code{integer} >= 0 describing the number of cores to use. This need to be used if \code{parallel = TRUE}.}
-
-\item{min.sizes}{A positive \code{numeric} vector of length 1 describing the minimum voxel size to perform. This is required if \code{voxel.sizes = NULL}.}
 }
 \value{
 A \code{data.table} with the summary of the voxels created with their features.
@@ -33,14 +33,14 @@ Creates voxels of different size on a point cloud using the \code{\link{voxels}}
 data(pc_tree)
 
 #Applying voxels counting
-voxels_counting(pc_tree, min.sizes = 0.05)
+voxels_counting(pc_tree, min.size = 0.05)
 
 #Voxels counting using boostrap on the H indixes with 1000 repetitions
-voxels_counting(pc_tree, min.sizes = 0.05, bootstrap = TRUE, R = 1000)
+voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000)
 
 \dontrun{
 #Voxels counting using bootstrap on the H indices with 1000 repetitions and applying parallel processing with 4 cores.
-voxels_counting(pc_tree, min.sizes = 0.05, bootstrap = TRUE, R = 1000, parallel = TRUE, cores = 4)
+voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000, parallel = TRUE, cores = 4)
 }
 
 }

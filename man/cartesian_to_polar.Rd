@@ -4,13 +4,15 @@
 \alias{cartesian_to_polar}
 \title{Cartesian to Polar Coordinates}
 \usage{
-cartesian_to_polar(cartesian, anchor = NULL)
+cartesian_to_polar(cartesian, anchor = NULL, digits = NULL)
 }
 \arguments{
 \item{cartesian}{A \code{data.table} with three columns describing the *XYZ* coordinates of a point cloud.}
 
 \item{anchor}{A \code{numeric} vector of length three which describe the *XYZ* anchor coordinate for reference to get the polar coordinates.
 If \code{NULL}, it assumes that the reference coordinate is \code{c(X = 0, Y = 0, Z = 0)}.}
+
+\item{digits}{A \code{numeric} vector of length 1 describing the decimal numbers to \code{\link{round}} the zenith and azimuth angles. If \code{NULL}, \code{\link{round}} does not apply. \code{NULL} as default.}
 }
 \value{
 A \code{data.table} with the zenith and azimuth angles (degrees), and the distance to the anchor coordinate.
