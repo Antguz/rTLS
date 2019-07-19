@@ -169,8 +169,6 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
 
   if(TLS.type == "multiple" | TLS.type == "single") {  ##Estimate the number per single and multiple
     scanner <- CJ(zenith = seq(TLS.frame[1], TLS.frame[2], TLS.resolution[1]),
-                  azimuth = seq(TLS.frame[3], TLS.frame[4], TLS.resolution[2]))
-    scanner <- CJ(zenith = seq(TLS.frame[1], TLS.frame[2], TLS.resolution[1]),
                   azimuth = seq(TLS.frame[3], TLS.frame[4], TLS.resolution[2])) #Create grid
     scanner$distance <- 1.000
     scanner <- polar_to_cartesian(scanner, digits = 3) #Get cartesian
