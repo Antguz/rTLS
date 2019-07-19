@@ -2,7 +2,7 @@
 
 S3method(plot,voxels)
 S3method(summary,voxels)
-export(artificial_stands)
+export(artificial_stand)
 export(basic_metrics)
 export(canopy_structure)
 export(cartesian_to_polar)

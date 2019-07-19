@@ -1,4 +1,4 @@
-#' @title Artificial Forest Stands
+#' @title Artificial Forest Stand
 #'
 #' @description Create an artificial forest stand of a given area using tree point clouds.
 #'
@@ -12,7 +12,18 @@
 #' @param rotation Logical. If \code{TRUE}, it performs a rotation in yaw axis of the point cloud. \code{TRUE} as default.
 #' @param degrees A positive \code{numeric} vector describing the degrees of rotation of the point clouds in the future stand. The \code{length(degree)} should be the same as \code{n.trees}. If \code{NULL}, it creates random degrees of rotation for each \code{n.trees}.
 #' @param plot Logical. If \code{TRUE}, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.
+#' @param n_attemps A positive \code{numeric} vector of length one describing the number of attemps to provide random \code{coordinates} until a tree met the \code{overlap} criteria.
+#' This needs to be used if \code{coordinate = NULL} and \code{overlap != NULL}. \code{n_attemps = 20} as default.
 #' @param ... Parameters passed to \code{\link{fread}} for the reading of \code{files}.
+#'
+#' @details When \code{coordinates = NULL}, \code{artifical_stand} adds, in sequence, random coordinates to each \code{files} in the future stand
+#' based on the crown area \code{overlap}. That is, first a tree from \code{files} is randomly located within the stand \code{dimention}, then a second tree from \code{files}
+#' will be located in the future stand based on the crown area \code{overlap} from the previous tree, and so on. If during the random location a given tree does not
+#' meet the requirements of \code{overlap}, new random coordinates will be provided until the requirements are met.
+#'
+#' Since \code{artificial_stand} will try to add tree to the stand until the requirements are met, this could lead to an infinite
+#' loop if the stand \code{dimention} is small or if the trees on \code{files} are large or many \code{n.trees}. Therefore, the use of
+#' \code{n_attemps} is recomended to avoid this scenario.
 #'
 #' @return A \code{list} which contain a \code{data.table} (Trees) with the information of the point clouds used and their current coordinates in the stand, and another \code{data.table} with that compile all the point clouds used.
 #' @author J. Antonio Guzmán Q.
@@ -41,20 +52,20 @@
 #'
 #' ###Creates a stand of 15x15 repeating four times the same point cloud and random coordinates and a crown overlap of 10%
 #' files <- rep(path, 4)
-#' artificial_stands(files, n.trees = 4, dimension = c(15, 15), coordinates = NULL, sample = FALSE, replace = FALSE, overlap = 10, rotation = TRUE, degrees = NULL, plot = TRUE)
+#' artificial_stand(files, n.trees = 4, dimension = c(15, 15), coordinates = NULL, sample = FALSE, replace = FALSE, overlap = 10, rotation = TRUE, degrees = NULL, plot = TRUE)
 #'
 #' ###Creates a stand of 15x15 repeating four times the same point cloud with establish locations.
 #' location <- data.table(X = c(5, 10, 10, 5), Y = c(5, 5, 10, 10))
-#' a <- artificial_stands(files, n.trees = 4, dimension = c(15, 15), coordinates = location, sample = FALSE, replace = FALSE, overlap = NULL, rotation = TRUE, degrees = NULL, plot = TRUE)
+#' artificial_stand(files, n.trees = 4, dimension = c(15, 15), coordinates = location, sample = FALSE, replace = FALSE, overlap = NULL, rotation = TRUE, degrees = NULL, plot = TRUE)
 #'
 #' @export
-artificial_stands <- function(files, n.trees, dimension, coordinates = NULL, sample = TRUE, replace = TRUE, overlap = 0, rotation = TRUE, degrees = NULL, plot = TRUE, ...) {
+artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, sample = TRUE, replace = TRUE, overlap = 0, rotation = TRUE, degrees = NULL, n_attemps = 20, plot = TRUE, ...) {
 
   ####Posible errors or assumtions ------------------------------------------------------------------------------
 
   if(length(files) < n.trees) {
     if(sample == FALSE) {
-      stop("The number of files selected lower than n.trees")
+      stop("The number of files selected is lower than n.trees")
     }
     if(replace == FALSE) {
       stop("The number of files selected without replacement is lower than n.trees")
@@ -188,6 +199,8 @@ artificial_stands <- function(files, n.trees, dimension, coordinates = NULL, sam
         area_intercepted <- gArea(spatial_crown) - (gArea(gUnion(spatial_crown, spatial_stant)) - gArea(spatial_stant))
         percentage <- area_intercepted/gArea(spatial_crown)*100
 
+        try <- try + 1
+
         if(is.null(overlap) == TRUE) {
           if(plot == TRUE) {
             plot(spatial_crown, add = TRUE)
@@ -222,8 +235,9 @@ artificial_stands <- function(files, n.trees, dimension, coordinates = NULL, sam
           tcoordinates$CA[i] <- gArea(spatial_crown)
           tcoordinates$Hmax[i] <- max(tree_try$Z)
           break
+        } else if(try > n_attemps) {
+          stop("artificial_stand was stopped due to the n_attemps exceeds the established number, Try it again and/or reduce the value of the parameters of overlap or n.trees")
         }
-        try <- try + 1
       }
     }
   }
