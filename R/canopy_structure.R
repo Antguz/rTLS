@@ -32,9 +32,14 @@
 #' roll, pitch, and yaw, and \code{TLS.coordintates} to simulate the positioning of the scanner during the \code{scan}. Moved and rotated simulated-shots of interest and \code{scan} returns are then extracted based on the \code{zenith.range}, \code{zenith.rings}, and \code{vertical.resolution}.
 #' Using the frecuency of shots and returns the probabiliry of gap (Pgap) is estimated. For \code{TLS.type = "multiple"}, the frecuency of returns is estimated using the sum of 1/target count following Lovell et al. (2011).
 #'
-#' Using the Pgap estimated per each zenith ring and vertical profile
+#' Using the Pgap estimated per each zenith ring and vertical profile, \code{canopy_structure} then estimates the accumulative L(z) profiles based on the closest
+#' zenith ring to 57.5 (hinge region) and, if \code{TLS.type} is equal to \code{"fixed.angle"}, the f(z) or commonly named PAVD based on the ratio of the
+#' derivative of L(z) and height (z) following Jupp et al. 2009 (Equation 18). If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, \code{canopy_structure} also
+#' estimates the normalised average weighted L/LAI, and then PAVD based on the L (hinge angle) at the highest height (LAI) and the ratio between the derivative
+#' of L/LAI (average weighted) and the derivative of z (Jupp et al. 2009; Equation 21).
 #'
-#'
+#' Jupp et al. 2009 excludes the zero zenith or fist ring to conduct the average weighted L/LAI estimations, \code{canopy_structre} does not excludes this sections since it depents on the regions of interest of the user.
+#' Therefore, user should consider this difference since it may introduce more variability to profile estimations.
 #'
 #' @references
 #'
@@ -44,12 +49,10 @@
 #'
 #' Jupp D.L.B., Culvenor D.S., Lovell J.L., Newnham G.J., Strahler A.H., Woodcock C.E. 2009. Estimating forest LAI profiles and structural parameters using a ground-based laser called “Echidna®”. Tree Physiology 29(2): 171-181. doi: 10.1093/treephys/tpn022.
 #'
-#'
-#'
 #' @return For any \code{TLS.type}, it returns a \code{data.table} with the height profiles defined by \code{vertical.resolution}, the gap probability based on the \code{zenith.range} and \code{zenith.rings}, and
-#' the accumulative L(z) profiles based on the closest zenith ring to 57.5 (hinge angle). If \code{TLS.type} is equal to \code{"fixed.angle"}, it returns f(z) or commonly named PAVD based on
-#' on the ratio of the derivative of L(z) and height (z). If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, it returns the normalised average weighting L/LAI, and also PAVD: based
-#' on the L (hinge angle) at the highest height and the ratio between the derivative of L/LAI average weighted and z.
+#' the accumulative L(z) profiles based on the closest zenith ring to 57.5 degrees (hinge angle). If \code{TLS.type} is equal to \code{"fixed.angle"}, it returns f(z) or commonly named PAVD based on
+#' on the ratio of the derivative of L(z) and the derivative of height (z). If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, it returns the normalised average weighting L/LAI, and PAVD: based
+#' on the L (hinge angle) at the highest height and the ratio between the derivative of L/LAI average weighted and the derivative of z.
 #'
 #'
 #' @author J. Antonio Guzmán Q.
