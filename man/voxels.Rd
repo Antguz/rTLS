@@ -19,6 +19,11 @@ If \code{TRUE}, it return an object of class \code{"voxels"} wich contain a list
 \description{
 Create cubes of a given distance in a point cloud though their voxelization. It use a modify version of the code used in Greaves et al. 2015.
 }
+\details{
+Voxels are created from the negative to the positive *XYZ* coordinates. To include the lowers points in both coordinates, voxels are created using the lower value
+minus 1x10^-(decimals+1) of the vector with the highest decimal number. That is, if *XYZ* present three decimal numbers of precision, and the lower values in both vectors are 1, voxels
+will start to build at 0.9999. This allow to include the lowers values and reduce the number of voxels.
+}
 \examples{
 data("pc_tree")
 
@@ -33,7 +38,7 @@ voxels(pc_tree, voxel.size = 0.5, obj.voxel = FALSE)
 Greaves, H. E., Vierling, L. A., Eitel, J. U., Boelman, N. T., Magney, T. S., Prager, C. M., & Griffin, K. L. (2015). Estimating aboveground biomass and leaf area of low-stature Arctic shrubs with terrestrial LiDAR. Remote Sensing of Environment, 164, 26-35.
 }
 \seealso{
-\code{\link{voxels_counting}}, \code{\link{plot.voxels}}, \code{\link{summary.voxels}}
+\code{\link{voxels_counting}}, \code{\link{plot3d.voxels}}, \code{\link{summary.voxels}}
 }
 \author{
 J. Antonio Guzmán Q.

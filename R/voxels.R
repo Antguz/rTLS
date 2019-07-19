@@ -6,12 +6,16 @@
 #' @param voxel.size A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud.
 #' @param obj.voxels Logical. If \code{obj.voxel = TRUE}, it returns an object of class \code{"voxels"}, If \code{obj.voxel = FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel. \code{TRUE} as default.
 #'
+#' @details Voxels are created from the negative to the positive *XYZ* coordinates. To include the lowers points in both coordinates, voxels are created using the lower value
+#' minus 1x10^-(decimals+1) of the vector with the highest decimal number. That is, if *XYZ* present three decimal numbers of precision, and the lower values in both vectors are 1, voxels
+#' will start to build at 0.9999. This allow to include the lowers values and reduce the number of voxels.
+#'
 #' @return If \code{TRUE}, it return an object of class \code{"voxels"} wich contain a list with the points used to create the voxels, the parameter \code{voxel.size}, and the \code{voxels} created. If \code{FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel.
 #' @author J. Antonio Guzmán Q.
 #'
 #' @references Greaves, H. E., Vierling, L. A., Eitel, J. U., Boelman, N. T., Magney, T. S., Prager, C. M., & Griffin, K. L. (2015). Estimating aboveground biomass and leaf area of low-stature Arctic shrubs with terrestrial LiDAR. Remote Sensing of Environment, 164, 26-35.
 #'
-#' @seealso \code{\link{voxels_counting}}, \code{\link{plot.voxels}}, \code{\link{summary.voxels}}
+#' @seealso \code{\link{voxels_counting}}, \code{\link{plot3d.voxels}}, \code{\link{summary.voxels}}
 #'
 #' @importFrom data.table .N
 #'

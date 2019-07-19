@@ -17,7 +17,7 @@
 #' @importFrom foreach %dopar%
 #' @importFrom foreach %do%
 #'
-#' @seealso \code{\link{voxels}}, \code{\link{summary.voxels}}, \code{\link{plot.voxels}}
+#' @seealso \code{\link{voxels}}, \code{\link{summary.voxels}}, \code{\link{plot3d.voxels}}
 #'
 #' @return A \code{data.table} with the summary of the voxels created with their features.
 #' @author J. Antonio Guzmán Q.

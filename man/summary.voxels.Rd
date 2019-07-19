@@ -40,7 +40,7 @@ summary(vox, voxel.size = 0.5, bootstrap = TRUE, R = 1000)
 
 }
 \seealso{
-\code{\link{voxels}}, \code{\link{voxels_counting}}, \code{\link{plot.voxels}}
+\code{\link{voxels}}, \code{\link{voxels_counting}}, \code{\link{plot3d.voxels}}
 }
 \author{
 J. Antonio Guzmán Q.

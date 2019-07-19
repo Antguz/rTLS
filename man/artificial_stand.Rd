@@ -6,7 +6,7 @@
 \usage{
 artificial_stand(files, n.trees, dimension, coordinates = NULL,
   sample = TRUE, replace = TRUE, overlap = 0, rotation = TRUE,
-  degrees = NULL, n_attemps = 20, plot = TRUE, ...)
+  degrees = NULL, n_attemps = 100, plot = TRUE, ...)
 }
 \arguments{
 \item{files}{A \code{character} vector describing the file name or path of the tree point cloud to use. Those files most contain three columns representing the *XYZ* coordinates of a given point cloud.}
@@ -28,7 +28,7 @@ artificial_stand(files, n.trees, dimension, coordinates = NULL,
 \item{degrees}{A positive \code{numeric} vector describing the degrees of rotation of the point clouds in the future stand. The \code{length(degree)} should be the same as \code{n.trees}. If \code{NULL}, it creates random degrees of rotation for each \code{n.trees}.}
 
 \item{n_attemps}{A positive \code{numeric} vector of length one describing the number of attemps to provide random \code{coordinates} until a tree met the \code{overlap} criteria.
-This needs to be used if \code{coordinate = NULL} and \code{overlap != NULL}. \code{n_attemps = 20} as default.}
+This needs to be used if \code{coordinate = NULL} and \code{overlap != NULL}. \code{n_attemps = 100} as default.}
 
 \item{plot}{Logical. If \code{TRUE}, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.}
 

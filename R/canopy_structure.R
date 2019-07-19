@@ -74,6 +74,7 @@
 #'
 #' #Using a multiple return file
 #'
+#' \dontrun{
 #' data(TLS_scan)
 #' TLS_scan <- TLS_scan[, 1:4] #Select the four columns required
 #'
@@ -91,6 +92,7 @@
 #' canopy_structure(TLS.type = "single", scan = TLS_scan, zenith.range = c(50,70), zenith.rings = 4,
 #'                  azimuth.range = c(0, 360), vertical.resolution = 0.25, TLS.resolution = c(0.04, 0.04),
 #'                  TLS.frame = c(30, 130, 0, 360), TLS.angles =  c(0.293, -0.835, -150.159))
+#' }
 #'
 #' @export
 canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth.range, vertical.resolution, TLS.resolution, TLS.coordinates = NULL, TLS.frame = NULL, TLS.angles = NULL, parallel = FALSE, cores = NULL) {
@@ -223,7 +225,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
   if(TLS.type == "multiple" | TLS.type == "single") {   #############If the TLS is multiple or single return
     if(parallel == FALSE) {
 
-      print(paste("", "Estimating the number of returns and shots", sep = ""))  #Progress bar
+      cat(paste("", "Estimating the number of returns and shots", sep = ""))  #Progress bar
       pb <- txtProgressBar(min = 1, max = nrow(frame), style = 3)
 
       results <- foreach(i = 1:nrow(frame), .inorder = TRUE, .combine= rbind, .packages = c("data.table")) %do% {
@@ -239,7 +241,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
 
     if(parallel == TRUE) {
 
-      print("Estimating the number of returns and shots using parallel processig")
+      cat("Estimating the number of returns and shots using parallel processig")
       pb <- txtProgressBar(min = 1, max = nrow(frame), style = 3)
       progress <- function(n) setTxtProgressBar(pb, n)
       opts <- list(progress=progress)
@@ -262,7 +264,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
   } else if(TLS.type == "fixed.angle") { #############If the TLS is fixed.angle
     if(parallel == FALSE) {
 
-      print(paste("", "Estimating the number of returns and shots", sep = ""))  #Progress bar
+      cat(paste("", "Estimating the number of returns and shots", sep = ""))  #Progress bar
       pb <- txtProgressBar(min = 1, max = nrow(frame), style = 3)
 
       results <- foreach(i = 1:nrow(frame), .inorder = TRUE, .combine= rbind, .packages = c("data.table")) %do% {
@@ -277,7 +279,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
 
     if(parallel == TRUE) {
 
-      print("Estimating the number of returns and shots using parallel processig")
+      cat("Estimating the number of returns and shots using parallel processig")
       pb <- txtProgressBar(min = 1, max = nrow(frame), style = 3)
       progress <- function(n) setTxtProgressBar(pb, n)
       opts <- list(progress=progress)

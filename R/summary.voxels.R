@@ -21,7 +21,7 @@
 #' @importFrom boot boot
 #' @importFrom stats sd
 #'
-#' @seealso \code{\link{voxels}}, \code{\link{voxels_counting}}, \code{\link{plot.voxels}}
+#' @seealso \code{\link{voxels}}, \code{\link{voxels_counting}}, \code{\link{plot3d.voxels}}
 #'
 #' @examples
 #' data("pc_tree")

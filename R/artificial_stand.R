@@ -13,7 +13,7 @@
 #' @param degrees A positive \code{numeric} vector describing the degrees of rotation of the point clouds in the future stand. The \code{length(degree)} should be the same as \code{n.trees}. If \code{NULL}, it creates random degrees of rotation for each \code{n.trees}.
 #' @param plot Logical. If \code{TRUE}, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.
 #' @param n_attemps A positive \code{numeric} vector of length one describing the number of attemps to provide random \code{coordinates} until a tree met the \code{overlap} criteria.
-#' This needs to be used if \code{coordinate = NULL} and \code{overlap != NULL}. \code{n_attemps = 20} as default.
+#' This needs to be used if \code{coordinate = NULL} and \code{overlap != NULL}. \code{n_attemps = 100} as default.
 #' @param ... Parameters passed to \code{\link{fread}} for the reading of \code{files}.
 #'
 #' @details When \code{coordinates = NULL}, \code{artifical_stand} adds, in sequence, random coordinates to each \code{files} in the future stand
@@ -59,7 +59,7 @@
 #' artificial_stand(files, n.trees = 4, dimension = c(15, 15), coordinates = location, sample = FALSE, replace = FALSE, overlap = NULL, rotation = TRUE, degrees = NULL, plot = TRUE)
 #'
 #' @export
-artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, sample = TRUE, replace = TRUE, overlap = 0, rotation = TRUE, degrees = NULL, n_attemps = 20, plot = TRUE, ...) {
+artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, sample = TRUE, replace = TRUE, overlap = 0, rotation = TRUE, degrees = NULL, n_attemps = 100, plot = TRUE, ...) {
 
   ####Posible errors or assumtions ------------------------------------------------------------------------------
 
@@ -236,7 +236,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
           tcoordinates$Hmax[i] <- max(tree_try$Z)
           break
         } else if(try > n_attemps) {
-          stop("artificial_stand was stopped due to the n_attemps exceeds the established number, Try it again and/or reduce the value of the parameters of overlap or n.trees")
+          stop("artificial_stand was stopped due to the n_attemps exceeds the established number, Try it again and/or reduce the value of the parameters of overlap or n.trees", call. = FALSE)
         }
       }
     }

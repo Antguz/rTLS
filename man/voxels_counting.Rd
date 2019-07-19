@@ -45,7 +45,7 @@ voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000, parallel =
 
 }
 \seealso{
-\code{\link{voxels}}, \code{\link{summary.voxels}}, \code{\link{plot.voxels}}
+\code{\link{voxels}}, \code{\link{summary.voxels}}, \code{\link{plot3d.voxels}}
 }
 \author{
 J. Antonio Guzmán Q.
