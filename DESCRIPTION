@@ -9,7 +9,7 @@ Description: A package that compiles a set of tools to process and calculate met
              Currently, the main routines are based on filtering, neighboring features of points, voxelization, optimal sphere or voxel size, and the creation of artificial stands.
              In some functions, rTLS applies parrallel processing to speed-up the rutines and used in almost all uses data.table lenguaje to improve the storage and speed of the codes.
 Depends: 
-    R (>= 3.6.0),
+    R (>= 3.4.0),
     data.table (>= 1.12.2),
 Imports:
     alphashape3d (>= 1.3),
