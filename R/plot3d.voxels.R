@@ -25,10 +25,8 @@
 #'
 #' ###Create voxels of a size of 0.5.
 #' vox <- voxels(pc_tree, voxel.size = 0.5)
-#' plot3d(vox)
+#' plot.voxels(vox)
 #'
-#' @rdname plot3d.voxels
-#' @method plot3d voxels
 #' @importFrom grDevices colorRampPalette
 #' @importFrom rgl plot3d
 #' @importFrom rgl shade3d
@@ -38,7 +36,7 @@
 #' @importFrom rgl points3d
 #'
 #' @export
-plot3d.voxels <- function(voxels, add.points = TRUE, add.voxels = TRUE, border = TRUE, fill = TRUE, gradientcol = FALSE, points.size = 1, pointscol = "black", fillcol = "forestgreen", lwd = 0.5, alpha = 0.10, ...) {
+plot.voxels <- function(voxels, add.points = TRUE, add.voxels = TRUE, border = TRUE, fill = TRUE, gradientcol = FALSE, points.size = 1, pointscol = "black", fillcol = "forestgreen", lwd = 0.5, alpha = 0.10, ...) {
 
   if(class(voxels)[1] != "voxels") {
     stop("An object from voxels() need to be used")

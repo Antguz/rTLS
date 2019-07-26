@@ -313,11 +313,11 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
 
     col_hinge <- which(abs(mean.bands - 57.5) == min(abs(mean.bands - 57.5)))
 
-    final$L_hinge <- -1.1 * log10(final[, .SD, .SDcols= c(col_hinge+1)])
+    final$'L (hinge)' <- -1.1 * log10(final[, .SD, .SDcols= c(col_hinge+1)])
 
     for(i in 1:nrow(final)) {
 
-      ld <- final$L_hinge[i+1]-final$L[i]
+      ld <- final$'L (hinge)'[i+1]-final$L[i]
       final$PAVD[i] <- ld/vertical.resolution
 
     }
