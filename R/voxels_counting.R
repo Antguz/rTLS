@@ -17,7 +17,7 @@
 #' @importFrom foreach %dopar%
 #' @importFrom foreach %do%
 #'
-#' @seealso \code{\link{voxels}}, \code{\link{summary.voxels}}, \code{\link{plot3d.voxels}}
+#' @seealso \code{\link{voxels}}, \code{\link{summary_voxels}}, \code{\link{plot3d.voxels}}
 #'
 #' @return A \code{data.table} with the summary of the voxels created with their features.
 #' @author J. Antonio Guzmán Q.
@@ -76,7 +76,7 @@ voxels_counting <- function(cloud, voxel.sizes = NULL, min.size, bootstrap = FAL
     #Run in parallel
     results <- foreach(i = 1:length(voxel.sizes), .inorder = FALSE, .combine= rbind, .packages = c("data.table", "rTLS"), .options.snow = opts) %dopar% {
       vox <- voxels(cloud_touse, voxel.size = voxel.sizes[i], obj.voxels = FALSE)
-      summary <- summary.voxels(vox, voxel.size = voxel.sizes[i], bootstrap = bootstrap, R = R)
+      summary <- summary_voxels(vox, voxel.size = voxel.sizes[i], bootstrap = bootstrap, R = R)
       return(summary)
     }
 
@@ -93,7 +93,7 @@ voxels_counting <- function(cloud, voxel.sizes = NULL, min.size, bootstrap = FAL
     results <- foreach(i = 1:length(voxel.sizes), .inorder = FALSE, .combine= rbind) %do% {
       setTxtProgressBar(pb, i)
       vox <- voxels(cloud_touse, voxel.size = voxel.sizes[i], obj.voxels = FALSE)
-      summary <- summary.voxels(vox, voxel.size = voxel.sizes[i], bootstrap = bootstrap, R = R)
+      summary <- summary_voxels(vox, voxel.size = voxel.sizes[i], bootstrap = bootstrap, R = R)
       return(summary)
     }
     results <- results[order(Voxel.size)]
