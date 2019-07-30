@@ -47,7 +47,7 @@ plot.voxels(vox)
 
 }
 \seealso{
-\code{\link{voxels}}, \code{\link{voxels_counting}}, \code{\link{summary.voxels}}
+\code{\link{voxels}}, \code{\link{voxels_counting}}, \code{\link{summary_voxels}}
 }
 \author{
 J. Antonio Guzmán Q.

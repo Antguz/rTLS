@@ -7,6 +7,7 @@
 #' @param min.size A positive \code{numeric} vector of length 1 describing the minimum voxel size to perform. This is required if \code{voxel.sizes = NULL}.
 #' @param bootstrap Logical. If \code{TRUE}, it computes a bootstrap on the H index calculations. \code{FALSE} as default.
 #' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates. This need to be used if \code{bootstrap = TRUE}.
+#' @param progress Logical, if \code{TRUE} displays a graphical progress bar. \code{TRUE} as default.
 #' @param parallel Logical, if \code{TRUE} it uses a parallel processing for the voxelization. \code{FALSE} as default.
 #' @param cores An \code{integer} >= 0 describing the number of cores to use. This need to be used if \code{parallel = TRUE}.
 #'
@@ -37,7 +38,7 @@
 #' }
 #'
 #' @export
-voxels_counting <- function(cloud, voxel.sizes = NULL, min.size, bootstrap = FALSE, R = NULL, parallel = FALSE, cores = NULL) {
+voxels_counting <- function(cloud, voxel.sizes = NULL, min.size, bootstrap = FALSE, R = NULL, progress = TRUE, parallel = FALSE, cores = NULL) {
 
   colnames(cloud) <- c("X", "Y", "Z")
 
@@ -68,10 +69,15 @@ voxels_counting <- function(cloud, voxel.sizes = NULL, min.size, bootstrap = FAL
     cl <- makeCluster(cores, outfile="") #Make clusters
     registerDoSNOW(cl)
 
-    print("Creating voxels in parallel")  #Progress bar
-    pb <- txtProgressBar(min = 0, max = length(voxel.sizes), style = 3)
-    progress <- function(n) setTxtProgressBar(pb, n)
-    opts <- list(progress=progress)
+    if(progress == TRUE) {
+      print("Creating voxels in parallel")  #Progress bar
+      pb <- txtProgressBar(min = 0, max = length(voxel.sizes), style = 3)
+      progress <- function(n) setTxtProgressBar(pb, n)
+      opts <- list(progress=progress)
+
+    } else {
+      opts <- NULL
+    }
 
     #Run in parallel
     results <- foreach(i = 1:length(voxel.sizes), .inorder = FALSE, .combine= rbind, .packages = c("data.table", "rTLS"), .options.snow = opts) %dopar% {
@@ -87,11 +93,18 @@ voxels_counting <- function(cloud, voxel.sizes = NULL, min.size, bootstrap = FAL
 
   } else if(parallel == FALSE) { ###If parallel is false
 
-    pb <- txtProgressBar(min = 0, max = length(voxel.sizes), style = 3) #Progress bar
+    if(progress == TRUE) {
+      print("Creating voxels")
+      pb <- txtProgressBar(min = 0, max = length(voxel.sizes), style = 3) #Progress bar
+    }
 
     #Run without using parallel
     results <- foreach(i = 1:length(voxel.sizes), .inorder = FALSE, .combine= rbind) %do% {
-      setTxtProgressBar(pb, i)
+
+      if(progress == TRUE) {
+        setTxtProgressBar(pb, i)
+      }
+
       vox <- voxels(cloud_touse, voxel.size = voxel.sizes[i], obj.voxels = FALSE)
       summary <- summary_voxels(vox, voxel.size = voxel.sizes[i], bootstrap = bootstrap, R = R)
       return(summary)
@@ -106,3 +119,4 @@ decimals <- function(x) {
   while (!isTRUE(all.equal(floor(x),x)) & n <= 1e6) { x <- x*10; n <- n+1 }
   return (n)
 }
+
