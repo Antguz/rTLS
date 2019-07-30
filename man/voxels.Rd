@@ -7,7 +7,7 @@
 voxels(cloud, voxel.size, obj.voxels = TRUE)
 }
 \arguments{
-\item{cloud}{A \code{matrix} or \code{data.frame} with *XYZ* coordinates in the first three columns.}
+\item{cloud}{A \code{data.table} with *XYZ* coordinates in the first three columns.}
 
 \item{voxel.size}{A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud.}
 

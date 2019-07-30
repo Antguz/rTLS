@@ -2,7 +2,7 @@
 #'
 #' @description Create cubes of a given distance in a point cloud though their voxelization. It use a modify version of the code used in Greaves et al. 2015.
 #'
-#' @param cloud A \code{matrix} or \code{data.frame} with *XYZ* coordinates in the first three columns.
+#' @param cloud A \code{data.table} with *XYZ* coordinates in the first three columns.
 #' @param voxel.size A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud.
 #' @param obj.voxels Logical. If \code{obj.voxel = TRUE}, it returns an object of class \code{"voxels"}, If \code{obj.voxel = FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel. \code{TRUE} as default.
 #'

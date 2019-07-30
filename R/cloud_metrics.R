@@ -4,12 +4,12 @@
 #'
 #' @param cloud A \code{data.table} with *XYZ* coordinates in the first three columns or an object of class \code{"neighborhood"}.
 #' @param cloud_b A \code{data.table} with *XYZ* coordinates in the first three columns. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.
-#' @param basic Logical, if \code{TRUE} it estimates \code{\link{basic_metrics}}. \code{TRUE} as default.
-#' @param distribution Logical, if \code{TRUE} it estimates \code{\link{distribution}} metrics of points. \code{TRUE} as default.
-#' @param dimensionality Logical, if \code{TRUE} it estimates \code{\link{dimensionality}} metrics. \code{TRUE} as default.
 #' @param method A character string specifying the method to estimate the neighbors. It most be one of \code{"sphere"} or \code{"knn"}.
 #' @param radius A \code{numeric} vector of a length 1 representing the radius of the sphere to consider. This needs be used if \code{method = "sphere"} and may used if \code{method = "knn"}.
 #' @param k An integer of a length 1 representing the number of neighbors to consider. This needs be used if \code{method = "knn"}.
+#' @param basic Logical, if \code{TRUE} it estimates \code{\link{basic_metrics}}. \code{TRUE} as default.
+#' @param distribution Logical, if \code{TRUE} it estimates \code{\link{distribution}} metrics of points. \code{TRUE} as default.
+#' @param dimensionality Logical, if \code{TRUE} it estimates \code{\link{dimensionality}} metrics. \code{TRUE} as default.
 #' @param n_replicates An \code{interger} of a length 1 representing the number of replicates to estimate the expected distance. This needs to be used if \code{distribution = TRUE}.If \code{NULL}, it uses the number of neighbors per point. \code{NULL} as default.
 #' @param parallel Logical, if \code{TRUE} it uses parallel processing.
 #' @param cores An \code{integer} >= 0 describing the number of cores use. This needs to be used if  \code{parallel = TRUE}.
@@ -56,7 +56,7 @@
 #' }
 #'
 #'@export
-cloud_metrics <- function(cloud, cloud_b = NULL, basic = TRUE, distribution = TRUE, dimensionality = TRUE, method = NULL, radius = NULL, k, n_replicates = NULL, parallel = FALSE, cores) {
+cloud_metrics <- function(cloud, cloud_b = NULL, method, radius = NULL, k, basic = TRUE, distribution = TRUE, dimensionality = TRUE, n_replicates = NULL, parallel = FALSE, cores) {
 
   if(parallel == FALSE) { ###If parallel is false-----------------------------------------------------------------------
 

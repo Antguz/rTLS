@@ -5,7 +5,7 @@
 \title{Voxels Counting}
 \usage{
 voxels_counting(cloud, voxel.sizes = NULL, min.size, bootstrap = FALSE,
-  R = NULL, parallel = FALSE, cores = NULL)
+  R = NULL, progress = TRUE, parallel = FALSE, cores = NULL)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with xyz coordinates of the point clouds in the first three columns.}
@@ -17,6 +17,8 @@ voxels_counting(cloud, voxel.sizes = NULL, min.size, bootstrap = FALSE,
 \item{bootstrap}{Logical. If \code{TRUE}, it computes a bootstrap on the H index calculations. \code{FALSE} as default.}
 
 \item{R}{A positive \code{integer} of length 1 indicating the number of bootstrap replicates. This need to be used if \code{bootstrap = TRUE}.}
+
+\item{progress}{Logical, if \code{TRUE} displays a graphical progress bar. \code{TRUE} as default.}
 
 \item{parallel}{Logical, if \code{TRUE} it uses a parallel processing for the voxelization. \code{FALSE} as default.}
 

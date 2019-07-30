@@ -12,9 +12,9 @@ summary_voxels(voxels, voxel.size = NULL, bootstrap = FALSE,
 
 \item{voxel.size}{A positive \code{numeric} vector with the size of the voxel. This need to be used if \code{class(voxels) != "voxels"}. It use the same dimentional scale of the point cloud.}
 
-\item{bootstrap}{A logical vector length 1 vector. If \code{bootstrap = TRUE}, it compute a bootstrap on the H index calculations. \code{bootstrap = FALSE} as default.}
+\item{bootstrap}{Logical, if \code{TRUE} it computes a bootstrap on the H index calculations. \code{FALSE} as default.}
 
-\item{R}{A positive \code{integer} of length 1 indicating the number of bootstrap replicates.}
+\item{R}{A positive \code{integer} of length 1 indicating the number of bootstrap replicates. This need to be used if \code{bootstrap = TRUE}.}
 }
 \value{
 A \code{data.table} with with the summary of \code{voxels}.
