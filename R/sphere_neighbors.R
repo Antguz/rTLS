@@ -35,7 +35,7 @@ sphere_neighbors <- function(x, cloud, radius) {
                 Y >= (ycoor - radius) & Y <= (ycoor + radius) &
                 Z >= (zcoor - radius) & Z <= (zcoor + radius)]
 
-  cube <- cube[,distance := sqrt((xcoor - X)^2 + (ycoor - Y)^2 + (zcoor - Z)^2)] #Get the distance of the points in the cube
+  cube <- cube[, distance := distanceC(xcoor, ycoor, zcoor, cube$X, cube$Y, cube$Z)] #Get the distance of the points in the cube
 
   space <- cube[distance <= radius & distance > 0] #Create the sphere incide the cube
 

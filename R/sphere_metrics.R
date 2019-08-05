@@ -37,7 +37,7 @@ sphere_metrics <- function(x, cloud, radius, basic = TRUE, distribution = TRUE, 
 
   cube <- cube[,1:3]
 
-  cube <- cube[, distance := sqrt((xcoor - cube$X)^2 + (ycoor - cube$Y)^2 + (zcoor - cube$Z)^2)] #Get the distance of the points in the cube
+  cube <- cube[, distance := distanceC(xcoor, ycoor, zcoor, cube$X, cube$Y, cube$Z)] #Get the distance of the points in the cube
 
   space <- cube[cube$distance <= radius & cube$distance > 0,] #Create the sphere incide the cube
   space <- setorder(space, distance) #Order points by distance
