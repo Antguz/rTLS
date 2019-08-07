@@ -88,10 +88,6 @@ voxels_counting <- function(cloud, voxel.sizes = NULL, min.size, bootstrap = FAL
 
     results <- results[order(Voxel.size)]
 
-    if(progress == TRUE) {
-    close(pb) #Close clusters
-    }
-
     stopCluster(cl)
 
   } else if(parallel == FALSE) { ###If parallel is false

@@ -87,8 +87,10 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
   if(rotation == TRUE) {
     if(is.null(degrees) == TRUE) {
       degrees <- runif(n.trees, 0.0, 360.0)
-    } else if(length(degrees) != n.trees) {
-      stop("The length of degrees differ from n.trees")
+    } else {
+      if(length(degrees) != n.trees) {
+        stop("The length of degrees differ from n.trees")
+      }
     }
   }
 
@@ -114,7 +116,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
 
   ####Creating the loop for the artificial forest stand--------------------------------------------------------------
 
-  print(paste("", "Creating an artificial forest stand of ", dimension[1], "x", dimension[2], " with ", n.trees, " trees", sep = ""))  #Progress bar
+  print(paste("", "Creating an artificial forest stand of ", round(dimension[1], 2), " x ", round(dimension[2], 2), " with ", n.trees, " trees", sep = ""))  #Progress bar
   pb <- txtProgressBar(min = 0, max = length(filestoread), style = 3)
 
   results <- foreach(i = 1:n.trees, .inorder = TRUE, .combine= rbind, .packages = c("data.table", "sp", "rTLS", "rgeos")) %do% {  ####Conduct the loop
