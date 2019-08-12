@@ -58,21 +58,21 @@ move_rotate <- function(cloud, move, rotate) {
     rotate <- rotate*pi/180 #convert degrees to radiants
 
     if(rotate[3] != 0) {
-      cloud[, c("X", "Y") := list(((X * cos(rotate[3])) - (Y * sin(rotate[3]))),
+      cloud <- cloud[, c("X", "Y") := list(((X * cos(rotate[3])) - (Y * sin(rotate[3]))),
                                  ((X * sin(rotate[3])) + (Y * cos(rotate[3])))),
                                           by = seq_len(nrow(cloud))]
 
     }
 
     if(rotate[2] != 0) {
-      cloud[, c("X", "Z") := list(((X * cos(rotate[2])) - (Z * sin(rotate[2]))),
+      cloud <- cloud[, c("X", "Z") := list(((X * cos(rotate[2])) - (Z * sin(rotate[2]))),
                                   ((X * sin(rotate[2])) + (Z * cos(rotate[2])))),
                                     by = seq_len(nrow(cloud))]
 
     }
 
     if(rotate[1] != 0) {
-      cloud[, c("Y", "Z") := list(((Y * cos(rotate[1])) - (Z * sin(rotate[1]))),
+      cloud <- cloud[, c("Y", "Z") := list(((Y * cos(rotate[1])) - (Z * sin(rotate[1]))),
                                   ((Y * sin(rotate[1])) + (Z * cos(rotate[1])))),
                                     by = seq_len(nrow(cloud))]
     }
