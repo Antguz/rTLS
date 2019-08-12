@@ -31,6 +31,7 @@ coordinates <- c(mean(pc_tree$X), mean(pc_tree$Y), mean(pc_tree$Z))
 degrees <- c(45, 45, 0)
 rgl::plot3d(move_rotate(pc_tree, coordinates, degrees))
 
+
 }
 \author{
 J. Antonio Guzmán Q.
