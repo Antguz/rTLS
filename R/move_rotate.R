@@ -25,61 +25,63 @@
 #' @export
 move_rotate <- function(cloud, move, rotate) {
 
-  clouda <- cloud
-
-  colnames(clouda)[1:3] <- c("X", "Y", "Z")
+  colnames(cloud)[1:3] <- c("X", "Y", "Z")
 
   ####Move the point cloud---------------------------------------
 
-  if(is.null(move) == TRUE) {
-    clouda <- clouda
-
-  } else if(class(move) != "numeric") {
+  if(class(move) != "numeric") {
     stop("Move needs to be a numeric vector")
+  }
 
-  } else if(length(move) != 3) {
+  if(length(move) != 3) {
     stop("Move needs to be a numeric vector of length 3")
+  }
+
+  if(is.null(move) == TRUE) {
+    cloud <- cloud
 
   } else {
-    clouda[, 1] <- clouda[,1] - move[1]
-    clouda[, 2] <- clouda[,2] - move[2]
-    clouda[, 3] <- clouda[,3] - move[3]
+    cloud[, 1] <- cloud[,1] - move[1]
+    cloud[, 2] <- cloud[,2] - move[2]
+    cloud[, 3] <- cloud[,3] - move[3]
   }
 
   ####Rotates the point cloud ------------------------------------------------------------------------
 
-  if(is.null(rotate) == TRUE) {
-    clouda <- clouda
-
-  } else if(class(rotate) != "numeric") {
+  if(class(rotate) != "numeric") {
     stop("Rotate needs to be a numeric vector")
+  }
 
-  } else if(length(rotate) != 3) {
+  if(length(rotate) != 3) {
     stop("Rotate needs to be a numeric vector of length 3")
+  }
+
+  if(is.null(rotate) == TRUE) {
+    cloud <- cloud
 
   } else {
     rotate <- rotate*pi/180 #convert degrees to radiants
 
     if(rotate[3] != 0) {
-      clouda <- clouda[, c("X", "Y") := list(((X * cos(rotate[3])) - (Y * sin(rotate[3]))),
+      cloud[, c("X", "Y") := list(((X * cos(rotate[3])) - (Y * sin(rotate[3]))),
                                  ((X * sin(rotate[3])) + (Y * cos(rotate[3])))),
-                                          by = seq_len(nrow(clouda))]
+                                          by = seq_len(nrow(cloud))]
 
     }
 
     if(rotate[2] != 0) {
-      clouda <- clouda[, c("X", "Z") := list(((X * cos(rotate[2])) - (Z * sin(rotate[2]))),
+      cloud[, c("X", "Z") := list(((X * cos(rotate[2])) - (Z * sin(rotate[2]))),
                                   ((X * sin(rotate[2])) + (Z * cos(rotate[2])))),
-                                    by = seq_len(nrow(clouda))]
+                                    by = seq_len(nrow(cloud))]
 
     }
 
     if(rotate[1] != 0) {
-      clouda <- clouda[, c("Y", "Z") := list(((Y * cos(rotate[1])) - (Z * sin(rotate[1]))),
+      cloud[, c("Y", "Z") := list(((Y * cos(rotate[1])) - (Z * sin(rotate[1]))),
                                   ((Y * sin(rotate[1])) + (Z * cos(rotate[1])))),
-                                    by = seq_len(nrow(clouda))]
+                                    by = seq_len(nrow(cloud))]
     }
   }
 
-  return(clouda)
+  return(cloud)
 }

@@ -49,9 +49,9 @@ voxels <- function(cloud, voxel.size, obj.voxels = TRUE) {
 
   vox <- vox[ , .N, by = .(X, Y, Z)] #Cound the number of points per voxel
 
-  vox$X <- round((min(cloud[,1]) + ((vox$X-1)*voxel.size) + (voxel.size/2)), max_digits) #Set coordinates
-  vox$Y <- round((min(cloud[,2]) + ((vox$Y-1)*voxel.size) + (voxel.size/2)), max_digits)
-  vox$Z <- round((min(cloud[,3]) + ((vox$Z-1)*voxel.size)) + (voxel.size/2), max_digits)
+  vox$X <- round((min(cloud[,1]) + ((vox$X-1)*voxel.size) + (voxel.size/2)) - min_point, max_digits) #Set coordinates
+  vox$Y <- round((min(cloud[,2]) + ((vox$Y-1)*voxel.size) + (voxel.size/2)) - min_point, max_digits)
+  vox$Z <- round((min(cloud[,3]) + ((vox$Z-1)*voxel.size)) + (voxel.size/2) - min_point, max_digits)
 
   if(obj.voxels == TRUE) {
     parameter <- voxel.size
