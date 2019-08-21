@@ -1,3 +1,5 @@
+[![Travis build status](https://travis-ci.com/Antguz/rTLS.svg?branch=master)](https://travis-ci.com/Antguz/rTLS)
+
 # rTLS
 
 
