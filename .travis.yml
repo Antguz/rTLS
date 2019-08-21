@@ -1,4 +1,16 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
+sudo: false
 cache: packages
+warmings_are_errors: true
+
+os:
+  - linux
+  - osx
+
+r:
+  - 3.5
+  - 3.6
+  - release
+  - devel
