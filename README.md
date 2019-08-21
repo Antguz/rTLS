@@ -1,5 +1,6 @@
 [![Travis build status](https://travis-ci.com/Antguz/rTLS.svg?branch=master)](https://travis-ci.com/Antguz/rTLS)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/Antguz/rTLS?branch=master&svg=true)](https://ci.appveyor.com/project/Antguz/rTLS)
+[![Codecov test coverage](https://codecov.io/gh/Antguz/rTLS/branch/master/graph/badge.svg)](https://codecov.io/gh/Antguz/rTLS?branch=master)
 
 # rTLS
 
