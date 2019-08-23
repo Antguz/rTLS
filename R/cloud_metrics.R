@@ -92,6 +92,10 @@ cloud_metrics <- function(cloud, cloud_b = NULL, method, radius = NULL, k, basic
 
     } else if(class(cloud)[1] != "neighborhood") { ###For a object of class data.table
 
+      if(is.null(cloud_b) == TRUE) {
+        cloud_b <- cloud
+      }
+
       if(method == "sphere") {  ###If method is sphere
         print("Calculating spheres and their metrics")
         pb <- txtProgressBar(min = 0, max = nrow(cloud), style = 3)
@@ -156,6 +160,10 @@ cloud_metrics <- function(cloud, cloud_b = NULL, method, radius = NULL, k, basic
       final <- cbind(cloud$cloud, final[, 2:ncol(final)]) ###Cbind with the point cloud
 
     } else if(class(cloud)[1] != "neighborhood") { ###For a object of class data.table
+
+      if(is.null(cloud_b) == TRUE) {
+        cloud_b <- cloud
+      }
 
       if(method == "sphere") {  ###If method is sphere
         print("calculating spheres and their metrics")
