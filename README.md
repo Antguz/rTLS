@@ -3,7 +3,7 @@
 [![Codecov test coverage](https://codecov.io/gh/Antguz/rTLS/branch/master/graph/badge.svg)](https://codecov.io/gh/Antguz/rTLS?branch=master)
 
 <p align="right">
-  <img width="150" height="150" src="https://user-images.githubusercontent.com/7254767/63565288-a0939880-c525-11e9-9b51-eff30398dba0.png">
+  <img width="139" height="150" src="https://user-images.githubusercontent.com/7254767/63565288-a0939880-c525-11e9-9b51-eff30398dba0.png">
 </p>
 
 # rTLS
