@@ -15,7 +15,7 @@ Originally, ___rTLS___ was created by J. Antonio Guzman Q. (<antguz06@gmail.com>
 
 ___rTLS___ goal is to provide a single environment to process point clouds as fast as it can be done. That it is why the ___rTLS___ coding has been evolving using different packages starting with `plyr`, going through `dplyr`-`purrr`, and landing on `data.table`. The current code has been enhanced using  `foreach` for parallel procesing with the help of `doSNOW`. In the future, if there is a faster way to run our main routines, we will probably change our code!
 
-The current development of ___rTLS___ is focussed on four major processes applied on point clouds: i) filtering, ii) voxelization, iii) point neighborhood features, and iv) optimal voxel or sphere size. Specifically, the structure of the functions of ___rTLS___ can be grouped as:
+The current development of ___rTLS___ is focussed on four major processes applied on TLS scans: i) estimation of the forest structure, ii) voxelization, iii) point neighborhood features, and iv) optimal voxel or sphere size. Likewise, the package also containg other functions that can be used to mange point clouds such as 3D-rotation or convertion to cartinal-polar coordinates, and functions to estimate tree metrics such as truck volume or crown area. Specifically, the structure of the functions of ___rTLS___ can be grouped as:
 
 ![](https://user-images.githubusercontent.com/7254767/51277964-6b730680-1996-11e9-97ea-3360bb47b51e.png)
 
@@ -45,7 +45,7 @@ The current development of ___rTLS___ is focussed on four major processes applie
 ### Installation
 
 
-You can install the ___rTLS___ using the CRAN plataform following
+You can install the ___rTLS___ using the CRAN plataform following (pending)
 
 ```{r}
 install.packages("rTLS")
