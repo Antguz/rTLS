@@ -116,7 +116,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
 
   ####Creating the loop for the artificial forest stand--------------------------------------------------------------
 
-  print(paste("", "Creating an artificial forest stand of ", round(dimension[1], 2), " x ", round(dimension[2], 2), " with ", n.trees, " trees", sep = ""))  #Progress bar
+  cat(paste("", "Creating an artificial forest stand of ", round(dimension[1], 2), " x ", round(dimension[2], 2), " with ", n.trees, " trees", sep = ""))  #Progress bar
   pb <- txtProgressBar(min = 0, max = length(filestoread), style = 3)
 
   results <- foreach(i = 1:n.trees, .inorder = TRUE, .combine= rbind, .packages = c("data.table", "sp", "rTLS", "rgeos")) %do% {  ####Conduct the loop
@@ -137,7 +137,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
     if(rotation == TRUE) {  ###If rotation ocur
       tree <- move_rotate(tree, move = c(centroidXY[1], centroidXY[2], 0), rotate = c(0, 0, degrees[i]))
     } else {
-      tree <- move_rotate(tree, move = c(centroidXY[1], centroidXY[2], 0), rotate = NULL)
+      tree <- move_rotate(tree, move = c(centroidXY[1], centroidXY[2], 0), rotate = c(0,0,0))
     }
 
     if(i == 1) {  ###Dealing with the first tree ----------------
@@ -149,7 +149,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
         treecoordinates <- c(runif(1, 0, dimension[1]), runif(1, 0, dimension[2]))
       }
 
-      tree <- move_rotate(tree, move = c(-treecoordinates[1], -treecoordinates[2], 0), rotate = NULL)
+      tree <- move_rotate(tree, move = c(-treecoordinates[1], -treecoordinates[2], 0), rotate = c(0,0,0))
 
       basetree <- subset(tree, Z >= 0 & Z <= 0.1)
       newcentroidXY <- c(mean(basetree$X), mean(basetree$Y))
@@ -187,7 +187,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
           treecoordinates <- c(runif(1, 0, dimension[1]), runif(1, 0, dimension[2]))
         }
 
-        tree_try <- move_rotate(tree, move = c(-treecoordinates[1], -treecoordinates[2], 0), rotate = NULL)
+        tree_try <- move_rotate(tree, move = c(-treecoordinates[1], -treecoordinates[2], 0), rotate = c(0,0,0))
 
         basetree <- subset(tree_try, Z >= 0 & Z <= 0.1)
         newcentroidXY <- c(mean(basetree$X), mean(basetree$Y))
@@ -246,3 +246,4 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
   final <- list(Trees = tcoordinates, Cloud = stant)
   return(final)
 }
+
