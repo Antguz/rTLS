@@ -53,8 +53,8 @@
 #' path <- system.file("extdata", "pc_tree.txt", package = "rTLS")
 #'
 #' ###Creates a stand of 15x15 repeating four times the same point cloud and random coordinates and a crown overlap of 10%
-#' files <- rep(path, 4)
-#' artificial_stand(files, n.trees = 4, dimension = c(15, 15), coordinates = NULL, sample = FALSE, replace = FALSE, overlap = 10, rotation = TRUE, degrees = NULL, n_attemps = 100, plot = TRUE)
+#' files <- rep(path, 50)
+#' artificial_stand(files, n.trees = 50, dimension = c(50, 50), coordinates = NULL, sample = FALSE, replace = FALSE, overlap = 10, rotation = TRUE, degrees = NULL, n_attemps = 100, plot = TRUE)
 #'
 #' ###Creates a stand of 15x15 repeating four times the same point cloud with establish locations.
 #' location <- data.table(X = c(5, 10, 10, 5), Y = c(5, 5, 10, 10))
