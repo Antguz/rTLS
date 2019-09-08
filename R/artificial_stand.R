@@ -34,6 +34,7 @@
 #' @importFrom sp plot
 #' @importFrom rgeos gArea
 #' @importFrom rgeos gUnion
+#' @importFrom rgeos gDifference
 #' @importFrom foreach foreach
 #' @importFrom foreach %do%
 #' @importFrom stats runif
@@ -51,8 +52,8 @@
 #' path <- system.file("extdata", "pc_tree.txt", package = "rTLS")
 #'
 #' ###Creates a stand of 15x15 repeating four times the same point cloud and random coordinates and a crown overlap of 10%
-#' files <- rep(path, 4)
-#' artificial_stand(files, n.trees = 4, dimension = c(15, 15), coordinates = NULL, sample = FALSE, replace = FALSE, overlap = 10, rotation = TRUE, degrees = NULL, plot = TRUE)
+#' files <- rep(path, 20)
+#' artificial_stand(files, n.trees = 7, dimension = c(15, 15), coordinates = NULL, sample = FALSE, replace = FALSE, overlap = 10, rotation = TRUE, degrees = NULL, plot = TRUE)
 #'
 #' ###Creates a stand of 15x15 repeating four times the same point cloud with establish locations.
 #' location <- data.table(X = c(5, 10, 10, 5), Y = c(5, 5, 10, 10))
@@ -111,15 +112,15 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
     plotXY <- matrix(c(0, 0, dimension[1], 0, dimension[1], dimension[2], 0, dimension[2], 0 , 0), ncol = 2, byrow = TRUE)
     p_plotXY <- Polygon(plotXY)
     spatial_plotXY <- SpatialPolygons(list(Polygons(list(p_plotXY), ID = "plot")))
-    plot(spatial_plotXY)
+    plot(spatial_plotXY, col = "lightgoldenrod")
   }
 
   ####Creating the loop for the artificial forest stand--------------------------------------------------------------
 
   cat(paste("", "Creating an artificial forest stand of ", round(dimension[1], 2), " x ", round(dimension[2], 2), " with ", n.trees, " trees", sep = ""))  #Progress bar
-  pb <- txtProgressBar(min = 0, max = length(filestoread), style = 3)
+  pb <- txtProgressBar(min = 0, max = n.trees, style = 3)
 
-  results <- foreach(i = 1:n.trees, .inorder = TRUE, .combine= rbind, .packages = c("data.table", "sp", "rTLS", "rgeos")) %do% {  ####Conduct the loop
+  for(i in 1:n.trees) {  ####Conduct the loop
 
     setTxtProgressBar(pb, i)
 
@@ -146,7 +147,8 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
         colnames(coordinates) <- c("X", "Y")
         treecoordinates <- c(coordinates$X[i], coordinates$Y[i])
       } else {
-        treecoordinates <- c(runif(1, 0, dimension[1]), runif(1, 0, dimension[2]))
+        xy <- as.data.frame(spsample(spatial_plotXY, 1, type = "random")) #Set the random new coordinates
+        treecoordinates <- c(xy[1,1], xy[1,2])
       }
 
       tree <- move_rotate(tree, move = c(-treecoordinates[1], -treecoordinates[2], 0), rotate = c(0,0,0))
@@ -159,6 +161,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
       p_crown <- Polygon(crown)
       ps_crown <- Polygons(list(p_crown), ID = as.character(i))
       spatial_stant <- SpatialPolygons(list(ps_crown))
+      available_space <- gDifference(spatial_plotXY, spatial_stant)
 
       tree$files <- filestoread[i]
       stant <- tree
@@ -184,7 +187,8 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
           colnames(coordinates) <- c("X", "Y")
           treecoordinates <- c(coordinates$X[i], coordinates$Y[i])
         } else {
-          treecoordinates <- c(runif(1, 0, dimension[1]), runif(1, 0, dimension[2]))
+          xy <- as.data.frame(spsample(available_space, 1, type = "random")) #Set the random new coordinates
+          treecoordinates <- c(xy[1,1], xy[1,2])
         }
 
         tree_try <- move_rotate(tree, move = c(-treecoordinates[1], -treecoordinates[2], 0), rotate = c(0,0,0))
@@ -213,6 +217,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
           stant <- rbind(stant, tree_try)
 
           spatial_stant <- gUnion(spatial_crown, spatial_stant)
+          available_space <- gDifference(available_space, spatial_stant)
 
           tcoordinates$Xcoordinate[i] <- newcentroidXY[1]   ###Information of each tree for tcoordinates
           tcoordinates$Ycoordinate[i] <- newcentroidXY[2]
@@ -231,6 +236,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
           stant <- rbind(stant, tree_try)
 
           spatial_stant <- gUnion(spatial_crown, spatial_stant)
+          available_space <- gDifference(available_space, spatial_stant)
 
           tcoordinates$Xcoordinate[i] <- newcentroidXY[1]   ###Information of each tree for tcoordinates
           tcoordinates$Ycoordinate[i] <- newcentroidXY[2]
@@ -243,7 +249,14 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
       }
     }
   }
-  final <- list(Trees = tcoordinates, Cloud = stant)
+
+  stand <- data.table(n.trees = n.trees,
+                      stand_area = (dimension[1]*dimension[2]),
+                      covered_area = (gArea(spatial_plotXY) - gArea(available_space)),
+                      total_crown_area = gArea(spatial_stant),
+                      n_points = nrow(stant))
+
+  final <- list(Stand = stand, Trees = na.exclude(tcoordinates), Cloud = stant)
   return(final)
 }
 
