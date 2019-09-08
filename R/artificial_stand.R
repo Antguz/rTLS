@@ -32,6 +32,7 @@
 #' @importFrom sp Polygons
 #' @importFrom sp SpatialPolygons
 #' @importFrom sp plot
+#' @importFrom sp spsample
 #' @importFrom rgeos gArea
 #' @importFrom rgeos gUnion
 #' @importFrom rgeos gDifference
