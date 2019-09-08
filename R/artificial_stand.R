@@ -52,12 +52,12 @@
 #' path <- system.file("extdata", "pc_tree.txt", package = "rTLS")
 #'
 #' ###Creates a stand of 15x15 repeating four times the same point cloud and random coordinates and a crown overlap of 10%
-#' files <- rep(path, 20)
-#' artificial_stand(files, n.trees = 7, dimension = c(15, 15), coordinates = NULL, sample = FALSE, replace = FALSE, overlap = 10, rotation = TRUE, degrees = NULL, plot = TRUE)
+#' files <- rep(path, 4)
+#' artificial_stand(files, n.trees = 4, dimension = c(15, 15), coordinates = NULL, sample = FALSE, replace = FALSE, overlap = 10, rotation = TRUE, degrees = NULL, n_attemps = 100, plot = TRUE)
 #'
 #' ###Creates a stand of 15x15 repeating four times the same point cloud with establish locations.
 #' location <- data.table(X = c(5, 10, 10, 5), Y = c(5, 5, 10, 10))
-#' artificial_stand(files, n.trees = 4, dimension = c(15, 15), coordinates = location, sample = FALSE, replace = FALSE, overlap = NULL, rotation = TRUE, degrees = NULL, plot = TRUE)
+#' artificial_stand(files, n.trees = 4, dimension = c(15, 15), coordinates = location, sample = FALSE, replace = FALSE, overlap = NULL, rotation = TRUE, degrees = NULL, n_attemps = 100, plot = TRUE)
 #'
 #' @export
 artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, sample = TRUE, replace = TRUE, overlap = 0, rotation = TRUE, degrees = NULL, n_attemps = 100, plot = TRUE, ...) {
@@ -167,7 +167,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
       stant <- tree
 
       if(plot == TRUE) {
-        plot(spatial_stant, add = TRUE)
+        plot(spatial_stant, col = "forestgreen", add = TRUE)
         points(newcentroidXY[1], newcentroidXY[2], col = "red")
       }
 
@@ -209,7 +209,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
 
         if(is.null(overlap) == TRUE) {
           if(plot == TRUE) {
-            plot(spatial_crown, add = TRUE)
+            plot(spatial_crown, col = "forestgreen", add = TRUE)
             points(newcentroidXY[1], newcentroidXY[2], col = "red")
           }
 
@@ -228,7 +228,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
         } else if(percentage <= overlap) {
 
           if(plot == TRUE) {
-            plot(spatial_crown, add = TRUE)
+            plot(spatial_crown, col = "forestgreen", add = TRUE)
             points(newcentroidXY[1], newcentroidXY[2], col = "red")
           }
 
