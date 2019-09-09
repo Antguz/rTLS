@@ -2,7 +2,7 @@
 #'
 #' @description The \code{plot} method for objects of class \code{"voxels"} created using the \code{\link{voxels}} function.
 #'
-#' @aliases plot3d.voxels
+#' @aliases plot_voxels
 #' @param voxels Object of class \code{"voxels"} from \code{\link{voxels}}.
 #' @param add.points Logical, if \code{TRUE} it adds the original points used to perform the voxalization. \code{TRUE} as default.
 #' @param add.voxels Logical, if \code{TRUE} it adds the voxels created. \code{TRUE} as default.
@@ -25,7 +25,7 @@
 #'
 #' ###Create voxels of a size of 0.5.
 #' vox <- voxels(pc_tree, voxel.size = 0.5)
-#' plot.voxels(vox)
+#' plot_voxels(vox)
 #'
 #' @importFrom grDevices colorRampPalette
 #' @importFrom rgl plot3d
@@ -36,7 +36,7 @@
 #' @importFrom rgl points3d
 #'
 #' @export
-plot.voxels <- function(voxels, add.points = TRUE, add.voxels = TRUE, border = TRUE, fill = TRUE, gradientcol = FALSE, points.size = 1, pointscol = "black", fillcol = "forestgreen", lwd = 0.5, alpha = 0.10, ...) {
+plot_voxels <- function(voxels, add.points = TRUE, add.voxels = TRUE, border = TRUE, fill = TRUE, gradientcol = FALSE, points.size = 1, pointscol = "black", fillcol = "forestgreen", lwd = 0.5, alpha = 0.10, ...) {
 
   if(class(voxels)[1] != "voxels") {
     stop("An object from voxels() need to be used")

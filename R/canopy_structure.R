@@ -80,8 +80,9 @@
 #'
 #' #This will take a while#
 #' canopy_structure(TLS.type = "multiple", scan = TLS_scan, zenith.range = c(50,70), zenith.rings = 4,
-#'                  azimuth.range = c(0, 360), vertical.resolution = 0.25, TLS.resolution = c(0.04, 0.04),
-#'                  TLS.frame = c(30, 130, 0, 360), TLS.angles =  c(0.293, -0.835, -150.159))
+#'                  azimuth.range = c(0, 360), vertical.resolution = 0.25,
+#'                  TLS.resolution = c(0.04, 0.04), TLS.frame = c(30, 130, 0, 360),
+#'                  TLS.angles =  c(0.293, -0.835, -150.159))
 #'
 #' #Using a single return file
 #'
@@ -90,8 +91,9 @@
 #'
 #' #This will take a while#
 #' canopy_structure(TLS.type = "single", scan = TLS_scan, zenith.range = c(50,70), zenith.rings = 4,
-#'                  azimuth.range = c(0, 360), vertical.resolution = 0.25, TLS.resolution = c(0.04, 0.04),
-#'                  TLS.frame = c(30, 130, 0, 360), TLS.angles =  c(0.293, -0.835, -150.159))
+#'                  azimuth.range = c(0, 360), vertical.resolution = 0.25,
+#'                  TLS.resolution = c(0.04, 0.04), TLS.frame = c(30, 130, 0, 360),
+#'                  TLS.angles =  c(0.293, -0.835, -150.159))
 #' }
 #'
 #' @export

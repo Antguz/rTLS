@@ -41,7 +41,7 @@ Estimate different metrics on the poits of a cloud.
 data("pc_tree")
 
 ###On objects of class neighborhood
-##Calculate the neighborhood of 1000 random rows of a point cloud using the sphere method and a radius of 0.2.
+#Calculate the neighborhood on a sample the sphere method with a 0.2 of radius.
 cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
 dist <- neighborhood(cloud.random, pc_tree, method = "sphere", radius = 0.2)
 

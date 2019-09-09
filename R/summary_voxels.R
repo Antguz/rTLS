@@ -18,16 +18,16 @@
 #' @importFrom boot boot
 #' @importFrom stats sd
 #'
-#' @seealso \code{\link{voxels}}, \code{\link{voxels_counting}}, \code{\link{plot3d.voxels}}
+#' @seealso \code{\link{voxels}}, \code{\link{voxels_counting}}, \code{\link{plot_voxels}}
 #'
 #' @examples
 #' data("pc_tree")
 #'
-#' ###Apply a summary on a object of class "voxels" using bootstrap with 1000 replicates
+#' #Apply a summary on a object of class "voxels" using bootstrap with 1000 replicates.
 #' vox <- voxels(pc_tree, voxel.size = 0.5)
 #' summary_voxels(vox, bootstrap = TRUE, R = 1000)
 #'
-#' ###Apply a summary on a product from the function voxels "voxels" using bootstrap with 1000 replicates
+#' #Apply a summary on a product from 'voxels' using bootstrap with 1000 replicates.
 #' vox <- voxels(pc_tree, voxel.size = 0.5, obj.voxels = FALSE)
 #' summary_voxels(vox, voxel.size = 0.5, bootstrap = TRUE, R = 1000)
 #'

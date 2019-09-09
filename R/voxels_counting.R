@@ -1,6 +1,6 @@
 #' @title Voxels Counting
 #'
-#' @description Creates voxels of different size on a point cloud using the \code{\link{voxels}} function, and then return a \code{\link{summary.voxels}} of their features.
+#' @description Creates voxels of different size on a point cloud using the \code{\link{voxels}} function, and then return a \code{\link{summary_voxels}} of their features.
 #'
 #' @param cloud A \code{data.table} with xyz coordinates of the point clouds in the first three columns.
 #' @param voxel.sizes A positive \code{numeric} vector describing the different voxel size to perform. If \code{NULL}, it use 10 voxel sizes by defaul based on the largest range of XYZ. See details.
@@ -18,7 +18,7 @@
 #' @importFrom foreach %dopar%
 #' @importFrom foreach %do%
 #'
-#' @seealso \code{\link{voxels}}, \code{\link{summary_voxels}}, \code{\link{plot3d.voxels}}
+#' @seealso \code{\link{voxels}}, \code{\link{summary_voxels}}, \code{\link{plot_voxels}}
 #'
 #' @return A \code{data.table} with the summary of the voxels created with their features.
 #' @author J. Antonio Guzmán Q.
@@ -26,14 +26,14 @@
 #'
 #' data(pc_tree)
 #'
-#' #Applying voxels counting
+#' #Applying voxels counting.
 #' voxels_counting(pc_tree, min.size = 0.05)
 #'
-#' #Voxels counting using boostrap on the H indixes with 1000 repetitions
+#' #Voxels counting using boostrap on the H indixes with 1000 repetitions.
 #' voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000)
 #'
 #' \dontrun{
-#' #Voxels counting using bootstrap on the H indices with 1000 repetitions and applying parallel processing with 4 cores.
+#' #Voxels counting using bootstrap on the H indices and using parallel processing.
 #' voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000, parallel = TRUE, cores = 4)
 #' }
 #'

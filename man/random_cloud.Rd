@@ -24,7 +24,7 @@ This function create points based on the established \code{limits} and \code{min
 }
 \examples{
 
-###Create a random point cloud of 1000 points with a minumun distance of 0.5 and using a xyz range between 0 and 100.
+#Creates a random point cloud with a minimum distance of 0.5 and a range between 0 and 100.
 range <- c(Xmin = 0, Xmax = 100, Ymin = 0, Ymas = 100, Zmin = 0, Zmax = 100)
 random_cloud(npoints = 1000, limits =  range, minDistance = 0.5)
 
