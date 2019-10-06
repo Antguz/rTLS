@@ -50,14 +50,14 @@
 #' @seealso \code{\link{voxels_counting}}
 #'
 #' @examples
-#' #Import an example point cloud.
+#' #Import an example point cloud
 #' path <- system.file("extdata", "pc_tree.txt", package = "rTLS")
 #'
-#' #Creates a stand of 4 trees with 10% of overlap.
+#' #Creates a stand of 4 trees with 10% of overlap
 #' files <- rep(path, 50)
 #' artificial_stand(files, n.trees = 50, dimension = c(50, 50), overlap = 10)
 #'
-#' #Creates a stand of 4 trees with their locations.
+#' #Creates a stand of 4 trees with their locations
 #' location <- data.table(X = c(5, 10, 10, 5), Y = c(5, 5, 10, 10))
 #' artificial_stand(files, n.trees = 4, dimension = c(15, 15), coordinates = location)
 #'
