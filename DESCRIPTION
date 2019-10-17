@@ -3,6 +3,21 @@ Package: rTLS
 Title: Tools to Process Point Clouds Derived From Terrestrial
     Laser Scanning
 Version: 0.1.0
+Authors@R:
+    c(person(given = "Antonio",
+             family = "Guzmán",
+             role = c("cre", "aut"),
+             email = "antguz06@gmail.com",
+             comment = c(ORCID = "0000-0002-0721-148X")),
+      person(given = "Ronny",
+             family = "Hernandez",
+             role = "aut",
+             email = "ronny.hernandezm@gmail.com"),
+      person(given = "Arturo",
+             family = "Sanchez-Azofeifa",
+             role = "ths",
+             email = "arturo.sanchez@ualberta.ca",
+             comment = c(ORCID = "0000-0001- 7768-6600")))
 Description: A package that compiles a set of tools to
     process and calculate metrics on point clouds derived from terrestrial
     LiDAR (Light Detection and Ranging). Its creation is based on key
