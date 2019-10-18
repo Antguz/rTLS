@@ -1,11 +1,33 @@
-#' @title Artificial Forest Stand
+#' Artificial Forest Stand
 #'
-#' @description Create an artificial forest stand of a given area using tree point clouds.
+#' Create an artificial forest stand of a given area using tree point clouds.
 #'
-#' @param files A \code{character} vector describing the file name or path of the tree point cloud to use. Those files most contain three columns representing the *XYZ* coordinates of a given point cloud.
-#' @param n.trees A positive \code{numeric} vector describing the number of point clouds to use.
-#' @param dimension A positive \code{numeric} vector of length two describing the width and length of the future forest stand.
-#' @param coordinates A \code{data.table} of two columns and with \code{nrows} equal to \code{n.trees} describing the basal *XYZ* coordinates of the point clouds in the future stand. If \code{NULL}, it uses random basal coordinates based on stand dimension. \code{NULL} as default.
+#' When \code{coordinates = NULL}, \code{artifical_stand} adds, in sequence,
+#' random coordinates to each \code{files} in the future stand based on the
+#' crown area \code{overlap}. That is, first a tree from \code{files} is
+#' randomly located within the stand \code{dimention}, then a second tree from
+#' \code{files} will be located in the future stand based on the crown area
+#' \code{overlap} from the previous tree, and so on. If during the random
+#' location a given tree does not meet the requirements of \code{overlap}, new
+#' random coordinates will be provided until the requirements are met.
+#'
+#' Since \code{artificial_stand} will try to add tree to the stand until the
+#' requirements are met, this could lead to an infinite loop if the stand
+#' \code{dimention} is small or if the trees on \code{files} are large or many
+#' \code{n.trees}. Therefore, the use of \code{n_attemps} is recomended to avoid
+#' this scenario.
+#'
+#' @param files A \code{character} vector describing the file name or path of
+#'   the tree point cloud to use. Those files most contain three columns
+#'   representing the *XYZ* coordinates of a given point cloud.
+#' @param n.trees A positive \code{numeric} vector describing the number of
+#'   point clouds to use.
+#' @param dimension A positive \code{numeric} vector of length two describing
+#'   the width and length of the future forest stand.
+#' @param coordinates A \code{data.table} of two columns and with \code{nrows}
+#'   equal to \code{n.trees} describing the basal *XYZ* coordinates of the point
+#'   clouds in the future stand. If \code{NULL}, it uses random basal
+#'   coordinates based on stand dimension. \code{NULL} as default.
 #' @param sample Logical. If \code{TRUE}, it performs a sample of the \code{files} to determine the order to build the artificial stand. If \code{FALSE}, it use the file order described in \code{files}. \code{TRUE} as default.
 #' @param replace Logical. If \code{TRUE}, it performs a sample selection with a replacement if \code{sample = TRUE} to determine the order to build the artificial stand. Useful if the \code{n.trees} is lower than \code{length(files)}. \code{TRUE} as default.
 #' @param overlap A positive \code{numeric} vector between 0 and 100 describing the overlap percentage of a given the tree crowns in the future forest stand. If \code{NULL}, the degree of overlap is not controlled.
@@ -16,14 +38,6 @@
 #' This needs to be used if \code{coordinate = NULL} and \code{overlap != NULL}. \code{n_attemps = 100} as default.
 #' @param ... Parameters passed to \code{\link{fread}} for the reading of \code{files}.
 #'
-#' @details When \code{coordinates = NULL}, \code{artifical_stand} adds, in sequence, random coordinates to each \code{files} in the future stand
-#' based on the crown area \code{overlap}. That is, first a tree from \code{files} is randomly located within the stand \code{dimention}, then a second tree from \code{files}
-#' will be located in the future stand based on the crown area \code{overlap} from the previous tree, and so on. If during the random location a given tree does not
-#' meet the requirements of \code{overlap}, new random coordinates will be provided until the requirements are met.
-#'
-#' Since \code{artificial_stand} will try to add tree to the stand until the requirements are met, this could lead to an infinite
-#' loop if the stand \code{dimention} is small or if the trees on \code{files} are large or many \code{n.trees}. Therefore, the use of
-#' \code{n_attemps} is recomended to avoid this scenario.
 #'
 #' @return A \code{list} which contain a \code{data.table} (Trees) with the information of the point clouds used and their current coordinates in the stand, and another \code{data.table} with that compile all the point clouds used.
 #' @author J. Antonio Guzmán Q.
