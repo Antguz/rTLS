@@ -9,13 +9,20 @@ artificial_stand(files, n.trees, dimension, coordinates = NULL,
   degrees = NULL, n_attemps = 100, plot = TRUE, ...)
 }
 \arguments{
-\item{files}{A \code{character} vector describing the file name or path of the tree point cloud to use. Those files most contain three columns representing the *XYZ* coordinates of a given point cloud.}
+\item{files}{A \code{character} vector describing the file name or path of
+the tree point cloud to use. Those files most contain three columns
+representing the *XYZ* coordinates of a given point cloud.}
 
-\item{n.trees}{A positive \code{numeric} vector describing the number of point clouds to use.}
+\item{n.trees}{A positive \code{numeric} vector describing the number of
+point clouds to use.}
 
-\item{dimension}{A positive \code{numeric} vector of length two describing the width and length of the future forest stand.}
+\item{dimension}{A positive \code{numeric} vector of length two describing
+the width and length of the future forest stand.}
 
-\item{coordinates}{A \code{data.table} of two columns and with \code{nrows} equal to \code{n.trees} describing the basal *XYZ* coordinates of the point clouds in the future stand. If \code{NULL}, it uses random basal coordinates based on stand dimension. \code{NULL} as default.}
+\item{coordinates}{A \code{data.table} of two columns and with \code{nrows}
+equal to \code{n.trees} describing the basal *XYZ* coordinates of the point
+clouds in the future stand. If \code{NULL}, it uses random basal
+coordinates based on stand dimension. \code{NULL} as default.}
 
 \item{sample}{Logical. If \code{TRUE}, it performs a sample of the \code{files} to determine the order to build the artificial stand. If \code{FALSE}, it use the file order described in \code{files}. \code{TRUE} as default.}
 
@@ -41,14 +48,20 @@ A \code{list} which contain a \code{data.table} (Trees) with the information of 
 Create an artificial forest stand of a given area using tree point clouds.
 }
 \details{
-When \code{coordinates = NULL}, \code{artifical_stand} adds, in sequence, random coordinates to each \code{files} in the future stand
-based on the crown area \code{overlap}. That is, first a tree from \code{files} is randomly located within the stand \code{dimention}, then a second tree from \code{files}
-will be located in the future stand based on the crown area \code{overlap} from the previous tree, and so on. If during the random location a given tree does not
-meet the requirements of \code{overlap}, new random coordinates will be provided until the requirements are met.
+When \code{coordinates = NULL}, \code{artifical_stand} adds, in sequence,
+random coordinates to each \code{files} in the future stand based on the
+crown area \code{overlap}. That is, first a tree from \code{files} is
+randomly located within the stand \code{dimention}, then a second tree from
+\code{files} will be located in the future stand based on the crown area
+\code{overlap} from the previous tree, and so on. If during the random
+location a given tree does not meet the requirements of \code{overlap}, new
+random coordinates will be provided until the requirements are met.
 
-Since \code{artificial_stand} will try to add tree to the stand until the requirements are met, this could lead to an infinite
-loop if the stand \code{dimention} is small or if the trees on \code{files} are large or many \code{n.trees}. Therefore, the use of
-\code{n_attemps} is recomended to avoid this scenario.
+Since \code{artificial_stand} will try to add tree to the stand until the
+requirements are met, this could lead to an infinite loop if the stand
+\code{dimention} is small or if the trees on \code{files} are large or many
+\code{n.trees}. Therefore, the use of \code{n_attemps} is recomended to avoid
+this scenario.
 }
 \examples{
 #Import an example point cloud
