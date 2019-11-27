@@ -29,18 +29,19 @@ move_rotate <- function(cloud, move, rotate) {
 
   ####Move the point cloud---------------------------------------
 
-  if(class(move) != "numeric") {
-    stop("Move needs to be a numeric vector")
-  }
-
-  if(length(move) != 3) {
-    stop("Move needs to be a numeric vector of length 3")
-  }
-
   if(is.null(move) == TRUE) {
     cloud <- cloud
 
   } else {
+
+    if(class(move) != "numeric") {
+      stop("Move needs to be a numeric vector")
+    }
+
+    if(length(move) != 3) {
+      stop("Move needs to be a numeric vector of length 3")
+    }
+
     cloud[, 1] <- cloud[,1] - move[1]
     cloud[, 2] <- cloud[,2] - move[2]
     cloud[, 3] <- cloud[,3] - move[3]
@@ -48,32 +49,33 @@ move_rotate <- function(cloud, move, rotate) {
 
   ####Rotates the point cloud ------------------------------------------------------------------------
 
-  if(class(rotate) != "numeric") {
-    stop("Rotate needs to be a numeric vector")
-  }
-
-  if(length(rotate) != 3) {
-    stop("Rotate needs to be a numeric vector of length 3")
-  }
 
   if(is.null(rotate) == TRUE) {
     cloud <- cloud
 
   } else {
+
+    if(class(rotate) != "numeric") {
+      stop("Rotate needs to be a numeric vector")
+    }
+
+    if(length(rotate) != 3) {
+      stop("Rotate needs to be a numeric vector of length 3")
+    }
+
+
     rotate <- rotate*pi/180 #convert degrees to radiants
 
     if(rotate[3] != 0) {
       cloud[, c("X", "Y") := list(((X * cos(rotate[3])) - (Y * sin(rotate[3]))),
                                  ((X * sin(rotate[3])) + (Y * cos(rotate[3])))),
                                           by = seq_len(nrow(cloud))]
-
     }
 
     if(rotate[2] != 0) {
       cloud[, c("X", "Z") := list(((X * cos(rotate[2])) - (Z * sin(rotate[2]))),
                                   ((X * sin(rotate[2])) + (Z * cos(rotate[2])))),
                                     by = seq_len(nrow(cloud))]
-
     }
 
     if(rotate[1] != 0) {
