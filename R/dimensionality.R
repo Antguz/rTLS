@@ -4,7 +4,7 @@
 #'
 #' @param space A \code{data.table} with *XYZ* coordinates of the neighboring points in the first three columns.
 #'
-#' @details Since the extraction of the metrics are based on \code{\link{prcomp}}, a \code{space} of neighboring points lower than three may return \code{NA} as results.
+#' @details Since the extraction of the metrics are based on \code{\link{eigen}}, a \code{space} of neighboring points lower than three may return \code{NA} as results.
 #'
 #' @return A \code{data.table} with the estimated parameters.
 #' @author J. Antonio Guzmán Q. and Ronny Hernandez
@@ -13,7 +13,7 @@
 #' @seealso \code{\link{basic_metrics}}, \code{\link{distribution}}, \code{\link{cloud_metrics}}, \code{\link{neighborhood}}
 #'
 #' @importFrom stats na.exclude
-#' @importFrom stats prcomp
+#' @importFrom coop covar
 #'
 #' @examples
 #' data("pc_tree")
@@ -26,8 +26,7 @@ dimensionality <- function(space) {
   space <- na.exclude(space)
 
   if(nrow(space) >= 3) {
-    pca <- prcomp(space[,1:3], center = TRUE, scale = FALSE, retx = FALSE)
-    eigval <- pca$sdev^2
+    eigval <- eigen(covar(space), only.values = TRUE)$values
 
     frame <- data.table(linearity = (eigval[1]-eigval[2])/eigval[1],
                         planarity = (eigval[2]-eigval[3])/eigval[1],
@@ -38,7 +37,6 @@ dimensionality <- function(space) {
                         sum_eigen = sum(eigval),
                         sur_var = min(eigval)/sum(eigval),
                         eigen_ratio_2D = eigval[2]/eigval[1])
-
 
   } else if(nrow(space) < 3) {
     frame <- data.table(linearity = as.numeric(NA),

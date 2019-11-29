@@ -16,7 +16,7 @@ A \code{data.table} with the estimated parameters.
 Calculate the dimensionality of a cloud of neighboring points. It estimates nine parameters based on Wang et al. 2017.
 }
 \details{
-Since the extraction of the metrics are based on \code{\link{prcomp}}, a \code{space} of neighboring points lower than three may return \code{NA} as results.
+Since the extraction of the metrics are based on \code{\link{eigen}}, a \code{space} of neighboring points lower than three may return \code{NA} as results.
 }
 \examples{
 data("pc_tree")
