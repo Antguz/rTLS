@@ -4,20 +4,9 @@
 \alias{artificial_stand}
 \title{Artificial Forest Stand}
 \usage{
-artificial_stand(
-  files,
-  n.trees,
-  dimension,
-  coordinates = NULL,
-  sample = TRUE,
-  replace = TRUE,
-  overlap = NULL,
-  rotation = TRUE,
-  degrees = NULL,
-  n_attemps = 100,
-  plot = TRUE,
-  ...
-)
+artificial_stand(files, n.trees, dimension, coordinates = NULL,
+  sample = TRUE, replace = TRUE, overlap = NULL, rotation = TRUE,
+  degrees = NULL, n_attemps = 100, plot = TRUE, ...)
 }
 \arguments{
 \item{files}{A \code{character} vector describing the file name or path of

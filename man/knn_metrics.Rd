@@ -4,16 +4,8 @@
 \alias{knn_metrics}
 \title{K-nearest Neighbors Metrics on a Target Point}
 \usage{
-knn_metrics(
-  x,
-  cloud,
-  k,
-  radius = NULL,
-  basic = TRUE,
-  distribution = TRUE,
-  dimensionality = TRUE,
-  n_replicates = NULL
-)
+knn_metrics(x, cloud, k, radius = NULL, basic = TRUE,
+  distribution = TRUE, dimensionality = TRUE, n_replicates = NULL)
 }
 \arguments{
 \item{x}{A \code{data.table} of the target point with three columns of the *XYZ* coordinates.}
