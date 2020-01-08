@@ -35,24 +35,10 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// distancelog
-Rcpp::IntegerVector distancelog(const NumericMatrix sample, const NumericMatrix base, const NumericVector radius);
-RcppExport SEXP _rTLS_distancelog(SEXP sampleSEXP, SEXP baseSEXP, SEXP radiusSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericMatrix >::type sample(sampleSEXP);
-    Rcpp::traits::input_parameter< const NumericMatrix >::type base(baseSEXP);
-    Rcpp::traits::input_parameter< const NumericVector >::type radius(radiusSEXP);
-    rcpp_result_gen = Rcpp::wrap(distancelog(sample, base, radius));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_Mdistance_parallel", (DL_FUNC) &_rTLS_Mdistance_parallel, 3},
     {"_rTLS_distanceC", (DL_FUNC) &_rTLS_distanceC, 6},
-    {"_rTLS_distancelog", (DL_FUNC) &_rTLS_distancelog, 3},
     {NULL, NULL, 0}
 };
 

@@ -4,19 +4,9 @@
 \alias{cloud_metrics}
 \title{Point cloud metrics}
 \usage{
-cloud_metrics(
-  cloud,
-  cloud_b = NULL,
-  method,
-  radius = NULL,
-  k,
-  basic = TRUE,
-  distribution = TRUE,
-  dimensionality = TRUE,
-  n_replicates = NULL,
-  parallel = FALSE,
-  cores
-)
+cloud_metrics(cloud, cloud_b = NULL, method, radius = NULL, k,
+  basic = TRUE, distribution = TRUE, dimensionality = TRUE,
+  n_replicates = NULL, parallel = FALSE, cores)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with *XYZ* coordinates in the first three columns or an object of class \code{"neighborhood"}.}

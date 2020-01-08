@@ -9,7 +9,3 @@ distanceC <- function(xcoor, ycoor, zcoor, X, Y, Z) {
     .Call('_rTLS_distanceC', PACKAGE = 'rTLS', xcoor, ycoor, zcoor, X, Y, Z)
 }
 
-distancelog <- function(sample, base, radius) {
-    .Call('_rTLS_distancelog', PACKAGE = 'rTLS', sample, base, radius)
-}
-
