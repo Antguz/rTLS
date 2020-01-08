@@ -4,10 +4,19 @@
 \alias{m_cloud_metrics}
 \title{Point Cloud Metrics at Multiple Scales}
 \usage{
-m_cloud_metrics(cloud, cloud_b = NULL, basic = TRUE,
-  distribution = TRUE, dimensionality = TRUE, method = NULL,
-  radius.range = NULL, k.range, n_replicates = NULL,
-  parallel = FALSE, cores = NULL)
+m_cloud_metrics(
+  cloud,
+  cloud_b = NULL,
+  basic = TRUE,
+  distribution = TRUE,
+  dimensionality = TRUE,
+  method = NULL,
+  radius.range = NULL,
+  k.range,
+  n_replicates = NULL,
+  parallel = FALSE,
+  cores = NULL
+)
 }
 \arguments{
 \item{cloud}{An object of class \code{"neighborhood"} or \code{data.table} with *XYZ* coordinates in the first three columns.}

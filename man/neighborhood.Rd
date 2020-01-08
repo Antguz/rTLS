@@ -4,8 +4,15 @@
 \alias{neighborhood}
 \title{Neighboring Points}
 \usage{
-neighborhood(cloud, cloud_b = NULL, method, radius = NULL, k,
-  parallel = FALSE, cores = NULL)
+neighborhood(
+  cloud,
+  cloud_b = NULL,
+  method,
+  radius = NULL,
+  k,
+  parallel = FALSE,
+  cores = NULL
+)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with three columns representing the *XYZ* coordinates of a point cloud.}
