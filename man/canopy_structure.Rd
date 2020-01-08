@@ -4,10 +4,20 @@
 \alias{canopy_structure}
 \title{Canopy Structure}
 \usage{
-canopy_structure(TLS.type, scan, zenith.range, zenith.rings, azimuth.range,
-  vertical.resolution, TLS.resolution, TLS.coordinates = NULL,
-  TLS.frame = NULL, TLS.angles = NULL, parallel = FALSE,
-  cores = NULL)
+canopy_structure(
+  TLS.type,
+  scan,
+  zenith.range,
+  zenith.rings,
+  azimuth.range,
+  vertical.resolution,
+  TLS.resolution,
+  TLS.coordinates = NULL,
+  TLS.frame = NULL,
+  TLS.angles = NULL,
+  parallel = FALSE,
+  cores = NULL
+)
 }
 \arguments{
 \item{TLS.type}{A \code{character} describing is the TLS used. It most be one of \code{"single"} return, \code{"multiple"} return, or \code{"fixed.angle"} scanner.}

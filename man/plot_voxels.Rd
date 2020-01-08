@@ -4,10 +4,20 @@
 \alias{plot_voxels}
 \title{Plot Method for Voxels}
 \usage{
-plot_voxels(voxels, add.points = TRUE, add.voxels = TRUE,
-  border = TRUE, fill = TRUE, gradientcol = FALSE, points.size = 1,
-  pointscol = "black", fillcol = "forestgreen", lwd = 0.5,
-  alpha = 0.1, ...)
+plot_voxels(
+  voxels,
+  add.points = TRUE,
+  add.voxels = TRUE,
+  border = TRUE,
+  fill = TRUE,
+  gradientcol = FALSE,
+  points.size = 1,
+  pointscol = "black",
+  fillcol = "forestgreen",
+  lwd = 0.5,
+  alpha = 0.1,
+  ...
+)
 }
 \arguments{
 \item{voxels}{Object of class \code{"voxels"} from \code{\link{voxels}}.}
