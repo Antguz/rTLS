@@ -7,7 +7,8 @@
 #' @param rotate A \code{numeric} vector of length three describing the rotation angles (degrees) for the roll, pitch, and yaw.
 #'
 #' @details \code{move} conducts a substraction between \code{cloud} less \code{move} coordinates. If \code{NULL}, it does not apply \code{move}.
-#' Likewise, \code{rotate} assumes that roll has an effect on the *X* axis, the pitch on the *Y* axis, and the yaw on the *Z* axis. If \code{NULL}, it does not apply \code{rotate}.
+#' Likewise, \code{rotate} assumes that roll has an effect on the *X* axis, the pitch on the *Y* axis, and the yaw on the *Z* axis. The rotation is based on
+#' E-N-U coordinates (ENU system, East-North-Up). If \code{NULL}, it does not apply \code{rotate}.
 #'
 #' @return A \code{data.table} with the rotation and move applied to \code{cloud}.
 #'
