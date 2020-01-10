@@ -4,7 +4,7 @@
 using namespace Rcpp;
 using namespace arma;
 
-// First it subsamble the matrix to specific rows, then it computes a cov matrix to extract eigenvalues
+// First it subsamble the matrix to specific rows, then it computes a cov matrix to extract eigenvalues.
 
 // [[Rcpp::export]]
 arma::vec getEigenvalues(Rcpp::NumericMatrix base, Rcpp::NumericVector dis_logical) {
