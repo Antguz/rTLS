@@ -36,9 +36,9 @@ If \code{NULL}, it assumes that the coordinates are \code{c(X = 0, Y = 0, Z = 0)
 If \code{TLS.type = "fixed.angle"}, a \code{numeric} vector of length three describing the fixed zenith angle and the \code{min} and \code{max} of the azimuth angle of the scanner frame.
 If \code{NULL}, it assumes that a complete hemisphere (\code{c(zenith.min = 0, zenith.max = 90, azimuth.min = 0, azimuth.max = 360)}), or a cone projection (\code{c(zenith = 57.5, azimuth.min = 0, azimuth.max = 360)}) depending on \code{TLS.type}.}
 
-\item{TLS.angles}{A \code{numeric} vector of length three describing the pitch (*X*), roll (*Y*), and yaw (*Z*) of the TLS during the scan.
+\item{TLS.angles}{A \code{numeric} vector of length three describing the roll (*X*), pitch (*Y*), and yaw (*Z*) angles of the scanner during the scan.
 If \code{NULL}, it assumes that the angles are \code{c(roll = 0, pitch = 0, yaw = 0)}.
-This needs to be used if \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, since it assumes that \code{"fixed.angle"} scanner are previously balanced.}
+This needs to be used if \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, since it assumes that \code{"fixed.angle"} scanner is previously balanced.}
 
 \item{parallel}{Logical, if \code{TRUE} it use parallel processing on the estimation of shots and returns. \code{FALSE} as default.}
 

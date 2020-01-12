@@ -5,3 +5,7 @@ distanceC <- function(xcoor, ycoor, zcoor, X, Y, Z) {
     .Call('_rTLS_distanceC', PACKAGE = 'rTLS', xcoor, ycoor, zcoor, X, Y, Z)
 }
 
+move_rotate_rcpp <- function(cloud, move, angles) {
+    .Call('_rTLS_move_rotate_rcpp', PACKAGE = 'rTLS', cloud, move, angles)
+}
+

@@ -6,9 +6,9 @@
 #' @param move A \code{numeric} vector of length three describing the *XYZ* coordinates to move \code{cloud}.
 #' @param rotate A \code{numeric} vector of length three describing the rotation angles (degrees) for the roll, pitch, and yaw.
 #'
-#' @details \code{move} conducts a substraction between \code{cloud} less \code{move} coordinates. If \code{NULL}, it does not apply \code{move}.
+#' @details \code{move} conducts a substraction between \code{cloud} less \code{move} coordinates. It assumes to be \code{move = c(X = 0, Y = 0, Z = 0)}.
 #' Likewise, \code{rotate} assumes that roll has an effect on the *X* axis, the pitch on the *Y* axis, and the yaw on the *Z* axis. The rotation is based on
-#' E-N-U coordinates (ENU system, East-North-Up). If \code{NULL}, it does not apply \code{rotate}.
+#' E-N-U coordinates (ENU system, East-North-Up). It assumes to be \code{move = c(roll = 0, pitch = 0, yaw = 0)}.
 #'
 #' @return A \code{data.table} with the rotation and move applied to \code{cloud}.
 #'
@@ -24,67 +24,27 @@
 #'
 #'
 #' @export
-move_rotate <- function(cloud, move, rotate) {
+move_rotate <- function(cloud, move = c(0, 0, 0), rotate = c(0, 0, 0)) {
 
   colnames(cloud)[1:3] <- c("X", "Y", "Z")
 
   ####Move the point cloud---------------------------------------
 
-  if(is.null(move) == TRUE) {
-    cloud <- cloud
+  if((class(move) != "numeric") & (length(move) != 3)) {
+      stop("move needs to be a numeric vector of length 3")
+  }
 
-  } else {
-
-    if(class(move) != "numeric") {
-      stop("Move needs to be a numeric vector")
-    }
-
-    if(length(move) != 3) {
-      stop("Move needs to be a numeric vector of length 3")
-    }
-
-    cloud[, 1] <- cloud[,1] - move[1]
-    cloud[, 2] <- cloud[,2] - move[2]
-    cloud[, 3] <- cloud[,3] - move[3]
+  if((class(move) != "rotate") & (length(rotate) != 3)) {
+    stop("rotate needs to be a numeric vector of length 3")
   }
 
   ####Rotates the point cloud ------------------------------------------------------------------------
 
+  new_cloud <- move_rotate_rcpp(as.matrix(cloud), move, rotate)
 
-  if(is.null(rotate) == TRUE) {
-    cloud <- cloud
+  new_cloud <- as.data.table(new_cloud)
+  colnames(new_cloud) <- c("X", "Y", "Z")
 
-  } else {
+  return(new_cloud)
 
-    if(class(rotate) != "numeric") {
-      stop("Rotate needs to be a numeric vector")
-    }
-
-    if(length(rotate) != 3) {
-      stop("Rotate needs to be a numeric vector of length 3")
-    }
-
-
-    rotate <- rotate*pi/180 #convert degrees to radiants
-
-    if(rotate[3] != 0) {
-      cloud[, c("X", "Y") := list(((X * cos(rotate[3])) - (Y * sin(rotate[3]))),
-                                 ((X * sin(rotate[3])) + (Y * cos(rotate[3])))),
-                                          by = seq_len(nrow(cloud))]
-    }
-
-    if(rotate[2] != 0) {
-      cloud[, c("X", "Z") := list(((X * cos(rotate[2])) - (Z * sin(rotate[2]))),
-                                  ((X * sin(rotate[2])) + (Z * cos(rotate[2])))),
-                                    by = seq_len(nrow(cloud))]
-    }
-
-    if(rotate[1] != 0) {
-      cloud[, c("Y", "Z") := list(((Y * cos(rotate[1])) - (Z * sin(rotate[1]))),
-                                  ((Y * sin(rotate[1])) + (Z * cos(rotate[1])))),
-                                    by = seq_len(nrow(cloud))]
-    }
-  }
-
-  return(cloud)
 }

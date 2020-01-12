@@ -6,19 +6,6 @@
 
 using namespace Rcpp;
 
-// Mdistance_parallel
-RMatrix Mdistance_parallel(NumericMatrix amat, NumericMatrix bmat, NumericVector radius);
-RcppExport SEXP _rTLS_Mdistance_parallel(SEXP amatSEXP, SEXP bmatSEXP, SEXP radiusSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type amat(amatSEXP);
-    Rcpp::traits::input_parameter< NumericMatrix >::type bmat(bmatSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type radius(radiusSEXP);
-    rcpp_result_gen = Rcpp::wrap(Mdistance_parallel(amat, bmat, radius));
-    return rcpp_result_gen;
-END_RCPP
-}
 // distanceC
 NumericVector distanceC(double xcoor, double ycoor, double zcoor, NumericVector X, NumericVector Y, NumericVector Z);
 RcppExport SEXP _rTLS_distanceC(SEXP xcoorSEXP, SEXP ycoorSEXP, SEXP zcoorSEXP, SEXP XSEXP, SEXP YSEXP, SEXP ZSEXP) {
@@ -35,10 +22,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// move_rotate_rcpp
+NumericMatrix move_rotate_rcpp(NumericMatrix cloud, NumericVector move, NumericVector angles);
+RcppExport SEXP _rTLS_move_rotate_rcpp(SEXP cloudSEXP, SEXP moveSEXP, SEXP anglesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type cloud(cloudSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type move(moveSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type angles(anglesSEXP);
+    rcpp_result_gen = Rcpp::wrap(move_rotate_rcpp(cloud, move, angles));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_rTLS_Mdistance_parallel", (DL_FUNC) &_rTLS_Mdistance_parallel, 3},
     {"_rTLS_distanceC", (DL_FUNC) &_rTLS_distanceC, 6},
+    {"_rTLS_move_rotate_rcpp", (DL_FUNC) &_rTLS_move_rotate_rcpp, 3},
     {NULL, NULL, 0}
 };
 

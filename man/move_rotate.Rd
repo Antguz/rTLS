@@ -4,7 +4,7 @@
 \alias{move_rotate}
 \title{Moves and Rotates a Point Cloud}
 \usage{
-move_rotate(cloud, move, rotate)
+move_rotate(cloud, move = c(0, 0, 0), rotate = c(0, 0, 0))
 }
 \arguments{
 \item{cloud}{A \code{data.table} with three columns describing the *XYZ* coordinates of a point cloud.}
@@ -20,8 +20,9 @@ A \code{data.table} with the rotation and move applied to \code{cloud}.
 Moves a point cloud based on *XYZ* coordinates, and rotates it based on the roll, pitch, and yaw angles.
 }
 \details{
-\code{move} conducts a substraction between \code{cloud} less \code{move} coordinates. If \code{NULL}, it does not apply \code{move}.
-Likewise, \code{rotate} assumes that roll has an effect on the *X* axis, the pitch on the *Y* axis, and the yaw on the *Z* axis. If \code{NULL}, it does not apply \code{rotate}.
+\code{move} conducts a substraction between \code{cloud} less \code{move} coordinates. It assumes to be \code{move = c(X = 0, Y = 0, Z = 0)}.
+Likewise, \code{rotate} assumes that roll has an effect on the *X* axis, the pitch on the *Y* axis, and the yaw on the *Z* axis. The rotation is based on
+E-N-U coordinates (ENU system, East-North-Up). It assumes to be \code{move = c(roll = 0, pitch = 0, yaw = 0)}.
 }
 \examples{
 
