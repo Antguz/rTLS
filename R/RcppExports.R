@@ -9,3 +9,7 @@ move_rotate_rcpp <- function(cloud, move, angles) {
     .Call('_rTLS_move_rotate_rcpp', PACKAGE = 'rTLS', cloud, move, angles)
 }
 
+polar_to_cartesian_rcpp <- function(polar) {
+    .Call('_rTLS_polar_to_cartesian_rcpp', PACKAGE = 'rTLS', polar)
+}
+

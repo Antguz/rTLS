@@ -35,10 +35,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// polar_to_cartesian_rcpp
+NumericMatrix polar_to_cartesian_rcpp(NumericMatrix polar);
+RcppExport SEXP _rTLS_polar_to_cartesian_rcpp(SEXP polarSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type polar(polarSEXP);
+    rcpp_result_gen = Rcpp::wrap(polar_to_cartesian_rcpp(polar));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_distanceC", (DL_FUNC) &_rTLS_distanceC, 6},
     {"_rTLS_move_rotate_rcpp", (DL_FUNC) &_rTLS_move_rotate_rcpp, 3},
+    {"_rTLS_polar_to_cartesian_rcpp", (DL_FUNC) &_rTLS_polar_to_cartesian_rcpp, 1},
     {NULL, NULL, 0}
 };
 

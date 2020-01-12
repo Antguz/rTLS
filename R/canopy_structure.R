@@ -174,7 +174,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
                   azimuth = seq(TLS.frame[3], TLS.frame[4], TLS.resolution[2])) #Create grid
     scanner$distance <- 1.000
     scanner <- polar_to_cartesian(scanner, digits = 3) #Get cartesian
-    scanner <- move_rotate(scanner, move = NULL, rotate = c(TLS.angles[1], TLS.angles[2], TLS.angles[3])) #Correction of angles
+    scanner <- move_rotate(scanner, move = c(0, 0, 0), rotate = c(TLS.angles[1], TLS.angles[2], TLS.angles[3])) #Correction of angles
     scanner <- scanner[Z >= 0] #Subset of values
     scanner <- cartesian_to_polar(scanner, NULL, digits = 2) #Get polar
     scanner <- scanner[between(zenith, zenith.range[1], zenith.range[2]) , 1:2]

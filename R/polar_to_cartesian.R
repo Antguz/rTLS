@@ -25,17 +25,14 @@
 #' @export
 polar_to_cartesian <- function(polar, digits = NULL) {
 
-  colnames(polar)[1:3] <- c("zenith", "azimuth", "distance")
-
-  polar[ , c("X", "Y", "Z") := list((distance * (cos((azimuth*pi)/180) * sin((zenith*pi)/180))),
-                                    (distance * (sin((azimuth*pi)/180) * sin((zenith*pi)/180))),
-                                    (distance * cos((zenith*pi)/180))), by = seq_len(nrow(polar))]
-
+  cartesian <- polar_to_cartesian_rcpp(as.matrix(polar))
+  cartesian <- as.data.table(cartesian)
+  colnames(cartesian) <- c("X", "Y", "Z")
 
   if(is.null(digits) != TRUE) {
-    polar <- polar[, c("X", "Y", "Z") := round(.SD, digits), .SDcols= c("X", "Y", "Z")]
+    cartesian <- cartesian[, c("X", "Y", "Z") := round(.SD, digits), .SDcols= c("X", "Y", "Z")]
   }
 
-  return(polar[ , 4:6])
+  return(cartesian)
 }
 
