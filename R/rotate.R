@@ -1,0 +1,34 @@
+#' @title Rotate a Point Cloud
+#'
+#' @description Rotate point cloud based on the roll, pitch, and yaw angles.
+#'
+#' @param cloud A \code{data.table} with three columns describing the *XYZ* coordinates of a point cloud.
+#' @param roll A \code{numeric} vector describing the degrees of rotation angles for roll (*X*).
+#' @param pitch A \code{numeric} vector describing the degrees of rotation angles for pitch (*Y*).
+#' @param yaw A \code{numeric} vector describing the degrees of rotation angles for yaw (*Z*). for the roll, pitch, and yaw.
+#'
+#' @details The *XYZ* coordiantes are transformed to E-N-U coordinates (ENU system, East-North-Up).
+#'
+#' @return A \code{data.table} with the rotation applied to \code{cloud}.
+#'
+#' @author J. Antonio Guzmán Q.
+#'
+#' @examples
+#'
+#' data(pc_tree)
+#' rgl::plot3d(pc_tree)
+#' rgl::plot3d(rotate(pc_tree, roll = 45, pitch = 45, yaw = 0))
+#'
+#' @export
+rotate <- function(cloud, roll = 0, pitch = 0, yaw = 0) {
+
+  ####Rotates the point cloud ------------------------------------------------------------------------
+
+  new_cloud <- rotate_rcpp(as.matrix(cloud), roll, pitch, yaw)
+
+  new_cloud <- as.data.table(new_cloud)
+  colnames(new_cloud) <- c("X", "Y", "Z")
+
+  return(new_cloud)
+
+}

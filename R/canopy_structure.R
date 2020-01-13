@@ -28,8 +28,8 @@
 #' @param cores An \code{integer >= 0} describing the number of cores use. This need to be used if \code{parallel = TRUE}.
 #'
 #' @details Since \code{scan} describes discrete returns measured by the TLS, \code{canopy_structre} first simulates the number of shots emited based on Danson et al. (2007). The simulated shots are
-#' created based on the TLS workflow (\code{TLS.resolution, TLS.frame}) assuming that the scanner is perfectly balance. Then these shots are moved and rotated (\code{\link{move_rotate}}) based on the \code{TLS.angles}
-#' roll, pitch, and yaw, and \code{TLS.coordintates} to simulate the positioning of the scanner during the \code{scan}. Moved and rotated simulated-shots of interest and \code{scan} returns are then extracted based on the \code{zenith.range}, \code{zenith.rings}, and \code{vertical.resolution}.
+#' created based on the TLS workflow (\code{TLS.resolution, TLS.frame}) assuming that the scanner is perfectly balance. Then these shots are rotated (\code{\link{rotate}}) based on the \code{TLS.angles}
+#' roll, pitch, and yaw, and \code{TLS.coordintates} to simulate the positioning of the scanner during the \code{scan}. Rotated simulated-shots of interest and \code{scan} returns are then extracted based on the \code{zenith.range}, \code{zenith.rings}, and \code{vertical.resolution}.
 #' Using the frecuency of shots and returns the probabiliry of gap (Pgap) is estimated. For \code{TLS.type = "multiple"}, the frecuency of returns is estimated using the sum of 1/target count following Lovell et al. (2011).
 #'
 #' Using the Pgap estimated per each zenith ring and vertical profile, \code{canopy_structure} then estimates the accumulative L(z) profiles based on the closest
@@ -97,7 +97,7 @@
 #' }
 #'
 #' @export
-canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth.range, vertical.resolution, TLS.resolution, TLS.coordinates = NULL, TLS.frame = NULL, TLS.angles = NULL, parallel = FALSE, cores = NULL) {
+canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth.range, vertical.resolution, TLS.resolution, TLS.coordinates = c(0, 0, 0), TLS.frame = NULL, TLS.angles = NULL, parallel = FALSE, cores = NULL) {
 
   if(TLS.type == "multiple") {
     colnames(scan)[1:4] <- c("X", "Y", "Z", "Target_count")
@@ -174,9 +174,9 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
                   azimuth = seq(TLS.frame[3], TLS.frame[4], TLS.resolution[2])) #Create grid
     scanner$distance <- 1.000
     scanner <- polar_to_cartesian(scanner, digits = 3) #Get cartesian
-    scanner <- move_rotate(scanner, move = c(0, 0, 0), rotate = c(TLS.angles[1], TLS.angles[2], TLS.angles[3])) #Correction of angles
+    scanner <- rotate(scanner, roll = TLS.angles[1], pitch = TLS.angles[2], yaw = TLS.angles[3]) #Correction of angles
     scanner <- scanner[Z >= 0] #Subset of values
-    scanner <- cartesian_to_polar(scanner, NULL, digits = 2) #Get polar
+    scanner <- cartesian_to_polar(scanner, TLS.coordinates, digits = 2) #Get polar
     scanner <- scanner[between(zenith, zenith.range[1], zenith.range[2]) , 1:2]
 
   } else if(TLS.type == "fixed.angle") { ##Estimate the number per fixed angle

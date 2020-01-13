@@ -6,6 +6,18 @@
 
 using namespace Rcpp;
 
+// cartesian_to_polar_rcpp
+NumericMatrix cartesian_to_polar_rcpp(NumericMatrix cartesian, NumericVector anchor);
+RcppExport SEXP _rTLS_cartesian_to_polar_rcpp(SEXP cartesianSEXP, SEXP anchorSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type cartesian(cartesianSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type anchor(anchorSEXP);
+    rcpp_result_gen = Rcpp::wrap(cartesian_to_polar_rcpp(cartesian, anchor));
+    return rcpp_result_gen;
+END_RCPP
+}
 // distanceC
 NumericVector distanceC(double xcoor, double ycoor, double zcoor, NumericVector X, NumericVector Y, NumericVector Z);
 RcppExport SEXP _rTLS_distanceC(SEXP xcoorSEXP, SEXP ycoorSEXP, SEXP zcoorSEXP, SEXP XSEXP, SEXP YSEXP, SEXP ZSEXP) {
@@ -22,16 +34,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// move_rotate_rcpp
-NumericMatrix move_rotate_rcpp(NumericMatrix cloud, NumericVector move, NumericVector angles);
-RcppExport SEXP _rTLS_move_rotate_rcpp(SEXP cloudSEXP, SEXP moveSEXP, SEXP anglesSEXP) {
+// euclidean_distance
+Rcpp::NumericVector euclidean_distance(Rcpp::NumericVector sample, Rcpp::NumericMatrix base);
+RcppExport SEXP _rTLS_euclidean_distance(SEXP sampleSEXP, SEXP baseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type cloud(cloudSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type move(moveSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type angles(anglesSEXP);
-    rcpp_result_gen = Rcpp::wrap(move_rotate_rcpp(cloud, move, angles));
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type sample(sampleSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type base(baseSEXP);
+    rcpp_result_gen = Rcpp::wrap(euclidean_distance(sample, base));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -46,11 +57,27 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rotate_rcpp
+NumericMatrix rotate_rcpp(NumericMatrix cloud, NumericVector roll, NumericVector pitch, NumericVector yaw);
+RcppExport SEXP _rTLS_rotate_rcpp(SEXP cloudSEXP, SEXP rollSEXP, SEXP pitchSEXP, SEXP yawSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type cloud(cloudSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type roll(rollSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type pitch(pitchSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type yaw(yawSEXP);
+    rcpp_result_gen = Rcpp::wrap(rotate_rcpp(cloud, roll, pitch, yaw));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_rTLS_cartesian_to_polar_rcpp", (DL_FUNC) &_rTLS_cartesian_to_polar_rcpp, 2},
     {"_rTLS_distanceC", (DL_FUNC) &_rTLS_distanceC, 6},
-    {"_rTLS_move_rotate_rcpp", (DL_FUNC) &_rTLS_move_rotate_rcpp, 3},
+    {"_rTLS_euclidean_distance", (DL_FUNC) &_rTLS_euclidean_distance, 2},
     {"_rTLS_polar_to_cartesian_rcpp", (DL_FUNC) &_rTLS_polar_to_cartesian_rcpp, 1},
+    {"_rTLS_rotate_rcpp", (DL_FUNC) &_rTLS_rotate_rcpp, 4},
     {NULL, NULL, 0}
 };
 
