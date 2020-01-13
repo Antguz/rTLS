@@ -22,19 +22,7 @@ NumericMatrix cartesian_to_polar_rcpp(NumericMatrix cartesian, NumericVector anc
    double Y = cartesian(i , 1);
    double Z = cartesian(i , 2);
 
-   if(Z > anchor[2]) { //Positive zenith
-
-     polar(i, 0) = (180 * acos((Z - anchor[2])/distance[i]))/pi;
-
-   } else if(Z == anchor[2]) { //Zenith equal to 90
-
-     polar(i, 0) = 90;
-
-   } else if(Z < anchor[2]) { //Negative zenith
-
-     polar(i, 0) = ((180 * acos((anchor[2] - Z)/distance[i]))/pi);
-
-   }
+   polar(i, 0) = (180 * acos((Z - anchor[2])/distance[i]))/pi; //Zenith angle estimation
 
    //Angles estimations
 
