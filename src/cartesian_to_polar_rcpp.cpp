@@ -32,11 +32,11 @@ NumericMatrix cartesian_to_polar_rcpp(NumericMatrix cartesian, NumericVector anc
 
    } else if(Z < anchor[2]) { //Negative zenith
 
-     polar(i, 0) = 90 + ((180 * acos((anchor[2] - Z)/distance[i]))/pi);
+     polar(i, 0) = ((180 * acos((anchor[2] - Z)/distance[i]))/pi);
 
    }
 
-   //Azimuth estimations
+   //Angles estimations
 
    if(X > anchor[0]) {
      if(Y > anchor[1]) {

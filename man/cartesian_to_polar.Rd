@@ -17,7 +17,7 @@ cartesian_to_polar(cartesian, anchor = c(0, 0, 0), digits = NULL)
 A \code{data.table} with the zenith and azimuth angles (degrees), and the distance to the anchor coordinate.
 }
 \description{
-Conver from cartesian to polar coordinates.
+Conver from East-North-Up cartesian coordinates to polar coordinates.
 }
 \details{
 It assumes that the positive *Z* axis is the reference vector for the zenith angle. Likewise, it assumes that the *Y* axis is the north-south direction (positive to negative) for the azimuth angle.

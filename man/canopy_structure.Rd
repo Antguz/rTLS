@@ -5,7 +5,7 @@
 \title{Canopy Structure}
 \usage{
 canopy_structure(TLS.type, scan, zenith.range, zenith.rings, azimuth.range,
-  vertical.resolution, TLS.resolution, TLS.coordinates = NULL,
+  vertical.resolution, TLS.resolution, TLS.coordinates = c(0, 0, 0),
   TLS.frame = NULL, TLS.angles = NULL, parallel = FALSE,
   cores = NULL)
 }

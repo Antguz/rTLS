@@ -1,6 +1,6 @@
 #' @title Cartesian to Polar Coordinates
 #'
-#' @description Conver from cartesian to polar coordinates.
+#' @description Conver from East-North-Up cartesian coordinates to polar coordinates.
 #'
 #' @param cartesian A \code{data.table} with three columns describing the *XYZ* coordinates of a point cloud.
 #' @param anchor A \code{numeric} vector of length three which describe the *XYZ* anchor coordinate for reference to get the polar coordinates. It assumes that the reference coordinates are \code{c(X = 0, Y = 0, Z = 0)} as default.
