@@ -119,14 +119,6 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
     }
   }
 
-
-  if(is.null(TLS.coordinates) == TRUE) { ###TLS coordinates
-    coordinates <- c(X = 0, Y = 0, Z = 0)
-  } else if(length(TLS.coordinates) != 3) {
-    stop("The length of TLS.coordinates needs to be three representing the *XYZ*")
-  }
-
-
   if(TLS.type == "single" | TLS.type == "multiple") { ####TLS frame
     if(is.null(TLS.frame) == TRUE) {
       TLS.frame <- c(zenith.min = 0, zenith.max = 90, azimuth.min = 0, azimuth.max = 360)
@@ -159,24 +151,24 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
 
   if(TLS.type == "multiple" | TLS.type == "single") {
 
+    ###Create the deviation of bands for profiles
+
 
     sd_zenith_bands <- ((zenith.range[2]-zenith.range[1])/zenith.rings)/2
     sd_azimuth_bands <- ((azimuth.range[2]-azimuth.range[1])/azimuth.rings)/2
 
-    ###Profiles
+    ###Create profiles
 
     zenith_bands <- seq(zenith.range[1]+sd_zenith_bands, zenith.range[2]-sd_zenith_bands, length.out = zenith.rings) ##Zenith bands
-
     azimuth_bands <- seq(azimuth.range[1]+sd_azimuth_bands, azimuth.range[2]-sd_azimuth_bands, length.out = azimuth.rings) ##Azimuth bands
+    height = seq(0, ceiling(max(scan[, 3])), vertical.resolution) ###Height vertical distribution
 
-    Height = seq(0, max(scan[, 3]), vertical.resolution) ###Height vertical distribution
+    ###Create frame
 
-    ###Frame
-
-    zenith_azimuth <- CJ(zenith_bands = zenith_bands, azimuth_bands = azimuth_bands)
+    zenith_azimuth <- CJ(zenith_bands = as.factor(zenith_bands), azimuth_bands = as.factor(azimuth_bands))
     zenith_azimuth$number <- seq_along(1:nrow(zenith_azimuth))
 
-    number_height <- CJ(number = seq_along(1:nrow(zenith_azimuth)), Height)
+    number_height <- CJ(number = seq_along(1:nrow(zenith_azimuth)), height = as.factor(height[-1]))
 
     frame <- merge(zenith_azimuth, number_height, by = "number", all.y = TRUE)
     frame <- frame[, 2:4]
@@ -198,14 +190,26 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
   ###Estimate the number of scanner pulses in a given zenith and azimuth range --------------------------------------------------------------
 
   if(TLS.type == "multiple" | TLS.type == "single") {  ##Estimate the number per single and multiple
+
+    ###Simulate the scanning pulses
     scanner <- CJ(zenith = seq(TLS.frame[1], TLS.frame[2], TLS.resolution[1]),
                   azimuth = seq(TLS.frame[3], TLS.frame[4], TLS.resolution[2])) #Create grid
     scanner$distance <- 1
     scanner <- polar_to_cartesian(scanner)
     scanner <- rotate(scanner, roll = -TLS.angles[1], pitch = -TLS.angles[2], yaw = -TLS.angles[3]) #Correction of angles
-    scanner <- cartesian_to_polar(scanner, coordinates) #Get polar
+    scanner <- cartesian_to_polar(scanner, TLS.coordinates) #Get polar
+    scanner <- scanner[between(zenith, zenith.range[1], zenith.range[2]) & between(azimuth, azimuth.range[1], azimuth.range[2]), 1:2]
 
-    scanner <- scanner[between(zenith, zenith.range[1], zenith.range[2]), 1:2]
+    ###Create the ranges for angles
+    cut_zenith <- c(zenith_bands[1]-sd_zenith_bands, zenith_bands + sd_zenith_bands)
+    cut_azimuth <- c(azimuth_bands[1]-sd_azimuth_bands, azimuth_bands + sd_azimuth_bands)
+
+    ###Summary of simulate shots
+    scanner[, c("zenith_bands", "azimuth_bands") := list(cut(zenith, cut_zenith, zenith_bands, include.lowest = TRUE),
+                                                         cut(azimuth, cut_azimuth, azimuth_bands, include.lowest = TRUE))]
+
+    pulses <- scanner[, .(pulses = .N), by = c("zenith_bands", "azimuth_bands")]
+
 
   } else if(TLS.type == "fixed.angle") { ##Estimate the number per fixed angle
     scanner <- CJ(zenith = TLS.frame[1],
@@ -214,18 +218,51 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
 
   ###Estimates reaturns angles based on the TLS coordinates--------------------------------------------------------------------------------------
 
+  ###Estimation of the value of returns based on multiple or single return
   if(TLS.type == "multiple") {
     scan[, w := round(1/Target_count, 3),]
   } else if(TLS.type == "single" | TLS.type == "fixed.angle") {
     scan$w <- 1
   }
 
-  scan_polar <- cbind(cartesian_to_polar(scan[, 1:3], coordinates), Height = scan[, 3], w = scan$w)
-  colnames(scan_polar)[4] <- "Height"
+  ###Transformation to polar coordinates
+  scan_polar <- cbind(cartesian_to_polar(scan[, 1:3], TLS.coordinates)[,1:2], height = scan[, 3], w = scan$w)
+  colnames(scan_polar)[3] <- "Height"
 
+  ###Subset of values based on zenith ranges and azimuth ranges
   if(TLS.type == "multiple" | TLS.type == "single") {
-    scan_polar <- scan_polar[between(zenith, zenith.range[1], zenith.range[2]),]
+    scan_polar <- scan_polar[between(zenith, zenith.range[1], zenith.range[2]) & between(azimuth, azimuth.range[1], azimuth.range[2]),]
   }
+
+  ###Summary of simulate returns
+  if(TLS.type == "multiple" | TLS.type == "single") {
+
+
+    scan_polar[, c("zenith_bands", "azimuth_bands", "height") := list(cut(zenith, cut_zenith, labels = zenith_bands, include.lowest = TRUE),
+                                                                            cut(azimuth, cut_azimuth, labels = azimuth_bands, include.lowest = TRUE),
+                                                                            cut(Height, height, labels = height[2:length(height)], include.lowest = TRUE))]
+
+    returns <- scan_polar[, .(returns = sum(w)), by = c("zenith_bands", "azimuth_bands", "height")]
+  }
+
+  ######Estimates the gap fraction probability---------------------------------------------------------------------------------------
+
+    Pgap <- merge(frame, pulses, by = c("zenith_bands", "azimuth_bands"), all.x = TRUE, all.y= TRUE)
+
+    Pgap <- merge(Pgap, returns, by = c("zenith_bands", "azimuth_bands", "height"), all.x = TRUE, all.y= TRUE)
+
+    Pgap$returns[is.na(Pgap$returns)] <- 0
+    colnames(Pgap)[1:3] <- c("zenith", "azimuth", "height")
+
+
+    Pgap[, c("zenith", "azimuth", "height") := list(as.numeric(as.character(zenith)),
+                                                    as.numeric(as.character(azimuth)),
+                                                    as.numeric(as.character(height)))]
+    Pgap <- Pgap[order(zenith, azimuth, height)]
+
+    Pgap[, cumsum_returns := cumsum(returns), by = c("zenith", "azimuth")]
+
+    Pgap[, Ppap := (1- (cumsum_returns/pulses)), by = seq_len(nrow(frame))]
 
   #Subset zenith rings
   ######Set the extraction---------------------------------------------------------------------------------------
