@@ -14,27 +14,26 @@ struct dimensionality : public Worker { //function object
   const RMatrix<double> amat;
   const RMatrix<double> bmat;
   const RVector<double> radius;
-  std::size_t row_size;
-  std::size_t col_size;
+  const RVector<double> row_size;
 
   // output matrix to write to
   RMatrix<double> rmat;
 
   // initialize from Rcpp input and output matrixes
-  dimensionality(const NumericMatrix amat, const NumericMatrix bmat, const NumericVector radius, NumericMatrix rmat, std::size_t row_size, std::size_t col_size)
-    : amat(amat), bmat(bmat), radius(radius), rmat(rmat), row_size(row_size), col_size(col_size) {}
+  dimensionality(const NumericMatrix amat, const NumericMatrix bmat, const NumericVector radius, const NumericVector row_size, NumericMatrix rmat)
+    : amat(amat), bmat(bmat), radius(radius), row_size(row_size), rmat(rmat) {}
 
   //RMatrix and arma::mat convert
   arma::mat convertMatrix() {
     RMatrix<double> tmp_mat = bmat;
-    arma::mat MAT(tmp_mat.begin(), row_size, col_size, false);
+    arma::mat MAT(tmp_mat.begin(), row_size[0], 3, false);
     return MAT;
   }
 
   //Function to get the eigenvalues
   arma::vec getEigenvalues(arma::mat base, arma::vec dis_logical) {
 
-    arma::mat basemat(base.begin(), row_size, 3, false);
+    arma::mat basemat(base.begin(), row_size[0], 3, false);
 
     arma::colvec ID(dis_logical.begin(), dis_logical.size(), false);
 
@@ -51,12 +50,12 @@ struct dimensionality : public Worker { //function object
 
       RMatrix<double>::Row amat_row = amat.row(i);
 
-      arma::vec distance_logical(bmat.nrow());
+      arma::vec distance_logical(row_size[0]);
       std::size_t point_size = 0;
 
       arma::mat MAT = convertMatrix();
 
-      for (std::size_t j = 0; j < row_size; j++) { //Loop to estimate the distance
+      for (std::size_t j = 0; j < row_size[0]; j++) { //Loop to estimate the distance
 
         RMatrix<double>::Row bmat_row = bmat.row(j);
 
@@ -91,10 +90,10 @@ NumericMatrix dimensionality_parallel(NumericMatrix amat, NumericMatrix bmat, Nu
 
   // allocate the matrix we will return
   NumericMatrix rmat(amat.nrow(), 4);
-  std::size_t row_size = bmat.nrow();
+  NumericVector row_size = bmat.nrow();
 
   // create the worker
-  dimensionality dimensionality(amat, bmat, radius, rmat, row_size, 3);
+  dimensionality dimensionality(amat, bmat, radius, row_size[0], rmat);
 
   // call it with parallelFor
   parallelFor(0, amat.nrow(), dimensionality);
