@@ -13,10 +13,13 @@
 #' @param azimuth.range A \code{numeric} vector of length two describing the range of the azimuth angle to use. Theoretically, it should be between 0 and 360 degrees.
 #' @param azimuth.rings A \code{numeric} vector of length one describing the number of azimuth rings to use between \code{azimuth.range}.
 #' This is used to estimate the frecuency of laser shots from the scanner and returns from \code{scan}.
-#' @param vertical.resolution A \code{numeric} vector of length one describing the vertical resolution to use to extract the profiles from *Z*. Low values lead to more variable profiles.
+#' @param vertical.resolution A \code{numeric} vector of length one describing the vertical resolution to extract the vertical profiles. Low values lead to more variable profiles.
 #' The scale used needs to be in congruence with the scale of \code{scan}.
 #'
-#' @param TLS.resolution If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, a \code{numeric} vector of length two describing the horizontal and vertical angle resolution of the scanner.
+#' @param TLS.pulse.counts If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, a \code{numeric} vector of length two describing the horizontal and vertical pulse counts of the scanner.
+#' If \code{TLS.type} is equal to \code{"fixed.angle"}, a \code{numeric} vector of length one describing the horizontal pulse counts resolution.
+#' Preferred parameter over \code{TLS.resolution} to estimate the number of pulses.
+#' @param TLS.resolution If \code{TLS.pulse.counts = NULL}, the code use the angles resolution to estimate of the pulse counts in a given \code{TLS.frame} and if \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, a \code{numeric} vector of length two describing the horizontal and vertical angle resolution of the scanner.
 #' If \code{TLS.type} is equal to \code{"fixed.angle"}, a \code{numeric} vector of length one describing the horizontal angle resolution.
 #' @param TLS.frame If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, a \code{numeric} vector of length four describing the \code{min} and \code{max} of the zenith and azimuth angle of the scanner frame.
 #' If \code{TLS.type = "fixed.angle"}, a \code{numeric} vector of length three describing the fixed zenith angle and the \code{min} and \code{max} of the azimuth angle of the scanner frame.
@@ -29,13 +32,13 @@
 #' @param parallel Logical, if \code{TRUE} it use parallel processing on the estimation of shots and returns. \code{FALSE} as default.
 #' @param cores An \code{integer >= 0} describing the number of cores use. This need to be used if \code{parallel = TRUE}.
 #'
-#' @details Since \code{scan} describes discrete returns measured by the TLS, \code{canopy_structre} first simulates the number of shots emited based on Danson et al. (2007). The simulated shots are
-#' created based on the TLS workflow (\code{TLS.resolution, TLS.frame}) assuming that the scanner is perfectly balance. Then these shots are rotated (\code{\link{rotate}}) based on the \code{TLS.angles}
-#' roll, pitch, and yaw, and \code{TLS.coordintates} to simulate the positioning of the scanner during the \code{scan}. Rotated simulated-shots of interest and \code{scan} returns are then extracted based on the \code{zenith.range}, \code{zenith.rings}, and \code{vertical.resolution}.
-#' Using the frecuency of shots and returns the probabiliry of gap (Pgap) is estimated. For \code{TLS.type = "multiple"}, the frecuency of returns is estimated using the sum of 1/target count following Lovell et al. (2011).
+#' @details Since \code{scan} describes discrete returns measured by the TLS, \code{canopy_structre} first simulates the number of pulses emited based on Danson et al. (2007). The simulated pulses are
+#' created based on the TLS properties (\code{TLS.pulse.counts, TLS.resolution, TLS.frame}) assuming that the scanner is perfectly balance. Then these pulses are rotated (\code{\link{rotate}}) based on the \code{TLS.angles}
+#' roll, pitch, and yaw, and move to \code{TLS.coordintates} to simulate the positioning of the scanner during the \code{scan}. Rotated simulated-pulses of interest and \code{scan} returns are then extracted based on the \code{zenith.range} and \code{azimuth.range} for a given number of \code{zenith.rings}, \code{azimuth.rings} and vertical profiles.
+#' Using the frecuency of pulses and returns the probabiliry of gap (Pgap) is estimated. For \code{TLS.type = "multiple"}, the frecuency of returns is estimated using the sum of 1/target count following Lovell et al. (2011).
 #'
 #' Using the Pgap estimated per each zenith ring and vertical profile, \code{canopy_structure} then estimates the accumulative L(z) profiles based on the closest
-#' zenith ring to 57.5 (hinge region) and, if \code{TLS.type} is equal to \code{"fixed.angle"}, the f(z) or commonly named PAVD based on the ratio of the
+#' zenith ring to 57.5 (hinge region) and, if \code{TLS.type = "fixed.angle"}, the f(z) or commonly named PAVD based on the ratio of the
 #' derivative of L(z) and height (z) following Jupp et al. 2009 (Equation 18). If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, \code{canopy_structure} also
 #' estimates the normalised average weighted L/LAI, and then PAVD based on the L (hinge angle) at the highest height (LAI) and the ratio between the derivative
 #' of L/LAI (average weighted) and the derivative of z (Jupp et al. 2009; Equation 21).
@@ -99,7 +102,7 @@
 #' }
 #'
 #' @export
-canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth.range, vertical.resolution, TLS.resolution, TLS.coordinates = c(0, 0, 0), TLS.frame = NULL, TLS.angles = NULL, parallel = FALSE, cores = NULL) {
+canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth.range, vertical.resolution, TLS.pulse.counts, TLS.resolution = NULL, TLS.coordinates = c(0, 0, 0), TLS.frame = NULL, TLS.angles = NULL, parallel = FALSE, cores = NULL) {
 
   if(TLS.type == "multiple") {
     colnames(scan)[1:4] <- c("X", "Y", "Z", "Target_count")
@@ -192,8 +195,16 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
   if(TLS.type == "multiple" | TLS.type == "single") {  ##Estimate the number per single and multiple
 
     ###Simulate the scanning pulses
-    scanner <- CJ(zenith = seq(TLS.frame[1], TLS.frame[2], TLS.resolution[1]),
+    if(is.null(TLS.pulse.counts) = FALSE) {
+      scanner <- CJ(zenith = seq(TLS.frame[1], TLS.frame[2], length.out = TLS.pulse.counts[1]),
+                    azimuth = seq(TLS.frame[3], TLS.frame[4], length.out = TLS.pulse.counts[2])) #Create grid
+    } else {
+      scanner <- CJ(zenith = seq(TLS.frame[1], TLS.frame[2], TLS.resolution[1]),
                   azimuth = seq(TLS.frame[3], TLS.frame[4], TLS.resolution[2])) #Create grid
+    }
+
+    scanner[azimuth > 360, azimuth := azimuth - 360]
+
     scanner$distance <- 1
     scanner <- polar_to_cartesian(scanner)
     scanner <- rotate(scanner, roll = -TLS.angles[1], pitch = -TLS.angles[2], yaw = -TLS.angles[3]) #Correction of angles
