@@ -4,8 +4,7 @@
 \alias{summary_voxels}
 \title{Voxels Summary}
 \usage{
-summary_voxels(voxels, voxel.size = NULL, bootstrap = FALSE,
-  R = NULL)
+summary_voxels(voxels, voxel.size = NULL, bootstrap = FALSE, R = NULL)
 }
 \arguments{
 \item{voxels}{An object of class \code{voxels} created using the \code{voxels()} function or a \code{data.table} describing the voxels coordinates and their number of points produced using \code{voxels()}.}
