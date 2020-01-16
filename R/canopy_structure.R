@@ -156,7 +156,6 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
 
     ###Create the deviation of bands for profiles
 
-
     sd_zenith_bands <- ((zenith.range[2]-zenith.range[1])/zenith.rings)/2
     sd_azimuth_bands <- ((azimuth.range[2]-azimuth.range[1])/azimuth.rings)/2
 
@@ -164,7 +163,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
 
     zenith_bands <- seq(zenith.range[1]+sd_zenith_bands, zenith.range[2]-sd_zenith_bands, length.out = zenith.rings) ##Zenith bands
     azimuth_bands <- seq(azimuth.range[1]+sd_azimuth_bands, azimuth.range[2]-sd_azimuth_bands, length.out = azimuth.rings) ##Azimuth bands
-    height = seq(0, ceiling(max(scan[, 3])), vertical.resolution) ###Height vertical distribution
+    height <- seq(0, ceiling(max(scan[, 3])), vertical.resolution) ###Height vertical distribution
 
     ###Create frame
 
@@ -207,7 +206,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
 
     scanner$distance <- 1
     scanner <- polar_to_cartesian(scanner)
-    scanner <- rotate(scanner, roll = -TLS.angles[1], pitch = -TLS.angles[2], yaw = -TLS.angles[3]) #Correction of angles
+    scanner <- rotate(scanner, roll = TLS.angles[1], pitch = TLS.angles[2], yaw = TLS.angles[3]) #Correction of angles
     scanner <- cartesian_to_polar(scanner, TLS.coordinates) #Get polar
     scanner <- scanner[between(zenith, zenith.range[1], zenith.range[2]) & between(azimuth, azimuth.range[1], azimuth.range[2]), 1:2]
 
