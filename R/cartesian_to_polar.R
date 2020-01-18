@@ -34,6 +34,9 @@ cartesian_to_polar <- function(cartesian, anchor = c(0 , 0, 0), digits = NULL) {
   polar <- as.data.table(polar)
   colnames(polar) <- c("zenith", "azimuth", "distance")
 
+  polar[, azimuth := ((azimuth*pi/360) %% pi)*360/pi, by = seq_along(1:nrow(polar))]
+
+
   if(is.null(digits) != TRUE) {
     polar[, c("zenith", "azimuth", "distance") := round(.SD, digits), .SDcols= c("zenith", "azimuth", "distance")]
   }
