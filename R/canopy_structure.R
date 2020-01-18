@@ -194,7 +194,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
   if(TLS.type == "multiple" | TLS.type == "single") {  ##Estimate the number per single and multiple
 
     ###Simulate the scanning pulses
-    if(is.null(TLS.pulse.counts) = FALSE) {
+    if(is.null(TLS.pulse.counts) == FALSE) {
       scanner <- CJ(zenith = seq(TLS.frame[1], TLS.frame[2], length.out = TLS.pulse.counts[1]),
                     azimuth = seq(TLS.frame[3], TLS.frame[4], length.out = TLS.pulse.counts[2])) #Create grid
     } else {

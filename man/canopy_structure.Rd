@@ -5,9 +5,9 @@
 \title{Canopy Structure}
 \usage{
 canopy_structure(TLS.type, scan, zenith.range, zenith.rings, azimuth.range,
-  vertical.resolution, TLS.resolution, TLS.coordinates = c(0, 0, 0),
-  TLS.frame = NULL, TLS.angles = NULL, parallel = FALSE,
-  cores = NULL)
+  vertical.resolution, TLS.pulse.counts, TLS.resolution = NULL,
+  TLS.coordinates = c(0, 0, 0), TLS.frame = NULL, TLS.angles = NULL,
+  parallel = FALSE, cores = NULL)
 }
 \arguments{
 \item{TLS.type}{A \code{character} describing is the TLS used. It most be one of \code{"single"} return, \code{"multiple"} return, or \code{"fixed.angle"} scanner.}
@@ -23,10 +23,14 @@ This is used to estimate the frecuency of laser shots from the scanner and retur
 
 \item{azimuth.range}{A \code{numeric} vector of length two describing the range of the azimuth angle to use. Theoretically, it should be between 0 and 360 degrees.}
 
-\item{vertical.resolution}{A \code{numeric} vector of length one describing the vertical resolution to use to extract the profiles from *Z*. Low values lead to more variable profiles.
+\item{vertical.resolution}{A \code{numeric} vector of length one describing the vertical resolution to extract the vertical profiles. Low values lead to more variable profiles.
 The scale used needs to be in congruence with the scale of \code{scan}.}
 
-\item{TLS.resolution}{If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, a \code{numeric} vector of length two describing the horizontal and vertical angle resolution of the scanner.
+\item{TLS.pulse.counts}{If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, a \code{numeric} vector of length two describing the horizontal and vertical pulse counts of the scanner.
+If \code{TLS.type} is equal to \code{"fixed.angle"}, a \code{numeric} vector of length one describing the horizontal pulse counts resolution.
+Preferred parameter over \code{TLS.resolution} to estimate the number of pulses.}
+
+\item{TLS.resolution}{If \code{TLS.pulse.counts = NULL}, the code use the angles resolution to estimate of the pulse counts in a given \code{TLS.frame} and if \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, a \code{numeric} vector of length two describing the horizontal and vertical angle resolution of the scanner.
 If \code{TLS.type} is equal to \code{"fixed.angle"}, a \code{numeric} vector of length one describing the horizontal angle resolution.}
 
 \item{TLS.coordinates}{A \code{numeric} vector of length three describing the scanner coordinates within \code{scan}.
@@ -43,6 +47,9 @@ This needs to be used if \code{TLS.type} is equal to \code{"single"} or \code{"m
 \item{parallel}{Logical, if \code{TRUE} it use parallel processing on the estimation of shots and returns. \code{FALSE} as default.}
 
 \item{cores}{An \code{integer >= 0} describing the number of cores use. This need to be used if \code{parallel = TRUE}.}
+
+\item{azimuth.rings}{A \code{numeric} vector of length one describing the number of azimuth rings to use between \code{azimuth.range}.
+This is used to estimate the frecuency of laser shots from the scanner and returns from \code{scan}.}
 }
 \value{
 For any \code{TLS.type}, it returns a \code{data.table} with the height profiles defined by \code{vertical.resolution}, the gap probability based on the \code{zenith.range} and \code{zenith.rings}, and
@@ -54,13 +61,13 @@ on the L (hinge angle) at the highest height and the ratio between the derivativ
 Estimates the canopy structure of a discrete returns scan from different TLS.
 }
 \details{
-Since \code{scan} describes discrete returns measured by the TLS, \code{canopy_structre} first simulates the number of shots emited based on Danson et al. (2007). The simulated shots are
-created based on the TLS workflow (\code{TLS.resolution, TLS.frame}) assuming that the scanner is perfectly balance. Then these shots are rotated (\code{\link{rotate}}) based on the \code{TLS.angles}
-roll, pitch, and yaw, and \code{TLS.coordintates} to simulate the positioning of the scanner during the \code{scan}. Rotated simulated-shots of interest and \code{scan} returns are then extracted based on the \code{zenith.range}, \code{zenith.rings}, and \code{vertical.resolution}.
-Using the frecuency of shots and returns the probabiliry of gap (Pgap) is estimated. For \code{TLS.type = "multiple"}, the frecuency of returns is estimated using the sum of 1/target count following Lovell et al. (2011).
+Since \code{scan} describes discrete returns measured by the TLS, \code{canopy_structre} first simulates the number of pulses emited based on Danson et al. (2007). The simulated pulses are
+created based on the TLS properties (\code{TLS.pulse.counts, TLS.resolution, TLS.frame}) assuming that the scanner is perfectly balance. Then these pulses are rotated (\code{\link{rotate}}) based on the \code{TLS.angles}
+roll, pitch, and yaw, and move to \code{TLS.coordintates} to simulate the positioning of the scanner during the \code{scan}. Rotated simulated-pulses of interest and \code{scan} returns are then extracted based on the \code{zenith.range} and \code{azimuth.range} for a given number of \code{zenith.rings}, \code{azimuth.rings} and vertical profiles.
+Using the frecuency of pulses and returns the probabiliry of gap (Pgap) is estimated. For \code{TLS.type = "multiple"}, the frecuency of returns is estimated using the sum of 1/target count following Lovell et al. (2011).
 
 Using the Pgap estimated per each zenith ring and vertical profile, \code{canopy_structure} then estimates the accumulative L(z) profiles based on the closest
-zenith ring to 57.5 (hinge region) and, if \code{TLS.type} is equal to \code{"fixed.angle"}, the f(z) or commonly named PAVD based on the ratio of the
+zenith ring to 57.5 (hinge region) and, if \code{TLS.type = "fixed.angle"}, the f(z) or commonly named PAVD based on the ratio of the
 derivative of L(z) and height (z) following Jupp et al. 2009 (Equation 18). If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, \code{canopy_structure} also
 estimates the normalised average weighted L/LAI, and then PAVD based on the L (hinge angle) at the highest height (LAI) and the ratio between the derivative
 of L/LAI (average weighted) and the derivative of z (Jupp et al. 2009; Equation 21).

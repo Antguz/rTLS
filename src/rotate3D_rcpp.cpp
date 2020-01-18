@@ -2,7 +2,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-NumericMatrix rotate_rcpp(NumericMatrix cloud, NumericVector roll, NumericVector pitch, NumericVector yaw)  {
+NumericMatrix rotate3D_rcpp(NumericMatrix cloud, NumericVector roll, NumericVector pitch, NumericVector yaw)  {
 
   NumericMatrix rotate(cloud.nrow(), 3);
 
