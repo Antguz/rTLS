@@ -6,14 +6,13 @@
 \usage{
 canopy_structure(TLS.type, scan, zenith.range, zenith.rings, azimuth.range,
   vertical.resolution, TLS.pulse.counts, TLS.resolution = NULL,
-  TLS.coordinates = c(0, 0, 0), TLS.frame = NULL, TLS.angles = NULL,
-  parallel = FALSE, cores = NULL)
+  TLS.coordinates = c(0, 0, 0), TLS.frame = NULL, TLS.angles = NULL)
 }
 \arguments{
 \item{TLS.type}{A \code{character} describing is the TLS used. It most be one of \code{"single"} return, \code{"multiple"} return, or \code{"fixed.angle"} scanner.}
 
 \item{scan}{If \code{TLS.type} is equal to \code{"single"} or \code{"fixed.angle"}, a \code{data.table} with three columns describing *XYZ* coordinates of the discrete return. If
-\code{TLS.type} is equal to \code{"multiple"}, a \code{data.table} with four columns describing *XYZ* coordinates and the target count pulses.}
+\code{TLS.type} is equal to \code{"multiple"}, a \code{data.table} with four columns describing *XYZ* coordinates and the target count pulses. Currently, \code{"fixed.angle"} present errors, use with discretion.}
 
 \item{zenith.range}{If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, a \code{numeric} vector of length two describing the \code{min} and \code{max} range of the zenith angle to use.
 Theoretically, the \code{max} range should be lower than 90 degrees.}
@@ -43,13 +42,6 @@ If \code{NULL}, it assumes that a complete hemisphere (\code{c(zenith.min = 0, z
 \item{TLS.angles}{A \code{numeric} vector of length three describing the roll (*X*), pitch (*Y*), and yaw (*Z*) angles of the scanner during the scan.
 If \code{NULL}, it assumes that the angles are \code{c(roll = 0, pitch = 0, yaw = 0)}.
 This needs to be used if \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, since it assumes that \code{"fixed.angle"} scanner is previously balanced.}
-
-\item{parallel}{Logical, if \code{TRUE} it use parallel processing on the estimation of shots and returns. \code{FALSE} as default.}
-
-\item{cores}{An \code{integer >= 0} describing the number of cores use. This need to be used if \code{parallel = TRUE}.}
-
-\item{azimuth.rings}{A \code{numeric} vector of length one describing the number of azimuth rings to use between \code{azimuth.range}.
-This is used to estimate the frecuency of laser shots from the scanner and returns from \code{scan}.}
 }
 \value{
 For any \code{TLS.type}, it returns a \code{data.table} with the height profiles defined by \code{vertical.resolution}, the gap probability based on the \code{zenith.range} and \code{zenith.rings}, and
@@ -58,7 +50,7 @@ on the ratio of the derivative of L(z) and the derivative of height (z). If \cod
 on the L (hinge angle) at the highest height and the ratio between the derivative of L/LAI average weighted and the derivative of z.
 }
 \description{
-Estimates the canopy structure of a discrete returns scan from different TLS.
+Estimates the canopy structure from a discrete returns scan from different TLS.
 }
 \details{
 Since \code{scan} describes discrete returns measured by the TLS, \code{canopy_structre} first simulates the number of pulses emited based on Danson et al. (2007). The simulated pulses are
