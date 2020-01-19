@@ -17,14 +17,14 @@
 #'
 #' data(pc_tree)
 #' rgl::plot3d(pc_tree)
-#' rgl::plot3d(rotate(pc_tree, roll = 45, pitch = 45, yaw = 0))
+#' rgl::plot3d(rotate3D(pc_tree, roll = 45, pitch = 45, yaw = 0))
 #'
 #' @export
-rotate <- function(cloud, roll = 0, pitch = 0, yaw = 0) {
+rotate3D <- function(cloud, roll = 0, pitch = 0, yaw = 0) {
 
   ####Rotates the point cloud ------------------------------------------------------------------------
 
-  new_cloud <- rotate_rcpp(as.matrix(cloud), roll, pitch, yaw)
+  new_cloud <- rotate3D_rcpp(as.matrix(cloud), roll, pitch, yaw)
 
   new_cloud <- as.data.table(new_cloud)
   colnames(new_cloud) <- c("X", "Y", "Z")
