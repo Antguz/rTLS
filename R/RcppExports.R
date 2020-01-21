@@ -17,8 +17,8 @@ euclidean_distance <- function(sample, base) {
     .Call('_rTLS_euclidean_distance', PACKAGE = 'rTLS', sample, base)
 }
 
-polar_to_cartesian_rcpp <- function(polar) {
-    .Call('_rTLS_polar_to_cartesian_rcpp', PACKAGE = 'rTLS', polar)
+polar_to_cartesian_rcpp <- function(polar, threads = 1L) {
+    .Call('_rTLS_polar_to_cartesian_rcpp', PACKAGE = 'rTLS', polar, threads)
 }
 
 rotate_rcpp <- function(cloud, roll, pitch, yaw) {

@@ -4,8 +4,15 @@
 \alias{sphere_metrics}
 \title{Sphere Metrics on a Target Point}
 \usage{
-sphere_metrics(x, cloud, radius, basic = TRUE, distribution = TRUE,
-  dimensionality = TRUE, n_replicates = NULL)
+sphere_metrics(
+  x,
+  cloud,
+  radius,
+  basic = TRUE,
+  distribution = TRUE,
+  dimensionality = TRUE,
+  n_replicates = NULL
+)
 }
 \arguments{
 \item{x}{A \code{data.table} of the target point with three columns of the *XYZ* coordinates.}

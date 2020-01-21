@@ -4,9 +4,17 @@
 \alias{voxels_counting}
 \title{Voxels Counting}
 \usage{
-voxels_counting(cloud, voxel.sizes = NULL, min.size, length.out = 10,
-  bootstrap = FALSE, R = NULL, progress = TRUE, parallel = FALSE,
-  cores = NULL)
+voxels_counting(
+  cloud,
+  voxel.sizes = NULL,
+  min.size,
+  length.out = 10,
+  bootstrap = FALSE,
+  R = NULL,
+  progress = TRUE,
+  parallel = FALSE,
+  cores = NULL
+)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with xyz coordinates of the point clouds in the first three columns.}

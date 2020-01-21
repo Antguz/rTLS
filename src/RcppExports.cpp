@@ -19,14 +19,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // dimensionality_rcpp
-arma::mat dimensionality_rcpp(arma::mat amat, arma::mat bmat, double radius, int threads);
+arma::cube dimensionality_rcpp(arma::mat amat, arma::mat bmat, arma::vec radius, int threads);
 RcppExport SEXP _rTLS_dimensionality_rcpp(SEXP amatSEXP, SEXP bmatSEXP, SEXP radiusSEXP, SEXP threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type amat(amatSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type bmat(bmatSEXP);
-    Rcpp::traits::input_parameter< double >::type radius(radiusSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type radius(radiusSEXP);
     Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
     rcpp_result_gen = Rcpp::wrap(dimensionality_rcpp(amat, bmat, radius, threads));
     return rcpp_result_gen;
@@ -61,13 +61,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // polar_to_cartesian_rcpp
-NumericMatrix polar_to_cartesian_rcpp(NumericMatrix polar);
-RcppExport SEXP _rTLS_polar_to_cartesian_rcpp(SEXP polarSEXP) {
+NumericMatrix polar_to_cartesian_rcpp(NumericMatrix polar, int threads);
+RcppExport SEXP _rTLS_polar_to_cartesian_rcpp(SEXP polarSEXP, SEXP threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericMatrix >::type polar(polarSEXP);
-    rcpp_result_gen = Rcpp::wrap(polar_to_cartesian_rcpp(polar));
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(polar_to_cartesian_rcpp(polar, threads));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -91,7 +92,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_dimensionality_rcpp", (DL_FUNC) &_rTLS_dimensionality_rcpp, 4},
     {"_rTLS_distanceC", (DL_FUNC) &_rTLS_distanceC, 6},
     {"_rTLS_euclidean_distance", (DL_FUNC) &_rTLS_euclidean_distance, 2},
-    {"_rTLS_polar_to_cartesian_rcpp", (DL_FUNC) &_rTLS_polar_to_cartesian_rcpp, 1},
+    {"_rTLS_polar_to_cartesian_rcpp", (DL_FUNC) &_rTLS_polar_to_cartesian_rcpp, 2},
     {"_rTLS_rotate_rcpp", (DL_FUNC) &_rTLS_rotate_rcpp, 4},
     {NULL, NULL, 0}
 };
