@@ -17,34 +17,30 @@ using namespace arma;
 arma::mat dimensionality_rcpp(arma::mat amat, arma::mat bmat, double radius, int threads = 1) {
 
 #ifdef _OPENMP
-  if ( threads > 0 )
+  if ( threads > 0 ) {
     omp_set_num_threads( threads );
     REprintf("Number of threads=%i\n", omp_get_max_threads());
+  }
 #endif
 
   int an = amat.n_rows;
   int bn = bmat.n_rows;
 
-  arma::mat out(an, 5);
+  arma::mat out(an, 4);
 
   Progress p(an, true);
 
-#pragma omp parallel for schedule(dynamic)
+#pragma omp parallel for
   for (int i = 0; i < an; i++) {
 
-    arma::rowvec target = amat.row(i);
     arma::vec distance(bn);
 
-    if (Progress::check_abort() ) {
-      p.increment();
+    if (! Progress::check_abort() ) {
+      p.increment(); // update progress
 
       for (int j = 0; j < bn; j++) { //Loop to estimate the distance
 
-        //Progress bar
-
-        arma::rowvec neighbour = bmat.row(j);
-
-        distance(j) = sqrt(pow((neighbour[0] - target[0]), 2.0) + pow((neighbour[1] - target[1]), 2.0) + pow((neighbour[2] - target[2]), 2.0));
+        distance(j) = sqrt(pow((bmat(j, 0) - amat(i, 0)), 2.0) + pow((bmat(j, 1) - amat(i, 1)), 2.0) + pow((bmat(j, 2) - amat(i, 2)), 2.0));
       }
     }
 
@@ -56,13 +52,10 @@ arma::mat dimensionality_rcpp(arma::mat amat, arma::mat bmat, double radius, int
 
     arma::vec eigenvalues =  arma::eig_sym(covmat);
 
-    double total = sum(eigenvalues);
-
-    out(i , 0) = i + 1;
-    out(i , 1) = basesub.n_rows;
-    out(i , 2) = eigenvalues[2]/total; //Row index of amat
-    out(i , 3) = eigenvalues[1]/total; //Value of column 0 of bmat
-    out(i , 4) = eigenvalues[0]/total; //Value of column 1 of bmat
+    out(i , 0) = basesub.n_rows;
+    out(i , 1) = eigenvalues[2]/sum(eigenvalues); //Row index of amat
+    out(i , 2) = eigenvalues[1]/sum(eigenvalues); //Value of column 0 of bmat
+    out(i , 3) = eigenvalues[0]/sum(eigenvalues); //Value of column 1 of bmat
 
   }
 
