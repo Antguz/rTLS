@@ -1,7 +1,12 @@
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+// [[Rcpp::plugins(openmp)]]
 // [[Rcpp::depends(RcppArmadillo"]]
 // [[Rcpp::depends(RcppProgress)]]
 #include <RcppArmadillo.h>
 #include <progress.hpp>
+#include <progress_bar.hpp>
 
 using arma::sqrt;
 using arma::pow;
@@ -9,29 +14,38 @@ using arma::sum;
 using namespace arma;
 
 // [[Rcpp::export]]
-arma::mat dimensionality_rcpp(arma::mat amat, arma::mat bmat, double radius) {
+arma::mat dimensionality_rcpp(arma::mat amat, arma::mat bmat, double radius, int threads = 1) {
+
+#ifdef _OPENMP
+  if ( threads > 0 )
+    omp_set_num_threads( threads );
+    REprintf("Number of threads=%i\n", omp_get_max_threads());
+#endif
 
   int an = amat.n_rows;
   int bn = bmat.n_rows;
 
   arma::mat out(an, 5);
 
-  Progress p(an*bn, true);
+  Progress p(an, true);
 
+#pragma omp parallel for schedule(dynamic)
   for (int i = 0; i < an; i++) {
 
     arma::rowvec target = amat.row(i);
     arma::vec distance(bn);
 
-    if (Progress::check_abort() );
+    if (Progress::check_abort() ) {
+      p.increment();
 
-    for (int j = 0; j < bn; j++) { //Loop to estimate the distance
+      for (int j = 0; j < bn; j++) { //Loop to estimate the distance
 
-      p.increment(); //Progress bar
+        //Progress bar
 
-      arma::rowvec neighbour = bmat.row(j);
+        arma::rowvec neighbour = bmat.row(j);
 
-      distance(j) = sqrt(pow((neighbour[0] - target[0]), 2.0) + pow((neighbour[1] - target[1]), 2.0) + pow((neighbour[2] - target[2]), 2.0));
+        distance(j) = sqrt(pow((neighbour[0] - target[0]), 2.0) + pow((neighbour[1] - target[1]), 2.0) + pow((neighbour[2] - target[2]), 2.0));
+      }
     }
 
     arma::mat basemat(bmat.begin(), bn, 3, false);

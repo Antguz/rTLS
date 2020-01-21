@@ -5,6 +5,10 @@ cartesian_to_polar_rcpp <- function(cartesian, anchor) {
     .Call('_rTLS_cartesian_to_polar_rcpp', PACKAGE = 'rTLS', cartesian, anchor)
 }
 
+dimensionality_rcpp <- function(amat, bmat, radius, threads = 1L) {
+    .Call('_rTLS_dimensionality_rcpp', PACKAGE = 'rTLS', amat, bmat, radius, threads)
+}
+
 distanceC <- function(xcoor, ycoor, zcoor, X, Y, Z) {
     .Call('_rTLS_distanceC', PACKAGE = 'rTLS', xcoor, ycoor, zcoor, X, Y, Z)
 }

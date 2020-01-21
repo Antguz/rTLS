@@ -18,6 +18,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// dimensionality_rcpp
+arma::mat dimensionality_rcpp(arma::mat amat, arma::mat bmat, double radius, int threads);
+RcppExport SEXP _rTLS_dimensionality_rcpp(SEXP amatSEXP, SEXP bmatSEXP, SEXP radiusSEXP, SEXP threadsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type amat(amatSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type bmat(bmatSEXP);
+    Rcpp::traits::input_parameter< double >::type radius(radiusSEXP);
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(dimensionality_rcpp(amat, bmat, radius, threads));
+    return rcpp_result_gen;
+END_RCPP
+}
 // distanceC
 NumericVector distanceC(double xcoor, double ycoor, double zcoor, NumericVector X, NumericVector Y, NumericVector Z);
 RcppExport SEXP _rTLS_distanceC(SEXP xcoorSEXP, SEXP ycoorSEXP, SEXP zcoorSEXP, SEXP XSEXP, SEXP YSEXP, SEXP ZSEXP) {
@@ -74,6 +88,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_cartesian_to_polar_rcpp", (DL_FUNC) &_rTLS_cartesian_to_polar_rcpp, 2},
+    {"_rTLS_dimensionality_rcpp", (DL_FUNC) &_rTLS_dimensionality_rcpp, 4},
     {"_rTLS_distanceC", (DL_FUNC) &_rTLS_distanceC, 6},
     {"_rTLS_euclidean_distance", (DL_FUNC) &_rTLS_euclidean_distance, 2},
     {"_rTLS_polar_to_cartesian_rcpp", (DL_FUNC) &_rTLS_polar_to_cartesian_rcpp, 1},
