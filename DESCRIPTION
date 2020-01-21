@@ -51,9 +51,9 @@ Suggests:
     knitr,
     rmarkdown
 LinkingTo: 
-    Rcpp,
-    RcppArmadillo,
-    RcppParallel
+    Rcpp (>= 1.0.2),
+    RcppArmadillo (>= 0.9),
+    RcppProgress (>= 0.4.1)
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
