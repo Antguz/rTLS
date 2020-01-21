@@ -1,102 +1,44 @@
-// [[Rcpp::depends(RcppParallel)]]
-#include <RcppParallel.h>
+// [[Rcpp::depends("RcppArmadillo")]]
 #include <RcppArmadillo.h>
 
-using namespace RcppParallel;
-using namespace Rcpp;
+using arma::sqrt;
+using arma::pow;
 using namespace arma;
-using namespace std;
-
-// [[Rcpp::depends(RcppParallel)]]
-struct dimensionality : public Worker { //function object
-
-  // input 3D-matrix
-  const RMatrix<double> amat;
-  const RMatrix<double> bmat;
-  const RVector<double> radius;
-  const RVector<double> row_size;
-
-  // output matrix to write to
-  RMatrix<double> rmat;
-
-  // initialize from Rcpp input and output matrixes
-  dimensionality(const NumericMatrix amat, const NumericMatrix bmat, const NumericVector radius, const NumericVector row_size, NumericMatrix rmat)
-    : amat(amat), bmat(bmat), radius(radius), row_size(row_size), rmat(rmat) {}
-
-  //RMatrix and arma::mat convert
-  arma::mat convertMatrix() {
-    RMatrix<double> tmp_mat = bmat;
-    arma::mat MAT(tmp_mat.begin(), row_size[0], 3, false);
-    return MAT;
-  }
-
-  //Function to get the eigenvalues
-  arma::vec getEigenvalues(arma::mat base, arma::vec dis_logical) {
-
-    arma::mat basemat(base.begin(), row_size[0], 3, false);
-
-    arma::colvec ID(dis_logical.begin(), dis_logical.size(), false);
-
-    arma::mat basesub = basemat.rows(find(ID == 1));
-
-    arma::mat covmat = cov(basesub, basesub);
-
-    return eig_sym(covmat);
-  }
-
-  // function call operator that work for the specified range (begin/end) #Not sure of this part
-  void operator()(std::size_t begin, std::size_t end) {
-    for (std::size_t i = begin; i < end; i++) {
-
-      RMatrix<double>::Row amat_row = amat.row(i);
-
-      arma::vec distance_logical(row_size[0]);
-      std::size_t point_size = 0;
-
-      arma::mat MAT = convertMatrix();
-
-      for (std::size_t j = 0; j < row_size[0]; j++) { //Loop to estimate the distance
-
-        RMatrix<double>::Row bmat_row = bmat.row(j);
-
-        double distance = std::sqrt((pow(bmat_row[0] - amat_row[0], 2.0) + pow(bmat_row[1] - amat_row[1], 2.0) + pow(bmat_row[2] - amat_row[2], 2.0)));
-
-        if (distance == 0) {
-          distance_logical[i] = 0;
-
-        } else if (distance <= radius[0]) {
-          distance_logical[i] = 1;
-          point_size = point_size + 1;
-
-        } else if (distance >= radius[0]) {
-          distance_logical[i] = 0;
-
-        }
-      }
-
-      arma::vec eigenvalues = getEigenvalues(MAT, distance_logical);
-
-      rmat(i , 0) = point_size;
-      rmat(i , 1) = eigenvalues[2]; //Row index of amat
-      rmat(i , 2) = eigenvalues[1]; //Value of column 0 of bmat
-      rmat(i , 3) = eigenvalues[0]; //Value of column 1 of bmat
-
-    }
-  }
-};
 
 // [[Rcpp::export]]
-NumericMatrix dimensionality_parallel(NumericMatrix amat, NumericMatrix bmat, NumericVector radius) {
+arma::mat dimensionality_rcpp(arma::mat amat, arma::mat bmat, double radius) {
 
-  // allocate the matrix we will return
-  NumericMatrix rmat(amat.nrow(), 4);
-  NumericVector row_size = bmat.nrow();
+  int an = amat.n_rows;
+  int bn = bmat.n_rows;
 
-  // create the worker
-  dimensionality dimensionality(amat, bmat, radius, row_size[0], rmat);
+  arma::mat out(an, 4);
 
-  // call it with parallelFor
-  parallelFor(0, amat.nrow(), dimensionality);
+  for (int i = 0; i < an; i++) {
 
-  return rmat;
+    arma::vec target = amat.row(i);
+    arma::vec distance(bn);
+
+    for (int j = 0; j < bn; j++) { //Loop to estimate the distance
+
+      arma::vec neighbour = bmat.row(j);
+
+      distance(j) = sqrt(pow((neighbour[0] - target[0]), 2.0) + pow((neighbour[1] - target[1]), 2.0) + pow((neighbour[2] - target[2]), 2.0));
+    }
+
+    arma::mat basemat(bmat.begin(), bn, 3, false);
+
+    arma::mat basesub = basemat.rows(find(distance > 0 && distance <= radius));
+
+    arma::mat covmat = cov(basesub);
+
+    arma::vec eigenvalues = eig_sym(covmat);
+
+    out(i , 0) = i;
+    out(i , 1) = eigenvalues[2]; //Row index of amat
+    out(i , 2) = eigenvalues[1]; //Value of column 0 of bmat
+    out(i , 3) = eigenvalues[0]; //Value of column 1 of bmat
+
+  }
+
+  return out;
 }
