@@ -5,8 +5,12 @@ cartesian_to_polar_rcpp <- function(cartesian, anchor) {
     .Call('_rTLS_cartesian_to_polar_rcpp', PACKAGE = 'rTLS', cartesian, anchor)
 }
 
-dimensionality_rcpp <- function(amat, bmat, radius, threads = 1L) {
-    .Call('_rTLS_dimensionality_rcpp', PACKAGE = 'rTLS', amat, bmat, radius, threads)
+dimensionality_knn_rcpp <- function(amat, bmat, k, threads = 1L, progress = TRUE) {
+    .Call('_rTLS_dimensionality_knn_rcpp', PACKAGE = 'rTLS', amat, bmat, k, threads, progress)
+}
+
+dimensionality_sphere_rcpp <- function(amat, bmat, radius, threads = 1L, progress = TRUE) {
+    .Call('_rTLS_dimensionality_sphere_rcpp', PACKAGE = 'rTLS', amat, bmat, radius, threads, progress)
 }
 
 distanceC <- function(xcoor, ycoor, zcoor, X, Y, Z) {
@@ -15,6 +19,10 @@ distanceC <- function(xcoor, ycoor, zcoor, X, Y, Z) {
 
 euclidean_distance <- function(sample, base) {
     .Call('_rTLS_euclidean_distance', PACKAGE = 'rTLS', sample, base)
+}
+
+minimun_distance_rcpp <- function(amat, threads = 1L, progress = TRUE) {
+    .Call('_rTLS_minimun_distance_rcpp', PACKAGE = 'rTLS', amat, threads, progress)
 }
 
 polar_to_cartesian_rcpp <- function(polar, threads = 1L) {

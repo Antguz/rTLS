@@ -11,6 +11,7 @@
 using arma::sqrt;
 using arma::pow;
 using arma::sum;
+using arma::find;
 using namespace arma;
 
 // [[Rcpp::export]]

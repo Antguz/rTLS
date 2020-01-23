@@ -37,9 +37,7 @@ double minimun_distance_rcpp(arma::mat amat, int threads = 1, bool progress = tr
       distance(j) = sqrt(pow((amat(j, 0) - amat(i, 0)), 2.0) + pow((amat(j, 1) - amat(i, 1)), 2.0) + pow((amat(j, 2) - amat(i, 2)), 2.0));
     }
 
-    arma::uvec ids = find(distance > 0);
-
-    out[i] = min(distance.elem(ids));
+    out[i] = min(distance.elem(find(distance > 0)));
 
     if (! Progress::check_abort() ) {
       p.increment(); // update progress
