@@ -58,20 +58,21 @@ BEGIN_RCPP
 END_RCPP
 }
 // rotate2D_rcpp
-NumericMatrix rotate2D_rcpp(NumericMatrix plane, NumericVector angle);
-RcppExport SEXP _rTLS_rotate2D_rcpp(SEXP planeSEXP, SEXP angleSEXP) {
+NumericMatrix rotate2D_rcpp(NumericMatrix plane, NumericVector angle, int threads);
+RcppExport SEXP _rTLS_rotate2D_rcpp(SEXP planeSEXP, SEXP angleSEXP, SEXP threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericMatrix >::type plane(planeSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type angle(angleSEXP);
-    rcpp_result_gen = Rcpp::wrap(rotate2D_rcpp(plane, angle));
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rotate2D_rcpp(plane, angle, threads));
     return rcpp_result_gen;
 END_RCPP
 }
 // rotate3D_rcpp
-NumericMatrix rotate3D_rcpp(NumericMatrix cloud, NumericVector roll, NumericVector pitch, NumericVector yaw);
-RcppExport SEXP _rTLS_rotate3D_rcpp(SEXP cloudSEXP, SEXP rollSEXP, SEXP pitchSEXP, SEXP yawSEXP) {
+NumericMatrix rotate3D_rcpp(NumericMatrix cloud, NumericVector roll, NumericVector pitch, NumericVector yaw, int threads);
+RcppExport SEXP _rTLS_rotate3D_rcpp(SEXP cloudSEXP, SEXP rollSEXP, SEXP pitchSEXP, SEXP yawSEXP, SEXP threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -79,7 +80,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type roll(rollSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type pitch(pitchSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type yaw(yawSEXP);
-    rcpp_result_gen = Rcpp::wrap(rotate3D_rcpp(cloud, roll, pitch, yaw));
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rotate3D_rcpp(cloud, roll, pitch, yaw, threads));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -89,8 +91,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_distanceC", (DL_FUNC) &_rTLS_distanceC, 6},
     {"_rTLS_euclidean_distance", (DL_FUNC) &_rTLS_euclidean_distance, 2},
     {"_rTLS_polar_to_cartesian_rcpp", (DL_FUNC) &_rTLS_polar_to_cartesian_rcpp, 1},
-    {"_rTLS_rotate2D_rcpp", (DL_FUNC) &_rTLS_rotate2D_rcpp, 2},
-    {"_rTLS_rotate3D_rcpp", (DL_FUNC) &_rTLS_rotate3D_rcpp, 4},
+    {"_rTLS_rotate2D_rcpp", (DL_FUNC) &_rTLS_rotate2D_rcpp, 3},
+    {"_rTLS_rotate3D_rcpp", (DL_FUNC) &_rTLS_rotate3D_rcpp, 5},
     {NULL, NULL, 0}
 };
 

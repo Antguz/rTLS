@@ -4,9 +4,20 @@
 \alias{canopy_structure}
 \title{Canopy Structure}
 \usage{
-canopy_structure(TLS.type, scan, zenith.range, zenith.rings, azimuth.range,
-  vertical.resolution, TLS.pulse.counts, TLS.resolution = NULL,
-  TLS.coordinates = c(0, 0, 0), TLS.frame = NULL, TLS.angles = NULL)
+canopy_structure(
+  TLS.type,
+  scan,
+  zenith.range,
+  zenith.rings,
+  azimuth.range,
+  vertical.resolution,
+  TLS.pulse.counts,
+  TLS.resolution = NULL,
+  TLS.coordinates = c(0, 0, 0),
+  TLS.frame = NULL,
+  TLS.angles = c(0, 0, 0),
+  threads = 1
+)
 }
 \arguments{
 \item{TLS.type}{A \code{character} describing is the TLS used. It most be one of \code{"single"} return, \code{"multiple"} return, or \code{"fixed.angle"} scanner.}
@@ -29,19 +40,21 @@ The scale used needs to be in congruence with the scale of \code{scan}.}
 If \code{TLS.type} is equal to \code{"fixed.angle"}, a \code{numeric} vector of length one describing the horizontal pulse counts resolution.
 Preferred parameter over \code{TLS.resolution} to estimate the number of pulses.}
 
-\item{TLS.resolution}{If \code{TLS.pulse.counts = NULL}, the code use the angles resolution to estimate of the pulse counts in a given \code{TLS.frame} and if \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, a \code{numeric} vector of length two describing the horizontal and vertical angle resolution of the scanner.
+\item{TLS.resolution}{If \code{TLS.pulse.counts = NULL}, the code use the angles resolution to estimate the pulse counts in a given \code{TLS.frame}. If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, a \code{numeric} vector of length two describing the horizontal and vertical angle resolution of the scanner.
 If \code{TLS.type} is equal to \code{"fixed.angle"}, a \code{numeric} vector of length one describing the horizontal angle resolution.}
 
 \item{TLS.coordinates}{A \code{numeric} vector of length three describing the scanner coordinates within \code{scan}.
-If \code{NULL}, it assumes that the coordinates are \code{c(X = 0, Y = 0, Z = 0)}.}
+It assumes that the coordinates are \code{c(X = 0, Y = 0, Z = 0)} for default.}
 
 \item{TLS.frame}{If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, a \code{numeric} vector of length four describing the \code{min} and \code{max} of the zenith and azimuth angle of the scanner frame.
 If \code{TLS.type = "fixed.angle"}, a \code{numeric} vector of length three describing the fixed zenith angle and the \code{min} and \code{max} of the azimuth angle of the scanner frame.
 If \code{NULL}, it assumes that a complete hemisphere (\code{c(zenith.min = 0, zenith.max = 90, azimuth.min = 0, azimuth.max = 360)}), or a cone projection (\code{c(zenith = 57.5, azimuth.min = 0, azimuth.max = 360)}) depending on \code{TLS.type}.}
 
 \item{TLS.angles}{A \code{numeric} vector of length three describing the roll (*X*), pitch (*Y*), and yaw (*Z*) angles of the scanner during the scan.
-If \code{NULL}, it assumes that the angles are \code{c(roll = 0, pitch = 0, yaw = 0)}.
+It assumes that the angles are \code{c(roll = 0, pitch = 0, yaw = 0)} for default.
 This needs to be used if \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, since it assumes that \code{"fixed.angle"} scanner is previously balanced.}
+
+\item{threads}{An \code{integer} specifying the number of threads to use. Experiment to see what works best for your data on your hardware.}
 }
 \value{
 For any \code{TLS.type}, it returns a \code{data.table} with the height profiles defined by \code{vertical.resolution}, the gap probability based on the \code{zenith.range} and \code{zenith.rings}, and

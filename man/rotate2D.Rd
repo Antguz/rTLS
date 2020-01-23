@@ -4,12 +4,14 @@
 \alias{rotate2D}
 \title{Rotate a plane of coordinates}
 \usage{
-rotate2D(plane, angle)
+rotate2D(plane, angle, threads = 1)
 }
 \arguments{
 \item{plane}{A \code{data.table} with two columns describing the plane of coordinates.}
 
 \item{angle}{A \code{numeric} vector describing the degrees of rotation.}
+
+\item{threads}{An \code{integer} specifying the number of threads to use. Experiment to see what works best for your data on your hardware.}
 }
 \value{
 A \code{data.table} with the rotation applied to \code{plane}.

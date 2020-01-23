@@ -4,7 +4,7 @@
 \alias{rotate3D}
 \title{Rotate a Point Cloud}
 \usage{
-rotate3D(cloud, roll = 0, pitch = 0, yaw = 0)
+rotate3D(cloud, roll = 0, pitch = 0, yaw = 0, threads = 1)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with three columns describing the *XYZ* coordinates of a point cloud.}
@@ -14,6 +14,8 @@ rotate3D(cloud, roll = 0, pitch = 0, yaw = 0)
 \item{pitch}{A \code{numeric} vector describing the degrees of rotation angles for pitch (*Y*).}
 
 \item{yaw}{A \code{numeric} vector describing the degrees of rotation angles for yaw (*Z*). for the roll, pitch, and yaw.}
+
+\item{threads}{An \code{integer} specifying the number of threads to use. Experiment to see what works best for your data on your hardware.}
 }
 \value{
 A \code{data.table} with the rotation applied to \code{cloud}.

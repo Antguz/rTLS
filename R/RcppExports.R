@@ -17,11 +17,11 @@ polar_to_cartesian_rcpp <- function(polar) {
     .Call('_rTLS_polar_to_cartesian_rcpp', PACKAGE = 'rTLS', polar)
 }
 
-rotate2D_rcpp <- function(plane, angle) {
-    .Call('_rTLS_rotate2D_rcpp', PACKAGE = 'rTLS', plane, angle)
+rotate2D_rcpp <- function(plane, angle, threads = 1L) {
+    .Call('_rTLS_rotate2D_rcpp', PACKAGE = 'rTLS', plane, angle, threads)
 }
 
-rotate3D_rcpp <- function(cloud, roll, pitch, yaw) {
-    .Call('_rTLS_rotate3D_rcpp', PACKAGE = 'rTLS', cloud, roll, pitch, yaw)
+rotate3D_rcpp <- function(cloud, roll, pitch, yaw, threads = 1L) {
+    .Call('_rTLS_rotate3D_rcpp', PACKAGE = 'rTLS', cloud, roll, pitch, yaw, threads)
 }
 

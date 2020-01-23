@@ -4,6 +4,7 @@
 #'
 #' @param plane A \code{data.table} with two columns describing the plane of coordinates.
 #' @param angle A \code{numeric} vector describing the degrees of rotation.
+#' @param threads An \code{integer} specifying the number of threads to use. Experiment to see what works best for your data on your hardware.
 #'
 #' @return A \code{data.table} with the rotation applied to \code{plane}.
 #'
@@ -16,11 +17,11 @@
 #' plot(rotate2D(pc_tree[,1:2], angle = 45))
 #'
 #' @export
-rotate2D <- function(plane, angle) {
+rotate2D <- function(plane, angle, threads = 1) {
 
   ####Rotates the point cloud ------------------------------------------------------------------------
   name_plane <- colnames(plane)
-  new_cloud <- rotate2D_rcpp(as.matrix(plane), angle)
+  new_cloud <- rotate2D_rcpp(as.matrix(plane), angle, threads)
 
   new_cloud <- as.data.table(new_cloud)
   colnames(new_cloud) <- name_plane
