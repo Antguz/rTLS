@@ -16,7 +16,7 @@ using arma::find;
 using namespace arma;
 
 // [[Rcpp::export]]
-arma::vec minDis_knn_rcpp(arma::mat amat, int k, int threads = 1, bool progress = true) {
+arma::vec averageDis_knn_rcpp(arma::mat amat, int k, int threads = 1, bool progress = true) {
 
 #ifdef _OPENMP
   if ( threads > 0 ) {
@@ -43,9 +43,9 @@ arma::vec minDis_knn_rcpp(arma::mat amat, int k, int threads = 1, bool progress 
 
     arma::uvec index = sort_index(distance);
 
-    arma::vec min_distance = distance.elem(find(index > 0 && index <= k));
+    arma::vec k_distance = distance.elem(find(index > 0 && index <= k));
 
-    out[i] = min(min_distance);
+    out[i] = mean(k_distance);
 
     if (! Progress::check_abort() ) {
       p.increment(); // update progress
