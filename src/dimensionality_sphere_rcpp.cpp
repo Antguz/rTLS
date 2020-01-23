@@ -14,7 +14,7 @@ using arma::sum;
 using namespace arma;
 
 // [[Rcpp::export]]
-arma::cube dimensionality_rcpp(arma::mat amat, arma::mat bmat, arma::vec radius, int threads = 1) {
+arma::cube dimensionality_sphere_rcpp(arma::mat amat, arma::mat bmat, arma::vec radius, int threads = 1, bool progress = true) {
 
 #ifdef _OPENMP
   if ( threads > 0 ) {
@@ -27,9 +27,9 @@ arma::cube dimensionality_rcpp(arma::mat amat, arma::mat bmat, arma::vec radius,
   int bn = bmat.n_rows;
   int len_radius = radius.n_elem;
 
-  arma::cube out(an, 8, len_radius);
+  arma::cube out(an, 4, len_radius);
 
-  Progress p(an*len_radius, true);
+  Progress p(an*len_radius, progress);
 
 #pragma omp parallel for
   for (int i = 0; i < an; i++) {
@@ -58,19 +58,11 @@ arma::cube dimensionality_rcpp(arma::mat amat, arma::mat bmat, arma::vec radius,
         arma::vec eigenvalues =  arma::eig_sym(covmat);
 
         double eigen_total =  sum(eigenvalues);
-        double eig1 = eigenvalues[2]/eigen_total
-        double eig2 = eigenvalues[1]/eigen_total
-        double eig3 = eigenvalues[0]/eigen_total
 
-        out(i , 0, k) = basesub.n_rows;
-        out(i , 1, k) = eig1;
-        out(i , 2, k) = eig2;
-        out(i , 3, k) = eig3;
-        out(i , 4, k) = eig1 - eig2;
-        out(i , 5, k) = eig2 - eig3;
-        out(i , 6, k) = (eig2 - eig3)/ eig1;
-        out(i , 7, k) = (eig1 * log(eig1)) + (eig2 * log(eig2)) + (eig3 * log(eig3));
-        out(i , 8, k) = (eig1 - eig2) / eig1;
+        out(i , 0, k) = basesub.n_rows; //neighboring points.
+        out(i , 1, k) = eigenvalues[2]/eigen_total; //eigenvalue 1
+        out(i , 2, k) = eigenvalues[1]/eigen_total; //eigenvalue 2
+        out(i , 3, k) = eigenvalues[0]/eigen_total; //eigenvalue 3
 
 
       } else {
@@ -79,16 +71,9 @@ arma::cube dimensionality_rcpp(arma::mat amat, arma::mat bmat, arma::vec radius,
         out(i , 1, k) = 0;
         out(i , 2, k) = 0;
         out(i , 3, k) = 0;
-        out(i , 4, k) = 0;
-        out(i , 5, k) = 0;
-        out(i , 6, k) = 0;
-        out(i , 7, k) = 0;
-        out(i , 8, k) = 0;
 
       }
-
     }
-
   }
 
   return out;
