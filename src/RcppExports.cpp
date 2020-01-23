@@ -7,14 +7,15 @@
 using namespace Rcpp;
 
 // cartesian_to_polar_rcpp
-NumericMatrix cartesian_to_polar_rcpp(NumericMatrix cartesian, NumericVector anchor);
-RcppExport SEXP _rTLS_cartesian_to_polar_rcpp(SEXP cartesianSEXP, SEXP anchorSEXP) {
+NumericMatrix cartesian_to_polar_rcpp(NumericMatrix cartesian, NumericVector anchor, int threads);
+RcppExport SEXP _rTLS_cartesian_to_polar_rcpp(SEXP cartesianSEXP, SEXP anchorSEXP, SEXP threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericMatrix >::type cartesian(cartesianSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type anchor(anchorSEXP);
-    rcpp_result_gen = Rcpp::wrap(cartesian_to_polar_rcpp(cartesian, anchor));
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(cartesian_to_polar_rcpp(cartesian, anchor, threads));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -76,6 +77,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// minDis_knn_rcpp
+arma::vec minDis_knn_rcpp(arma::mat amat, int k, int threads, bool progress);
+RcppExport SEXP _rTLS_minDis_knn_rcpp(SEXP amatSEXP, SEXP kSEXP, SEXP threadsSEXP, SEXP progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type amat(amatSEXP);
+    Rcpp::traits::input_parameter< int >::type k(kSEXP);
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
+    rcpp_result_gen = Rcpp::wrap(minDis_knn_rcpp(amat, k, threads, progress));
+    return rcpp_result_gen;
+END_RCPP
+}
 // minimun_distance_rcpp
 double minimun_distance_rcpp(arma::mat amat, int threads, bool progress);
 RcppExport SEXP _rTLS_minimun_distance_rcpp(SEXP amatSEXP, SEXP threadsSEXP, SEXP progressSEXP) {
@@ -117,11 +132,12 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_rTLS_cartesian_to_polar_rcpp", (DL_FUNC) &_rTLS_cartesian_to_polar_rcpp, 2},
+    {"_rTLS_cartesian_to_polar_rcpp", (DL_FUNC) &_rTLS_cartesian_to_polar_rcpp, 3},
     {"_rTLS_dimensionality_knn_rcpp", (DL_FUNC) &_rTLS_dimensionality_knn_rcpp, 5},
     {"_rTLS_dimensionality_sphere_rcpp", (DL_FUNC) &_rTLS_dimensionality_sphere_rcpp, 5},
     {"_rTLS_distanceC", (DL_FUNC) &_rTLS_distanceC, 6},
     {"_rTLS_euclidean_distance", (DL_FUNC) &_rTLS_euclidean_distance, 2},
+    {"_rTLS_minDis_knn_rcpp", (DL_FUNC) &_rTLS_minDis_knn_rcpp, 4},
     {"_rTLS_minimun_distance_rcpp", (DL_FUNC) &_rTLS_minimun_distance_rcpp, 3},
     {"_rTLS_polar_to_cartesian_rcpp", (DL_FUNC) &_rTLS_polar_to_cartesian_rcpp, 2},
     {"_rTLS_rotate_rcpp", (DL_FUNC) &_rTLS_rotate_rcpp, 4},
