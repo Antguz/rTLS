@@ -2,7 +2,6 @@
 #include <omp.h>
 #endif
 // [[Rcpp::plugins(openmp)]]
-// [[Rcpp::depends(RcppArmadillo"]]
 // [[Rcpp::depends(RcppProgress)]]
 #include <RcppArmadillo.h>
 #include <progress.hpp>
@@ -10,11 +9,13 @@
 
 using arma::sqrt;
 using arma::pow;
-using arma::min;
+using arma::sum;
+using arma::sort_index;
+using arma::find;
 using namespace arma;
 
 // [[Rcpp::export]]
-double minimun_distance_rcpp(arma::mat amat, int threads = 1, bool progress = true) {
+arma::vec nneighbors_sphere_rcpp(arma::mat amat, double radius, int threads = 1, bool progress = true) {
 
 #ifdef _OPENMP
   if ( threads > 0 ) {
@@ -31,20 +32,21 @@ double minimun_distance_rcpp(arma::mat amat, int threads = 1, bool progress = tr
 
 #pragma omp parallel for
   for (int i = 0; i < an; i++) {
-    arma::vec distance(an);
+
+    arma::vec nneighbors(an);
 
     for (int j = 0; j < an; j++) { //Loop to estimate the distance
-      distance(j) = sqrt(pow((amat(j, 0) - amat(i, 0)), 2.0) + pow((amat(j, 1) - amat(i, 1)), 2.0) + pow((amat(j, 2) - amat(i, 2)), 2.0));
+      nneighbors(j) = sqrt(pow((amat(j, 0) - amat(i, 0)), 2.0) + pow((amat(j, 1) - amat(i, 1)), 2.0) + pow((amat(j, 2) - amat(i, 2)), 2.0));
     }
 
-    out[i] = min(distance.elem(find(distance != 0)));
+    arma::uvec ids = find(nneighbors > 0 && nneighbors <= radius);
+
+    out(i) = ids.n_elem;
 
     if (! Progress::check_abort() ) {
       p.increment(); // update progress
     }
   }
 
-  double min_val = min(out);
-
-  return min_val;
+  return out;
 }

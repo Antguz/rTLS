@@ -38,7 +38,7 @@ arma::vec averageDis_knn_rcpp(arma::mat amat, int k, int threads = 1, bool progr
 
     for (int j = 0; j < an; j++) { //Loop to estimate the distance
 
-      distance(j) = sqrt(pow((amat(j, 0) - amat(i, 0)), 2.0) + pow((amat(j, 1) - amat(i, 1)), 2.0) + pow((amat(j, 2) - amat(i, 2)), 2.0));
+      distance[j] = sqrt(pow((amat(j, 0) - amat(i, 0)), 2.0) + pow((amat(j, 1) - amat(i, 1)), 2.0) + pow((amat(j, 2) - amat(i, 2)), 2.0));
     }
 
     arma::uvec index = sort_index(distance);
