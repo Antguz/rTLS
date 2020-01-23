@@ -3,6 +3,6 @@
 
 #include <Rcpp.h>
 
-NumericMatrix rotate2D_rcpp(NumericMatrix plane, NumericVector angle)
+NumericMatrix rotate2D_rcpp(NumericMatrix plane, NumericVector angle, int threads = 1)
 
 #endif
