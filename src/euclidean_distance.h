@@ -3,6 +3,6 @@
 
 #include <Rcpp.h>
 
-Rcpp::NumericVector euclidean_distance(Rcpp::NumericVector sample, Rcpp::NumericMatrix base);
+Rcpp::NumericVector euclidean_distance(Rcpp::NumericVector sample, Rcpp::NumericMatrix base, int threads = 1)
 
 #endif

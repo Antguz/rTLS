@@ -16,7 +16,7 @@ using arma::find;
 using namespace arma;
 
 // [[Rcpp::export]]
-arma::vec averageDis_knn_rcpp(arma::mat amat, int k, int threads = 1, bool progress = true) {
+arma::vec meanDis_knn_rcpp(arma::mat amat, int k, int threads = 1, bool progress = true) {
 
 #ifdef _OPENMP
   if ( threads > 0 ) {
