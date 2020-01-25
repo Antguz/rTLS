@@ -17,7 +17,6 @@
 #' @author J. Antonio Guzmán Q.
 #'
 #' @examples
-#'
 #' ###Estimate the dimensionality on a sample of 100 points.
 #' #Load data
 #' data("pc_tree")
@@ -32,7 +31,7 @@
 #' dimensionality(sample_data, pc_tree, method = "knn", k = c(50, 100))
 #'
 #' @export
-dimensionality <- function(cloud, cloud_b = NULL, method, radius, k, threads = 1L, progress = TRUE) {
+dimensionality <- function(cloud, cloud_b = NULL, method, radius, k, threads = 1, progress = TRUE) {
 
   if(method == "sphere") {
     if(is.null(cloud_b) == TRUE) {
@@ -45,9 +44,8 @@ dimensionality <- function(cloud, cloud_b = NULL, method, radius, k, threads = 1
     lev_names <- paste0("radius_", radius)
 
     results <- provideDimnames(results, base = list(as.character(seq_along(1:nrow(cloud))), col_names, lev_names))
-  }
 
-  if(method == "knn") {
+  }  else if(method == "knn") {
     if(is.null(cloud_b) == TRUE) {
       results <- dimensionality_knn_rcpp(as.matrix(cloud), as.matrix(cloud), k, threads, progress)
     } else {
@@ -58,6 +56,7 @@ dimensionality <- function(cloud, cloud_b = NULL, method, radius, k, threads = 1
     lev_names <- paste0("k_", k)
 
     results <- provideDimnames(results, base = list(as.character(seq_along(1:nrow(cloud))), col_names, lev_names))
+
   }
 
   return(results)

@@ -4,8 +4,15 @@
 \alias{dimensionality}
 \title{Dimensionality of the Neighboring Points.}
 \usage{
-dimensionality(cloud, cloud_b = NULL, method, radius, k, threads = 1L,
-  progress = TRUE)
+dimensionality(
+  cloud,
+  cloud_b = NULL,
+  method,
+  radius,
+  k,
+  threads = 1,
+  progress = TRUE
+)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with *XYZ* coordinates in the first three columns.}
@@ -33,7 +40,6 @@ The function returns the dimensionality of the neighboring points of a given poi
 eigenvalues derived from a covariance matrix of the neighboring points.
 }
 \examples{
-
 ###Estimate the dimensionality on a sample of 100 points.
 #Load data
 data("pc_tree")
@@ -43,9 +49,6 @@ sample_data <- pc_tree[sample(nrow(pc_tree), 100), ]
 
 #Using neighbors in two spheres of 0.75 and 1
 dimensionality(sample_data, pc_tree, method = "sphere", radius = c(0.75, 1))
-
-#Using two k neighbors of 50 and 100
-dimensionality(sample_data, pc_tree, method = "knn", k = c(50, 100))
 
 }
 \author{
