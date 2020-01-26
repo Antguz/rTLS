@@ -1,53 +1,64 @@
 #' @title Dimensionality of the Neighboring Points.
 #'
-#' @description Calculate the dimensionality of a cloud of neighboring points. It estimates nine parameters based on Wang et al. 2017.
+#' @description Estimate the dimensionality of neighboring points in a cloud.
 #'
-#' @param space A \code{data.table} with *XYZ* coordinates of the neighboring points in the first three columns.
+#' @param cloud A \code{data.table} with *XYZ* coordinates in the first three columns.
+#' @param cloud_b A \code{data.table} with *XYZ* coordinates in the first three columns to estimate the neighboring points. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.
+#' @param method A character string specifying the method to estimate the neighbors. It most be one of \code{"sphere"} or \code{"knn"}.
+#' @param radius A \code{numeric} vector representing the radius of the sphere or spheres to consider. This needs be used if \code{method = "sphere"}.
+#' @param k An \code{integer} vector representing the number of neighbors to consider. This needs be used if \code{method = "knn"}.
+#' @param threads An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.
+#' @param progress Show progress. \code{TRUE} as default.
 #'
-#' @details Since the extraction of the metrics are based on \code{\link{eigen}}, a \code{space} of neighboring points lower than three may return \code{NA} as results.
+#' @details The function returns the dimensionality of the neighboring points of a given point in \code{code}. The dimensionality is represented by the relative values of the
+#' eigenvalues derived from a covariance matrix of the neighboring points.
 #'
-#' @return A \code{data.table} with the estimated parameters.
-#' @author J. Antonio Guzmán Q. and Ronny Hernandez
-#' @references Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry. Remote Sensing & Spatial Information Sciences, 4. <doi:10.5194/isprs-annals-IV-2-W4-157-2017>
+#' @return A \code{array} describing the point of the \code{cloud} in rows, the relative eigenvalues in columns, and the \code{radius} or \code{k} per slide. If \code{method = "sphere"}, it add in the first column the number of neighbor points.
+#' @author J. Antonio Guzmán Q.
 #'
-#' @seealso \code{\link{basic_metrics}}, \code{\link{distribution}}, \code{\link{cloud_metrics}}, \code{\link{neighborhood}}
-#'
-#' @importFrom stats na.exclude
-#' @importFrom coop covar
 #'
 #' @examples
+#' ###Estimate the dimensionality on a sample of 100 points.
+#' #Load data
 #' data("pc_tree")
-#' neig <- neighborhood(pc_tree[50,], pc_tree, method = "sphere", radius = 0.2)
-#' dimensionality(neig$neighborhood[, c(2:4)])
+#'
+#' #Sample data
+#' sample_data <- pc_tree[sample(nrow(pc_tree), 100), ]
+#'
+#' #Using neighbors in two spheres of 0.75 and 1
+#' dimensionality(sample_data, pc_tree, method = "sphere", radius = c(0.75, 1))
+#'
+#' #Using two k neighbors of 50 and 100
+#' dimensionality(cloud = sample_data, cloud_b = pc_tree, method = "knn", k = c(50, 100))
 #'
 #' @export
-dimensionality <- function(space) {
+dimensionality <- function(cloud, cloud_b = NULL, method, radius, k, threads = 1, progress = TRUE) {
 
-  space <- na.exclude(space)
+  if(method == "sphere") {
+    if(is.null(cloud_b) == TRUE) {
+      results <- dimensionality_sphere_rcpp(as.matrix(cloud), as.matrix(cloud), radius, threads, progress)
+    } else {
+      results <- dimensionality_sphere_rcpp(as.matrix(cloud), as.matrix(cloud_b), radius, threads, progress)
+    }
 
-  if(nrow(space) >= 3) {
-    eigval <- eigen(covar(space), only.values = TRUE)$values
+    col_names <- c("npoints", "eig1", "eig2", "eig3")
+    lev_names <- paste0("radius_", radius)
 
-    frame <- data.table(linearity = (eigval[1]-eigval[2])/eigval[1],
-                        planarity = (eigval[2]-eigval[3])/eigval[1],
-                        scattering = eigval[3]/eigval[1],
-                        omnivariance = (eigval[1]*eigval[2]*eigval[3])^(1/3),
-                        anisotropy = (eigval[1]-eigval[3])/eigval[1],
-                        eigenentropy = -((eigval[1] * log(eigval[1])) + (eigval[2] * log(eigval[2])) + (eigval[3] * log(eigval[3]))),
-                        sum_eigen = sum(eigval),
-                        sur_var = min(eigval)/sum(eigval),
-                        eigen_ratio_2D = eigval[2]/eigval[1])
+    results <- provideDimnames(results, base = list(as.character(seq_along(1:nrow(cloud))), col_names, lev_names))
 
-  } else if(nrow(space) < 3) {
-    frame <- data.table(linearity = as.numeric(NA),
-                        planarity = as.numeric(NA),
-                        scattering = as.numeric(NA),
-                        omnivariance = as.numeric(NA),
-                        anisotropy = as.numeric(NA),
-                        eigenentropy = as.numeric(NA),
-                        sum_eigen = as.numeric(NA),
-                        sur_var = as.numeric(NA),
-                        eigen_ratio_2D = as.numeric(NA))
+  }  else if(method == "knn") {
+    if(is.null(cloud_b) == TRUE) {
+      results <- dimensionality_knn_rcpp(as.matrix(cloud), as.matrix(cloud), k, threads, progress)
+    } else {
+      results <- dimensionality_knn_rcpp(as.matrix(cloud), as.matrix(cloud_b), k, threads, progress)
+    }
+
+    col_names <- c("eig1", "eig2", "eig3")
+    lev_names <- paste0("k_", k)
+
+    results <- provideDimnames(results, base = list(as.character(seq_along(1:nrow(cloud))), col_names, lev_names))
+
   }
-  return(frame)
+
+  return(results)
 }

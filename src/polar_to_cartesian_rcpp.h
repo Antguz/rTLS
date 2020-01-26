@@ -3,6 +3,6 @@
 
 #include <Rcpp.h>
 
-NumericMatrix polar_to_cartesian_rcpp(NumericMatrix polar)
+NumericMatrix polar_to_cartesian_rcpp(NumericMatrix polar, int threads = 1)
 
 #endif

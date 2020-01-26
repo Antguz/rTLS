@@ -11,12 +11,21 @@ canopy_structure(
   zenith.rings,
   azimuth.range,
   vertical.resolution,
+<<<<<<< HEAD
   TLS.pulse.counts,
   TLS.resolution = NULL,
   TLS.coordinates = c(0, 0, 0),
   TLS.frame = NULL,
   TLS.angles = c(0, 0, 0),
   threads = 1
+=======
+  TLS.resolution,
+  TLS.coordinates = c(0, 0, 0),
+  TLS.frame = NULL,
+  TLS.angles = NULL,
+  parallel = FALSE,
+  cores = NULL
+>>>>>>> dimensionality
 )
 }
 \arguments{

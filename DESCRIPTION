@@ -42,6 +42,7 @@ Imports:
     foreach (>= 1.4.4),
     parallel (>= 3.6.0),
     Rcpp (>= 1.0.2),
+    RcppArmadillo (>= 0.9.800),
     RcppParallel (>= 4.4.4),
     rgeos (>= 0.4-3),
     rgl (>= 0.100.24),
@@ -52,8 +53,8 @@ Suggests:
     rmarkdown
 LinkingTo: 
     Rcpp,
-    RcppArmadillo,
-    RcppParallel
+    RcppArmadillo (>= 0.9.800),
+    RcppProgress (>= 0.4.1)
 VignetteBuilder: 
     knitr
 Encoding: UTF-8

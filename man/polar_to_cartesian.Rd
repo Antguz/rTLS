@@ -4,10 +4,12 @@
 \alias{polar_to_cartesian}
 \title{Polar to Cartesian Coordinates}
 \usage{
-polar_to_cartesian(polar, digits = NULL)
+polar_to_cartesian(polar, threads = 1, digits = NULL)
 }
 \arguments{
-\item{polar}{A \code{data.table} with three columns describing the zenith, azimuth, and distance of a point.}
+\item{polar}{A \code{data.table} with three columns describing the zenith, azimuth, and distance of a point to the center.}
+
+\item{threads}{An \code{integer} vector describing the number of threads for parallel processing. Deafult 1.}
 
 \item{digits}{A \code{numeric} vector of length 1 describing the decimal numbers to \code{\link{round}} the cartesian coordinates. If \code{NULL}, \code{\link{round}} does not apply. \code{NULL} as default.}
 }

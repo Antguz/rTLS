@@ -4,32 +4,56 @@
 \alias{dimensionality}
 \title{Dimensionality of the Neighboring Points.}
 \usage{
-dimensionality(space)
+dimensionality(
+  cloud,
+  cloud_b = NULL,
+  method,
+  radius,
+  k,
+  threads = 1,
+  progress = TRUE
+)
 }
 \arguments{
-\item{space}{A \code{data.table} with *XYZ* coordinates of the neighboring points in the first three columns.}
+\item{cloud}{A \code{data.table} with *XYZ* coordinates in the first three columns.}
+
+\item{cloud_b}{A \code{data.table} with *XYZ* coordinates in the first three columns to estimate the neighboring points. If \code{cloud_b} is \code{NULL}, \code{cloud_b == cloud}. \code{NULL} as default.}
+
+\item{method}{A character string specifying the method to estimate the neighbors. It most be one of \code{"sphere"} or \code{"knn"}.}
+
+\item{radius}{A \code{numeric} vector representing the radius of the sphere or spheres to consider. This needs be used if \code{method = "sphere"}.}
+
+\item{k}{An \code{integer} vector representing the number of neighbors to consider. This needs be used if \code{method = "knn"}.}
+
+\item{threads}{An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.}
+
+\item{progress}{Show progress. \code{TRUE} as default.}
 }
 \value{
-A \code{data.table} with the estimated parameters.
+A \code{array} describing the point of the \code{cloud} in rows, the relative eigenvalues in columns, and the \code{radius} or \code{k} per slide. If \code{method = "sphere"}, it add in the first column the number of neighbor points.
 }
 \description{
-Calculate the dimensionality of a cloud of neighboring points. It estimates nine parameters based on Wang et al. 2017.
+Estimate the dimensionality of neighboring points in a cloud.
 }
 \details{
-Since the extraction of the metrics are based on \code{\link{eigen}}, a \code{space} of neighboring points lower than three may return \code{NA} as results.
+The function returns the dimensionality of the neighboring points of a given point in \code{code}. The dimensionality is represented by the relative values of the
+eigenvalues derived from a covariance matrix of the neighboring points.
 }
 \examples{
+###Estimate the dimensionality on a sample of 100 points.
+#Load data
 data("pc_tree")
-neig <- neighborhood(pc_tree[50,], pc_tree, method = "sphere", radius = 0.2)
-dimensionality(neig$neighborhood[, c(2:4)])
+
+#Sample data
+sample_data <- pc_tree[sample(nrow(pc_tree), 100), ]
+
+#Using neighbors in two spheres of 0.75 and 1
+dimensionality(sample_data, pc_tree, method = "sphere", radius = c(0.75, 1))
+
+#Using two k neighbors of 50 and 100
+dimensionality(cloud = sample_data, cloud_b = pc_tree, method = "knn", k = c(50, 100))
 
 }
-\references{
-Wang, D., Hollaus, M., & Pfeifer, N. (2017). Feasibility of machine learning methods for separating wood and leaf points from Terrestrial Laser Scanning data. ISPRS Annals of Photogrammetry. Remote Sensing & Spatial Information Sciences, 4. <doi:10.5194/isprs-annals-IV-2-W4-157-2017>
-}
-\seealso{
-\code{\link{basic_metrics}}, \code{\link{distribution}}, \code{\link{cloud_metrics}}, \code{\link{neighborhood}}
-}
 \author{
-J. Antonio Guzmán Q. and Ronny Hernandez
+J. Antonio Guzmán Q.
 }

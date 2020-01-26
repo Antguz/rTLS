@@ -4,14 +4,14 @@
 \alias{min_distance}
 \title{Minimun Distance Between Points}
 \usage{
-min_distance(cloud, parallel = FALSE, cores = NULL)
+min_distance(cloud, threads = 1, progress = TRUE)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with *XYZ* coordinates in the first three columns representing a point cloud.}
 
-\item{parallel}{Logical, if \code{TRUE} it uses a parallel processing to estimate the distance between points. \code{FALSE} as default.}
+\item{threads}{An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.}
 
-\item{cores}{An \code{integer} >= 0 describing the number of cores use. This need to be used if \code{parallel = TRUE}.}
+\item{progress}{Show progress. \code{TRUE} as default.}
 }
 \value{
 A \code{numeric} vector describing the minimun distance between points.
@@ -22,15 +22,9 @@ Estimate the minimum distance between points in a point cloud.
 \examples{
 data("pc_tree")
 
-#Estimate the minimun distance of a sample
-cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
-min_distance(cloud.random)
-
-\dontrun{
-#Estimate the minimun distance of a sample using parallel processing with 4 cores
-cloud.random <- pc_tree[sample(nrow(pc_tree), 1000), ]
-min_distance(cloud.random, parallel = TRUE, cores = 4)
-}
+#Estimate the minimun distance of a sample o 100 points
+cloud_sample <- pc_tree[sample(nrow(pc_tree), 100), ]
+min_distance(cloud_sample)
 
 }
 \author{
