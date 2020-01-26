@@ -30,7 +30,7 @@ dimensionality(
 \item{progress}{Show progress. \code{TRUE} as default.}
 }
 \value{
-A \code{array} describing the point of the \code{cloud} in rows, the relative eigenvalues in columns, and the \code{radius} or \code{k} per slide. If \code{method = "sphere}, it add in the first column the number of neighbor points.
+A \code{array} describing the point of the \code{cloud} in rows, the relative eigenvalues in columns, and the \code{radius} or \code{k} per slide. If \code{method = "sphere"}, it add in the first column the number of neighbor points.
 }
 \description{
 Estimate the dimensionality of neighboring points in a cloud.
@@ -49,6 +49,9 @@ sample_data <- pc_tree[sample(nrow(pc_tree), 100), ]
 
 #Using neighbors in two spheres of 0.75 and 1
 dimensionality(sample_data, pc_tree, method = "sphere", radius = c(0.75, 1))
+
+#Using two k neighbors of 50 and 100
+dimensionality(cloud = sample_data, cloud_b = pc_tree, method = "knn", k = c(50, 100))
 
 }
 \author{

@@ -13,8 +13,9 @@
 #' @details The function returns the dimensionality of the neighboring points of a given point in \code{code}. The dimensionality is represented by the relative values of the
 #' eigenvalues derived from a covariance matrix of the neighboring points.
 #'
-#' @return A \code{array} describing the point of the \code{cloud} in rows, the relative eigenvalues in columns, and the \code{radius} or \code{k} per slide. If \code{method = "sphere}, it add in the first column the number of neighbor points.
+#' @return A \code{array} describing the point of the \code{cloud} in rows, the relative eigenvalues in columns, and the \code{radius} or \code{k} per slide. If \code{method = "sphere"}, it add in the first column the number of neighbor points.
 #' @author J. Antonio Guzmán Q.
+#'
 #'
 #' @examples
 #' ###Estimate the dimensionality on a sample of 100 points.
@@ -28,7 +29,7 @@
 #' dimensionality(sample_data, pc_tree, method = "sphere", radius = c(0.75, 1))
 #'
 #' #Using two k neighbors of 50 and 100
-#' dimensionality(sample_data, pc_tree, method = "knn", k = c(50, 100))
+#' dimensionality(cloud = sample_data, cloud_b = pc_tree, method = "knn", k = c(50, 100))
 #'
 #' @export
 dimensionality <- function(cloud, cloud_b = NULL, method, radius, k, threads = 1, progress = TRUE) {

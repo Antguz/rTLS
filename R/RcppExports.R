@@ -5,12 +5,12 @@ cartesian_to_polar_rcpp <- function(cartesian, anchor, threads = 1L) {
     .Call('_rTLS_cartesian_to_polar_rcpp', PACKAGE = 'rTLS', cartesian, anchor, threads)
 }
 
-dimensionality_knn_rcpp <- function(amat, bmat, k, threads = 1L, progress = TRUE) {
-    .Call('_rTLS_dimensionality_knn_rcpp', PACKAGE = 'rTLS', amat, bmat, k, threads, progress)
+dimen_knn_rcpp <- function(amat, bmat, k, threads = 1L, progress = TRUE) {
+    .Call('_rTLS_dimen_knn_rcpp', PACKAGE = 'rTLS', amat, bmat, k, threads, progress)
 }
 
-dimensionality_sphere_rcpp <- function(amat, bmat, radius, threads = 1L, progress = TRUE) {
-    .Call('_rTLS_dimensionality_sphere_rcpp', PACKAGE = 'rTLS', amat, bmat, radius, threads, progress)
+dimen_sphere_rcpp <- function(amat, bmat, radius, threads = 1L, progress = TRUE) {
+    .Call('_rTLS_dimen_sphere_rcpp', PACKAGE = 'rTLS', amat, bmat, radius, threads, progress)
 }
 
 euclidean_distance <- function(sample, base, threads = 1L) {
