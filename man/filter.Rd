@@ -4,14 +4,16 @@
 \alias{filter}
 \title{Filtering of Point Clouds}
 \usage{
-filter(cloud, method, radius, k, nSigma, threads = 1, progress = TRUE)
+filter(cloud, method, radius, min_n, k, nSigma, threads = 1L, progress = TRUE)
 }
 \arguments{
 \item{cloud}{A \code{data.table} contain three columns representing the *XYZ* coordinates.}
 
-\item{method}{A positive \code{numeric} vector describing the number of point clouds to use.}
+\item{method}{A filtering method to use. It most be \code{"SOR"} or \code{"min_n"}.}
 
-\item{radius}{A \code{numeric} vector representing the radius of the sphere or spheres to consider. This needs to be used if \code{method = "min_neighbors"}.}
+\item{radius}{A \code{numeric} vector representing the radius of the sphere to consider. This needs to be used if \code{method = "min_n"}.}
+
+\item{min_n}{An \code{integer} representing the minimun number of neighbors to keep a given point. This needs to be used if \code{method = "min_n"}.}
 
 \item{k}{An \code{integer} vector representing the number of neighbors to consider. This needs be used if \code{method = "SOR"}.}
 
@@ -28,16 +30,14 @@ A \code{data.table} with the filtered points
 Filtering of point clouds using different methods
 }
 \examples{
-#Import an example point cloud
-path <- system.file("extdata", "pc_tree.txt", package = "rTLS")
+#Load data
+data("pc_tree")
 
-#Creates a stand of 4 trees with 10\% of overlap
-files <- rep(path, 50)
-artificial_stand(files, n.trees = 50, dimension = c(50, 50), overlap = 10)
+#Filter a sample of section of data using SOR
+filter(pc_tree[1:5000,], method = "SOR", k = 20, nSigma = 1)
 
-#Creates a stand of 4 trees with their locations
-location <- data.table(X = c(5, 10, 10, 5), Y = c(5, 5, 10, 10))
-artificial_stand(files, n.trees = 4, dimension = c(15, 15), coordinates = location)
+#Filter using "min_n" of 1000
+filter(pc_tree, method = "min_n", radius = 1.0, min_n = 5000)
 
 }
 \author{

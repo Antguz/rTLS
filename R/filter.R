@@ -3,8 +3,9 @@
 #' Filtering of point clouds using different methods
 #'
 #' @param cloud A \code{data.table} contain three columns representing the *XYZ* coordinates.
-#' @param method A positive \code{numeric} vector describing the number of point clouds to use.
-#' @param radius A \code{numeric} vector representing the radius of the sphere or spheres to consider. This needs to be used if \code{method = "min_neighbors"}.
+#' @param method A filtering method to use. It most be \code{"SOR"} or \code{"min_n"}.
+#' @param radius A \code{numeric} vector representing the radius of the sphere to consider. This needs to be used if \code{method = "min_n"}.
+#' @param min_n An \code{integer} representing the minimun number of neighbors to keep a given point. This needs to be used if \code{method = "min_n"}.
 #' @param k An \code{integer} vector representing the number of neighbors to consider. This needs be used if \code{method = "SOR"}.
 #' @param nSigma A \code{numeric} vector representing the standard deviation multiplier. This needs to be used if \code{method = "SOR"}.
 #' @param threads An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.
@@ -14,29 +15,33 @@
 #' @author J. Antonio Guzmán Q.
 #'
 #' @examples
-#' #Import an example point cloud
-#' path <- system.file("extdata", "pc_tree.txt", package = "rTLS")
+#' #Load data
+#' data("pc_tree")
 #'
-#' #Creates a stand of 4 trees with 10% of overlap
-#' files <- rep(path, 50)
-#' artificial_stand(files, n.trees = 50, dimension = c(50, 50), overlap = 10)
+#' #Filter a sample of section of data using SOR
+#' filter(pc_tree[1:5000,], method = "SOR", k = 20, nSigma = 1)
 #'
-#' #Creates a stand of 4 trees with their locations
-#' location <- data.table(X = c(5, 10, 10, 5), Y = c(5, 5, 10, 10))
-#' artificial_stand(files, n.trees = 4, dimension = c(15, 15), coordinates = location)
+#' #Filter using "min_n" of 1000
+#' filter(pc_tree, method = "min_n", radius = 1.0, min_n = 5000)
 #'
 #' @export
-filter <- function(cloud, method, radius, k, nSigma, threads = 1, progress = TRUE) {
+filter <- function(cloud, method, radius, min_n, k, nSigma, threads = 1L, progress = TRUE) {
 
   if(method == "SOR") {
 
-    mean_distance <- meanDis_knn_rcpp(as.matrix(cloud), k, threads, progress)
-    average_distance <- mean(mean_distance)
+    mean_distance <- as.vector(meanDis_knn_rcpp(as.matrix(cloud), k, threads, progress))
     max_distance <- mean(mean_distance) + sd(mean_distance)*nSigma
+    logic_sub <- mean_distance <= max_distance
+    results <- cloud[logic_sub == TRUE, ]
+  }
 
-  } else if(method == "min_n") {
+  if(method == "min_n") {
 
+    neighbors <- as.vector(nneighbors_sphere_rcpp(as.matrix(cloud), radius, threads, progress))
+    results <- cloud[neighbors >= min_n, ]
 
   }
+
+  return(results)
 
 }

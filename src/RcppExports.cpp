@@ -19,9 +19,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// dimen_knn_rcpp
-arma::cube dimen_knn_rcpp(arma::mat amat, arma::mat bmat, arma::vec k, int threads, bool progress);
-RcppExport SEXP _rTLS_dimen_knn_rcpp(SEXP amatSEXP, SEXP bmatSEXP, SEXP kSEXP, SEXP threadsSEXP, SEXP progressSEXP) {
+// dimensionality_knn_rcpp
+arma::cube dimensionality_knn_rcpp(arma::mat amat, arma::mat bmat, arma::vec k, int threads, bool progress);
+RcppExport SEXP _rTLS_dimensionality_knn_rcpp(SEXP amatSEXP, SEXP bmatSEXP, SEXP kSEXP, SEXP threadsSEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -30,13 +30,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::vec >::type k(kSEXP);
     Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
     Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
-    rcpp_result_gen = Rcpp::wrap(dimen_knn_rcpp(amat, bmat, k, threads, progress));
+    rcpp_result_gen = Rcpp::wrap(dimensionality_knn_rcpp(amat, bmat, k, threads, progress));
     return rcpp_result_gen;
 END_RCPP
 }
-// dimen_sphere_rcpp
-arma::cube dimen_sphere_rcpp(arma::mat amat, arma::mat bmat, arma::vec radius, int threads, bool progress);
-RcppExport SEXP _rTLS_dimen_sphere_rcpp(SEXP amatSEXP, SEXP bmatSEXP, SEXP radiusSEXP, SEXP threadsSEXP, SEXP progressSEXP) {
+// dimensionality_sphere_rcpp
+arma::cube dimensionality_sphere_rcpp(arma::mat amat, arma::mat bmat, arma::vec radius, int threads, bool progress);
+RcppExport SEXP _rTLS_dimensionality_sphere_rcpp(SEXP amatSEXP, SEXP bmatSEXP, SEXP radiusSEXP, SEXP threadsSEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -45,7 +45,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::vec >::type radius(radiusSEXP);
     Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
     Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
-    rcpp_result_gen = Rcpp::wrap(dimen_sphere_rcpp(amat, bmat, radius, threads, progress));
+    rcpp_result_gen = Rcpp::wrap(dimensionality_sphere_rcpp(amat, bmat, radius, threads, progress));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -132,8 +132,8 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_cartesian_to_polar_rcpp", (DL_FUNC) &_rTLS_cartesian_to_polar_rcpp, 3},
-    {"_rTLS_dimen_knn_rcpp", (DL_FUNC) &_rTLS_dimen_knn_rcpp, 5},
-    {"_rTLS_dimen_sphere_rcpp", (DL_FUNC) &_rTLS_dimen_sphere_rcpp, 5},
+    {"_rTLS_dimensionality_knn_rcpp", (DL_FUNC) &_rTLS_dimensionality_knn_rcpp, 5},
+    {"_rTLS_dimensionality_sphere_rcpp", (DL_FUNC) &_rTLS_dimensionality_sphere_rcpp, 5},
     {"_rTLS_euclidean_distance", (DL_FUNC) &_rTLS_euclidean_distance, 3},
     {"_rTLS_meanDis_knn_rcpp", (DL_FUNC) &_rTLS_meanDis_knn_rcpp, 4},
     {"_rTLS_minimun_distance_rcpp", (DL_FUNC) &_rTLS_minimun_distance_rcpp, 3},
