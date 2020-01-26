@@ -3,11 +3,6 @@
 #endif
 // [[Rcpp::plugins(openmp)]]
 #include <Rcpp.h>
-<<<<<<< HEAD
-#include "euclidean_distance.h"
-#include <math.h>
-=======
->>>>>>> dimensionality
 
 using namespace Rcpp;
 
@@ -20,38 +15,33 @@ NumericMatrix cartesian_to_polar_rcpp(NumericMatrix cartesian, NumericVector anc
    }
 #endif
 
-  NumericMatrix polar(cartesian.nrow(), 3);
+   NumericMatrix polar(cartesian.nrow(), 3);
 
-  static const double pi = 3.14159265;
+   static const double pi = 3.14159265;
 
 #pragma omp parallel for
-  for (int i = 0; i < cartesian.nrow(); i++) {
+   for (int i = 0; i < cartesian.nrow(); i++) {
 
-   double X = cartesian(i , 0);
-   double Y = cartesian(i , 1);
-   double Z = cartesian(i , 2);
+      double X = cartesian(i , 0);
+      double Y = cartesian(i , 1);
+      double Z = cartesian(i , 2);
 
-   //Distance
+      //Distance
 
-<<<<<<< HEAD
-   polar(i, 1) = (180 * atan2((Y - anchor[1]), (X - anchor[0])))/pi;
+      double distance = sqrt((pow(X - anchor[0], 2.0) + pow(Y - anchor[1], 2.0) + pow(Z - anchor[2], 2.0)));
 
-=======
-   double distance = sqrt((pow(X - anchor[0], 2.0) + pow(Y - anchor[1], 2.0) + pow(Z - anchor[2], 2.0)));
+      polar(i, 2) = distance;
 
-   polar(i, 2) = distance;
+      //Zenith estimations
 
-   //Zenith estimations
+      polar(i, 0) = (180 * acos((Z - anchor[2])/distance))/pi;
 
-   polar(i, 0) = (180 * acos((Z - anchor[2])/distance))/pi;
+      //Azimuth
 
-   //Azimuth
+      polar(i, 1) = (180 * atan2((Y - anchor[1]), (X - anchor[0])))/pi;
 
-   polar(i, 1) = (180 * atan2((Y - anchor[1]), (X - anchor[0])))/pi;
+   }
 
->>>>>>> dimensionality
-  }
-
-  return polar;
+   return polar;
 
 }

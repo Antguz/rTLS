@@ -10,16 +10,8 @@ export(filter)
 export(min_distance)
 export(plot_voxels)
 export(polar_to_cartesian)
-<<<<<<< HEAD
-export(random_cloud)
 export(rotate3D)
 export(rotate2D)
-export(sphere_metrics)
-export(sphere_neighbors)
-export(sub_neighborhood)
-=======
-export(rotate)
->>>>>>> dimensionality
 export(summary_voxels)
 export(tree_metrics)
 export(trunk_volume)

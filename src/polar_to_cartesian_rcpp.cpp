@@ -8,11 +8,11 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 NumericMatrix polar_to_cartesian_rcpp(NumericMatrix polar, int threads = 1) {
 
-  #ifdef _OPENMP
+#ifdef _OPENMP
   if ( threads > 0 ) {
     omp_set_num_threads( threads );
   }
-  #endif
+#endif
 
   NumericMatrix cartesian(polar.nrow(), 3);
 

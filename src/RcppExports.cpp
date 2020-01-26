@@ -145,14 +145,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-<<<<<<< HEAD
-    {"_rTLS_cartesian_to_polar_rcpp", (DL_FUNC) &_rTLS_cartesian_to_polar_rcpp, 2},
-    {"_rTLS_distanceC", (DL_FUNC) &_rTLS_distanceC, 6},
-    {"_rTLS_euclidean_distance", (DL_FUNC) &_rTLS_euclidean_distance, 2},
-    {"_rTLS_polar_to_cartesian_rcpp", (DL_FUNC) &_rTLS_polar_to_cartesian_rcpp, 1},
-    {"_rTLS_rotate2D_rcpp", (DL_FUNC) &_rTLS_rotate2D_rcpp, 3},
-    {"_rTLS_rotate3D_rcpp", (DL_FUNC) &_rTLS_rotate3D_rcpp, 5},
-=======
     {"_rTLS_cartesian_to_polar_rcpp", (DL_FUNC) &_rTLS_cartesian_to_polar_rcpp, 3},
     {"_rTLS_dimensionality_knn_rcpp", (DL_FUNC) &_rTLS_dimensionality_knn_rcpp, 5},
     {"_rTLS_dimensionality_sphere_rcpp", (DL_FUNC) &_rTLS_dimensionality_sphere_rcpp, 5},
@@ -161,8 +153,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_minimun_distance_rcpp", (DL_FUNC) &_rTLS_minimun_distance_rcpp, 3},
     {"_rTLS_nneighbors_sphere_rcpp", (DL_FUNC) &_rTLS_nneighbors_sphere_rcpp, 4},
     {"_rTLS_polar_to_cartesian_rcpp", (DL_FUNC) &_rTLS_polar_to_cartesian_rcpp, 2},
-    {"_rTLS_rotate_rcpp", (DL_FUNC) &_rTLS_rotate_rcpp, 4},
->>>>>>> dimensionality
+    {"_rTLS_rotate2D_rcpp", (DL_FUNC) &_rTLS_rotate2D_rcpp, 3},
+    {"_rTLS_rotate3D_rcpp", (DL_FUNC) &_rTLS_rotate3D_rcpp, 5},
     {NULL, NULL, 0}
 };
 
