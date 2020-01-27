@@ -8,7 +8,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-Rcpp::NumericVector euclidean_distance(Rcpp::NumericVector sample, Rcpp::NumericMatrix base, int threads = 1) {
+Rcpp::NumericVector euclidean_dist(Rcpp::NumericVector sample, Rcpp::NumericMatrix base, int threads = 1) {
 
   NumericVector distance(base.nrow());
 

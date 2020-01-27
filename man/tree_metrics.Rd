@@ -29,7 +29,7 @@ tree_metrics(pc_tree)
 
 }
 \seealso{
-\code{\link{voxels}}, \code{\link{cloud_metrics}}, \code{\link{neighborhood}}
+\code{\link{voxels}}
 }
 \author{
 J. Antonio Guzman Q. and Ronny Hernandez

@@ -15,7 +15,7 @@
 #' @importFrom sp Polygon
 #' @importFrom data.table between
 #'
-#' @seealso \code{\link{voxels}}, \code{\link{cloud_metrics}}, \code{\link{neighborhood}}
+#' @seealso \code{\link{voxels}}
 #'
 #' @examples
 #' data("pc_tree")
