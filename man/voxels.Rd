@@ -4,12 +4,14 @@
 \alias{voxels}
 \title{Voxelization of a Point Cloud}
 \usage{
-voxels(cloud, voxel.size, obj.voxels = TRUE)
+voxels(cloud, voxel.size, threads = 1L, obj.voxels = TRUE)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with *XYZ* coordinates in the first three columns.}
 
 \item{voxel.size}{A positive \code{numeric} vector with the size of the voxel. It use the same dimentional scale of the point cloud.}
+
+\item{threads}{An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.}
 
 \item{obj.voxels}{Logical. If \code{obj.voxel = TRUE}, it returns an object of class \code{"voxels"}, If \code{obj.voxel = FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel. \code{TRUE} as default.}
 }
@@ -20,9 +22,7 @@ If \code{TRUE}, it return an object of class \code{"voxels"} wich contain a list
 Create cubes of a given distance in a point cloud though their voxelization. It use a modify version of the code used in Greaves et al. 2015.
 }
 \details{
-Voxels are created from the negative to the positive *XYZ* coordinates. To include the lowers points in both coordinates, voxels are created using the lower value
-minus 1x10^-(decimals+1) of the vector with the highest decimal number. That is, if *XYZ* present three decimal numbers of precision, and the lower values in both vectors are 1, voxels
-will start to build at 0.9999. This allow to include the lowers values and reduce the number of voxels.
+Voxels are created from the negative to the positive *XYZ* coordinates.
 }
 \examples{
 data("pc_tree")
