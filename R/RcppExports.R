@@ -41,3 +41,7 @@ rotate3D_rcpp <- function(cloud, roll, pitch, yaw, threads = 1L) {
     .Call('_rTLS_rotate3D_rcpp', PACKAGE = 'rTLS', cloud, roll, pitch, yaw, threads)
 }
 
+voxelization <- function(cloud, voxel_size, threads = 1L) {
+    .Call('_rTLS_voxelization', PACKAGE = 'rTLS', cloud, voxel_size, threads)
+}
+
