@@ -22,7 +22,7 @@ Estimate the distance between a point and a gruop of point.
 \examples{
 data("pc_tree")
 
-euclidean_dist(point = c(0, 0, 0), pc_tree)
+euclidean_distance(point = c(0, 0, 0), pc_tree)
 
 }
 \author{
