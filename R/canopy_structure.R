@@ -22,8 +22,8 @@
 #' If \code{TLS.type = "fixed.angle"}, a \code{numeric} vector of length three describing the fixed zenith angle and the \code{min} and \code{max} of the azimuth angle of the scanner frame.
 #' If \code{NULL}, it assumes that a complete hemisphere (\code{c(zenith.min = 0, zenith.max = 90, azimuth.min = 0, azimuth.max = 360)}), or a cone projection (\code{c(zenith = 57.5, azimuth.min = 0, azimuth.max = 360)}) depending on \code{TLS.type}.
 #' @param TLS.angles A \code{numeric} vector of length three describing the roll (*X*), pitch (*Y*), and yaw (*Z*) angles of the scanner during the scan.
-#' It assumes that the angles are \code{c(roll = 0, pitch = 0, yaw = 0)} for default.
-#' This needs to be used if \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, since it assumes that \code{"fixed.angle"} scanner is previously balanced.
+#' If \code{NULL}, it assumes that there is no need to to correction of angles.
+#' This needs to be used if \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, since it assumes that \code{"fixed.angle"} scanner is previously balanced. \code{NULL} as default.
 #' @param TLS.coordinates A \code{numeric} vector of length three describing the scanner coordinates within \code{scan}.
 #' It assumes that the coordinates are \code{c(X = 0, Y = 0, Z = 0)} for default.
 #' @param threads An \code{integer} specifying the number of threads to use. Experiment to see what works best for your data on your hardware.
@@ -90,7 +90,7 @@
 #' }
 #'
 #' @export
-canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth.range, vertical.resolution, TLS.pulse.counts, TLS.resolution = NULL, TLS.coordinates = c(0, 0, 0), TLS.frame = NULL, TLS.angles = c(0, 0, 0), threads = 1) {
+canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth.range, vertical.resolution, TLS.pulse.counts, TLS.resolution = NULL, TLS.coordinates = c(0, 0, 0), TLS.frame = NULL, TLS.angles = NULL, threads = 1) {
 
   if(TLS.type == "multiple") {
     colnames(scan)[1:4] <- c("X", "Y", "Z", "Target_count")
@@ -143,7 +143,10 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
       scan$w <- 1
     }
 
-    scan_polar <- cbind(rotate3D(scan, roll = TLS.angles[1], pitch = TLS.angles[2], yaw = TLS.angles[3], threads), w = scan$w) ###Rotate scans
+    if(is.null{TLS.angles} != FALSE) {
+      scan_polar <- cbind(rotate3D(scan, roll = TLS.angles[1], pitch = TLS.angles[2], yaw = TLS.angles[3], threads), w = scan$w) ###Rotate scans
+    }
+
     scan_polar <- cbind(cartesian_to_polar(scan_polar[, 1:3], TLS.coordinates, threads)[,1:2], scan_polar[, 3], w = scan_polar$w) ###Convert to polar
     scan_polar <- scan_polar[between(zenith, zenith.range[1], zenith.range[2]) & between(azimuth, azimuth.range[1], azimuth.range[2]),] ###Cut to zenith and azimuth angles
   }
@@ -165,7 +168,11 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
 
     scanner$distance <- 1
     scanner <- polar_to_cartesian(scanner, threads)  #Convert to cartesian
-    scanner <- rotate3D(scanner, roll = TLS.angles[1], pitch = TLS.angles[2], yaw = TLS.angles[3], threads) #Apply correction of angles
+
+    if(is.null{TLS.angles} != FALSE) {
+      scanner <- rotate3D(scanner, roll = TLS.angles[1], pitch = TLS.angles[2], yaw = TLS.angles[3], threads) #Apply correction of angles
+    }
+
     scanner <- cartesian_to_polar(scanner, TLS.coordinates, threads) #Convert to polar
     scanner <- scanner[between(zenith, zenith.range[1], zenith.range[2]) & between(azimuth, azimuth.range[1], azimuth.range[2]), 1:2] #Cut to zenith and azimuth angles
   }
