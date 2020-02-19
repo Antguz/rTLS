@@ -15,7 +15,7 @@ canopy_structure(
   TLS.resolution = NULL,
   TLS.coordinates = c(0, 0, 0),
   TLS.frame = NULL,
-  TLS.angles = c(0, 0, 0),
+  TLS.angles = NULL,
   threads = 1
 )
 }
@@ -51,8 +51,8 @@ If \code{TLS.type = "fixed.angle"}, a \code{numeric} vector of length three desc
 If \code{NULL}, it assumes that a complete hemisphere (\code{c(zenith.min = 0, zenith.max = 90, azimuth.min = 0, azimuth.max = 360)}), or a cone projection (\code{c(zenith = 57.5, azimuth.min = 0, azimuth.max = 360)}) depending on \code{TLS.type}.}
 
 \item{TLS.angles}{A \code{numeric} vector of length three describing the roll (*X*), pitch (*Y*), and yaw (*Z*) angles of the scanner during the scan.
-It assumes that the angles are \code{c(roll = 0, pitch = 0, yaw = 0)} for default.
-This needs to be used if \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, since it assumes that \code{"fixed.angle"} scanner is previously balanced.}
+If \code{NULL}, it assumes that there is no need to to correction of angles.
+This needs to be used if \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, since it assumes that \code{"fixed.angle"} scanner is previously balanced. \code{NULL} as default.}
 
 \item{threads}{An \code{integer} specifying the number of threads to use. Experiment to see what works best for your data on your hardware.}
 }

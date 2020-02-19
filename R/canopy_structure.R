@@ -143,7 +143,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
       scan$w <- 1
     }
 
-    if(is.null{TLS.angles} != FALSE) {
+    if(is.null(TLS.angles) != FALSE) {
       scan_polar <- cbind(rotate3D(scan, roll = TLS.angles[1], pitch = TLS.angles[2], yaw = TLS.angles[3], threads), w = scan$w) ###Rotate scans
     }
 
@@ -169,7 +169,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
     scanner$distance <- 1
     scanner <- polar_to_cartesian(scanner, threads)  #Convert to cartesian
 
-    if(is.null{TLS.angles} != FALSE) {
+    if(is.null(TLS.angles) != FALSE) {
       scanner <- rotate3D(scanner, roll = TLS.angles[1], pitch = TLS.angles[2], yaw = TLS.angles[3], threads) #Apply correction of angles
     }
 
