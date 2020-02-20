@@ -125,13 +125,6 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
     }
   }
 
-
-  if(TLS.type == "single" | TLS.type == "multiple") { ###TLS angles
-    if(length(TLS.angles) != 3 | class(TLS.angles) != "numeric") {
-      stop("The length of the TLS.angles needs to be three representing the roll, pitch, and yaw of the TLS during the scan")
-    }
-  }
-
   #####Move the scan returns----------------------------------------------------------------------------------------------------------------------------
 
   if(TLS.type == "multiple" | TLS.type == "single") {
@@ -143,7 +136,9 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
       scan$w <- 1
     }
 
-    if(is.null(TLS.angles) != FALSE) {
+    if(is.null(TLS.angles) == TRUE) {
+      scan_polar <- scan
+    } else {
       scan_polar <- cbind(rotate3D(scan, roll = TLS.angles[1], pitch = TLS.angles[2], yaw = TLS.angles[3], threads), w = scan$w) ###Rotate scans
     }
 
@@ -169,7 +164,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
     scanner$distance <- 1
     scanner <- polar_to_cartesian(scanner, threads)  #Convert to cartesian
 
-    if(is.null(TLS.angles) != FALSE) {
+    if(is.null(TLS.angles) != TRUE) {
       scanner <- rotate3D(scanner, roll = TLS.angles[1], pitch = TLS.angles[2], yaw = TLS.angles[3], threads) #Apply correction of angles
     }
 
@@ -229,6 +224,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
     Pgap[, cumsum_returns := cumsum(returns), by = c("zenith")]
 
     Pgap[, Pgap := (1- (cumsum_returns/pulses)), by = seq_len(nrow(Pgap))]
+
 
   }
 
