@@ -68,8 +68,8 @@
 #' path <- system.file("extdata", "pc_tree.txt", package = "rTLS")
 #'
 #' #Creates a stand of 4 trees with 10% of overlap
-#' files <- rep(path, 50)
-#' artificial_stand(files, n.trees = 50, dimension = c(50, 50), overlap = 10)
+#' files <- rep(path, 4)
+#' artificial_stand(files, n.trees = 4, dimension = c(15, 15), overlap = 10)
 #'
 #' #Creates a stand of 4 trees with their locations
 #' location <- data.table(X = c(5, 10, 10, 5), Y = c(5, 5, 10, 10))
@@ -151,10 +151,11 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
     basetree <- subset(tree, Z >= 0 & Z <= 0.1) ####Move the tree to their base centroid
     centroidXY <- c(mean(basetree$X), mean(basetree$Y))
 
-    if(rotation == TRUE) {  ###If rotation ocur
-      tree <- move_rotate(tree, move = c(centroidXY[1], centroidXY[2], 0), rotate = c(0, 0, degrees[i]))
-    } else {
-      tree <- move_rotate(tree, move = c(centroidXY[1], centroidXY[2], 0), rotate = c(0,0,0))
+    tree$X <- tree$X - centroidXY[1]
+    tree$Y <- tree$Y - centroidXY[2]
+
+    if(rotation == TRUE) {  ###If rotation occur
+      tree <- rotate3D(tree, roll = 0, pitch = 0, yaw = degrees[i])
     }
 
     if(i == 1) {  ###Dealing with the first tree ----------------
@@ -167,7 +168,8 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
         treecoordinates <- c(xy[1,1], xy[1,2])
       }
 
-      tree <- move_rotate(tree, move = c(-treecoordinates[1], -treecoordinates[2], 0), rotate = c(0,0,0))
+      tree$X <- tree$X + treecoordinates[1]
+      tree$Y <- tree$Y + treecoordinates[2]
 
       basetree <- subset(tree, Z >= 0 & Z <= 0.1)
       newcentroidXY <- c(mean(basetree$X), mean(basetree$Y))
@@ -207,7 +209,10 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
           treecoordinates <- c(xy[1,1], xy[1,2])
         }
 
-        tree_try <- move_rotate(tree, move = c(-treecoordinates[1], -treecoordinates[2], 0), rotate = c(0,0,0))
+        tree_try <- tree
+
+        tree_try$X <- tree_try$X + treecoordinates[1]
+        tree_try$Y <- tree_try$Y + treecoordinates[2]
 
         basetree <- subset(tree_try, Z >= 0 & Z <= 0.1)
         newcentroidXY <- c(mean(basetree$X), mean(basetree$Y))
