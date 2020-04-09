@@ -1,6 +1,6 @@
 #' @title Euclidean Distance Between 3D points
 #'
-#' @description Estimate the distance between a point and a gruop of point.
+#' @description Estimate the distance between a point and a group of point.
 #'
 #' @param point A \code{numeric} vector of length three describing the *XYZ* coordinates.
 #' @param cloud A \code{data.table} with *XYZ* coordinates in the first three columns representing a point cloud.

@@ -9,7 +9,7 @@ summary_voxels(voxels, voxel.size = NULL, bootstrap = FALSE, R = NULL)
 \arguments{
 \item{voxels}{An object of class \code{voxels} created using the \code{voxels()} function or a \code{data.table} describing the voxels coordinates and their number of points produced using \code{voxels()}.}
 
-\item{voxel.size}{A positive \code{numeric} vector with the size of the voxel. This need to be used if \code{class(voxels) != "voxels"}. It use the same dimentional scale of the point cloud.}
+\item{voxel.size}{A positive \code{numeric} vector with the size of the voxel. This need to be used if \code{class(voxels) != "voxels"}. It use the same dimensional scale of the point cloud.}
 
 \item{bootstrap}{Logical, if \code{TRUE} it computes a bootstrap on the H index calculations. \code{FALSE} as default.}
 
@@ -22,8 +22,8 @@ A \code{data.table} with with the summary of \code{voxels}.
 Create a summary objects of class \code{"voxels"} created using the \code{\link{voxels}}.
 }
 \details{
-The function estimate 10 main statistics of the voxels. Specifically, the first four columns (ei. \code{Voxel.size}, \code{N_voxels}, \code{Volumen}) describe the size of the voxel used, the number of voxels created, the total volumen that they represent, and the surface area that they cover.
-Following columns represent the mean (\code{Density_mean}) and sd (\code{Density_sd}) of the density of points per voxel. Columns 7:10 provide metrics calculated using the Shannon Index. Specifically, \code{H} describe the entropy, \code{H_max} the maximun entropy, \code{Equitavility} the ratio between \code{H} and \code{Hmax}, and \code{Negentropy} describe the product of \code{Hmax} - \code{H}.
+The function estimate 10 main statistics of the voxels. Specifically, the first four columns (ei. \code{Voxel.size}, \code{N_voxels}, \code{volume}) describe the size of the voxel used, the number of voxels created, the total volume that they represent, and the surface area that they cover.
+Following columns represent the mean (\code{Density_mean}) and sd (\code{Density_sd}) of the density of points per voxel. Columns 7:10 provide metrics calculated using the Shannon Index. Specifically, \code{H} describe the entropy, \code{H_max} the maximum entropy, \code{Equitavility} the ratio between \code{H} and \code{Hmax}, and \code{Negentropy} describe the product of \code{Hmax} - \code{H}.
 If \code{bootstrap = TRUE} four more columns are created (11:14). These represent the \code{mean} and \code{sd} of the H index estimated using bootstrap (\code{H_boot_mean} and \code{H_boot_sd}), the \code{Equtavility_boot} as the ratio of the ratio between \code{H_boot_sd} and \code{Hmax}, and \code{Negentropy_boot} as the product \code{Hmax} - \code{H_boot_mean}.
 }
 \examples{

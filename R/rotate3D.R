@@ -8,11 +8,13 @@
 #' @param yaw A \code{numeric} vector describing the degrees of rotation angles for yaw (*Z*). for the roll, pitch, and yaw.
 #' @param threads An \code{integer} specifying the number of threads to use. Experiment to see what works best for your data on your hardware.
 #'
-#' @details The *XYZ* coordiantes are transformed to E-N-U coordinates (ENU system, East-North-Up).
+#' @details The *XYZ* coordinates are transformed to E-N-U coordinates (ENU system, East-North-Up).
 #'
 #' @return A \code{data.table} with the rotation applied to \code{cloud}.
 #'
 #' @author J. Antonio Guzmán Q.
+#'
+#' @importFrom data.table as.data.table
 #'
 #' @examples
 #'

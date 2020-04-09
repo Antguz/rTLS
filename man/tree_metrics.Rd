@@ -14,7 +14,7 @@ tree_metrics(cloud, region.diameter = NULL, relocateZ = TRUE)
 \item{relocateZ}{Logical, if \code{TRUE} it relocates the *Z* coordinates to a minimum coordinate of zero based on the current \code{min(cloud[,3])}. Useful if the base value (*Z*) of a tree point cloud is not topography corrected.}
 }
 \value{
-A \code{data.table} with the tree hight, crown area, and diameter
+A \code{data.table} with the tree height, crown area, and diameter
 }
 \description{
 Estimate the tree height, crown area, and the diameter at breast height of a tree point cloud

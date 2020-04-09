@@ -3,8 +3,8 @@
 #' @description Creates voxels of different size on a point cloud using the \code{\link{voxels}} function, and then return a \code{\link{summary_voxels}} of their features.
 #'
 #' @param cloud A \code{data.table} with xyz coordinates of the point clouds in the first three columns.
-#' @param voxel.sizes A positive \code{numeric} vector describing the different voxel size to perform. If \code{NULL}, it use 10 voxel sizes by defaul based on the largest range of XYZ.
-#' @param min.size A positive \code{numeric} vector of length 1 describing the minimum voxel size to perform. This is required if \code{voxel.sizes = NULL}.
+#' @param voxel.sizes A positive \code{numeric} vector describing the different voxel edge lengths to perform. If \code{NULL}, it use voxel sizes by default based on the largest range of XYZ and \code{min.size}.
+#' @param min.size A positive \code{numeric} vector of length 1 describing the minimum voxel edge length to perform. This is required if \code{voxel.sizes = NULL}.
 #' @param length.out A positive \code{interger} of length 1 indicating the number of different voxel sizes to use. This is required if \code{voxel.sizes = NULL}.
 #' @param bootstrap Logical. If \code{TRUE}, it computes a bootstrap on the H index calculations. \code{FALSE} as default.
 #' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates. This need to be used if \code{bootstrap = TRUE}.
@@ -12,6 +12,7 @@
 #' @param parallel Logical, if \code{TRUE} it uses a parallel processing for the voxelization. \code{FALSE} as default.
 #' @param cores An \code{integer} >= 0 describing the number of cores to use. This need to be used if \code{parallel = TRUE}.
 #'
+#' @import data.table
 #' @importFrom parallel makeCluster
 #' @importFrom parallel stopCluster
 #' @importFrom doSNOW registerDoSNOW

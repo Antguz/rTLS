@@ -1,0 +1,50 @@
+---
+title: "Estimation of tree metrics"
+author: "J. Antonio Guzmán Q. and Arturo Sanchez-Azofeifa"
+date: "2020-04-10"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Estimation of tree metrics}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The following examples demonstrates how to use the `tree_metrics` function of `rTLS` package to estimate: i) tree height, ii) crown area, and iii) diameter at breast height (DBH).
+
+## Steps
+
+1. Read the file
+
+First, we need to read the point clouds in R. This can be done using the function `fread` of `data.table` for a fast reading or any other traditional approach for reading tables.
+
+For this example specifically, we will use a point cloud already embedded in `rTLS`, `pc_tree`. This point cloud was created from a group of scans of a tree. It has a coarse resolution of 0.05 m for TLS standards in order to integrate it as an example into the package. The file can be load following:
+
+```r 
+
+library(rTLS)
+data(pc_tree)
+
+#Visualize the point cloud
+rgl::plot3d(pc_tree)
+
+```
+***
+
+2. Run `tree_metrics`
+
+The next step is run `tree_metrics`. This can be done following: 
+
+```r 
+tree_metrics(pc_tree)
+
+```
+In general, the tree height is estimated based on the range of the Z axis, the crown area is calculated applying a convex hull on the point cloud, and the DBH is calculated extracting the area of the convex hull on the subset of points between a given region, and then estimating the diameter of a circle. Since the estimation of the DBH is applied to a subset of points between 1.25 and 1.35 m, it tends to be affected by presence of other points that do not below to the main trunk. The selection of the region for DBH could be further modified using `region.diameter`.
+
+***

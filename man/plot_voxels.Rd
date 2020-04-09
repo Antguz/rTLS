@@ -22,7 +22,7 @@ plot_voxels(
 \arguments{
 \item{voxels}{Object of class \code{"voxels"} from \code{\link{voxels}}.}
 
-\item{add.points}{Logical, if \code{TRUE} it adds the original points used to perform the voxalization. \code{TRUE} as default.}
+\item{add.points}{Logical, if \code{TRUE} it adds the original points used to perform the voxelization. \code{TRUE} as default.}
 
 \item{add.voxels}{Logical, if \code{TRUE} it adds the voxels created. \code{TRUE} as default.}
 
@@ -34,9 +34,9 @@ plot_voxels(
 
 \item{points.size}{The points size, a positive number to use if plot \code{add.points = TRUE}.}
 
-\item{pointscol}{A \code{character} definting the color of the points to use.}
+\item{pointscol}{A \code{character} defining the color of the points to use.}
 
-\item{fillcol}{A \code{character} definting the color to fill the voxels.}
+\item{fillcol}{A \code{character} defining the color to fill the voxels.}
 
 \item{lwd}{The line width, a positive number, defaulting to 0.5.}
 

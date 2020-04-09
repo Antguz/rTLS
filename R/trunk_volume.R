@@ -4,7 +4,7 @@
 #'
 #' @param cloud A \code{data.table} with three columns representing the *XYZ* coordinates of a point cloud.
 #' @param max.height A \code{numeric} vector to contemplate points in the cloud lower than a specific height. If \code{NULL}, it performs the α-shape on the entire point cloud.
-#' @param alpha A \code{numeric} vector of lenght one passed to \code{ashape3d} to describes alpha. \code{alpha = 0.20} as default since it seems to provide better estimations of the trunk volume. However, the \code{alpha} value may depends on the resolution of the point cloud.
+#' @param alpha A \code{numeric} vector of length one passed to \code{ashape3d} to describes alpha. \code{alpha = 0.20} as default since it seems to provide better estimations of the trunk volume. However, the \code{alpha} value may depends on the resolution of the point cloud.
 #' @param plot Logical. If \code{TRUE}, it uses \code{plot.ashape3d} to represent the α-shape.
 #' @param ... General arguments passed to \code{ashape3d}.
 #'
@@ -14,7 +14,7 @@
 #' @return A \code{numeric} vector with the estimated trunk volume.
 #' @author J. Antonio Guzmán Q.
 #'
-#' @references Lafarge, T., Pateiro-Lopez, B. (2017). Implementation of the 3D Alpha-Shape for the Reconstruction of 3D Sets from a Point Cloud. Availabe at \url{https://cran.r-project.org/web/packages/alphashape3d/index.html}.
+#' @references Lafarge, T., Pateiro-Lopez, B. (2017). Implementation of the 3D Alpha-Shape for the Reconstruction of 3D Sets from a Point Cloud. Available at \url{https://cran.r-project.org/web/packages/alphashape3d/index.html}.
 #'
 #' Edelsbrunner, H., Mucke, E. P. (1994). Three-Dimensional Alpha Shapes. ACM Transactions on Graphics, 13(1), pp.43-72.
 #'

@@ -1,0 +1,127 @@
+---
+title: "Creation of artificial stands"
+author: "J. Antonio Guzmán Q. and Arturo Sanchez-Azofeifa"
+date: "2020-04-10"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Creation of artificial stands}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The following examples demonstrates how to use the `artificial_stand` function of `rTLS` package to simulate potential stands based on tree point clouds.
+
+## Motivation
+
+In general, the scanning of a plot using TLS is a time-consuming work that usually requires several people and steps to achieve a quality product. In studies where plots are the sample units, the scanning of several plots is a considerable challenge to answer specific questions. The idea behind `artificial_stand` is to provide a general overview of artificial stands that can be created and modified by users; allowing us to recreate potential scenarios of the spatial variation of the forest structure. To archive this, users can select several arguments related to the number of tree point clouds to use, the future coordinates of the trees in the stands, or the plot size, to mention some.
+
+
+## Steps
+
+1. Selection of files.
+
+Since the `artificial_stand` function is focused on tree point clouds, users should first define the location of point clouds files to use. This needs to be a vector defining the their names and where the files are located if these are not in the working directory. These files may have any ASCII format and these will be read it in `artificial_stand` using the `fread` function of `data.table`. You could define the specific delimited format of the files using the `...` argument passed to `fread`.
+
+\newpage
+
+As an example, here we will use a tree point cloud already embedded in `rTLS`, `pc_tree.txt`. This file is located in the extdata of `rTLS`, following:
+
+```r 
+library(rTLS)
+path <- system.file("extdata", "pc_tree.txt", package = "rTLS")
+
+```
+
+The structure of the location vector should be similar than `path` depending on the number and identify of point clouds for the future artificial stand. For example, if the user wants a stand with four different tree, the `path` vector should have paths for four different files. On the other hand, if the user wants a stand with four trees regardless their identity, the user can set the argument `sample = TRUE` in order to use the same path four different times. Users can also select the argument `replace = TRUE` in order to do a sample selection with replacement in scenarios when you have more paths than the number of trees required. 
+
+***
+
+2. Plot size.
+
+In order to select the plot size of the future artificial stands users can use the argument `dimension`. This need to be a vector of length two defining the width and length of the plot. It is expected that the unit scale of the point could files match with the unit scale for plot. An example for an hectare plot could be: 
+
+```r 
+plot_size <- c(100, 100)
+
+```
+
+***
+
+3. Number of trees and their coordinates.
+
+Then the number of trees for the future stand may depends on the arguments previously described in the selection of files. For this example, let's assume that we want to create a stand of 10 trees using the same point cloud. This can be done following `n.trees = 10`. 
+
+The location of these trees in the future artificial stand could be random or could be previously defined. In order to provide random coordinates to the trees in the future stands we most use `coordinates = NULL`. On the other hand, if we want to provide specific coordinates we should add a `data.table` of two columns and with \code{nrows}
+equal to \code{n.trees} describing the basal XYZ coordinates of the point clouds in the future stand.
+
+```r 
+#Number of trees
+trees <- 10
+
+#Random coordinates 
+coor_1 <- NULL
+
+#Predefined coordinates
+coor_2 <- data.table(X = c(10, 10, 30, 30, 50, 50, 70, 70, 90, 90), Y = c(25, 75, 25, 75, 25, 75, 25, 75, 25, 75))
+
+```
+
+***
+
+3. Other arguments
+
+Users should define other arguments related with the potential overlap of crowns if they use random coordinates using the `overlap` argument. In addition, user should also define if they want a random or specific rotation angles in the yaw axis of the point cloud. If the users wants a specific angle of rotation in their point clouds these need to be defined in the degrees argument using vector describing the degrees of rotation. An example of all of this could be:
+
+```r 
+# 5% of overlaping between crowns
+overl <- 5
+
+# Trees without rotation
+rota_1 <- FALSE
+
+# Trees with random rotation  
+rota_2 <- FALSE
+degreess_1 <- NULL
+
+# Trees with rotation and specific angles
+rota_3 <- FALSE
+degreess_2 <- seq(0, 360, length.out = 10)
+
+```
+
+***
+
+4. Run artificial stands.
+
+Once users have selected their arguments related to the point cloud paths, number of trees, plot size, and tree coordinates it is possible to run `artifical_stands`. Following our example of 10 trees using the same point cloud in an hectare plot we should have the following:
+
+```r 
+
+# A total random artifical stand
+stand_1 <- artificial_stand(path, n.trees = trees, dimension = plot_size, coordinates = coor_1, overlap = overl, sample = TRUE, replace = TRUE)
+
+# An artifical stand with defined tree coordinates and random tree rotation 
+stand_2 <- artificial_stand(path, n.trees = trees, dimension = plot_size, coordinates = coor_2, sample = TRUE, replace = TRUE, rotation = rota_2, degrees = degreess_1)
+
+# An artifical stand with defined tree coordinates and defined tree rotation
+stand_3 <- artificial_stand(path, n.trees = trees, dimension = plot_size, coordinates = coor_2, sample = TRUE, replace = TRUE, rotation = rota_3, degrees = degreess_2)
+
+# An artifical stand with defined tree coordinates and without tree rotation
+stand_4 <- artificial_stand(path, n.trees = trees, dimension = plot_size, coordinates = coor_2, sample = TRUE, replace = TRUE, rotation = FALSE)
+
+```
+The resulting output of this function is a list that contains:
+
+* Stand: basic information about the artificial stand (e.i. number of trees, plot size, total number of points, covered and total crown area)
+* Trees: A vector that describe the tree point clouds (e.i. tree ID, file path, tree coordinate in the plot, and crown area, and tree height)
+* Cloud: The point could of the artificial stand with the XYZ coordinate and the tree ID.
+
+***
+

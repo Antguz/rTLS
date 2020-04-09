@@ -17,7 +17,7 @@ euclidean_distance(point, cloud, threads = 1L)
 A \code{numeric} vector describing of \code{point} to each row of \code{cloud}.
 }
 \description{
-Estimate the distance between a point and a gruop of point.
+Estimate the distance between a point and a group of point.
 }
 \examples{
 data("pc_tree")

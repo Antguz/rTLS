@@ -4,14 +4,14 @@
 #'
 #' @aliases plot_voxels
 #' @param voxels Object of class \code{"voxels"} from \code{\link{voxels}}.
-#' @param add.points Logical, if \code{TRUE} it adds the original points used to perform the voxalization. \code{TRUE} as default.
+#' @param add.points Logical, if \code{TRUE} it adds the original points used to perform the voxelization. \code{TRUE} as default.
 #' @param add.voxels Logical, if \code{TRUE} it adds the voxels created. \code{TRUE} as default.
 #' @param border Logical, if \code{TRUE} it adds a line on the borders of each voxel. \code{TRUE} as default.
 #' @param fill Logical, if \code{TRUE} it fills each voxels with colors. \code{TRUE} as default.
 #' @param gradientcol Logical, if \code{TRUE} it uses a gradient of colors based on the number of points in each voxels. \code{FALSE} as default.
 #' @param points.size The points size, a positive number to use if plot \code{add.points = TRUE}.
-#' @param pointscol A \code{character} definting the color of the points to use.
-#' @param fillcol A \code{character} definting the color to fill the voxels.
+#' @param pointscol A \code{character} defining the color of the points to use.
+#' @param fillcol A \code{character} defining the color to fill the voxels.
 #' @param lwd The line width, a positive number, defaulting to 0.5.
 #' @param alpha A positive numeric vector describing the transparency of the voxels to fill. This value most be between 0.0 (fully transparent) .. 1.0 (opaque).
 #' @param ... General arguments passed to \code{\link{rgl}}.

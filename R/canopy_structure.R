@@ -8,7 +8,7 @@
 #' @param zenith.range If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, a \code{numeric} vector of length two describing the \code{min} and \code{max} range of the zenith angle to use.
 #' Theoretically, the \code{max} range should be lower than 90 degrees.
 #' @param zenith.rings If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, a \code{numeric} vector of length one describing the number of zenith rings to use between \code{zenith.range}.
-#' This is used to estimate the frecuency of laser shots from the scanner and returns in \code{scan}. If \code{TLS.type = "fixed.angle"}, \code{zenith.rings = 1} be default.
+#' This is used to estimate the frequency of laser shots from the scanner and returns in \code{scan}. If \code{TLS.type = "fixed.angle"}, \code{zenith.rings = 1} be default.
 #' @param azimuth.range A \code{numeric} vector of length two describing the range of the azimuth angle to use. Theoretically, it should be between 0 and 360 degrees.
 #' @param vertical.resolution A \code{numeric} vector of length one describing the vertical resolution to extract the vertical profiles. Low values lead to more variable profiles.
 #' The scale used needs to be in congruence with the scale of \code{scan}.
@@ -28,18 +28,18 @@
 #' It assumes that the coordinates are \code{c(X = 0, Y = 0, Z = 0)} for default.
 #' @param threads An \code{integer} specifying the number of threads to use. Experiment to see what works best for your data on your hardware.
 #'
-#' @details Since \code{scan} describes discrete returns measured by the TLS, \code{canopy_structre} first simulates the number of pulses emited based on Danson et al. (2007). The simulated pulses are
+#' @details Since \code{scan} describes discrete returns measured by the TLS, \code{canopy_structre} first simulates the number of pulses emitted based on Danson et al. (2007). The simulated pulses are
 #' created based on the TLS properties (\code{TLS.pulse.counts, TLS.resolution, TLS.frame}) assuming that the scanner is perfectly balance. Then these pulses are rotated (\code{\link{rotate3D}}) based on the \code{TLS.angles}
 #' roll, pitch, and yaw, and move to \code{TLS.coordintates} to simulate the positioning of the scanner during the \code{scan}. Rotated simulated-pulses of interest and \code{scan} returns are then extracted based on the \code{zenith.range} and \code{azimuth.range} for a given number of \code{zenith.rings}, \code{azimuth.rings} and vertical profiles.
-#' Using the frecuency of pulses and returns the probabiliry of gap (Pgap) is estimated. For \code{TLS.type = "multiple"}, the frecuency of returns is estimated using the sum of 1/target count following Lovell et al. (2011).
+#' Using the frequency of pulses and returns the probability of gap (Pgap) is estimated. For \code{TLS.type = "multiple"}, the frequency of returns is estimated using the sum of 1/target count following Lovell et al. (2011).
 #'
 #' Using the Pgap estimated per each zenith ring and vertical profile, \code{canopy_structure} then estimates the accumulative L(z) profiles based on the closest
 #' zenith ring to 57.5 (hinge region) and, if \code{TLS.type = "fixed.angle"}, the f(z) or commonly named PAVD based on the ratio of the
 #' derivative of L(z) and height (z) following Jupp et al. 2009 (Equation 18). If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, \code{canopy_structure} also
-#' estimates the normalised average weighted L/LAI, and then PAVD based on the L (hinge angle) at the highest height (LAI) and the ratio between the derivative
+#' estimates the normalized average weighted L/LAI, and then PAVD based on the L (hinge angle) at the highest height (LAI) and the ratio between the derivative
 #' of L/LAI (average weighted) and the derivative of z (Jupp et al. 2009; Equation 21).
 #'
-#' Jupp et al. 2009 excludes the zero zenith or fist ring to conduct the average weighted L/LAI estimations, \code{canopy_structre} does not excludes this sections since it depents on the regions of interest of the user.
+#' Jupp et al. 2009 excludes the zero zenith or fist ring to conduct the average weighted L/LAI estimations, \code{canopy_structre} does not excludes this sections since it depends on the regions of interest of the user.
 #' Therefore, user should consider this difference since it may introduce more variability to profile estimations.
 #'
 #' @references
@@ -52,16 +52,15 @@
 #'
 #' @return For any \code{TLS.type}, it returns a \code{data.table} with the height profiles defined by \code{vertical.resolution}, the gap probability based on the \code{zenith.range} and \code{zenith.rings}, and
 #' the accumulative L(z) profiles based on the closest zenith ring to 57.5 degrees (hinge angle). If \code{TLS.type} is equal to \code{"fixed.angle"}, it returns f(z) or commonly named PAVD based on
-#' on the ratio of the derivative of L(z) and the derivative of height (z). If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, it returns the normalised average weighting L/LAI, and PAVD: based
+#' on the ratio of the derivative of L(z) and the derivative of height (z). If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, it returns the normalized average weighting L/LAI, and PAVD: based
 #' on the L (hinge angle) at the highest height and the ratio between the derivative of L/LAI average weighted and the derivative of z.
 #'
 #'
 #' @author J. Antonio Guzmán Q.
 #'
-#' @importFrom data.table between
-#' @importFrom data.table CJ
 #' @importFrom stats reshape
 #' @importFrom stats weighted.mean
+#' @import data.table
 #'
 #' @examples
 #'

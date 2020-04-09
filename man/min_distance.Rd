@@ -2,7 +2,7 @@
 % Please edit documentation in R/min_distance.R
 \name{min_distance}
 \alias{min_distance}
-\title{Minimun Distance Between Points}
+\title{Minimum Distance Between Points}
 \usage{
 min_distance(cloud, threads = 1, progress = TRUE)
 }
@@ -14,7 +14,7 @@ min_distance(cloud, threads = 1, progress = TRUE)
 \item{progress}{Show progress. \code{TRUE} as default.}
 }
 \value{
-A \code{numeric} vector describing the minimun distance between points.
+A \code{numeric} vector describing the minimum distance between points.
 }
 \description{
 Estimate the minimum distance between points in a point cloud.
@@ -22,7 +22,7 @@ Estimate the minimum distance between points in a point cloud.
 \examples{
 data("pc_tree")
 
-#Estimate the minimun distance of a sample o 100 points
+#Estimate the minimum distance of a sample o 100 points
 cloud_sample <- pc_tree[sample(nrow(pc_tree), 100), ]
 min_distance(cloud_sample)
 

@@ -5,7 +5,7 @@
 #' @param cloud A \code{data.table} contain three columns representing the *XYZ* coordinates.
 #' @param method A filtering method to use. It most be \code{"SOR"} or \code{"min_n"}.
 #' @param radius A \code{numeric} vector representing the radius of the sphere to consider. This needs to be used if \code{method = "min_n"}.
-#' @param min_n An \code{integer} representing the minimun number of neighbors to keep a given point. This needs to be used if \code{method = "min_n"}.
+#' @param min_n An \code{integer} representing the minimum number of neighbors to keep a given point. This needs to be used if \code{method = "min_n"}.
 #' @param k An \code{integer} vector representing the number of neighbors to consider. This needs be used if \code{method = "SOR"}.
 #' @param nSigma A \code{numeric} vector representing the standard deviation multiplier. This needs to be used if \code{method = "SOR"}.
 #' @param threads An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.

@@ -1,0 +1,80 @@
+---
+title: "Voxel counting and fractal geometry"
+author: "J. Antonio Guzmán Q. and Arturo Sanchez-Azofeifa"
+date: "2020-04-10"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Voxel counting and fractal geometry}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The following examples demonstrates how to use the `voxel_counting` function of `rTLS` package to estimate the fractal geometry (Minkowski–Bouligand dimension) of point clouds. In general, this function is based on `voxel` (also from `rTLS`) and summarize the properties of the voxelization using different scales.
+
+## Background
+
+The Minkowski–Bouligand dimension, or commonly known as the box-counting method, is a way of sampling complex patterns in a given object by breaking the object into smaller and smaller boxes while extracting the rate of change. Here because we are dealing with point clouds with three dimensions, voxels of a given volume are used instead of boxes. 
+
+In practice, a given point cloud can be covered using a single large voxel (N<sub>1</sub> = 1) of size S<sub>1</sub>, but as S is reduced in volume (S<sub>1</sub> > S<sub>2</sub> … > S<sub>n</sub>), the number of voxels required (N > 1) to cover it will increase. Since N increases as a power function, it is positive to estimate the Minkowski-Boulingand dimension by a log-log linear model. This can be done by `rTLS` following the next steps.
+
+## Steps
+1. Read the file
+
+First, we need to read the point clouds in R. This can be done using the function `fread` of `data.table` for a fast reading or any other traditional approach for reading tables.
+
+For this example specifically, we will use a point cloud already embedded in `rTLS`, `pc_tree`. This point cloud was created from a group of scans of a tree. It has a coarse resolution of 0.05 m for TLS standards in order to integrate it as an example into the package. The file can be load following:
+
+```r 
+
+library(rTLS)
+data(pc_tree)
+
+#Visualize the point cloud
+rgl::plot3d(pc_tree)
+
+```
+***
+
+2. Run `voxel_counting`
+
+The following step is running `voxel_counting`. In order to estimate the fractal geometry we need to consider a series of requirements. Specifically we need to consider the minimum and maximum voxel edge length (lower and upper cut-off), and the number of scales to perform. These are important steps since if the voxel edge length is lower than the minimum distance between points or higher than the largest range of XYZ we will loss the power-law relationship between the number of voxels and the voxel size. Using `voxel_counting` we can define both requirements using `voxel.sizes` manually, or if this is null, we can define the number of scales to use by `length.out` and selecting the minimum voxel size by `min.size`. If `voxel.sizes = NULL`, the function selects the maximum voxel size based on the largest range of XYZ. Since the resolution of the point cloud is 0.05 m we can use this as a value value of minimum voxel size. This can be performed following:
+
+```r
+
+fractals <- voxels_counting(pc_tree, min.size = 0.05)
+
+```
+
+Other ways to select the `min.size` is estimating the minimum distance between points. This can be done also using 'min_distance' function also from `rTLS`. 
+
+```r 
+
+#Regular processing
+low_size <- min_distance(pc_tree)
+
+#or using parallel processing
+low_size <- min_distance(pc_tree, threads = 4)
+
+```
+***
+
+3. Estimation of the fractal geometry by voxel counting
+
+Using the outputs of `voxel_counting` is then possible to estimate the fractal geometry. As mentioned before, this can be done by fitting a log-log regression between N (`fractals$N_voxels`) and S (`fractals$Voxel.size^3`). In practice, the Minkowski–Bouligand dimension is estimated using 1/S in order to obtain positive slopes. This can be done following:
+
+```r
+
+dimention <- lm(log10(N_voxels) ~ log10(1/(Voxel.size^3)), data = fractals)
+
+```
+
+The coefficients from this relationship represent the fractal dimension (d<sub>MB</sub>;`dimention$coefficients[2]`) and the intercept (intercept<sub>MB</sub>;, `dimention$coefficients[1]`). In general, the resulting d<sub>MB</sub> may have a value between 0 and 1, where values close to 1 represents a tree that uniformly occupies their 3D space (such as a Menger sponge with the greatest surface‐to‐volume ratio), while values close to 0 represents a cylindrical tree (such as a pole‐like object) or a point cloud with two points. On the other hand, the intercept<sub>MB</sub> may have positive and negative values, where high values tend to be associated with large objects that require several voxels to fill at different scales.
+
+***

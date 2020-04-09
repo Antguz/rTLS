@@ -14,7 +14,7 @@ using arma::min;
 using namespace arma;
 
 // [[Rcpp::export]]
-double minimun_distance_rcpp(arma::mat amat, int threads = 1, bool progress = true) {
+double minimum_distance_rcpp(arma::mat amat, int threads = 1, bool progress = true) {
 
 #ifdef _OPENMP
   if ( threads > 0 ) {

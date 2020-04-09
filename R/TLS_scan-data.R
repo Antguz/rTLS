@@ -12,8 +12,8 @@
 #' \item{Target_index}{The rank of the returned pulse in the target count of received by the same laser shot}
 #' }
 #'
-#' @details A TLS scan conducted using a Reigel VZ400i with a vertical and horizonal resolution of 0.04 degrees. The scanner has frame of scanning between 30 and 130 degrees zenith and 0 and 360 degrees azimuth.
-#' At the moment of the scan the roll, pitch, and yaw of the scanner were 0.293, -0.835, -150.159, respectivly. The scanner coodinates in this scan are \code{x = 0, y = 0, z = 0}.
+#' @details A TLS scan conducted using a Reigel VZ400i with a vertical and horizontal resolution of 0.04 degrees. The scanner has frame of scanning between 30 and 130 degrees zenith and 0 and 360 degrees azimuth.
+#' At the moment of the scan the roll, pitch, and yaw of the scanner were 0.293, -0.835, -150.159, respectively. The scanner coordinates in this scan are \code{x = 0, y = 0, z = 0}.
 #'
 #' @usage data(TLS_scan)
 #'

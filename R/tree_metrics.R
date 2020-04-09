@@ -6,14 +6,14 @@
 #' @param region.diameter A \code{numeric} vector of length 2 indicating the lower and higher region to subset the point cloud and get the diameter. If \code{region.diameter = NULL}, it use \code{c(1.25, 1.35)}. \code{NULL} as default.
 #' @param relocateZ Logical, if \code{TRUE} it relocates the *Z* coordinates to a minimum coordinate of zero based on the current \code{min(cloud[,3])}. Useful if the base value (*Z*) of a tree point cloud is not topography corrected.
 #'
-#' @return A \code{data.table} with the tree hight, crown area, and diameter
+#' @return A \code{data.table} with the tree height, crown area, and diameter
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #'
 #' @details The tree height is estimated based on the maximum value of *Z*, the crown area is calculated applying a convex hull on the point cloud,
 #' while the DBH is calculated extracting the area of the convex hull on the subset of points between \code{region.diameter}, and then estimating the diameter of a circle.
 #'
 #' @importFrom sp Polygon
-#' @importFrom data.table between
+#' @importFrom data.table data.table
 #'
 #' @seealso \code{\link{voxels}}
 #'

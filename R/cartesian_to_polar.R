@@ -1,6 +1,6 @@
 #' @title Cartesian to Polar Coordinates
 #'
-#' @description Conver from East-North-Up cartesian coordinates to polar coordinates.
+#' @description Convert from East-North-Up cartesian coordinates to polar coordinates.
 #'
 #' @param cartesian A \code{data.table} with three columns describing the *XYZ* coordinates of a point cloud.
 #' @param anchor A \code{numeric} vector of length three which describe the *XYZ* anchor coordinate for reference to get the polar coordinates. It assumes that the reference coordinates are \code{c(X = 0, Y = 0, Z = 0)} as default.
@@ -13,6 +13,8 @@
 #' @return A \code{data.table} with the zenith and azimuth angles (degrees), and the distance to the anchor coordinate.
 #'
 #' @author J. Antonio Guzmán Q.
+#'
+#' @useDynLib rTLS, .registration = TRUE
 #'
 #' @seealso \code{\link{polar_to_cartesian}}
 #'

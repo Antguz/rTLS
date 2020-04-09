@@ -2,46 +2,46 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 cartesian_to_polar_rcpp <- function(cartesian, anchor, threads = 1L) {
-    .Call('_rTLS_cartesian_to_polar_rcpp', PACKAGE = 'rTLS', cartesian, anchor, threads)
+    .Call(`_rTLS_cartesian_to_polar_rcpp`, cartesian, anchor, threads)
 }
 
 dimensionality_knn_rcpp <- function(amat, bmat, k, threads = 1L, progress = TRUE) {
-    .Call('_rTLS_dimensionality_knn_rcpp', PACKAGE = 'rTLS', amat, bmat, k, threads, progress)
+    .Call(`_rTLS_dimensionality_knn_rcpp`, amat, bmat, k, threads, progress)
 }
 
 dimensionality_sphere_rcpp <- function(amat, bmat, radius, threads = 1L, progress = TRUE) {
-    .Call('_rTLS_dimensionality_sphere_rcpp', PACKAGE = 'rTLS', amat, bmat, radius, threads, progress)
+    .Call(`_rTLS_dimensionality_sphere_rcpp`, amat, bmat, radius, threads, progress)
 }
 
 euclidean_dist <- function(sample, base, threads = 1L) {
-    .Call('_rTLS_euclidean_dist', PACKAGE = 'rTLS', sample, base, threads)
+    .Call(`_rTLS_euclidean_dist`, sample, base, threads)
 }
 
 meanDis_knn_rcpp <- function(amat, k, threads = 1L, progress = TRUE) {
-    .Call('_rTLS_meanDis_knn_rcpp', PACKAGE = 'rTLS', amat, k, threads, progress)
+    .Call(`_rTLS_meanDis_knn_rcpp`, amat, k, threads, progress)
 }
 
-minimun_distance_rcpp <- function(amat, threads = 1L, progress = TRUE) {
-    .Call('_rTLS_minimun_distance_rcpp', PACKAGE = 'rTLS', amat, threads, progress)
+minimum_distance_rcpp <- function(amat, threads = 1L, progress = TRUE) {
+    .Call(`_rTLS_minimum_distance_rcpp`, amat, threads, progress)
 }
 
 nneighbors_sphere_rcpp <- function(amat, radius, threads = 1L, progress = TRUE) {
-    .Call('_rTLS_nneighbors_sphere_rcpp', PACKAGE = 'rTLS', amat, radius, threads, progress)
+    .Call(`_rTLS_nneighbors_sphere_rcpp`, amat, radius, threads, progress)
 }
 
 polar_to_cartesian_rcpp <- function(polar, threads = 1L) {
-    .Call('_rTLS_polar_to_cartesian_rcpp', PACKAGE = 'rTLS', polar, threads)
+    .Call(`_rTLS_polar_to_cartesian_rcpp`, polar, threads)
 }
 
 rotate2D_rcpp <- function(plane, angle, threads = 1L) {
-    .Call('_rTLS_rotate2D_rcpp', PACKAGE = 'rTLS', plane, angle, threads)
+    .Call(`_rTLS_rotate2D_rcpp`, plane, angle, threads)
 }
 
 rotate3D_rcpp <- function(cloud, roll, pitch, yaw, threads = 1L) {
-    .Call('_rTLS_rotate3D_rcpp', PACKAGE = 'rTLS', cloud, roll, pitch, yaw, threads)
+    .Call(`_rTLS_rotate3D_rcpp`, cloud, roll, pitch, yaw, threads)
 }
 
 voxelization <- function(cloud, voxel_size, threads = 1L) {
-    .Call('_rTLS_voxelization', PACKAGE = 'rTLS', cloud, voxel_size, threads)
+    .Call(`_rTLS_voxelization`, cloud, voxel_size, threads)
 }
 

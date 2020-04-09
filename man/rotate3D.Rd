@@ -24,7 +24,7 @@ A \code{data.table} with the rotation applied to \code{cloud}.
 Rotate point cloud based on the roll, pitch, and yaw angles.
 }
 \details{
-The *XYZ* coordiantes are transformed to E-N-U coordinates (ENU system, East-North-Up).
+The *XYZ* coordinates are transformed to E-N-U coordinates (ENU system, East-North-Up).
 }
 \examples{
 

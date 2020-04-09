@@ -14,7 +14,7 @@ artificial_stand(
   overlap = NULL,
   rotation = TRUE,
   degrees = NULL,
-  n_attemps = 100,
+  n_attempts = 100,
   plot = TRUE,
   ...
 )
@@ -45,8 +45,8 @@ coordinates based on stand dimension. \code{NULL} as default.}
 
 \item{degrees}{A positive \code{numeric} vector describing the degrees of rotation of the point clouds in the future stand. The \code{length(degree)} should be the same as \code{n.trees}. If \code{NULL}, it creates random degrees of rotation for each \code{n.trees}.}
 
-\item{n_attemps}{A positive \code{numeric} vector of length one describing the number of attemps to provide random \code{coordinates} until a tree met the \code{overlap} criteria.
-This needs to be used if \code{coordinate = NULL} and \code{overlap != NULL}. \code{n_attemps = 100} as default.}
+\item{n_attempts}{A positive \code{numeric} vector of length one describing the number of attempts to provide random \code{coordinates} until a tree met the \code{overlap} criteria.
+This needs to be used if \code{coordinate = NULL} and \code{overlap != NULL}. \code{n_attempts = 100} as default.}
 
 \item{plot}{Logical. If \code{TRUE}, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.}
 
@@ -71,11 +71,11 @@ random coordinates will be provided until the requirements are met.
 Since \code{artificial_stand} will try to add tree to the stand until the
 requirements are met, this could lead to an infinite loop if the stand
 \code{dimention} is small or if the trees on \code{files} are large or many
-\code{n.trees}. Therefore, the use of \code{n_attemps} is recomended to avoid
+\code{n.trees}. Therefore, the use of \code{n_attempts} is recommended to avoid
 this scenario.
 }
 \examples{
-#Import an example point cloud
+#' #Import an example point cloud
 path <- system.file("extdata", "pc_tree.txt", package = "rTLS")
 
 #Creates a stand of 4 trees with 10\% of overlap
@@ -85,6 +85,7 @@ artificial_stand(files, n.trees = 4, dimension = c(15, 15), overlap = 10)
 #Creates a stand of 4 trees with their locations
 location <- data.table(X = c(5, 10, 10, 5), Y = c(5, 5, 10, 10))
 artificial_stand(files, n.trees = 4, dimension = c(15, 15), coordinates = location)
+
 
 }
 \seealso{

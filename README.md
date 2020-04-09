@@ -16,7 +16,7 @@ Originally, ___rTLS___ started as a hobby by [J. Antonio Guzman Q.](https://www.
 
 ___rTLS___ goal is to provide a single environment to process point clouds as fast as it can be done. That it is why the ___rTLS___ coding has been evolving using different packages. The current code has been enhanced using C++ language through `Rcpp` and `RcppArmadillo` packages, and most of the time-consuming processed can be run using for parallel computing through `OpenMP`. In the future, if there is a faster way to run our main routines, we will probably change our code!
 
-The current development of ___rTLS___ is focussed on five major processes applied on TLS scans: i) voxelization, ii) point neighborhood features, iii) filtering, and iv) optimal voxel and entropy, and iv) estimation of the forest structure. Likewise, the package also containg other functions that can be used to mange point clouds such as 2D- 3D-rotation, convertion to cartinal-polar coordinates, and functions to estimate tree metrics such as truck volume or crown area.
+The current development of ___rTLS___ is focused on five major processes applied on TLS scans: i) voxelization, ii) point neighborhood features, iii) filtering, and iv) optimal voxel and entropy, and iv) estimation of the forest structure. Likewise, the package also contains other functions that can be used to mange point clouds such as 2D- 3D-rotation, conversion to cardinal-polar coordinates, and functions to estimate tree metrics such as truck volume or crown area.
 
 ### Major features include:
 
@@ -26,23 +26,23 @@ The current development of ___rTLS___ is focussed on five major processes applie
 
 * Fast voxelization using grid base methods.
 
-* Aplications of voxel-counting methods.
+* Applications of voxel-counting methods.
 
-* Estimation of dimensionality of the neigboring points using two approach: 
+* Estimation of dimensionality of the neighboring points using two approach: 
     + sphere neighborhood. 
     + k-nearest neighbors.
 
-* Calculation of basic metrics on neigboring points.
+* Calculation of basic metrics on neighboring points.
 
-* Calculation of the dispersion, aggregation, and mean distance of the neigboring points.
+* Calculation of the dispersion, aggregation, and mean distance of the neighboring points.
 
 * Estimation of dimensionality.
 
-* Estimation of the optimal voxel and sphere size using information theory (comming soon).
+* Estimation of the optimal voxel and sphere size using information theory (coming soon).
 
 ### Installation
 
-You can install the ___rTLS___ using the CRAN plataform following (pending)
+You can install the ___rTLS___ using the CRAN platform following (pending)
 
 ```{r}
 install.packages("rTLS")

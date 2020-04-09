@@ -14,7 +14,7 @@
 #' Since \code{artificial_stand} will try to add tree to the stand until the
 #' requirements are met, this could lead to an infinite loop if the stand
 #' \code{dimention} is small or if the trees on \code{files} are large or many
-#' \code{n.trees}. Therefore, the use of \code{n_attemps} is recomended to avoid
+#' \code{n.trees}. Therefore, the use of \code{n_attempts} is recommended to avoid
 #' this scenario.
 #'
 #' @param files A \code{character} vector describing the file name or path of
@@ -34,8 +34,8 @@
 #' @param rotation Logical. If \code{TRUE}, it performs a rotation in yaw axis of the point cloud. \code{TRUE} as default.
 #' @param degrees A positive \code{numeric} vector describing the degrees of rotation of the point clouds in the future stand. The \code{length(degree)} should be the same as \code{n.trees}. If \code{NULL}, it creates random degrees of rotation for each \code{n.trees}.
 #' @param plot Logical. If \code{TRUE}, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.
-#' @param n_attemps A positive \code{numeric} vector of length one describing the number of attemps to provide random \code{coordinates} until a tree met the \code{overlap} criteria.
-#' This needs to be used if \code{coordinate = NULL} and \code{overlap != NULL}. \code{n_attemps = 100} as default.
+#' @param n_attempts A positive \code{numeric} vector of length one describing the number of attempts to provide random \code{coordinates} until a tree met the \code{overlap} criteria.
+#' This needs to be used if \code{coordinate = NULL} and \code{overlap != NULL}. \code{n_attempts = 100} as default.
 #' @param ... Parameters passed to \code{\link{fread}} for the reading of \code{files}.
 #'
 #'
@@ -53,18 +53,19 @@
 #' @importFrom foreach foreach
 #' @importFrom foreach %do%
 #' @importFrom stats runif
+#' @importFrom stats na.exclude
 #' @importFrom data.table data.table
 #' @importFrom data.table fread
 #' @importFrom utils txtProgressBar
 #' @importFrom utils setTxtProgressBar
 #' @importFrom grDevices chull
 #' @importFrom graphics points
-#'
+#' @useDynLib rTLS, .registration = TRUE
 #'
 #' @seealso \code{\link{voxels_counting}}
 #'
 #' @examples
-#' #Import an example point cloud
+#' #' #Import an example point cloud
 #' path <- system.file("extdata", "pc_tree.txt", package = "rTLS")
 #'
 #' #Creates a stand of 4 trees with 10% of overlap
@@ -75,8 +76,9 @@
 #' location <- data.table(X = c(5, 10, 10, 5), Y = c(5, 5, 10, 10))
 #' artificial_stand(files, n.trees = 4, dimension = c(15, 15), coordinates = location)
 #'
+#'
 #' @export
-artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, sample = TRUE, replace = TRUE, overlap = NULL, rotation = TRUE, degrees = NULL, n_attemps = 100, plot = TRUE, ...) {
+artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, sample = TRUE, replace = TRUE, overlap = NULL, rotation = TRUE, degrees = NULL, n_attempts = 100, plot = TRUE, ...) {
 
   ####Posible errors or assumtions ------------------------------------------------------------------------------
 
@@ -122,7 +124,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
 
   stant <- NA ###Final stant to create
   spatial_stant <- NA
-  tcoordinates <- data.table(files = filestoread, Xcoordinate = NA, Ycoordinate = NA, CA = NA, Hmax = NA)
+  tcoordinates <- data.table(Tree = 1:n.trees, file = filestoread, Xcoordinate = NA, Ycoordinate = NA, CA = NA, Hmax = NA)
 
   if(plot == TRUE) { ####If plot obtion is truee
     plotXY <- matrix(c(0, 0, dimension[1], 0, dimension[1], dimension[2], 0, dimension[2], 0 , 0), ncol = 2, byrow = TRUE)
@@ -181,7 +183,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
       spatial_stant <- SpatialPolygons(list(ps_crown))
       available_space <- gDifference(spatial_plotXY, spatial_stant)
 
-      tree$files <- filestoread[i]
+      tree$Tree <- i
       stant <- tree
 
       if(plot == TRUE) {
@@ -234,7 +236,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
             points(newcentroidXY[1], newcentroidXY[2], col = "red")
           }
 
-          tree_try$files <- filestoread[i]
+          tree_try$Tree <- i
           stant <- rbind(stant, tree_try)
 
           spatial_stant <- gUnion(spatial_crown, spatial_stant)
@@ -253,7 +255,7 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
             points(newcentroidXY[1], newcentroidXY[2], col = "red")
           }
 
-          tree_try$files <- filestoread[i]
+          tree_try$Tree <- i
           stant <- rbind(stant, tree_try)
 
           spatial_stant <- gUnion(spatial_crown, spatial_stant)
@@ -264,8 +266,8 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
           tcoordinates$CA[i] <- gArea(spatial_crown)
           tcoordinates$Hmax[i] <- max(tree_try$Z)
           break
-        } else if(try > n_attemps) {
-          stop("artificial_stand was stopped due to the n_attemps exceeds the established number, Try it again and/or reduce the value of the parameters of overlap or n.trees", call. = FALSE)
+        } else if(try > n_attempts) {
+          stop("artificial_stand was stopped due to the n_attempts exceeds the established number, Try it again and/or reduce the value of the parameters of overlap or n.trees", call. = FALSE)
         }
       }
     }

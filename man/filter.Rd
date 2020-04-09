@@ -13,7 +13,7 @@ filter(cloud, method, radius, min_n, k, nSigma, threads = 1L, progress = TRUE)
 
 \item{radius}{A \code{numeric} vector representing the radius of the sphere to consider. This needs to be used if \code{method = "min_n"}.}
 
-\item{min_n}{An \code{integer} representing the minimun number of neighbors to keep a given point. This needs to be used if \code{method = "min_n"}.}
+\item{min_n}{An \code{integer} representing the minimum number of neighbors to keep a given point. This needs to be used if \code{method = "min_n"}.}
 
 \item{k}{An \code{integer} vector representing the number of neighbors to consider. This needs be used if \code{method = "SOR"}.}
 
