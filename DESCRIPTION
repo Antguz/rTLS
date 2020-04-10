@@ -12,12 +12,13 @@ Authors@R:
       person(given = "Ronny",
              family = "Hernandez",
              role = "aut",
-             email = "ronny.hernandezm@gmail.com"),
+             email = "ronny.hernandezm@gmail.com",
+             comment = c(ORCID = "0000-0001-6225-7096")),
       person(given = "Arturo",
              family = "Sanchez-Azofeifa",
              role = "ths",
              email = "arturo.sanchez@ualberta.ca",
-             comment = c(ORCID = "0000-0001- 7768-6600")))
+             comment = c(ORCID = "0000-0001-7768-6600")))
 Description: A package that compiles a set of tools to process and calculate metrics on point clouds derived from terrestrial LiDAR (Light Detection and Ranging). Its creation is based on key aspects of the TLS application in forestry. Currently, the main routines are based on filtering, neighboring features of points, voxelization, optimal sphere or voxel size, and the creation of artificial stands. rTLS is written using data.table and C++ language and in most of the functions it is posible to use parallel processing to speed-up the routines.
 License: GPL-2
 URL: https://github.com/Antguz/rTLS
