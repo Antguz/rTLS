@@ -24,16 +24,16 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Antonio Guzmán \email{antguz06@gmail.com} (\href{https://orcid.org/0000-0002-0721-148X}{ORCID})
+\strong{Maintainer}: J. Antonio Guzmán Q. \email{antguz06@gmail.com} (\href{https://orcid.org/0000-0002-0721-148X}{ORCID})
 
 Authors:
 \itemize{
-  \item Ronny Hernandez \email{ronny.hernandezm@gmail.com}
+  \item Ronny Hernandez \email{ronny.hernandezm@gmail.com} (\href{https://orcid.org/0000-0001-6225-7096}{ORCID})
 }
 
 Other contributors:
 \itemize{
-  \item Arturo Sanchez-Azofeifa \email{arturo.sanchez@ualberta.ca} (\href{https://orcid.org/0000-0001- 7768-6600}{ORCID}) [thesis advisor]
+  \item Arturo Sanchez-Azofeifa \email{arturo.sanchez@ualberta.ca} (\href{https://orcid.org/0000-0001-7768-6600}{ORCID}) [thesis advisor]
 }
 
 }

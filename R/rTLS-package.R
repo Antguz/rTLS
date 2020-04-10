@@ -12,6 +12,6 @@
 #' @import data.table
 "_PACKAGE"
 
-utils::globalVariables(c("Target_count", "Voxel.size",
+utils::globalVariables(c(".", "Target_count", "Voxel.size",
                          "X", "Y", "Z", "azimuth", "cumsum_returns",
                          "i", "pulses", "returns", "w", "zenith"))

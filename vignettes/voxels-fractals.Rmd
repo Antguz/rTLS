@@ -1,6 +1,5 @@
 ---
 title: "Voxel counting and fractal geometry"
-author: "J. Antonio Guzmán Q. and Arturo Sanchez-Azofeifa"
 date: "2020-04-10"
 output: rmarkdown::html_vignette
 vignette: >

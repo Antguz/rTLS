@@ -88,15 +88,16 @@
   <div class="contents col-md-9">
 
 
-<p align="right">
-<img width="139" height="150" src="https://user-images.githubusercontent.com/7254767/63565288-a0939880-c525-11e9-9b51-eff30398dba0.png"></p>
-<div id="rtls" class="section level1">
+<hr>
+<div id="rtls-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#rtls" class="anchor"></a>rTLS</h1></div>
-<p>This is an R package to that compiles a series of tools to process and calculate metrics on point clouds derived from terrestrial LiDAR (Light Detection and Ranging) data.</p>
-<p>Originally, <strong><em>rTLS</em></strong> started as a hobby by <a href="https://www.jaguzmanq.com/">J. Antonio Guzman Q.</a> (<a href="mailto:antguz06@gmail.com" class="email">antguz06@gmail.com</a>) at the University of Alberta. It compiles several functions that students at the <a href="https://www.ualberta.ca/faculties/centresinstitutes/centre-for-earth-observatiTheon-sciences">Centre for Earth Observation Sciences</a> use to process their point cloud of vegetation. Due to its constant use, it was decided to formalize its routines as an R package. This was done under the supervision of Dr. Arturo Sanchez (<a href="mailto:arturo.sanchez@ualberta.ca" class="email">arturo.sanchez@ualberta.ca</a>) and the supreme help of <a href="http://ronnyhdez.rbind.io/">Ronny Hernandez</a> (<a href="mailto:ronny.hernandezm@gmail.com" class="email">ronny.hernandezm@gmail.com</a>).</p>
+<a href="#rtls-" class="anchor"></a>rTLS <img src="reference/figures/rTLS_logo.png" align="right" alt="" width="120">
+</h1></div>
+<p>This is an R package to that compiles a series of tools to process and calculate metrics on point clouds derived from Terrestrial Laser Scanners (TLS), also know as Terrestrial-Light Detection and Ranging (T-LiDAR).</p>
+<p>Originally, <strong><em>rTLS</em></strong> started as a hobby by <a href="https://www.jaguzmanq.com/">J. Antonio Guzman Q.</a> (<a href="mailto:antguz06@gmail.com" class="email">antguz06@gmail.com</a>) at the University of Alberta. It compiles several functions that students at the <a href="https://www.ualberta.ca/centre-for-earth-observation-sciences/index.html">Centre for Earth Observation Sciences</a> use to process their point cloud of vegetation. Due to its constant use, it was decided to formalize its routines as an R package. This was done under the supervision of <a href="https://www.ualberta.ca/science/about-us/contact-us/faculty-directory/arturo-sanchez-azofeifa">Dr. Arturo Sanchez</a> (<a href="mailto:arturo.sanchez@ualberta.ca" class="email">arturo.sanchez@ualberta.ca</a>) and the supreme help of <a href="http://ronnyhdez.rbind.io/">Ronny Hernandez</a> (<a href="mailto:ronny.hernandezm@gmail.com" class="email">ronny.hernandezm@gmail.com</a>).</p>
 <p><strong><em>rTLS</em></strong> goal is to provide a single environment to process point clouds as fast as it can be done. That it is why the <strong><em>rTLS</em></strong> coding has been evolving using different packages. The current code has been enhanced using C++ language through <code>Rcpp</code> and <code>RcppArmadillo</code> packages, and most of the time-consuming processed can be run using for parallel computing through <code>OpenMP</code>. In the future, if there is a faster way to run our main routines, we will probably change our code!</p>
 <p>The current development of <strong><em>rTLS</em></strong> is focused on five major processes applied on TLS scans: i) voxelization, ii) point neighborhood features, iii) filtering, and iv) optimal voxel and entropy, and iv) estimation of the forest structure. Likewise, the package also contains other functions that can be used to mange point clouds such as 2D- 3D-rotation, conversion to cardinal-polar coordinates, and functions to estimate tree metrics such as truck volume or crown area.</p>
+<hr>
 <div id="major-features-include" class="section level3">
 <h3 class="hasAnchor">
 <a href="#major-features-include" class="anchor"></a>Major features include:</h3>
@@ -112,10 +113,10 @@
 </ul>
 </li>
 <li><p>Calculation of basic metrics on neighboring points.</p></li>
-<li><p>Calculation of the dispersion, aggregation, and mean distance of the neighboring points.</p></li>
 <li><p>Estimation of dimensionality.</p></li>
 <li><p>Estimation of the optimal voxel and sphere size using information theory (coming soon).</p></li>
 </ul>
+<hr>
 </div>
 <div id="installation" class="section level3">
 <h3 class="hasAnchor">
@@ -125,6 +126,12 @@
 <p>or using the development version in github following (recommended)</p>
 <pre class="{r}"><code><a href="https://rdrr.io/pkg/devtools/man/reexports.html">#install.packages("devtools")
 devtools::install_github("Antguz/rTLS")</a></code></pre>
+<hr>
+</div>
+<div id="usage" class="section level3">
+<h3 class="hasAnchor">
+<a href="#usage" class="anchor"></a>Usage</h3>
+<p>Take a look to the <a href="https://antguz.github.io/rTLS">vignettes</a> were we provide detaits for the use and potential applications of our functions.</p>
 </div>
 </div>
 
@@ -149,7 +156,7 @@ devtools::install_github("Antguz/rTLS")</a></code></pre>
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Antonio Guzmán <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-0721-148X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>J. Antonio Guzmán Q. <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-0721-148X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Ronny Hernandez <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-6225-7096" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
@@ -160,8 +167,6 @@ devtools::install_github("Antguz/rTLS")</a></code></pre>
 <ul class="list-unstyled">
 <li><a href="https://zenodo.org/badge/latestdoi/162520913"><img src="https://zenodo.org/badge/162520913.svg" alt="DOI"></a></li>
 <li><a href="https://travis-ci.com/Antguz/rTLS"><img src="https://travis-ci.com/Antguz/rTLS.svg?branch=master" alt="Travis build status"></a></li>
-<li><a href="https://ci.appveyor.com/project/Antguz/rTLS"><img src="https://ci.appveyor.com/api/projects/status/github/Antguz/rTLS?branch=master&amp;svg=true" alt="AppVeyor build status"></a></li>
-<li><a href="https://codecov.io/gh/Antguz/rTLS?branch=master"><img src="https://codecov.io/gh/Antguz/rTLS/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>
@@ -169,7 +174,7 @@ devtools::install_github("Antguz/rTLS")</a></code></pre>
 
 
       <footer><div class="copyright">
-  <p>Developed by Antonio Guzmán, Ronny Hernandez.</p>
+  <p>Developed by J. Antonio Guzmán Q., Ronny Hernandez.</p>
 </div>
 
 <div class="pkgdown">
