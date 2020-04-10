@@ -4,8 +4,8 @@ Title: Tools to Process Point Clouds Derived From Terrestrial
     Laser Scanning
 Version: 0.1.1
 Authors@R:
-    c(person(given = "Antonio",
-             family = "Guzmán",
+    c(person(given = "J. Antonio",
+             family = "Guzmán Q.",
              role = c("cre", "aut"),
              email = "antguz06@gmail.com",
              comment = c(ORCID = "0000-0002-0721-148X")),
