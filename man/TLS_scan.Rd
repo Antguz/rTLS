@@ -4,14 +4,18 @@
 \name{TLS_scan}
 \alias{TLS_scan}
 \title{A TLS scan}
-\format{A \code{data.table} with five columns, which are:
+\format{
+A \code{data.table} with five columns, which are:
 \describe{
 \item{X}{the "X" coordinate}
 \item{Y}{the "Y coordinate}
 \item{Z}{the "Z" coordinate}
 \item{Target_count}{The number of received by the same laser shot}
 \item{Target_index}{The rank of the returned pulse in the target count of received by the same laser shot}
-}}
+}
+
+A \code{data.table} where the rows represent the pulse retunrs and the three columns represent the *XYZ* coordinates, and the target count and index.
+}
 \usage{
 data(TLS_scan)
 }

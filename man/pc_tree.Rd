@@ -4,12 +4,16 @@
 \name{pc_tree}
 \alias{pc_tree}
 \title{A Tree Point Cloud}
-\format{A \code{data.table} with three columns, which are:
+\format{
+A \code{data.table} with three columns, which are:
 \describe{
 \item{X}{the "X" coordinate}
 \item{Y}{the "Y coordinate}
 \item{Z}{the "Z" coordinate}
-}}
+}
+
+A \code{data.table} where the rows represent the points and the three columns represent the *XYZ* coordinates.
+}
 \usage{
 data(pc_tree)
 }
