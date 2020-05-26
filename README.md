@@ -55,6 +55,6 @@ devtools::install_github("Antguz/rTLS")
 
 ### Usage
 
-Take a look to the [vignettes](https://antguz.github.io/rTLS) were we provide detaits for the use and potential applications of our functions.
+Take a look to the [vignettes](https://antguz.github.io/rTLS/articles/) were we provide detaits for the use and potential applications of our functions.
 
 
