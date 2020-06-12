@@ -2,7 +2,7 @@ Type: Package
 Package: rTLS
 Title: Tools to Process Point Clouds Derived From Terrestrial
     Laser Scanning
-Version: 0.1.1
+Version: 0.1.2
 Authors@R:
     c(person(given = "J. Antonio",
              family = "Guzmán Q.",
