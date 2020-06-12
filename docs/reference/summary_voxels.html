@@ -8,11 +8,13 @@
 
 <title>Voxels Summary — summary_voxels • rTLS</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Voxels Summary — summary_voxels" />
-
 <meta property="og:description" content="Create a summary objects of class &quot;voxels&quot; created using the voxels." />
-
 
 
 
@@ -105,7 +106,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Antguz/rTLS/">
@@ -132,19 +132,17 @@
     </div>
 
     <div class="ref-description">
-    
-    <p>Create a summary objects of class <code>"voxels"</code> created using the <code><a href='voxels.html'>voxels</a></code>.</p>
-    
+    <p>Create a summary objects of class <code>"voxels"</code> created using the <code>voxels</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>summary_voxels</span>(<span class='no'>voxels</span>, <span class='kw'>voxel.size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bootstrap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>R</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>voxels</th>
-      <td><p>An object of class <code>voxels</code> created using the <code><a href='voxels.html'>voxels()</a></code> function or a <code>data.table</code> describing the voxels coordinates and their number of points produced using <code><a href='voxels.html'>voxels()</a></code>.</p></td>
+      <td><p>An object of class <code>voxels</code> created using the <code>voxels()</code> function or a <code>data.table</code> describing the voxels coordinates and their number of points produced using <code>voxels()</code>.</p></td>
     </tr>
     <tr>
       <th>voxel.size</th>
@@ -159,27 +157,24 @@
       <td><p>A positive <code>integer</code> of length 1 indicating the number of bootstrap replicates. This need to be used if <code>bootstrap = TRUE</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>data.table</code> with with the summary of <code>voxels</code>.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function estimate 10 main statistics of the voxels. Specifically, the first four columns (ei. <code>Voxel.size</code>, <code>N_voxels</code>, <code>volume</code>) describe the size of the voxel used, the number of voxels created, the total volume that they represent, and the surface area that they cover.
 Following columns represent the mean (<code>Density_mean</code>) and sd (<code>Density_sd</code>) of the density of points per voxel. Columns 7:10 provide metrics calculated using the Shannon Index. Specifically, <code>H</code> describe the entropy, <code>H_max</code> the maximum entropy, <code>Equitavility</code> the ratio between <code>H</code> and <code>Hmax</code>, and <code>Negentropy</code> describe the product of <code>Hmax</code> - <code>H</code>.
 If <code>bootstrap = TRUE</code> four more columns are created (11:14). These represent the <code>mean</code> and <code>sd</code> of the H index estimated using bootstrap (<code>H_boot_mean</code> and <code>H_boot_sd</code>), the <code>Equtavility_boot</code> as the ratio of the ratio between <code>H_boot_sd</code> and <code>Hmax</code>, and <code>Negentropy_boot</code> as the product <code>Hmax</code> - <code>H_boot_mean</code>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='voxels.html'>voxels</a></code>, <code><a href='voxels_counting.html'>voxels_counting</a></code>, <code><a href='plot_voxels.html'>plot_voxels</a></code></p></div>
-    
+    <div class='dont-index'><p><code>voxels</code>, <code>voxels_counting</code>, <code>plot_voxels</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"pc_tree"</span>)
 
 <span class='co'>#Apply a summary on a object of class "voxels" using bootstrap with 1000 replicates.</span>
-<span class='no'>vox</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='voxels.html'>voxels</a></span>(<span class='no'>pc_tree</span>, <span class='kw'>voxel.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
+<span class='no'>vox</span> <span class='kw'>&lt;-</span> <span class='fu'>voxels</span>(<span class='no'>pc_tree</span>, <span class='kw'>voxel.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
 <span class='fu'>summary_voxels</span>(<span class='no'>vox</span>, <span class='kw'>bootstrap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>R</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</div><div class='output co'>#&gt;    Voxel.size N_voxels volume Surface Density_mean Density_sd        H     Hmax
 #&gt; 1:        0.5      679 84.875   31.75     893.6436   653.6787 6.221814 6.520621
 #&gt;    Equitavility Negentropy H_boot_mean  H_boot_sd Equitavility_boot
@@ -187,7 +182,7 @@ If <code>bootstrap = TRUE</code> four more columns are created (11:14). These re
 #&gt;    Negentropy_boot
 #&gt; 1:       0.2977592</div><div class='input'>
 <span class='co'>#Apply a summary on a product from 'voxels' using bootstrap with 1000 replicates.</span>
-<span class='no'>vox</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='voxels.html'>voxels</a></span>(<span class='no'>pc_tree</span>, <span class='kw'>voxel.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>obj.voxels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>vox</span> <span class='kw'>&lt;-</span> <span class='fu'>voxels</span>(<span class='no'>pc_tree</span>, <span class='kw'>voxel.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>obj.voxels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>summary_voxels</span>(<span class='no'>vox</span>, <span class='kw'>voxel.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>bootstrap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>R</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</div><div class='output co'>#&gt;    Voxel.size N_voxels volume Surface Density_mean Density_sd        H     Hmax
 #&gt; 1:        0.5      679 84.875   31.75     893.6436   653.6787 6.221814 6.520621
 #&gt;    Equitavility Negentropy H_boot_mean  H_boot_sd Equitavility_boot

@@ -8,11 +8,13 @@
 
 <title>A TLS scan — TLS_scan • rTLS</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="A TLS scan — TLS_scan" />
-
 <meta property="og:description" content="A data.table from a TLS scan." />
-
 
 
 
@@ -105,7 +106,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Antguz/rTLS/">
@@ -132,13 +132,12 @@
     </div>
 
     <div class="ref-description">
-    
     <p>A <code>data.table</code> from a TLS scan.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>TLS_scan</span>)</pre>
-        
+
+
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>A <code>data.table</code> with five columns, which are:</p><dl'>
@@ -149,12 +148,12 @@
 <dt>Target_index</dt><dd><p>The rank of the returned pulse in the target count of received by the same laser shot</p></dd>
 
 </dl>
-    
+
+<p>A <code>data.table</code> where the rows represent the pulse retunrs and the three columns represent the *XYZ* coordinates, and the target count and index.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>A TLS scan conducted using a Reigel VZ400i with a vertical and horizontal resolution of 0.04 degrees. The scanner has frame of scanning between 30 and 130 degrees zenith and 0 and 360 degrees azimuth.
 At the moment of the scan the roll, pitch, and yaw of the scanner were 0.293, -0.835, -150.159, respectively. The scanner coordinates in this scan are <code>x = 0, y = 0, z = 0</code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>TLS_scan</span>)

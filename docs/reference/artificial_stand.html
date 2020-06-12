@@ -8,11 +8,13 @@
 
 <title>Artificial Forest Stand — artificial_stand • rTLS</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Artificial Forest Stand — artificial_stand" />
-
 <meta property="og:description" content="Create an artificial forest stand of a given area using tree point clouds." />
-
 
 
 
@@ -105,7 +106,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Antguz/rTLS/">
@@ -132,9 +132,7 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Create an artificial forest stand of a given area using tree point clouds.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>artificial_stand</span>(
@@ -151,7 +149,7 @@
   <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='no'>...</span>
 )</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -212,11 +210,10 @@ This needs to be used if <code>coordinate = NULL</code> and <code>overlap != NUL
       <td><p>Parameters passed to <code>fread</code> for the reading of <code>files</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>list</code> which contain a <code>data.table</code> (Trees) with the information of the point clouds used and their current coordinates in the stand, and another <code>data.table</code> with that compile all the point clouds used.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>When <code>coordinates = NULL</code>, <code>artifical_stand</code> adds, in sequence,
@@ -232,11 +229,9 @@ requirements are met, this could lead to an infinite loop if the stand
 <code>dimention</code> is small or if the trees on <code>files</code> are large or many
 <code>n.trees</code>. Therefore, the use of <code>n_attempts</code> is recommended to avoid
 this scenario.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='voxels_counting.html'>voxels_counting</a></code></p></div>
-    
+    <div class='dont-index'><p><code>voxels_counting</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#' #Import an example point cloud</span>
@@ -254,11 +249,11 @@ this scenario.</p>
 #&gt; 2:    2
 #&gt; 3:    3
 #&gt; 4:    4
-#&gt;                                                                             file
-#&gt; 1: C:/Users/josea/OneDrive/Documentos/R/win-library/3.6/rTLS/extdata/pc_tree.txt
-#&gt; 2: C:/Users/josea/OneDrive/Documentos/R/win-library/3.6/rTLS/extdata/pc_tree.txt
-#&gt; 3: C:/Users/josea/OneDrive/Documentos/R/win-library/3.6/rTLS/extdata/pc_tree.txt
-#&gt; 4: C:/Users/josea/OneDrive/Documentos/R/win-library/3.6/rTLS/extdata/pc_tree.txt
+#&gt;                                                                                              file
+#&gt; 1: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath466075b279a2/rTLS/extdata/pc_tree.txt
+#&gt; 2: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath466075b279a2/rTLS/extdata/pc_tree.txt
+#&gt; 3: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath466075b279a2/rTLS/extdata/pc_tree.txt
+#&gt; 4: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath466075b279a2/rTLS/extdata/pc_tree.txt
 #&gt;    Xcoordinate Ycoordinate       CA  Hmax
 #&gt; 1:   10.993230   11.587823 28.54901 6.036
 #&gt; 2:   13.119010    2.624109 28.54901 6.036
@@ -291,11 +286,11 @@ this scenario.</p>
 #&gt; 2:    2
 #&gt; 3:    3
 #&gt; 4:    4
-#&gt;                                                                             file
-#&gt; 1: C:/Users/josea/OneDrive/Documentos/R/win-library/3.6/rTLS/extdata/pc_tree.txt
-#&gt; 2: C:/Users/josea/OneDrive/Documentos/R/win-library/3.6/rTLS/extdata/pc_tree.txt
-#&gt; 3: C:/Users/josea/OneDrive/Documentos/R/win-library/3.6/rTLS/extdata/pc_tree.txt
-#&gt; 4: C:/Users/josea/OneDrive/Documentos/R/win-library/3.6/rTLS/extdata/pc_tree.txt
+#&gt;                                                                                              file
+#&gt; 1: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath466075b279a2/rTLS/extdata/pc_tree.txt
+#&gt; 2: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath466075b279a2/rTLS/extdata/pc_tree.txt
+#&gt; 3: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath466075b279a2/rTLS/extdata/pc_tree.txt
+#&gt; 4: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath466075b279a2/rTLS/extdata/pc_tree.txt
 #&gt;    Xcoordinate Ycoordinate       CA  Hmax
 #&gt; 1:           5           5 28.54901 6.036
 #&gt; 2:          10           5 28.54901 6.036

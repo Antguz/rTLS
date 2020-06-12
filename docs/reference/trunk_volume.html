@@ -8,11 +8,13 @@
 
 <title>Tree Trunk Volume — trunk_volume • rTLS</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Tree Trunk Volume — trunk_volume" />
-
 <meta property="og:description" content="Estimates the tree trunk volume of a point cloud using the ashape3d package." />
-
 
 
 
@@ -105,7 +106,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Antguz/rTLS/">
@@ -132,13 +132,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Estimates the tree trunk volume of a point cloud using the <code><a href='https://rdrr.io/pkg/alphashape3d/man/ashape3d.html'>ashape3d</a></code> package.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>trunk_volume</span>(<span class='no'>cloud</span>, <span class='kw'>max.height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -163,25 +161,21 @@
       <td><p>General arguments passed to <code>ashape3d</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>numeric</code> vector with the estimated trunk volume.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This is an adaptation of the code develop by Lafarge &amp; Pateiro-Lopez (2017) based on Edelsbrunner &amp; Mucke (1994) for the quick extraction of the tree trunk volume.
 Therefore, if you use this code we kindly suggest to cite these documents in your research.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Lafarge, T., Pateiro-Lopez, B. (2017). Implementation of the 3D Alpha-Shape for the Reconstruction of 3D Sets from a Point Cloud. Available at <a href='https://cran.r-project.org/web/packages/alphashape3d/index.html'>https://cran.r-project.org/web/packages/alphashape3d/index.html</a>.</p>
 <p>Edelsbrunner, H., Mucke, E. P. (1994). Three-Dimensional Alpha Shapes. ACM Transactions on Graphics, 13(1), pp.43-72.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='tree_metrics.html'>tree_metrics</a></code></p></div>
-    
+    <div class='dont-index'><p><code>tree_metrics</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"pc_tree"</span>)

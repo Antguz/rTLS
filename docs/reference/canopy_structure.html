@@ -8,11 +8,13 @@
 
 <title>Canopy Structure — canopy_structure • rTLS</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Canopy Structure — canopy_structure" />
-
 <meta property="og:description" content="Estimates the canopy structure from a discrete returns scan from different TLS." />
-
 
 
 
@@ -105,7 +106,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Antguz/rTLS/">
@@ -132,9 +132,7 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Estimates the canopy structure from a discrete returns scan from different TLS.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>canopy_structure</span>(
@@ -151,7 +149,7 @@
   <span class='kw'>TLS.angles</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>
 )</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -216,18 +214,17 @@ This needs to be used if <code>TLS.type</code> is equal to <code>"single"</code>
       <td><p>An <code>integer</code> specifying the number of threads to use. Experiment to see what works best for your data on your hardware.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>For any <code>TLS.type</code>, it returns a <code>data.table</code> with the height profiles defined by <code>vertical.resolution</code>, the gap probability based on the <code>zenith.range</code> and <code>zenith.rings</code>, and
 the accumulative L(z) profiles based on the closest zenith ring to 57.5 degrees (hinge angle). If <code>TLS.type</code> is equal to <code>"fixed.angle"</code>, it returns f(z) or commonly named PAVD based on
 on the ratio of the derivative of L(z) and the derivative of height (z). If <code>TLS.type</code> is equal to <code>"single"</code> or <code>"multiple"</code>, it returns the normalized average weighting L/LAI, and PAVD: based
 on the L (hinge angle) at the highest height and the ratio between the derivative of L/LAI average weighted and the derivative of z.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Since <code>scan</code> describes discrete returns measured by the TLS, <code>canopy_structre</code> first simulates the number of pulses emitted based on Danson et al. (2007). The simulated pulses are
-created based on the TLS properties (<code>TLS.pulse.counts, TLS.resolution, TLS.frame</code>) assuming that the scanner is perfectly balance. Then these pulses are rotated (<code><a href='rotate3D.html'>rotate3D</a></code>) based on the <code>TLS.angles</code>
+created based on the TLS properties (<code>TLS.pulse.counts, TLS.resolution, TLS.frame</code>) assuming that the scanner is perfectly balance. Then these pulses are rotated (<code>rotate3D</code>) based on the <code>TLS.angles</code>
 roll, pitch, and yaw, and move to <code>TLS.coordintates</code> to simulate the positioning of the scanner during the <code>scan</code>. Rotated simulated-pulses of interest and <code>scan</code> returns are then extracted based on the <code>zenith.range</code> and <code>azimuth.range</code> for a given number of <code>zenith.rings</code>, <code>azimuth.rings</code> and vertical profiles.
 Using the frequency of pulses and returns the probability of gap (Pgap) is estimated. For <code>TLS.type = "multiple"</code>, the frequency of returns is estimated using the sum of 1/target count following Lovell et al. (2011).</p>
 <p>Using the Pgap estimated per each zenith ring and vertical profile, <code>canopy_structure</code> then estimates the accumulative L(z) profiles based on the closest
@@ -237,13 +234,11 @@ estimates the normalized average weighted L/LAI, and then PAVD based on the L (h
 of L/LAI (average weighted) and the derivative of z (Jupp et al. 2009; Equation 21).</p>
 <p>Jupp et al. 2009 excludes the zero zenith or fist ring to conduct the average weighted L/LAI estimations, <code>canopy_structre</code> does not excludes this sections since it depends on the regions of interest of the user.
 Therefore, user should consider this difference since it may introduce more variability to profile estimations.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Danson F.M., Hetherington D., Morsdorf F., Koetz B., Allgower B. 2007. Forest canopy gap fraction from terrestrial laser scanning. IEEE Geosci. Remote Sensing Letters 4:157-160. doi: 10.1109/LGRS.2006.887064.</p>
 <p>Lovell J.L., Jupp D.L.B., van Gorsel E., Jimenez-Berni J., Hopkinson C., Chasmer L. 2011. Foliage profiles from ground based waveform and discrete point LiDAR. In: SilviLaser 2011, Hobart, Australia, 16–20 October 2011.</p>
 <p>Jupp D.L.B., Culvenor D.S., Lovell J.L., Newnham G.J., Strahler A.H., Woodcock C.E. 2009. Estimating forest LAI profiles and structural parameters using a ground-based laser called “Echidna®”. Tree Physiology 29(2): 171-181. doi: 10.1093/treephys/tpn022.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>

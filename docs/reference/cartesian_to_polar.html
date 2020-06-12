@@ -8,11 +8,13 @@
 
 <title>Cartesian to Polar Coordinates — cartesian_to_polar • rTLS</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Cartesian to Polar Coordinates — cartesian_to_polar" />
-
 <meta property="og:description" content="Convert from East-North-Up cartesian coordinates to polar coordinates." />
-
 
 
 
@@ -105,7 +106,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Antguz/rTLS/">
@@ -132,13 +132,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Convert from East-North-Up cartesian coordinates to polar coordinates.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>cartesian_to_polar</span>(<span class='no'>cartesian</span>, <span class='kw'>anchor</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>), <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -155,20 +153,17 @@
       <td><p>A <code>numeric</code> vector of length 1 describing the decimal numbers to <code><a href='https://rdrr.io/r/base/Round.html'>round</a></code> the zenith and azimuth angles. If <code>NULL</code>, <code><a href='https://rdrr.io/r/base/Round.html'>round</a></code> does not apply. <code>NULL</code> as default.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>data.table</code> with the zenith and azimuth angles (degrees), and the distance to the anchor coordinate.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>It assumes that the positive *Z* axis is the reference vector for the zenith angle. Likewise, it assumes that the *Y* axis is the north-south direction (positive to negative) for the azimuth angle.
 If a point from <code>cartesian</code> presents the same *XY* coordinates than <code>anchor</code>, <code>angles</code> returns <code>NA</code>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='polar_to_cartesian.html'>polar_to_cartesian</a></code></p></div>
-    
+    <div class='dont-index'><p><code>polar_to_cartesian</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>

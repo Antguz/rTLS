@@ -8,11 +8,13 @@
 
 <title>Voxels Counting — voxels_counting • rTLS</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Voxels Counting — voxels_counting" />
-
 <meta property="og:description" content="Creates voxels of different size on a point cloud using the voxels function, and then return a summary_voxels of their features." />
-
 
 
 
@@ -105,7 +106,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Antguz/rTLS/">
@@ -132,9 +132,7 @@
     </div>
 
     <div class="ref-description">
-    
-    <p>Creates voxels of different size on a point cloud using the <code><a href='voxels.html'>voxels</a></code> function, and then return a <code><a href='summary_voxels.html'>summary_voxels</a></code> of their features.</p>
-    
+    <p>Creates voxels of different size on a point cloud using the <code>voxels</code> function, and then return a <code>summary_voxels</code> of their features.</p>
     </div>
 
     <pre class="usage"><span class='fu'>voxels_counting</span>(
@@ -148,7 +146,7 @@
   <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>cores</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -189,15 +187,13 @@
       <td><p>An <code>integer</code> &gt;= 0 describing the number of cores to use. This need to be used if <code>parallel = TRUE</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>data.table</code> with the summary of the voxels created with their features.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='voxels.html'>voxels</a></code>, <code><a href='summary_voxels.html'>summary_voxels</a></code>, <code><a href='plot_voxels.html'>plot_voxels</a></code></p></div>
-    
+    <div class='dont-index'><p><code>voxels</code>, <code>summary_voxels</code>, <code>plot_voxels</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>

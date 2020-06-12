@@ -124,14 +124,14 @@
 </ol>
 <p>The following step is running <code>voxel_counting</code>. In order to estimate the fractal geometry we need to consider a series of requirements. Specifically we need to consider the minimum and maximum voxel edge length (lower and upper cut-off), and the number of scales to perform. These are important steps since if the voxel edge length is lower than the minimum distance between points or higher than the largest range of XYZ we will loss the power-law relationship between the number of voxels and the voxel size. Using <code>voxel_counting</code> we can define both requirements using <code>voxel.sizes</code> manually, or if this is null, we can define the number of scales to use by <code>length.out</code> and selecting the minimum voxel size by <code>min.size</code>. If <code>voxel.sizes = NULL</code>, the function selects the maximum voxel size based on the largest range of XYZ. Since the resolution of the point cloud is 0.05 m we can use this as a value value of minimum voxel size. This can be performed following:</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r">
-<span class="no">fractals</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/voxels_counting.html">voxels_counting</a></span>(<span class="no">pc_tree</span>, <span class="kw">min.size</span> <span class="kw">=</span> <span class="fl">0.05</span>)</pre></body></html></div>
+<span class="no">fractals</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rTLS/man/voxels_counting.html">voxels_counting</a></span>(<span class="no">pc_tree</span>, <span class="kw">min.size</span> <span class="kw">=</span> <span class="fl">0.05</span>)</pre></body></html></div>
 <p>Other ways to select the <code>min.size</code> is estimating the minimum distance between points. This can be done also using ‘min_distance’ function also from <code>rTLS</code>.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r">
 <span class="co">#Regular processing</span>
-<span class="no">low_size</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/min_distance.html">min_distance</a></span>(<span class="no">pc_tree</span>)
+<span class="no">low_size</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rTLS/man/min_distance.html">min_distance</a></span>(<span class="no">pc_tree</span>)
 
 <span class="co">#or using parallel processing</span>
-<span class="no">low_size</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/min_distance.html">min_distance</a></span>(<span class="no">pc_tree</span>, <span class="kw">threads</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></body></html></div>
+<span class="no">low_size</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rTLS/man/min_distance.html">min_distance</a></span>(<span class="no">pc_tree</span>, <span class="kw">threads</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></body></html></div>
 <hr>
 <ol start="3" style="list-style-type: decimal">
 <li>Estimation of the fractal geometry by voxel counting</li>
@@ -145,6 +145,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
         <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>

@@ -8,11 +8,13 @@
 
 <title>Filtering of Point Clouds — filter • rTLS</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Filtering of Point Clouds — filter" />
-
 <meta property="og:description" content="Filtering of point clouds using different methods" />
-
 
 
 
@@ -105,7 +106,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Antguz/rTLS/">
@@ -132,13 +132,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Filtering of point clouds using different methods</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>filter</span>(<span class='no'>cloud</span>, <span class='no'>method</span>, <span class='no'>radius</span>, <span class='no'>min_n</span>, <span class='no'>k</span>, <span class='no'>nSigma</span>, <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>cloud</span>, <span class='no'>method</span>, <span class='no'>radius</span>, <span class='no'>min_n</span>, <span class='no'>k</span>, <span class='no'>nSigma</span>, <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -175,18 +173,17 @@
       <td><p>Show progress. <code>TRUE</code> as default.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>data.table</code> with the filtered points</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#Load data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"pc_tree"</span>)
 
 <span class='co'>#Filter a sample of section of data using SOR</span>
-<span class='fu'>filter</span>(<span class='no'>pc_tree</span>[<span class='fl'>1</span>:<span class='fl'>5000</span>,], <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"SOR"</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>nSigma</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt;             X        Y          Z
+<span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>pc_tree</span>[<span class='fl'>1</span>:<span class='fl'>5000</span>,], <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"SOR"</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>nSigma</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt;             X        Y          Z
 #&gt;    1: 9.14850 -1.11025 0.00099992
 #&gt;    2: 9.22250 -1.12225 0.00000000
 #&gt;    3: 9.12125 -1.09025 0.03899991
@@ -199,7 +196,7 @@
 #&gt; 4033: 8.63575 -2.06175 2.86675000
 #&gt; 4034: 8.56950 -2.00475 2.85299993</div><div class='input'>
 <span class='co'>#Filter using "min_n" of 1000</span>
-<span class='fu'>filter</span>(<span class='no'>pc_tree</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"min_n"</span>, <span class='kw'>radius</span> <span class='kw'>=</span> <span class='fl'>1.0</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='fl'>5000</span>)</div><div class='output co'>#&gt;               X        Y       Z
+<span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>pc_tree</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"min_n"</span>, <span class='kw'>radius</span> <span class='kw'>=</span> <span class='fl'>1.0</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='fl'>5000</span>)</div><div class='output co'>#&gt;               X        Y       Z
 #&gt;     1:  7.72725 -0.98150 3.00250
 #&gt;     2:  7.83075 -0.96225 2.74775
 #&gt;     3:  7.79100 -1.01025 2.77925

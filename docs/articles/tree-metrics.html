@@ -117,13 +117,14 @@
 </li>
 </ol>
 <p>The next step is run <code>tree_metrics</code>. This can be done following:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/tree_metrics.html">tree_metrics</a></span>(<span class="no">pc_tree</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/rTLS/man/tree_metrics.html">tree_metrics</a></span>(<span class="no">pc_tree</span>)</pre></body></html></div>
 <p>In general, the tree height is estimated based on the range of the Z axis, the crown area is calculated applying a convex hull on the point cloud, and the DBH is calculated extracting the area of the convex hull on the subset of points between a given region, and then estimating the diameter of a circle. Since the estimation of the DBH is applied to a subset of points between 1.25 and 1.35 m, it tends to be affected by presence of other points that do not below to the main trunk. The selection of the region for DBH could be further modified using <code>region.diameter</code>.</p>
 <hr>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
         <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>

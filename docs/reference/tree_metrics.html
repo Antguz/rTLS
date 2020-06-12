@@ -8,11 +8,13 @@
 
 <title>Tree Metrics — tree_metrics • rTLS</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Tree Metrics — tree_metrics" />
-
 <meta property="og:description" content="Estimate the tree height, crown area, and the diameter at breast height of a tree point cloud" />
-
 
 
 
@@ -105,7 +106,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Antguz/rTLS/">
@@ -132,13 +132,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Estimate the tree height, crown area, and the diameter at breast height of a tree point cloud</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>tree_metrics</span>(<span class='no'>cloud</span>, <span class='kw'>region.diameter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>relocateZ</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -155,20 +153,17 @@
       <td><p>Logical, if <code>TRUE</code> it relocates the *Z* coordinates to a minimum coordinate of zero based on the current <code><a href='https://rdrr.io/r/base/Extremes.html'>min(cloud[,3])</a></code>. Useful if the base value (*Z*) of a tree point cloud is not topography corrected.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>data.table</code> with the tree height, crown area, and diameter</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The tree height is estimated based on the maximum value of *Z*, the crown area is calculated applying a convex hull on the point cloud,
 while the DBH is calculated extracting the area of the convex hull on the subset of points between <code>region.diameter</code>, and then estimating the diameter of a circle.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='voxels.html'>voxels</a></code></p></div>
-    
+    <div class='dont-index'><p><code>voxels</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"pc_tree"</span>)

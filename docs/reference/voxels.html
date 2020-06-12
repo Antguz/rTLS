@@ -8,11 +8,13 @@
 
 <title>Voxelization of a Point Cloud — voxels • rTLS</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Voxelization of a Point Cloud — voxels" />
-
 <meta property="og:description" content="Create cubes of a given distance in a point cloud though their voxelization. It use a modify version of the code used in Greaves et al. 2015." />
-
 
 
 
@@ -105,7 +106,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Antguz/rTLS/">
@@ -132,13 +132,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Create cubes of a given distance in a point cloud though their voxelization. It use a modify version of the code used in Greaves et al. 2015.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>voxels</span>(<span class='no'>cloud</span>, <span class='no'>voxel.size</span>, <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>obj.voxels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -159,23 +157,19 @@
       <td><p>Logical. If <code>obj.voxel = TRUE</code>, it returns an object of class <code>"voxels"</code>, If <code>obj.voxel = FALSE</code>, it returns a <code>data.table</code> with the coordinates of the voxels created and the number of points in each voxel. <code>TRUE</code> as default.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>If <code>TRUE</code>, it return an object of class <code>"voxels"</code> which contain a list with the points used to create the voxels, the parameter <code>voxel.size</code>, and the <code>voxels</code> created. If <code>FALSE</code>, it returns a <code>data.table</code> with the coordinates of the voxels created and the number of points in each voxel.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Voxels are created from the negative to the positive *XYZ* coordinates.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Greaves, H. E., Vierling, L. A., Eitel, J. U., Boelman, N. T., Magney, T. S., Prager, C. M., &amp; Griffin, K. L. (2015). Estimating aboveground biomass and leaf area of low-stature Arctic shrubs with terrestrial LiDAR. Remote Sensing of Environment, 164, 26-35.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='voxels_counting.html'>voxels_counting</a></code>, <code><a href='plot_voxels.html'>plot_voxels</a></code>, <code><a href='summary_voxels.html'>summary_voxels</a></code></p></div>
-    
+    <div class='dont-index'><p><code>voxels_counting</code>, <code>plot_voxels</code>, <code>summary_voxels</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"pc_tree"</span>)
