@@ -32,9 +32,9 @@ Imports:
     doSNOW (>= 1.0.16),
     foreach (>= 1.4.4),
     parallel (>= 3.6.0),
-    Rcpp (>= 1.0.2),
-    RcppArmadillo (>= 0.9.800),
-    RcppProgress (>= 0.4.1),
+    Rcpp (>= 1.0.4.6),
+    RcppArmadillo (>= 0.9.870),
+    RcppProgress (>= 0.4.2),
     rgeos (>= 0.4-3),
     rgl (>= 0.100.54),
     sp (>= 1.3-1)

@@ -143,6 +143,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// sphere_covering_rcpp
+arma::mat sphere_covering_rcpp(arma::mat amat, double radius, double kmax, int threads, bool progress);
+RcppExport SEXP _rTLS_sphere_covering_rcpp(SEXP amatSEXP, SEXP radiusSEXP, SEXP kmaxSEXP, SEXP threadsSEXP, SEXP progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type amat(amatSEXP);
+    Rcpp::traits::input_parameter< double >::type radius(radiusSEXP);
+    Rcpp::traits::input_parameter< double >::type kmax(kmaxSEXP);
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
+    rcpp_result_gen = Rcpp::wrap(sphere_covering_rcpp(amat, radius, kmax, threads, progress));
+    return rcpp_result_gen;
+END_RCPP
+}
 // voxelization
 arma::mat voxelization(arma::mat cloud, double voxel_size, int threads);
 RcppExport SEXP _rTLS_voxelization(SEXP cloudSEXP, SEXP voxel_sizeSEXP, SEXP threadsSEXP) {
@@ -168,6 +183,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_polar_to_cartesian_rcpp", (DL_FUNC) &_rTLS_polar_to_cartesian_rcpp, 2},
     {"_rTLS_rotate2D_rcpp", (DL_FUNC) &_rTLS_rotate2D_rcpp, 3},
     {"_rTLS_rotate3D_rcpp", (DL_FUNC) &_rTLS_rotate3D_rcpp, 5},
+    {"_rTLS_sphere_covering_rcpp", (DL_FUNC) &_rTLS_sphere_covering_rcpp, 5},
     {"_rTLS_voxelization", (DL_FUNC) &_rTLS_voxelization, 3},
     {NULL, NULL, 0}
 };
