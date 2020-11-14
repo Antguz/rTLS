@@ -36,8 +36,6 @@ sphere_covering <- function(cloud, radius, kmax = 1, threads = 1, progress = TRU
   results <- as.data.table(results) #transform to data.table and provide names
   colnames(results) <- c("X", "Y", "Z", "radius")
 
-  results <- results[radius > 0, ] #filter potential values with a radius of 0
-
   results <- unique(results) #Filter unique spheres
 
   return(results)

@@ -107,5 +107,9 @@ arma::mat sphere_covering_rcpp(arma::mat amat, double radius, double kmax = 4, i
     }
   }
 
-  return out;
+  arma::vec sphere = out.col(3);
+  arma::uvec keep = find(sphere > 0);
+  arma::mat out_final = out.rows(keep);
+
+  return out_final;
 }

@@ -36,25 +36,25 @@ arma::cube dimensionality_sphere_rcpp(arma::mat amat, arma::mat bmat, arma::vec 
 #pragma omp parallel for
   for (int i = 0; i < an; i++) {
 
-    arma::vec distance(bn); //Empy vector for distances
+    arma::vec distance(bn); //Empty vector for distances
 
     for (int j = 0; j < bn; j++) { //Loop to estimate the distance
 
-      double dx = (bmat(j, 0) - amat(i, 0)); //Absolute values for diferences X
+      double dx = (bmat(j, 0) - amat(i, 0)); //Absolute values for differences X
 
       if((dx > max_radius) || (dx < -max_radius)) {
         distance(j) = 0;
 
       } else {
 
-        double dy = (bmat(j, 1) - amat(i, 1)); //Absolute values for diferences Y
+        double dy = (bmat(j, 1) - amat(i, 1)); //Absolute values for differences Y
 
         if((dy > max_radius) || (dy < -max_radius)) {
           distance(j) = 0;
 
         } else {
 
-          double dz = abs(bmat(j, 2) - amat(i, 2)); //Absolute values for diferences Z
+          double dz = abs(bmat(j, 2) - amat(i, 2)); //Absolute values for differences Z
 
           if((dz > max_radius) || (dz < -max_radius)) {
             distance(j) = 0;
