@@ -29,7 +29,8 @@
 cartesian_to_polar <- function(cartesian, anchor = c(0 , 0, 0), digits = NULL) {
 
   if(class(anchor) != "numeric" | length(anchor) != 3) {
-    stop("Anchor needs to be a numeric vector of length 3 representing X, Y, and Z")
+    stop("Anchor needs to be a numeric vector of length 3 representing X, Y,
+         and Z coordinates")
   }
 
   polar <- cartesian_to_polar_rcpp(as.matrix(cartesian), anchor)
