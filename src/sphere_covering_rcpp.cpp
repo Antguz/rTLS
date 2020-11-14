@@ -37,12 +37,12 @@ arma::mat sphere_covering_rcpp(arma::mat amat, double radius, double kmax = 4, i
       p.increment(); // update progress
     }
 
-    arma::vec distance(an); //Empy vector for distances
+    arma::vec distance(an); //Empty vector for distances
     int position = i * kmax; //Filling position for a given loop
 
     for (int j = 0; j < an; j++) { //Loop to estimate the distance
 
-      double dx = (amat(j, 0) - amat(i, 0)); //Absolute values for diferences X
+      double dx = (amat(j, 0) - amat(i, 0)); //Absolute values for differences X
 
       if((dx > radius) || (dx < -radius)) {
         distance(j) = 0;
