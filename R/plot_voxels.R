@@ -23,8 +23,8 @@
 #' @examples
 #' data("pc_tree")
 #'
-#' ###Create voxels of a size of 0.5.
-#' vox <- voxels(pc_tree, voxel.size = 0.5)
+#' ###Create cubes of a size of 0.5.
+#' vox <- voxels(pc_tree, voxel.size = c(0.5, 0.5, 0.5))
 #' plot_voxels(vox)
 #'
 #' @importFrom grDevices colorRampPalette
@@ -51,9 +51,8 @@ plot_voxels <- function(voxels, add.points = TRUE, add.voxels = TRUE, border = T
 
   if(add.voxels == TRUE) {
 
-    cube <- cube3d() #Creates an empy voxel that will be used in the loop
-
-    cube$vb[4,] <- cube$vb[4,]/(voxels$parameter/2) #Modify the voxel size using all the digits of the XYZ voxels
+    cube <- cube3d() #Creates an empty voxel that will be used in the loop
+    cube <- scale3d(cube, voxels$parameter[1], voxels$parameter[2], voxels$parameter[3]) #Modify the voxel size using all the digits of the XYZ voxels
 
     for(i in 1:nrow(voxels$voxels)) {
 
