@@ -3,7 +3,7 @@
 #' @description Create a summary objects of class \code{"voxels"} created using the \code{\link{voxels}}.
 #'
 #' @param voxels An object of class \code{voxels} created using the \code{voxels()} function or a \code{data.table} describing the voxels coordinates and their number of points produced using \code{voxels()}.
-#' @param voxel.size A positive \code{numeric} vector with the size of the voxel. This need to be used if \code{class(voxels) != "voxels"}. It use the same dimensional scale of the point cloud.
+#' @param voxel.size A positive \code{numeric} vector with the size of the voxel xyz dimensions. This need to be used if \code{class(voxels) != "voxels"}. It use the same dimensional scale of the point cloud.
 #' @param bootstrap Logical, if \code{TRUE} it computes a bootstrap on the H index calculations. \code{FALSE} as default.
 #' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates. This need to be used if \code{bootstrap = TRUE}.
 #'
@@ -24,12 +24,12 @@
 #' data("pc_tree")
 #'
 #' #Apply a summary on a object of class "voxels" using bootstrap with 1000 replicates.
-#' vox <- voxels(pc_tree, voxel.size = 0.5)
+#' vox <- voxels(pc_tree, voxel.size = c(0.5, 0.5, 0.5))
 #' summary_voxels(vox, bootstrap = TRUE, R = 1000)
 #'
 #' #Apply a summary on a product from 'voxels' using bootstrap with 1000 replicates.
-#' vox <- voxels(pc_tree, voxel.size = 0.5, obj.voxels = FALSE)
-#' summary_voxels(vox, voxel.size = 0.5, bootstrap = TRUE, R = 1000)
+#' vox <- voxels(pc_tree, voxel.size = c(0.5, 0.5, 0.5), obj.voxels = FALSE)
+#' summary_voxels(vox, voxel.size = c(0.5, 0.5, 0.5), bootstrap = TRUE, R = 1000)
 #'
 #' @export
 summary_voxels <- function(voxels, voxel.size = NULL, bootstrap = FALSE, R = NULL) {
@@ -47,11 +47,13 @@ summary_voxels <- function(voxels, voxel.size = NULL, bootstrap = FALSE, R = NUL
     voxels <- voxels$voxels
   }
 
+  volumen <- Voxel.size[1]*Voxel.size[2]*Voxel.size[3]
+
   N_voxels <- nrow(voxels)
-  volume <- (Voxel.size^3)*N_voxels
-  Surface <- nrow(unique(voxels[, c("X", "Y")]))*(Voxel.size^2)
-  Density_mean <- mean(voxels$N/(Voxel.size^3))
-  Density_sd <- sd(voxels$N/(Voxel.size^3))
+  volume <- (volumen)*N_voxels
+  Surface <- nrow(unique(voxels[, c("X", "Y")]))*(Voxel.size[1]*Voxel.size[2])
+  Density_mean <- mean(voxels$N/(volumen))
+  Density_sd <- sd(voxels$N/(volumen))
   H <- shannon(voxels$N) #H index
   Hmax <- shannon(rep(1, nrow(voxels))) #H max
   Equitavility <- H/Hmax #Equitavility
