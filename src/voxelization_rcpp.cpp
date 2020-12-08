@@ -8,12 +8,12 @@
 using namespace arma;
 
 // [[Rcpp::export]]
-arma::mat voxelization(arma::mat cloud, double voxel_size, int threads = 1) {
+arma::mat voxelization_rcpp(arma::mat cloud, arma::vec voxel_size, int threads = 1) {
 
 #ifdef _OPENMP
   if ( threads > 0 ) {
     omp_set_num_threads( threads );
-    }
+  }
 #endif
 
   double xmin = min(cloud.col(0));
@@ -25,13 +25,13 @@ arma::mat voxelization(arma::mat cloud, double voxel_size, int threads = 1) {
 #pragma omp parallel for
   for (int i = 0; i < cloud.n_rows; i++) {
 
-    int xvox = floor(((cloud(i, 0) - xmin)/voxel_size));
-    int yvox = floor(((cloud(i, 1) - ymin)/voxel_size));
-    int zvox = floor(((cloud(i, 2) - zmin)/voxel_size));
+    int xvox = floor(((cloud(i, 0) - xmin)/voxel_size[0]));
+    int yvox = floor(((cloud(i, 1) - ymin)/voxel_size[1]));
+    int zvox = floor(((cloud(i, 2) - zmin)/voxel_size[2]));
 
-    voxels(i, 0) = xmin + (xvox*voxel_size) + (voxel_size/2);
-    voxels(i, 1) = ymin + (yvox*voxel_size) + (voxel_size/2);
-    voxels(i, 2) = zmin + (zvox*voxel_size) + (voxel_size/2);
+    voxels(i, 0) = xmin + (xvox*voxel_size[0]) + (voxel_size[0]/2);
+    voxels(i, 1) = ymin + (yvox*voxel_size[1]) + (voxel_size[1]/2);
+    voxels(i, 2) = zmin + (zvox*voxel_size[2]) + (voxel_size[2]/2);
 
   }
 
