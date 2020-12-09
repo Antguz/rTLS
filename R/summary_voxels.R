@@ -9,9 +9,9 @@
 #'
 #' @return A \code{data.table} with with the summary of \code{voxels}.
 #'
-#' @details The function estimate 10 main statistics of the voxels. Specifically, the first four columns (ei. \code{Voxel.size}, \code{N_voxels}, \code{Volume}) describe the size of the voxel used, the number of voxels created, the total volume that they represent, and the surface area that they cover.
-#' Following columns represent the mean (\code{Density_mean}) and sd (\code{Density_sd}) of the density of points per voxel. Columns 7:10 provide metrics calculated using the Shannon Index. Specifically, \code{H} describe the entropy, \code{H_max} the maximum entropy, \code{Equitavility} the ratio between \code{H} and \code{Hmax}, and \code{Negentropy} describe the product of \code{Hmax} - \code{H}.
-#' If \code{bootstrap = TRUE} four more columns are created (11:14). These represent the \code{mean} and \code{sd} of the H index estimated using bootstrap (\code{H_boot_mean} and \code{H_boot_sd}), the \code{Equtavility_boot} as the ratio of the ratio between \code{H_boot_sd} and \code{Hmax}, and \code{Negentropy_boot} as the product \code{Hmax} - \code{H_boot_mean}.
+#' @details The function estimate 12 main statistics of the voxels. Specifically, the first three columns represent the edge size of the voxels, the following three columns (ei. \code{N_voxels}, \code{Volume}, \code{Surface}) describe the number of voxels created, the total volume that they represent, and the surface area that they cover.
+#' Following columns represent the mean (\code{Density_mean}) and sd (\code{Density_sd}) of the density of points per voxel (e.g. points/m2). Columns 9:12 provide metrics calculated using the Shannon Index. Specifically, \code{H} describe the entropy, \code{H_max} the maximum entropy, \code{Equitavility} the ratio between \code{H} and \code{Hmax}, and \code{Negentropy} describe the product of \code{Hmax} - \code{H}.
+#' If \code{bootstrap = TRUE} four more columns are created (13:16). These represent the \code{mean} and \code{sd} of the H index estimated using bootstrap (\code{H_boot_mean} and \code{H_boot_sd}), the \code{Equtavility_boot} as the ratio of the ratio between \code{H_boot_sd} and \code{Hmax}, and \code{Negentropy_boot} as the product \code{Hmax} - \code{H_boot_mean}.
 #'
 #' @author J. Antonio Guzmán Q.
 #'
