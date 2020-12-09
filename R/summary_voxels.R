@@ -9,7 +9,7 @@
 #'
 #' @return A \code{data.table} with with the summary of \code{voxels}.
 #'
-#' @details The function estimate 10 main statistics of the voxels. Specifically, the first four columns (ei. \code{Voxel.size}, \code{N_voxels}, \code{volume}) describe the size of the voxel used, the number of voxels created, the total volume that they represent, and the surface area that they cover.
+#' @details The function estimate 10 main statistics of the voxels. Specifically, the first four columns (ei. \code{Voxel.size}, \code{N_voxels}, \code{Volume}) describe the size of the voxel used, the number of voxels created, the total volume that they represent, and the surface area that they cover.
 #' Following columns represent the mean (\code{Density_mean}) and sd (\code{Density_sd}) of the density of points per voxel. Columns 7:10 provide metrics calculated using the Shannon Index. Specifically, \code{H} describe the entropy, \code{H_max} the maximum entropy, \code{Equitavility} the ratio between \code{H} and \code{Hmax}, and \code{Negentropy} describe the product of \code{Hmax} - \code{H}.
 #' If \code{bootstrap = TRUE} four more columns are created (11:14). These represent the \code{mean} and \code{sd} of the H index estimated using bootstrap (\code{H_boot_mean} and \code{H_boot_sd}), the \code{Equtavility_boot} as the ratio of the ratio between \code{H_boot_sd} and \code{Hmax}, and \code{Negentropy_boot} as the product \code{Hmax} - \code{H_boot_mean}.
 #'
@@ -50,7 +50,7 @@ summary_voxels <- function(voxels, voxel.size = NULL, bootstrap = FALSE, R = NUL
   volumen <- Voxel.size[1]*Voxel.size[2]*Voxel.size[3]
 
   N_voxels <- nrow(voxels)
-  volume <- (volumen)*N_voxels
+  Volume <- (volumen)*N_voxels
   Surface <- nrow(unique(voxels[, c("X", "Y")]))*(Voxel.size[1]*Voxel.size[2])
   Density_mean <- mean(voxels$N/(volumen))
   Density_sd <- sd(voxels$N/(volumen))
@@ -60,7 +60,7 @@ summary_voxels <- function(voxels, voxel.size = NULL, bootstrap = FALSE, R = NUL
   Negentropy <- Hmax - H #Negentropy
 
   if(bootstrap == FALSE ) {
-      frame <- data.table(Voxel.size, N_voxels, volume, Surface, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy)
+      frame <- data.table(Edge.X = Voxel.size[1], Edge.Y = Voxel.size[2], Edge.Z = Voxel.size[3], N_voxels, Volume, Surface, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy)
 
   } else if(bootstrap == TRUE) {
 
@@ -74,7 +74,7 @@ summary_voxels <- function(voxels, voxel.size = NULL, bootstrap = FALSE, R = NUL
     Equitavility_boot <- H_boot_mean/Hmax #Equitavility based on boot
     Negentropy_boot <- Hmax - H_boot_mean #Negentropy based on boot
 
-    frame <- data.table(Voxel.size, N_voxels, volume, Surface, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy, H_boot_mean, H_boot_sd, Equitavility_boot, Negentropy_boot)
+    frame <- data.table(Edge.X = Voxel.size[1], Edge.Y = Voxel.size[2], Edge.Z = Voxel.size[3], N_voxels, Volume, Surface, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy, H_boot_mean, H_boot_sd, Equitavility_boot, Negentropy_boot)
   }
   return(frame)
 }
