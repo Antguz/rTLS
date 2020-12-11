@@ -1,16 +1,16 @@
 #' @title Voxels Counting
 #'
-#' @description Creates voxels of different size on a point cloud using the \code{\link{voxels}} function, and then return a \code{\link{summary_voxels}} of their features.
+#' @description Creates cube like voxels of different size on a point cloud using the \code{\link{voxels}} function, and then return a \code{\link{summary_voxels}} of their features.
 #'
 #' @param cloud A \code{data.table} with xyz coordinates of the point clouds in the first three columns.
-#' @param edge.sizes A positive \code{numeric} vector describing the different voxel edge lengths to perform. If \code{NULL}, it use voxel sizes by default based on the largest range of XYZ and \code{min.size}.
-#' @param min.size A positive \code{numeric} vector of length 1 describing the minimum voxel edge length to perform. This is required if \code{voxel.sizes = NULL}.
-#' @param length.out A positive \code{interger} of length 1 indicating the number of different voxel sizes to use. This is required if \code{voxel.sizes = NULL}.
+#' @param edge.sizes A positive \code{numeric} vector describing the edge length of the different cubes to perform. If \code{NULL}, it use edge sizes by default based on the largest range of XYZ and \code{min.size}.
+#' @param min.size A positive \code{numeric} vector of length 1 describing the minimum cube edge length to perform. This is required if \code{edge.sizes = NULL}.
+#' @param length.out A positive \code{interger} of length 1 indicating the number of different edge lengths to use. This is required if \code{edge.sizes  = NULL}.
 #' @param bootstrap Logical. If \code{TRUE}, it computes a bootstrap on the H index calculations. \code{FALSE} as default.
 #' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates. This need to be used if \code{bootstrap = TRUE}.
 #' @param progress Logical, if \code{TRUE} displays a graphical progress bar. \code{TRUE} as default.
 #' @param parallel Logical, if \code{TRUE} it uses a parallel processing for the voxelization. \code{FALSE} as default.
-#' @param cores An \code{integer} >= 0 describing the number of cores to use. This need to be used if \code{parallel = TRUE}.
+#' @param threads An \code{integer} >= 0 describing the number of threads to use. This need to be used if \code{parallel = TRUE}.
 #'
 #' @import data.table
 #' @importFrom parallel makeCluster
@@ -36,15 +36,15 @@
 #'
 #' \dontrun{
 #' #Voxels counting using bootstrap on the H indices and using parallel processing.
-#' voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000, parallel = TRUE, cores = 4)
+#' voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000, parallel = TRUE, threads = 4)
 #' }
 #'
 #' @export
-voxels_counting <- function(cloud, edge.sizes = NULL, min.size, length.out = 10, bootstrap = FALSE, R = NULL, progress = TRUE, parallel = FALSE, cores = NULL) {
+voxels_counting <- function(cloud, edge.sizes = NULL, min.size, length.out = 10, bootstrap = FALSE, R = NULL, progress = TRUE, parallel = FALSE, threads = NULL) {
 
   colnames(cloud) <- c("X", "Y", "Z")
 
-  if(is.null(edge.sizes) == TRUE) { ###Default voxel.sizes
+  if(is.null(edge.sizes) == TRUE) { ###Default edge.sizes
     ranges <- c(max(cloud[,1]) - min(cloud[,1]), max(cloud[,2]) - min(cloud[,2]), max(cloud[,3]) - min(cloud[,3]))
     max.range <- ranges[which.max(ranges)] + 0.001
     edge.sizes <- seq(from = log10(c(max.range)), to = log10(min.size), length.out = length.out)
@@ -55,7 +55,7 @@ voxels_counting <- function(cloud, edge.sizes = NULL, min.size, length.out = 10,
 
   if(parallel == TRUE) { ###If parallel is true
 
-    cl <- makeCluster(cores, outfile="") #Make clusters
+    cl <- makeCluster(threads, outfile="") #Make clusters
     registerDoSNOW(cl)
 
     if(progress == TRUE) {
@@ -70,12 +70,12 @@ voxels_counting <- function(cloud, edge.sizes = NULL, min.size, length.out = 10,
 
     #Run in parallel
     results <- foreach(i = 1:length(edge.sizes), .inorder = FALSE, .combine= rbind, .packages = c("data.table", "rTLS"), .options.snow = opts) %dopar% {
-      vox <- voxels(cloud_touse, voxel.size = c(edge.sizes[i], edge.sizes[i], edge.sizes[i]), obj.voxels = FALSE)
-      summary <- summary_voxels(vox, voxel.size = c(edge.sizes[i], edge.sizes[i], edge.sizes[i]), bootstrap = bootstrap, R = R)
+      vox <- voxels(cloud_touse, edge.length = c(edge.sizes[i], edge.sizes[i], edge.sizes[i]), obj.voxels = FALSE)
+      summary <- summary_voxels(vox, edge.length = c(edge.sizes[i], edge.sizes[i], edge.sizes[i]), bootstrap = bootstrap, R = R)
       return(summary)
     }
 
-    results <- results[order(Voxel.size)]
+    results <- results[order(Edge.X)]
 
     stopCluster(cl)
 
@@ -83,18 +83,18 @@ voxels_counting <- function(cloud, edge.sizes = NULL, min.size, length.out = 10,
 
     if(progress == TRUE) {
       print("Creating voxels")
-      pb <- txtProgressBar(min = 0, max = length(voxel.sizes), style = 3) #Progress bar
+      pb <- txtProgressBar(min = 0, max = length(edge.sizes), style = 3) #Progress bar
     }
 
     #Run without using parallel
-    results <- foreach(i = 1:length(voxel.sizes), .inorder = FALSE, .combine= rbind) %do% {
+    results <- foreach(i = 1:length(edge.sizes), .inorder = FALSE, .combine= rbind) %do% {
 
       if(progress == TRUE) {
         setTxtProgressBar(pb, i)
       }
 
-      vox <- voxels(cloud_touse, voxel.size = c(edge.sizes[i], edge.sizes[i], edge.sizes[i]), obj.voxels = FALSE)
-      summary <- summary_voxels(vox, voxel.size = c(edge.sizes[i], edge.sizes[i], edge.sizes[i]), bootstrap = bootstrap, R = R)
+      vox <- voxels(cloud_touse, edge.length = c(edge.sizes[i], edge.sizes[i], edge.sizes[i]), obj.voxels = FALSE)
+      summary <- summary_voxels(vox, edge.length = c(edge.sizes[i], edge.sizes[i], edge.sizes[i]), bootstrap = bootstrap, R = R)
       return(summary)
     }
 
@@ -102,7 +102,7 @@ voxels_counting <- function(cloud, edge.sizes = NULL, min.size, length.out = 10,
       close(pb) #Close clusters
     }
 
-    results <- results[order(Voxel.size)]
+    results <- results[order(Edge.X)]
   }
   return(results)
 }
