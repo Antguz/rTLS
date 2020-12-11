@@ -52,8 +52,8 @@ summary_voxels <- function(voxels, edge.length = NULL, bootstrap = FALSE, R = NU
   N_voxels <- nrow(voxels)
   Volume <- (volumen)*N_voxels
   Surface <- nrow(unique(voxels[, c("X", "Y")]))*(Edge.length[1]*Edge.length[2])
-  Density_mean <- mean(voxels$N/(volumen))
-  Density_sd <- sd(voxels$N/(volumen))
+  Density_mean <- mean(voxels$N/(Edge.length[1]*Edge.length[2]))
+  Density_sd <- sd(voxels$N/(Edge.length[1]*Edge.length[2]))
   H <- shannon(voxels$N) #H index
   Hmax <- shannon(rep(1, nrow(voxels))) #H max
   Equitavility <- H/Hmax #Equitavility
