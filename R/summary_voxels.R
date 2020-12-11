@@ -3,13 +3,13 @@
 #' @description Create a summary objects of class \code{"voxels"} created using the \code{\link{voxels}}.
 #'
 #' @param voxels An object of class \code{voxels} created using the \code{voxels()} function or a \code{data.table} describing the voxels coordinates and their number of points produced using \code{voxels()}.
-#' @param voxel.size A positive \code{numeric} vector with the size of the voxel xyz dimensions. This need to be used if \code{class(voxels) != "voxels"}. It use the same dimensional scale of the point cloud.
+#' @param edge.length A positive \code{numeric} vector with the voxel-edge length for the x, y, and z coordinates. This need to be used if \code{class(voxels) != "voxels"}. It use the same dimensional scale of the point cloud.
 #' @param bootstrap Logical, if \code{TRUE} it computes a bootstrap on the H index calculations. \code{FALSE} as default.
 #' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates. This need to be used if \code{bootstrap = TRUE}.
 #'
 #' @return A \code{data.table} with with the summary of \code{voxels}.
 #'
-#' @details The function estimate 12 main statistics of the voxels. Specifically, the first three columns represent the edge size of the voxels, the following three columns (ei. \code{N_voxels}, \code{Volume}, \code{Surface}) describe the number of voxels created, the total volume that they represent, and the surface area that they cover.
+#' @details The function provides 12 main statistics of the voxels. Specifically, the first three columns represent the edge length of the voxels, the following three columns (ei. \code{N_voxels}, \code{Volume}, \code{Surface}) describe the number of voxels created, the total volume that they represent, and the surface area that they cover.
 #' Following columns represent the mean (\code{Density_mean}) and sd (\code{Density_sd}) of the density of points per voxel (e.g. points/m2). Columns 9:12 provide metrics calculated using the Shannon Index. Specifically, \code{H} describe the entropy, \code{H_max} the maximum entropy, \code{Equitavility} the ratio between \code{H} and \code{Hmax}, and \code{Negentropy} describe the product of \code{Hmax} - \code{H}.
 #' If \code{bootstrap = TRUE} four more columns are created (13:16). These represent the \code{mean} and \code{sd} of the H index estimated using bootstrap (\code{H_boot_mean} and \code{H_boot_sd}), the \code{Equtavility_boot} as the ratio of the ratio between \code{H_boot_sd} and \code{Hmax}, and \code{Negentropy_boot} as the product \code{Hmax} - \code{H_boot_mean}.
 #'
@@ -24,34 +24,34 @@
 #' data("pc_tree")
 #'
 #' #Apply a summary on a object of class "voxels" using bootstrap with 1000 replicates.
-#' vox <- voxels(pc_tree, voxel.size = c(0.5, 0.5, 0.5))
+#' vox <- voxels(pc_tree, edge.length = c(0.5, 0.5, 0.5))
 #' summary_voxels(vox, bootstrap = TRUE, R = 1000)
 #'
 #' #Apply a summary on a product from 'voxels' using bootstrap with 1000 replicates.
-#' vox <- voxels(pc_tree, voxel.size = c(0.5, 0.5, 0.5), obj.voxels = FALSE)
-#' summary_voxels(vox, voxel.size = c(0.5, 0.5, 0.5), bootstrap = TRUE, R = 1000)
+#' vox <- voxels(pc_tree, edge.length = c(0.5, 0.5, 0.5), obj.voxels = FALSE)
+#' summary_voxels(vox, edge.length = c(0.5, 0.5, 0.5), bootstrap = TRUE, R = 1000)
 #'
 #' @export
-summary_voxels <- function(voxels, voxel.size = NULL, bootstrap = FALSE, R = NULL) {
+summary_voxels <- function(voxels, edge.length = NULL, bootstrap = FALSE, R = NULL) {
 
   if(class(voxels)[1] != "voxels") {
-    if(is.null(voxel.size) == TRUE) {
-      stop("voxel.size need to be defined")
+    if(is.null(edge.length) == TRUE) {
+      stop("edge.length need to be defined")
     }
 
     colnames(voxels) <- c("X", "Y", "Z", "N")
-    Voxel.size <- voxel.size
+    Edge.length <- edge.length
 
   } else if(class(voxels)[1] == "voxels") {
-    Voxel.size <- voxels$parameter
+    Edge.length <- voxels$parameter
     voxels <- voxels$voxels
   }
 
-  volumen <- Voxel.size[1]*Voxel.size[2]*Voxel.size[3]
+  volumen <- Edge.length[1]*Edge.length[2]*Edge.length[3]
 
   N_voxels <- nrow(voxels)
   Volume <- (volumen)*N_voxels
-  Surface <- nrow(unique(voxels[, c("X", "Y")]))*(Voxel.size[1]*Voxel.size[2])
+  Surface <- nrow(unique(voxels[, c("X", "Y")]))*(Edge.length[1]*Edge.length[2])
   Density_mean <- mean(voxels$N/(volumen))
   Density_sd <- sd(voxels$N/(volumen))
   H <- shannon(voxels$N) #H index
@@ -60,7 +60,7 @@ summary_voxels <- function(voxels, voxel.size = NULL, bootstrap = FALSE, R = NUL
   Negentropy <- Hmax - H #Negentropy
 
   if(bootstrap == FALSE ) {
-      frame <- data.table(Edge.X = Voxel.size[1], Edge.Y = Voxel.size[2], Edge.Z = Voxel.size[3], N_voxels, Volume, Surface, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy)
+      frame <- data.table(Edge.X = Edge.length[1], Edge.Y = Edge.length[2], Edge.Z = Edge.length[3], N_voxels, Volume, Surface, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy)
 
   } else if(bootstrap == TRUE) {
 
@@ -74,7 +74,7 @@ summary_voxels <- function(voxels, voxel.size = NULL, bootstrap = FALSE, R = NUL
     Equitavility_boot <- H_boot_mean/Hmax #Equitavility based on boot
     Negentropy_boot <- Hmax - H_boot_mean #Negentropy based on boot
 
-    frame <- data.table(Edge.X = Voxel.size[1], Edge.Y = Voxel.size[2], Edge.Z = Voxel.size[3], N_voxels, Volume, Surface, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy, H_boot_mean, H_boot_sd, Equitavility_boot, Negentropy_boot)
+    frame <- data.table(Edge.X = Edge.length[1], Edge.Y = Edge.length[2], Edge.Z = Edge.length[3], N_voxels, Volume, Surface, Density_mean, Density_sd, H, Hmax, Equitavility, Negentropy, H_boot_mean, H_boot_sd, Equitavility_boot, Negentropy_boot)
   }
   return(frame)
 }
