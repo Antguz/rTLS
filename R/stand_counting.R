@@ -1,0 +1,228 @@
+#' @title Stand Counting
+#'
+#' @description Applies the \code{\link{voxels_counting}} function on a grid base point cloud.
+#'
+#' @param cloud A \code{data.table} of a point cloud with xyz coordinates in the first three columns.
+#' @param xy.res A positive \code{numeric} vector describing the grid resolution of the xy coordinates to perform.
+#' @param z.res A positive \code{numeric} vector of length 1 describing the vertical resolution. If \code{z.res = NULL} vertical profiles are not used.
+#' @param points.min A positive \code{numeric} vector of length 1 minimum number of points to retain a sub-grid.
+#' @param min.size A positive \code{numeric} vector of length 1 describing the minimum cube edge length to perform. This is required if \code{edge.sizes = NULL}.
+#' @param edge.sizes A positive \code{numeric} vector describing the edge length of the different cubes to perform within each subgrid when \code{z.res = NULL}. If \code{edge.sizes = NULL}, it use range between the maximum and minimum z profile.
+#' @param length.out A positive \code{interger} of length 1 indicating the number of different edge lengths to use for each subgrid. This is required if \code{edge.sizes  = NULL}.
+#' @param bootstrap Logical. If \code{TRUE}, it computes a bootstrap on the H index calculations. \code{FALSE} as default.
+#' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates. This need to be used if \code{bootstrap = TRUE}.
+#' @param progress Logical, if \code{TRUE} displays a graphical progress bar. \code{TRUE} as default.
+#' @param parallel Logical, if \code{TRUE} it uses a parallel processing for the voxelization. \code{FALSE} as default.
+#' @param threads An \code{integer} >= 0 describing the number of threads to use. This need to be used if \code{parallel = TRUE}.
+#'
+#' @import data.table
+#' @importFrom parallel makeCluster
+#' @importFrom parallel stopCluster
+#' @importFrom doSNOW registerDoSNOW
+#' @importFrom foreach foreach
+#' @importFrom foreach %dopar%
+#' @importFrom foreach %do%
+#'
+#' @seealso \code{\link{voxels_counting}}, \link{voxels}}, \code{\link{summary_voxels}}, \code{\link{plot_voxels}}
+#'
+#' @return A \code{data.table} with the summary of the voxels created with their features.
+#' @author J. Antonio Guzmán Q.
+#' @examples
+#'
+#' data(pc_tree)
+#'
+#' #Applying voxels counting.
+#' voxels_counting(pc_tree, min.size = 0.05)
+#'
+#' #Voxels counting using boostrap on the H indixes with 1000 repetitions.
+#' voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000)
+#'
+#' \dontrun{
+#' #Voxels counting using bootstrap on the H indices and using parallel processing.
+#' voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000, parallel = TRUE, threads = 4)
+#' }
+#'
+#' @export
+stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.size, edge.sizes = NULL, length.out = 10, bootstrap = FALSE, R = NULL, progress = TRUE, parallel = FALSE, threads = NULL) {
+
+  if(is.null(z.res)) { ###Without vertical grid
+    vox <- voxels(cloud, edge.length = c(xy.res[1], xy.res[2], xy.res[1]*10))
+    vox$voxels <- vox$voxels[ , sum(N), by = .(X, Y)]
+    colnames(vox$voxels)[3] <- "N"
+
+    if(is.null(points.min)) { ###Min number of points
+      vox$voxels <- vox$voxels[,1:2]
+    } else {
+      vox$voxels <- vox$voxels[N >= points.min]
+      vox$voxels <- vox$voxels[,1:2]
+    }
+  } else { #With vertical grid
+    vox <- voxels(cloud, edge.length = c(xy.res[1], xy.res[2], z.res))
+
+    if(is.null(points.min)) { ###Min number of points
+      vox$voxels <- vox$voxels[,1:3]
+    } else {
+      vox$voxels <- vox$voxels[N >= points.min]
+      vox$voxels <- vox$voxels[,1:3]
+    }
+  }
+
+  #Cube size
+  if(is.null(z.res)) {
+    if(is.null(edge.sizes) == TRUE) { ###Default edge.sizes
+      ranges <- c(max(cloud[,3]) - min(cloud[,3])) + 0.001
+      edge.sizes <- seq(from = log10(c(ranges)), to = log10(min.size), length.out = length.out)
+      edge.sizes <- 10^edge.sizes
+    }
+  } else {
+    edge.sizes <- seq(from = log10(max(c(xy.res, z.res))), to = log10(min.size), length.out = length.out)
+    edge.sizes <- 10^edge.sizes
+  }
+
+  if(parallel == TRUE) { ###If parallel is true
+
+    cl <- makeCluster(threads, outfile="") #Make clusters
+    registerDoSNOW(cl)
+
+    if(progress == TRUE) {
+      cat("Estimating stand_counting in parallel")  #Progress bar
+      pb <- txtProgressBar(min = 1, max = nrow(vox$voxels), style = 3)
+      progress <- function(n) setTxtProgressBar(pb, n)
+      opts <- list(progress=progress)
+
+    } else {
+      opts <- NULL
+    }
+
+    #Run in parallel
+    results <- foreach(i = 1:nrow(vox$voxels), .inorder = FALSE, .combine= rbind, .packages = c("data.table", "rTLS"), .options.snow = opts) %dopar% {
+
+      if(is.null(z.res)) {
+        pixel <- cloud[X >= as.numeric((vox$voxels[i, 1] - (xy.res[1]/2))) &
+                    X < as.numeric((vox$voxels[i, 1] + (xy.res[1]/2)))  &
+                    Y >= as.numeric((vox$voxels[i, 2] - (xy.res[2]/2))) &
+                    Y < as.numeric((vox$voxels[i, 2] + (xy.res[2]/2))),]
+
+        frame <- voxels_counting(pixel, edge.sizes = edge.sizes,
+                                 min.size = min.size, length.out = length.out,
+                                 bootstrap = bootstrap,
+                                 R = R,
+                                 progress = FALSE,
+                                 parallel = FALSE)
+
+        final <- data.table(X = as.numeric(rep(vox$voxels[i,1], nrow(frame))),
+                            Y = as.numeric(rep(vox$voxels[i,2], nrow(frame))))
+
+        final <- cbind(final, frame)
+
+      } else {
+        pixel <- cloud[X >= as.numeric((vox$voxels[i, 1] - (xy.res[1]/2))) &
+                    X < as.numeric((vox$voxels[i, 1] + (xy.res[1]/2)))  &
+                    Y >= as.numeric((vox$voxels[i, 2] - (xy.res[2]/2))) &
+                    Y < as.numeric((vox$voxels[i, 2] + (xy.res[2]/2)))  &
+                    Z >= as.numeric((vox$voxels[i, 3] - (z.res/2))) &
+                    Z < as.numeric((vox$voxels[i, 3] + (z.res/2))),]
+
+        frame <- voxels_counting(pixel, edge.sizes = edge.sizes,
+                                 min.size = min.size, length.out = length.out,
+                                 bootstrap = bootstrap,
+                                 R = R,
+                                 progress = FALSE,
+                                 parallel = FALSE)
+
+        final <- data.table(X = as.numeric(rep(vox$voxels[i,1], nrow(frame))),
+                            Y = as.numeric(rep(vox$voxels[i,2], nrow(frame))),
+                            Z = as.numeric(rep(vox$voxels[i,3], nrow(frame))))
+
+        final <- cbind(final, frame)
+      }
+
+      return(final)
+    }
+
+    #Stop clusters
+    stopCluster(cl)
+
+  } else if(parallel == FALSE) { ###If parallel is false
+
+    if(progress == TRUE) {
+      cat("Estimating stand_counting")
+      pb <- txtProgressBar(min = 1, max = nrow(vox$voxels), style = 3) #Progress bar
+    }
+
+    #Run without using parallel
+    results <- foreach(i = 1:nrow(vox$voxels), .inorder = FALSE, .combine= rbind) %do% {
+
+      if(progress == TRUE) {
+        setTxtProgressBar(pb, i)
+      }
+
+      if(is.null(z.res)) {
+        pixel <- cloud[X >= as.numeric((vox$voxels[i, 1] - (xy.res[1]/2))) &
+                      X < as.numeric((vox$voxels[i, 1] + (xy.res[1]/2)))  &
+                      Y >= as.numeric((vox$voxels[i, 2] - (xy.res[2]/2))) &
+                      Y < as.numeric((vox$voxels[i, 2] + (xy.res[2]/2))),]
+
+        frame <- voxels_counting(pixel, edge.sizes = edge.sizes,
+                                 min.size = min.size, length.out = length.out,
+                                 bootstrap = bootstrap,
+                                 R = R,
+                                 progress = FALSE,
+                                 parallel = FALSE)
+
+        final <- data.table(X = as.numeric(rep(vox$voxels[i,1], nrow(frame))),
+                            Y = as.numeric(rep(vox$voxels[i,2], nrow(frame))))
+
+        final <- cbind(final, frame)
+
+      } else {
+        pixel <- cloud[X >= as.numeric((vox$voxels[i, 1] - (xy.res[1]/2))) &
+                      X < as.numeric((vox$voxels[i, 1] + (xy.res[1]/2)))  &
+                      Y >= as.numeric((vox$voxels[i, 2] - (xy.res[2]/2))) &
+                      Y < as.numeric((vox$voxels[i, 2] + (xy.res[2]/2)))  &
+                      Z >= as.numeric((vox$voxels[i, 3] - (z.res/2))) &
+                      Z < as.numeric((vox$voxels[i, 3] + (z.res/2))),]
+
+        frame <- voxels_counting(pixel, edge.sizes = edge.sizes,
+                                 min.size = min.size, length.out = length.out,
+                                 bootstrap = bootstrap,
+                                 R = R,
+                                 progress = FALSE,
+                                 parallel = FALSE)
+
+        final <- data.table(X = as.numeric(rep(vox$voxels[i,1], nrow(frame))),
+                            Y = as.numeric(rep(vox$voxels[i,2], nrow(frame))),
+                            Z = as.numeric(rep(vox$voxels[i,3], nrow(frame))))
+
+        final <- cbind(final, frame)
+      }
+
+      return(final)
+    }
+
+    if(progress == TRUE) {
+      close(pb) #Close progress
+    }
+  }
+
+  #Vertical grid order
+  if(is.null(z.res)) {
+    results <- results[order(X, Y, N_voxels)]
+  } else {
+    results <- results[order(X, Y, Z, N_voxels)]
+  }
+
+  return(results)
+}
+
+
+
+a <- stand_counting(cloud, xy.res = c(10, 10), points.min = 10, min.size = 0.1, parallel = TRUE, threads = 16)
+
+data <- readLAS("/home/antguz/Downloads/High_Liana/Plot88d.las")
+cloud <- data.table(X= data$X, Y= data$Y, Z = data$Z)
+
+a <- voxelization(as.matrix(pc), 0.5, 1)
+
+a <- voxelization_irregular(as.matrix(pc), c(0.5, 0.5, 50), 1)
+
