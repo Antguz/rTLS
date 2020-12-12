@@ -7,11 +7,11 @@
 #' @param add.points Logical, if \code{TRUE} it adds the original points used to perform the voxelization. \code{TRUE} as default.
 #' @param add.voxels Logical, if \code{TRUE} it adds the voxels created. \code{TRUE} as default.
 #' @param border Logical, if \code{TRUE} it adds a line on the borders of each voxel. \code{TRUE} as default.
-#' @param gradient.col Logical, if \code{TRUE} it uses a gradient of colors based on the number of points in each voxels. If \code{FALSE}, a unique color is used (e.i. \code{fill.col}). \code{FALSE} as default.
 #' @param points.size The points size, a positive number to use if plot \code{add.points = TRUE}.
 #' @param points.col A \code{character} defining the color of the points to use.
-#' @param fill.col A \code{character} defining the color to fill the voxels.
-#' @param lwd The line width, a positive number, defaulting to 0.5.
+#' @param fill.col A \code{character} vector defining the color to fill the voxels, it could be a range of colors or a solid color.
+#' @param line.lwd The line width, a positive number, defaulting to 0.5.
+#' @param line.col A \code{character} defining the color of the border lines to use.
 #' @param alpha A positive numeric vector describing the transparency of the voxels to fill. This value most be between 0.0 (fully transparent) .. 1.0 (opaque).
 #' @param ... General arguments passed to \code{\link{rgl}}.
 #'
@@ -35,7 +35,7 @@
 #' @importFrom rgl points3d
 #'
 #' @export
-plot_voxels <- function(voxels, add.points = TRUE, add.voxels = TRUE, gradient.col = FALSE, border = TRUE, points.size = 1, points.col = "black", fill.col = "forestgreen", lwd = 0.5, alpha = 0.10, ...) {
+plot_voxels <- function(voxels, add.points = TRUE, add.voxels = TRUE, border = TRUE, points.size = 1, points.col = "black", fill.col = "forestgreen", line.lwd = 0.5, line.col = "black", alpha = 0.10, ...) {
 
   if(class(voxels)[1] != "voxels") { ###Restriction to use
     stop("An object from voxels() need to be used")
@@ -47,17 +47,14 @@ plot_voxels <- function(voxels, add.points = TRUE, add.voxels = TRUE, gradient.c
 
     cube <- cube3d() #Creates an empty voxel that will be used in the loop
     cube <- scale3d(cube, voxels$parameter[1]/2, voxels$parameter[2]/2, voxels$parameter[3]/2) #Modify the voxel size using all the digits of the XYZ voxels
-    cube$material$lwd <- lwd
+    cube$material$lwd <- line.lwd
     cube$material$front <- 'line'
     cube$material$back <- 'line'
 
-    if(gradient.col == TRUE) { ###Select the colors
-      colfunc <- colorRampPalette(c("royalblue", "springgreen", "yellow", "red"))
-      col_to_use <- colfunc(max(voxels$voxels$N))
-      col_to_use <- col_to_use[voxels$voxels$N]
-    } else {
-      col_to_use <- rep(fillcol, length(voxels$voxels$N))
-    }
+    colfunc <- colorRampPalette(fill.col)
+    col_to_use <- colfunc(max(voxels$voxels$N))
+    col_to_use <- col_to_use[voxels$voxels$N]
+
 
     for(i in 1:nrow(voxels$voxels)) {
 
@@ -67,7 +64,7 @@ plot_voxels <- function(voxels, add.points = TRUE, add.voxels = TRUE, gradient.c
 
       if(border == TRUE) {
         for (i in 1:6) {
-          lines3d(t(box$vb)[box$ib[,i],])
+          lines3d(t(box$vb)[box$ib[,i],], size = line.lwd, col = line.col)
         }
       }
     }
