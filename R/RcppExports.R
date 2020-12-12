@@ -45,7 +45,7 @@ sphere_covering_rcpp <- function(amat, radius, kmax = 4, threads = 1L, progress 
     .Call(`_rTLS_sphere_covering_rcpp`, amat, radius, kmax, threads, progress)
 }
 
-voxelization_rcpp <- function(cloud, voxel_size, threads = 1L) {
-    .Call(`_rTLS_voxelization_rcpp`, cloud, voxel_size, threads)
+voxelization_rcpp <- function(cloud, edge_length, threads = 1L) {
+    .Call(`_rTLS_voxelization_rcpp`, cloud, edge_length, threads)
 }
 

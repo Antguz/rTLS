@@ -9,12 +9,11 @@ plot_voxels(
   add.points = TRUE,
   add.voxels = TRUE,
   border = TRUE,
-  fill = TRUE,
-  gradientcol = FALSE,
   points.size = 1,
-  pointscol = "black",
-  fillcol = "forestgreen",
-  lwd = 0.5,
+  points.col = "black",
+  fill.col = "forestgreen",
+  line.lwd = 0.5,
+  line.col = "black",
   alpha = 0.1,
   ...
 )
@@ -28,17 +27,15 @@ plot_voxels(
 
 \item{border}{Logical, if \code{TRUE} it adds a line on the borders of each voxel. \code{TRUE} as default.}
 
-\item{fill}{Logical, if \code{TRUE} it fills each voxels with colors. \code{TRUE} as default.}
-
-\item{gradientcol}{Logical, if \code{TRUE} it uses a gradient of colors based on the number of points in each voxels. \code{FALSE} as default.}
-
 \item{points.size}{The points size, a positive number to use if plot \code{add.points = TRUE}.}
 
-\item{pointscol}{A \code{character} defining the color of the points to use.}
+\item{points.col}{A \code{character} defining the color of the points to use.}
 
-\item{fillcol}{A \code{character} defining the color to fill the voxels.}
+\item{fill.col}{A \code{character} vector defining the color to fill the voxels, it could be a range of colors or a solid color.}
 
-\item{lwd}{The line width, a positive number, defaulting to 0.5.}
+\item{line.lwd}{The line width, a positive number, defaulting to 0.5.}
+
+\item{line.col}{A \code{character} defining the color of the border lines to use.}
 
 \item{alpha}{A positive numeric vector describing the transparency of the voxels to fill. This value most be between 0.0 (fully transparent) .. 1.0 (opaque).}
 
@@ -50,8 +47,8 @@ The \code{plot} method for objects of class \code{"voxels"} created using the \c
 \examples{
 data("pc_tree")
 
-###Create voxels of a size of 0.5.
-vox <- voxels(pc_tree, voxel.size = 0.5)
+###Create cubes of a size of 0.5.
+vox <- voxels(pc_tree, edge.length = c(0.5, 0.5, 0.5))
 plot_voxels(vox)
 
 }
