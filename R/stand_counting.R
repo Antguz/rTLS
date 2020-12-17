@@ -7,7 +7,7 @@
 #' @param z.res A positive \code{numeric} vector of length 1 describing the vertical resolution. If \code{z.res = NULL} vertical profiles are not used.
 #' @param points.min A positive \code{numeric} vector of length 1 minimum number of points to retain a sub-grid.
 #' @param min.size A positive \code{numeric} vector of length 1 describing the minimum cube edge length to perform. This is required if \code{edge.sizes = NULL}.
-#' @param edge.sizes A positive \code{numeric} vector describing the edge length of the different cubes to perform within each subgrid when \code{z.res = NULL}. If \code{edge.sizes = NULL}, it use range between the maximum and minimum z profile.
+#' @param edge.sizes A positive \code{numeric} vector describing the edge length of the different cubes to perform within each subgrid when \code{z.res = NULL}. If \code{edge.sizes = NULL}, it uses the maximum range of values for the xyz coordinates.
 #' @param length.out A positive \code{interger} of length 1 indicating the number of different edge lengths to use for each subgrid. This is required if \code{edge.sizes  = NULL}.
 #' @param bootstrap Logical. If \code{TRUE}, it computes a bootstrap on the H index calculations. \code{FALSE} as default.
 #' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates. This need to be used if \code{bootstrap = TRUE}.
@@ -67,14 +67,8 @@ stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.s
     }
   }
 
-  #Cube size
-  if(is.null(z.res)) {
-    if(is.null(edge.sizes) == TRUE) { ###Default edge.sizes
-      ranges <- c(max(cloud[,3]) - min(cloud[,3])) + 0.001
-      edge.sizes <- seq(from = log10(c(ranges)), to = log10(min.size), length.out = length.out)
-      edge.sizes <- 10^edge.sizes
-    }
-  } else {
+  #Cube size if z.res is true
+  if(is.null(z.res) != TRUE) {
     edge.sizes <- seq(from = log10(max(c(xy.res, z.res))), to = log10(min.size), length.out = length.out)
     edge.sizes <- 10^edge.sizes
   }
@@ -103,8 +97,9 @@ stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.s
                     Y >= as.numeric((vox$voxels[i, 2] - (xy.res[2]/2))) &
                     Y < as.numeric((vox$voxels[i, 2] + (xy.res[2]/2))),]
 
-        frame <- voxels_counting(pixel, edge.sizes = edge.sizes,
-                                 min.size = min.size, length.out = length.out,
+        frame <- voxels_counting(pixel,
+                                 min.size = min.size,
+                                 length.out = length.out,
                                  bootstrap = bootstrap,
                                  R = R,
                                  progress = FALSE,
@@ -123,8 +118,10 @@ stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.s
                     Z >= as.numeric((vox$voxels[i, 3] - (z.res/2))) &
                     Z < as.numeric((vox$voxels[i, 3] + (z.res/2))),]
 
-        frame <- voxels_counting(pixel, edge.sizes = edge.sizes,
-                                 min.size = min.size, length.out = length.out,
+        frame <- voxels_counting(pixel,
+                                 edge.sizes = edge.sizes,
+                                 min.size = min.size,
+                                 length.out = length.out,
                                  bootstrap = bootstrap,
                                  R = R,
                                  progress = FALSE,
@@ -163,8 +160,9 @@ stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.s
                       Y >= as.numeric((vox$voxels[i, 2] - (xy.res[2]/2))) &
                       Y < as.numeric((vox$voxels[i, 2] + (xy.res[2]/2))),]
 
-        frame <- voxels_counting(pixel, edge.sizes = edge.sizes,
-                                 min.size = min.size, length.out = length.out,
+        frame <- voxels_counting(pixel,
+                                 min.size = min.size,
+                                 length.out = length.out,
                                  bootstrap = bootstrap,
                                  R = R,
                                  progress = FALSE,
@@ -183,8 +181,10 @@ stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.s
                       Z >= as.numeric((vox$voxels[i, 3] - (z.res/2))) &
                       Z < as.numeric((vox$voxels[i, 3] + (z.res/2))),]
 
-        frame <- voxels_counting(pixel, edge.sizes = edge.sizes,
-                                 min.size = min.size, length.out = length.out,
+        frame <- voxels_counting(pixel,
+                                 edge.sizes = edge.sizes,
+                                 min.size = min.size,
+                                 length.out = length.out,
                                  bootstrap = bootstrap,
                                  R = R,
                                  progress = FALSE,
@@ -216,13 +216,4 @@ stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.s
 }
 
 
-
-a <- stand_counting(cloud, xy.res = c(10, 10), points.min = 10, min.size = 0.1, parallel = TRUE, threads = 16)
-
-data <- readLAS("/home/antguz/Downloads/High_Liana/Plot88d.las")
-cloud <- data.table(X= data$X, Y= data$Y, Z = data$Z)
-
-a <- voxelization(as.matrix(pc), 0.5, 1)
-
-a <- voxelization_irregular(as.matrix(pc), c(0.5, 0.5, 50), 1)
 

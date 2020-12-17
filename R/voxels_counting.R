@@ -19,6 +19,8 @@
 #' @importFrom foreach foreach
 #' @importFrom foreach %dopar%
 #' @importFrom foreach %do%
+#' @importFrom utils txtProgressBar
+#' @importFrom utils setTxtProgressBar
 #'
 #' @seealso \code{\link{voxels}}, \code{\link{summary_voxels}}, \code{\link{plot_voxels}}
 #'
