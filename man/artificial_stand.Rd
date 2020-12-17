@@ -15,6 +15,7 @@ artificial_stand(
   rotation = TRUE,
   degrees = NULL,
   n_attempts = 100,
+  progress = TRUE,
   plot = TRUE,
   ...
 )
@@ -47,6 +48,8 @@ coordinates based on stand dimension. \code{NULL} as default.}
 
 \item{n_attempts}{A positive \code{numeric} vector of length one describing the number of attempts to provide random \code{coordinates} until a tree met the \code{overlap} criteria.
 This needs to be used if \code{coordinate = NULL} and \code{overlap != NULL}. \code{n_attempts = 100} as default.}
+
+\item{progress}{Logical, if \code{TRUE} displays a graphical progress bar. \code{TRUE} as default.}
 
 \item{plot}{Logical. If \code{TRUE}, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.}
 
