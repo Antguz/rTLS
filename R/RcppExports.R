@@ -13,8 +13,8 @@ dimensionality_sphere_rcpp <- function(amat, bmat, radius, threads = 1L, progres
     .Call(`_rTLS_dimensionality_sphere_rcpp`, amat, bmat, radius, threads, progress)
 }
 
-euclidean_dist <- function(sample, base, threads = 1L) {
-    .Call(`_rTLS_euclidean_dist`, sample, base, threads)
+euclidean_rcpp <- function(sample, base, threads = 1L) {
+    .Call(`_rTLS_euclidean_rcpp`, sample, base, threads)
 }
 
 meanDis_knn_rcpp <- function(amat, k, threads = 1L, progress = TRUE) {

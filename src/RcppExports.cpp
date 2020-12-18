@@ -49,16 +49,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// euclidean_dist
-Rcpp::NumericVector euclidean_dist(Rcpp::NumericVector sample, Rcpp::NumericMatrix base, int threads);
-RcppExport SEXP _rTLS_euclidean_dist(SEXP sampleSEXP, SEXP baseSEXP, SEXP threadsSEXP) {
+// euclidean_rcpp
+Rcpp::NumericVector euclidean_rcpp(Rcpp::NumericVector sample, Rcpp::NumericMatrix base, int threads);
+RcppExport SEXP _rTLS_euclidean_rcpp(SEXP sampleSEXP, SEXP baseSEXP, SEXP threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type sample(sampleSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type base(baseSEXP);
     Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
-    rcpp_result_gen = Rcpp::wrap(euclidean_dist(sample, base, threads));
+    rcpp_result_gen = Rcpp::wrap(euclidean_rcpp(sample, base, threads));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -177,7 +177,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_cartesian_to_polar_rcpp", (DL_FUNC) &_rTLS_cartesian_to_polar_rcpp, 3},
     {"_rTLS_dimensionality_knn_rcpp", (DL_FUNC) &_rTLS_dimensionality_knn_rcpp, 5},
     {"_rTLS_dimensionality_sphere_rcpp", (DL_FUNC) &_rTLS_dimensionality_sphere_rcpp, 5},
-    {"_rTLS_euclidean_dist", (DL_FUNC) &_rTLS_euclidean_dist, 3},
+    {"_rTLS_euclidean_rcpp", (DL_FUNC) &_rTLS_euclidean_rcpp, 3},
     {"_rTLS_meanDis_knn_rcpp", (DL_FUNC) &_rTLS_meanDis_knn_rcpp, 4},
     {"_rTLS_minimum_distance_rcpp", (DL_FUNC) &_rTLS_minimum_distance_rcpp, 4},
     {"_rTLS_nneighbors_sphere_rcpp", (DL_FUNC) &_rTLS_nneighbors_sphere_rcpp, 4},
