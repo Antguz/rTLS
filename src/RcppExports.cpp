@@ -77,15 +77,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // minimum_distance_rcpp
-double minimum_distance_rcpp(arma::mat amat, int threads, bool progress);
-RcppExport SEXP _rTLS_minimum_distance_rcpp(SEXP amatSEXP, SEXP threadsSEXP, SEXP progressSEXP) {
+double minimum_distance_rcpp(arma::mat amat, double radius, int threads, bool progress);
+RcppExport SEXP _rTLS_minimum_distance_rcpp(SEXP amatSEXP, SEXP radiusSEXP, SEXP threadsSEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type amat(amatSEXP);
+    Rcpp::traits::input_parameter< double >::type radius(radiusSEXP);
     Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
     Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
-    rcpp_result_gen = Rcpp::wrap(minimum_distance_rcpp(amat, threads, progress));
+    rcpp_result_gen = Rcpp::wrap(minimum_distance_rcpp(amat, radius, threads, progress));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -178,7 +179,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_dimensionality_sphere_rcpp", (DL_FUNC) &_rTLS_dimensionality_sphere_rcpp, 5},
     {"_rTLS_euclidean_dist", (DL_FUNC) &_rTLS_euclidean_dist, 3},
     {"_rTLS_meanDis_knn_rcpp", (DL_FUNC) &_rTLS_meanDis_knn_rcpp, 4},
-    {"_rTLS_minimum_distance_rcpp", (DL_FUNC) &_rTLS_minimum_distance_rcpp, 3},
+    {"_rTLS_minimum_distance_rcpp", (DL_FUNC) &_rTLS_minimum_distance_rcpp, 4},
     {"_rTLS_nneighbors_sphere_rcpp", (DL_FUNC) &_rTLS_nneighbors_sphere_rcpp, 4},
     {"_rTLS_polar_to_cartesian_rcpp", (DL_FUNC) &_rTLS_polar_to_cartesian_rcpp, 2},
     {"_rTLS_rotate2D_rcpp", (DL_FUNC) &_rTLS_rotate2D_rcpp, 3},

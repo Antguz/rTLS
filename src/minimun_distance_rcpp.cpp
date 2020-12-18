@@ -14,7 +14,7 @@ using arma::min;
 using namespace arma;
 
 // [[Rcpp::export]]
-double minimum_distance_rcpp(arma::mat amat, int threads = 1, bool progress = true) {
+double minimum_distance_rcpp(arma::mat amat, double radius, int threads = 1, bool progress = true) {
 
 #ifdef _OPENMP
   if ( threads > 0 ) {
@@ -31,10 +31,42 @@ double minimum_distance_rcpp(arma::mat amat, int threads = 1, bool progress = tr
 
 #pragma omp parallel for
   for (int i = 0; i < an; i++) {
+
     arma::vec distance(an);
 
     for (int j = 0; j < an; j++) { //Loop to estimate the distance
-      distance(j) = sqrt(pow((amat(j, 0) - amat(i, 0)), 2.0) + pow((amat(j, 1) - amat(i, 1)), 2.0) + pow((amat(j, 2) - amat(i, 2)), 2.0));
+
+      double dx = (amat(j, 0) - amat(i, 0)); //Absolute values for differences X
+
+      if((dx > radius) || (dx < -radius)) {
+        distance(j) = 0;
+
+      } else {
+
+        double dy = (amat(j, 1) - amat(i, 1)); //Absolute values for differences Y
+
+        if((dy > radius) || (dy < -radius)) {
+          distance(j) = 0;
+
+        } else {
+
+          double dz = abs(amat(j, 2) - amat(i, 2)); //Absolute values for differences Z
+
+          if((dz > radius) || (dz < -radius)) {
+            distance(j) = 0;
+
+          } else {
+            double euclidean = sqrt(pow(dx, 2.0) + pow(dy, 2.0) + pow(dz, 2.0));
+
+            if(euclidean > radius) {
+              distance(j) = 0;
+
+            } else {
+              distance(j) = euclidean;
+            }
+          }
+        }
+      }
     }
 
     out[i] = min(distance.elem(find(distance != 0)));

@@ -4,7 +4,7 @@
 \alias{min_distance}
 \title{Minimum Distance Between Points}
 \usage{
-min_distance(cloud, threads = 1, progress = TRUE)
+min_distance(cloud, radius = 1, threads = 1, progress = TRUE)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with *XYZ* coordinates in the first three columns representing a point cloud.}

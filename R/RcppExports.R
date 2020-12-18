@@ -21,8 +21,8 @@ meanDis_knn_rcpp <- function(amat, k, threads = 1L, progress = TRUE) {
     .Call(`_rTLS_meanDis_knn_rcpp`, amat, k, threads, progress)
 }
 
-minimum_distance_rcpp <- function(amat, threads = 1L, progress = TRUE) {
-    .Call(`_rTLS_minimum_distance_rcpp`, amat, threads, progress)
+minimum_distance_rcpp <- function(amat, radius, threads = 1L, progress = TRUE) {
+    .Call(`_rTLS_minimum_distance_rcpp`, amat, radius, threads, progress)
 }
 
 nneighbors_sphere_rcpp <- function(amat, radius, threads = 1L, progress = TRUE) {
