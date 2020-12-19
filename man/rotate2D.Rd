@@ -22,7 +22,10 @@ Rotate a plane of coordinates to a given angle.
 \examples{
 
 data(pc_tree)
+
 plot(pc_tree[,1:2])
+
+#Rotate in 45 degrees using Z axis of the cloud
 plot(rotate2D(pc_tree[,1:2], angle = 45))
 
 }
