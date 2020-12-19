@@ -5,8 +5,7 @@ output: github_document
 <# rTLS <img src="man/figures/rTLS_logo.png" align="right" alt="" width="120" />
 
 [![DOI](https://zenodo.org/badge/162520913.svg)](https://zenodo.org/badge/latestdoi/162520913)
-[![Travis build status](https://travis-ci.com/Antguz/rTLS.svg?branch=master)](https://travis-ci.com/Antguz/rTLS)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/Antguz/rTLS?branch=master&svg=true)](https://ci.appveyor.com/project/Antguz/rTLS)
+[![R build status](https://github.com/Antguz/rTLS/workflows/R-CMD-check/badge.svg)](https://github.com/Antguz/rTLS/actions)
 [![Codecov test coverage](https://codecov.io/gh/Antguz/rTLS/branch/master/graph/badge.svg)](https://codecov.io/gh/Antguz/rTLS?branch=master)
   
 
