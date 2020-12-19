@@ -32,7 +32,7 @@ test_that("Test whether the summary applied on pc works", {
   pc <- pc_tree
 
   vox <- voxels(pc_tree, edge.length = c(5, 5, 5), obj.voxels = FALSE)
-  to_test <- summary_voxels(vox, edge.length = c(5, 5, 5), bootstrap = TRUE, R = 1000)
+  to_test <- try(summary_voxels(vox, edge.length = c(5, 5, 5), bootstrap = TRUE, R = 1000), silent = FALSE)
 
   expect_equal(as.numeric(to_test[1, 1]), 5, info = "Edge X")
   expect_equal(as.numeric(to_test[1, 2]), 5, info = "Edge Y")

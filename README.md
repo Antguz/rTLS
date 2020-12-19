@@ -1,5 +1,6 @@
 [![DOI](https://zenodo.org/badge/162520913.svg)](https://zenodo.org/badge/latestdoi/162520913)
 [![Travis build status](https://travis-ci.com/Antguz/rTLS.svg?branch=master)](https://travis-ci.com/Antguz/rTLS)
+[![Codecov test coverage](https://codecov.io/gh/Antguz/rTLS/branch/master/graph/badge.svg)](https://codecov.io/gh/Antguz/rTLS?branch=master)
 
 ***
 

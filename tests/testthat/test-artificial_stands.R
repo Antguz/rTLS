@@ -22,13 +22,14 @@ test_that("Whether the predifine locations of trees works", {
 
   to_test <- artificial_stand(files, n.trees = 4, dimension = c(15, 15),
                               coordinates = location,
+                              rotation = FALSE,
                               progress = FALSE, plot = FALSE)
 
   ###Stand information
   expect_equal(as.numeric(to_test$Stand[1,1]), 4, info = "Number of trees")
   expect_equal(as.numeric(to_test$Stand[1,2]), 225, info = "Stand area")
-  expect_equal(round(as.numeric(to_test$Stand[1,3]), 2), 102.93, info = "Covered area")
-  expect_equal(round(as.numeric(to_test$Stand[1,4]), 2), 102.93, info = "Crown area")
+  expect_equal(round(as.numeric(to_test$Stand[1,3]), 2), 104.77, info = "Covered area")
+  expect_equal(round(as.numeric(to_test$Stand[1,4]), 2), 104.77, info = "Crown area")
   expect_equal(as.numeric(to_test$Stand[1,5]), 303248, info = "Number of points")
 
   ###Trees information
