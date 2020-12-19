@@ -1,8 +1,6 @@
 ^data-raw$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^\.travis\.yml$
-^appveyor\.yml$
 ^codecov\.yml$
 ^README\.Rmd$
 ^doc$
@@ -10,3 +8,4 @@
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^\.github$
