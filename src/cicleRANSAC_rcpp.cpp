@@ -10,7 +10,7 @@
 using namespace arma;
 
 // [[Rcpp::export]]
-arma::mat circleRANSAC_rcpp(arma::mat cloud, double fract_points, double pconf, arma::vec poutlier, int max_iterations, int threads = 1) {
+arma::mat circleRANSAC_rcpp(arma::mat cloud, double fpoints, double pconf, arma::vec poutlier, int max_iterations, int threads = 1) {
 
 #ifdef _OPENMP
   if ( threads > 1 ) {
@@ -19,7 +19,7 @@ arma::mat circleRANSAC_rcpp(arma::mat cloud, double fract_points, double pconf, 
 #endif
 
   int npoints = cloud.n_rows; //n of points in the cloud
-  int an_samples = round((npoints * fract_points)); //number of points for sample
+  int an_samples = round((npoints * fpoints)); //number of points for sample
   int int_outliers = round((npoints * poutlier(0))); //number of internal outliers
   int ext_outliers = round((npoints * poutlier(1))); //number of external outliers
 
