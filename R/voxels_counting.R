@@ -36,10 +36,6 @@
 #' #Voxels counting using boostrap on the H indixes with 1000 repetitions.
 #' voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000)
 #'
-#' \donttest{
-#' #Voxels counting using bootstrap on the H indices and using parallel processing.
-#' voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000, parallel = TRUE, threads = 4)
-#' }
 #'
 #' @export
 voxels_counting <- function(cloud, edge.sizes = NULL, min.size, length.out = 10, bootstrap = FALSE, R = NULL, progress = TRUE, parallel = FALSE, threads = NULL) {

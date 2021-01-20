@@ -13,6 +13,9 @@
 #' @return A \code{data.table} with the *XY* coordinate information of the circle center, the radius, the error based on the least squares fit, and the proportion of inliers.
 #' @author J. Antonio Guzmán Q.
 #'
+#' @importFrom stats qnorm
+#' @importFrom graphics lines
+#' @importFrom graphics points
 #'
 #' @seealso \code{\link{tree_metrics}}
 #'
