@@ -27,10 +27,10 @@
 #' plot_voxels(vox)
 #'
 #' @importFrom grDevices colorRampPalette
-#' @importFrom rgl plot3d
 #' @importFrom rgl shade3d
+#' @importFrom rgl scale3d
+#' @importFrom rgl lines3d
 #' @importFrom rgl cube3d
-#' @importFrom rgl %>%
 #' @importFrom rgl translate3d
 #' @importFrom rgl points3d
 #'

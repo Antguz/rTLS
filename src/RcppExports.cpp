@@ -19,6 +19,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// circleRANSAC_rcpp
+arma::mat circleRANSAC_rcpp(arma::mat cloud, double fpoints, double z_value, arma::vec poutlier, int max_iterations, int threads);
+RcppExport SEXP _rTLS_circleRANSAC_rcpp(SEXP cloudSEXP, SEXP fpointsSEXP, SEXP z_valueSEXP, SEXP poutlierSEXP, SEXP max_iterationsSEXP, SEXP threadsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type cloud(cloudSEXP);
+    Rcpp::traits::input_parameter< double >::type fpoints(fpointsSEXP);
+    Rcpp::traits::input_parameter< double >::type z_value(z_valueSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type poutlier(poutlierSEXP);
+    Rcpp::traits::input_parameter< int >::type max_iterations(max_iterationsSEXP);
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(circleRANSAC_rcpp(cloud, fpoints, z_value, poutlier, max_iterations, threads));
+    return rcpp_result_gen;
+END_RCPP
+}
 // dimensionality_knn_rcpp
 arma::cube dimensionality_knn_rcpp(arma::mat amat, arma::mat bmat, arma::vec k, int threads, bool progress);
 RcppExport SEXP _rTLS_dimensionality_knn_rcpp(SEXP amatSEXP, SEXP bmatSEXP, SEXP kSEXP, SEXP threadsSEXP, SEXP progressSEXP) {
@@ -175,6 +191,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_cartesian_to_polar_rcpp", (DL_FUNC) &_rTLS_cartesian_to_polar_rcpp, 3},
+    {"_rTLS_circleRANSAC_rcpp", (DL_FUNC) &_rTLS_circleRANSAC_rcpp, 6},
     {"_rTLS_dimensionality_knn_rcpp", (DL_FUNC) &_rTLS_dimensionality_knn_rcpp, 5},
     {"_rTLS_dimensionality_sphere_rcpp", (DL_FUNC) &_rTLS_dimensionality_sphere_rcpp, 5},
     {"_rTLS_euclidean_rcpp", (DL_FUNC) &_rTLS_euclidean_rcpp, 3},

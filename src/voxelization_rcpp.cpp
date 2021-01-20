@@ -20,10 +20,12 @@ arma::mat voxelization_rcpp(arma::mat cloud, arma::vec edge_length, int threads 
   double ymin = min(cloud.col(1));
   double zmin = min(cloud.col(2));
 
-  arma::mat voxels(cloud.n_rows, 3);
+  int nrowspc = cloud.n_rows;
+
+  arma::mat voxels(nrowspc, 3);
 
 #pragma omp parallel for
-  for (int i = 0; i < cloud.n_rows; i++) {
+  for (int i = 0; i < nrowspc; i++) {
 
     int xvox = floor(((cloud(i, 0) - xmin)/edge_length[0]));
     int yvox = floor(((cloud(i, 1) - ymin)/edge_length[1]));

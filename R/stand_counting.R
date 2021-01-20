@@ -23,24 +23,19 @@
 #' @importFrom foreach %dopar%
 #' @importFrom foreach %do%
 #'
-#' @seealso \code{\link{voxels_counting}}, \link{voxels}}, \code{\link{summary_voxels}}, \code{\link{plot_voxels}}
+#' @seealso \code{\link{voxels_counting}}, \code{\link{voxels}}, \code{\link{summary_voxels}}
 #'
-#' @return A \code{data.table} with the summary of the voxels created with their features.
+#' @return A \code{data.table} with the summary of the voxels per grid created with their features.
 #' @author J. Antonio Guzmán Q.
 #' @examples
 #'
 #' data(pc_tree)
 #'
-#' #Applying voxels counting.
-#' voxels_counting(pc_tree, min.size = 0.05)
+#' #Applying stand_counting.
+#' stand_counting(pc_tree, xy.res = c(1, 1), min.size = 0.5)
 #'
-#' #Voxels counting using boostrap on the H indixes with 1000 repetitions.
-#' voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000)
-#'
-#' \dontrun{
-#' #Voxels counting using bootstrap on the H indices and using parallel processing.
-#' voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000, parallel = TRUE, threads = 4)
-#' }
+#' #Applying stand_counting using bootstrap in the H index.
+#' stand_counting(pc_tree, xy.res = c(1, 1), min.size = 0.5, bootstrap = TRUE, R = 1000)
 #'
 #' @export
 stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.size, edge.sizes = NULL, length.out = 10, bootstrap = FALSE, R = NULL, progress = TRUE, parallel = FALSE, threads = NULL) {

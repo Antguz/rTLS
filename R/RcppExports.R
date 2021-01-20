@@ -5,6 +5,10 @@ cartesian_to_polar_rcpp <- function(cartesian, anchor, threads = 1L) {
     .Call(`_rTLS_cartesian_to_polar_rcpp`, cartesian, anchor, threads)
 }
 
+circleRANSAC_rcpp <- function(cloud, fpoints, z_value, poutlier, max_iterations, threads = 1L) {
+    .Call(`_rTLS_circleRANSAC_rcpp`, cloud, fpoints, z_value, poutlier, max_iterations, threads)
+}
+
 dimensionality_knn_rcpp <- function(amat, bmat, k, threads = 1L, progress = TRUE) {
     .Call(`_rTLS_dimensionality_knn_rcpp`, amat, bmat, k, threads, progress)
 }

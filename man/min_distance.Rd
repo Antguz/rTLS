@@ -9,6 +9,8 @@ min_distance(cloud, radius = 1, threads = 1, progress = TRUE)
 \arguments{
 \item{cloud}{A \code{data.table} with *XYZ* coordinates in the first three columns representing a point cloud.}
 
+\item{radius}{A numeric vector representing the radius of the sphere around a point of interest to search for the nearest neighboring point.}
+
 \item{threads}{An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.}
 
 \item{progress}{Show progress. \code{TRUE} as default.}

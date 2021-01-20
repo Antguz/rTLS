@@ -69,7 +69,7 @@ Estimates the canopy structure from a discrete returns scan from different TLS.
 Since \code{scan} describes discrete returns measured by the TLS, \code{canopy_structre} first simulates the number of pulses emitted based on Danson et al. (2007). The simulated pulses are
 created based on the TLS properties (\code{TLS.pulse.counts, TLS.resolution, TLS.frame}) assuming that the scanner is perfectly balance. Then these pulses are rotated (\code{\link{rotate3D}}) based on the \code{TLS.angles}
 roll, pitch, and yaw, and move to \code{TLS.coordintates} to simulate the positioning of the scanner during the \code{scan}. Rotated simulated-pulses of interest and \code{scan} returns are then extracted based on the \code{zenith.range} and \code{azimuth.range} for a given number of \code{zenith.rings}, \code{azimuth.rings} and vertical profiles.
-Using the frequency of pulses and returns the probability of gap (Pgap) is estimated. For \code{TLS.type = "multiple"}, the frequency of returns is estimated using the sum of 1/target count following Lovell et al. (2011).
+The probability of gap (Pgap) is then estimated using the frequency of pulses and returns. For \code{TLS.type = "multiple"}, the frequency of returns is estimated using the sum of 1/target count following Lovell et al. (2011).
 
 Using the Pgap estimated per each zenith ring and vertical profile, \code{canopy_structure} then estimates the accumulative L(z) profiles based on the closest
 zenith ring to 57.5 (hinge region) and, if \code{TLS.type = "fixed.angle"}, the f(z) or commonly named PAVD based on the ratio of the
@@ -82,27 +82,32 @@ Therefore, user should consider this difference since it may introduce more vari
 }
 \examples{
 
-#Using a multiple return file
-
-\dontrun{
+\donttest{
 data(TLS_scan)
-TLS_scan <- TLS_scan[, 1:4] #Select the four columns required
+#Using a multiple return file
+#Select the four columns required
+TLS_scan <- TLS_scan[, 1:4]
 
 #This will take a while#
-canopy_structure(TLS.type = "multiple", scan = TLS_scan, zenith.range = c(50,70), zenith.rings = 4,
-                 azimuth.range = c(0, 360), vertical.resolution = 0.25,
-                 TLS.resolution = c(0.04, 0.04), TLS.frame = c(30, 130, 0, 360),
+canopy_structure(TLS.type = "multiple", scan = TLS_scan,
+                 zenith.range = c(50,70), TLS.pulse.counts = NULL,
+                 zenith.rings = 4, azimuth.range = c(0, 360),
+                 vertical.resolution = 0.25, TLS.resolution = c(0.04, 0.04),
+                 TLS.frame = c(30, 130, 0, 360),
                  TLS.angles =  c(0.293, -0.835, -150.159))
 
 #Using a single return file
 
 data(TLS_scan)
-TLS_scan <- TLS_scan[Target_index == 1, 1:3] #Subset to first return observations
+#Subset to first return observations
+TLS_scan <- TLS_scan[Target_index == 1, 1:3]
 
 #This will take a while#
-canopy_structure(TLS.type = "single", scan = TLS_scan, zenith.range = c(50,70), zenith.rings = 4,
+canopy_structure(TLS.type = "single", scan = TLS_scan,
+                 zenith.range = c(50,70), zenith.rings = 4,
                  azimuth.range = c(0, 360), vertical.resolution = 0.25,
-                 TLS.resolution = c(0.04, 0.04), TLS.frame = c(30, 130, 0, 360),
+                 TLS.pulse.counts = NULL, TLS.resolution = c(0.04, 0.04),
+                 TLS.frame = c(30, 130, 0, 360),
                  TLS.angles =  c(0.293, -0.835, -150.159))
 }
 

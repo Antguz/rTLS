@@ -45,7 +45,7 @@ stand_counting(
 \item{threads}{An \code{integer} >= 0 describing the number of threads to use. This need to be used if \code{parallel = TRUE}.}
 }
 \value{
-A \code{data.table} with the summary of the voxels created with their features.
+A \code{data.table} with the summary of the voxels per grid created with their features.
 }
 \description{
 Applies the \code{\link{voxels_counting}} function on a grid base point cloud.
@@ -54,20 +54,15 @@ Applies the \code{\link{voxels_counting}} function on a grid base point cloud.
 
 data(pc_tree)
 
-#Applying voxels counting.
-voxels_counting(pc_tree, min.size = 0.05)
+#Applying stand_counting.
+stand_counting(pc_tree, xy.res = c(1, 1), min.size = 0.5)
 
-#Voxels counting using boostrap on the H indixes with 1000 repetitions.
-voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000)
-
-\dontrun{
-#Voxels counting using bootstrap on the H indices and using parallel processing.
-voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000, parallel = TRUE, threads = 4)
-}
+#Applying stand_counting using bootstrap in the H index.
+stand_counting(pc_tree, xy.res = c(1, 1), min.size = 0.5, bootstrap = TRUE, R = 1000)
 
 }
 \seealso{
-
+\code{\link{voxels_counting}}, \code{\link{voxels}}, \code{\link{summary_voxels}}
 }
 \author{
 J. Antonio Guzmán Q.
