@@ -40,7 +40,7 @@ Adaptive random sample consensus for cicle fitting.
 #Point cloud
 data("pc_tree")
 
-#Subset area at chest height
+#Subset region at at breast height
 sub <- pc_tree[between(Z, 1.25, 1.35),]
 
 #Fit circle

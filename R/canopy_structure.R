@@ -234,7 +234,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
 
   if(TLS.type == "multiple" | TLS.type == "single") {
 
-    Pgap[, 'L/LAI' := log10(Pgap)/log10(min(Pgap)), by = zenith] #Normalize L/LAI
+    Pgap[, 'L/LAI' := log(Pgap)/log(min(Pgap)), by = zenith] #Normalize L/LAI
 
     Pgap[, 'L/LAI (weighted.mean)' := lapply(.SD, weighted.mean, w = 1:zenith.rings), by = height, .SDcols=c('L/LAI')] #weighted.mean L/LAI
 
@@ -249,7 +249,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
     col_hinge <- which(abs(zenith_bands - 57.5) == min(abs(zenith_bands - 57.5)))
     subset_Pgap <- subset(Pgap, zenith == zenith_bands[col_hinge])
 
-    final[, 'L (hinge)' := -1.1 * log10(subset_Pgap$Pgap)] ###Estimates the L close to hinge
+    final[, 'L (hinge)' := -1.1 * log(subset_Pgap$Pgap)] ###Estimates the L close to hinge
     final[, 'L/LAI (weighted mean)' := subset_Pgap$`L/LAI (weighted.mean)`]
 
     max_LAI <- as.numeric(final[which.max(height), 'L (hinge)'])
