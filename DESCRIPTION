@@ -1,6 +1,6 @@
 Type: Package
 Package: rTLS
-Title: Tools to Process Point Clouds Derived From Terrestrial
+Title: Tools to Process Point Clouds Derived from Terrestrial
     Laser Scanning
 Version: 0.1.3
 Authors@R:
@@ -19,13 +19,13 @@ Authors@R:
              role = "ths",
              email = "arturo.sanchez@ualberta.ca",
              comment = c(ORCID = "0000-0001-7768-6600")))
-Description: A package that compiles a set of tools to process and calculate 
+Description: A set of tools to process and calculate 
              metrics on point clouds derived from terrestrial LiDAR 
              (Light Detection and Ranging). Its creation is based on key 
-             aspects of the TLS application in forestry. 
+             aspects of the TLS application in forestry and ecology. 
              Currently, the main routines are based on filtering, neighboring 
-             features of points, voxelization, optimal sphere or voxel size, 
-             and the creation of artificial stands. rTLS is written using 
+             features of points, voxelization, canopy structure, 
+             and the creation of artificial stands. It is written using 
              data.table and C++ language and in most of the functions it is 
              posible to use parallel processing to speed-up the routines.
 License: GPL-2
@@ -50,14 +50,16 @@ Suggests:
     knitr,
     rmarkdown,
     covr,
-    testthat
+    testthat (>= 3.0.1)
 LinkingTo: 
     Rcpp,
-    RcppArmadillo (>= 0.9.800),
-    RcppProgress (>= 0.4.1)
+    RcppArmadillo (>= 0.9.870),
+    RcppProgress (>= 0.4.2)
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 SystemRequirements: GNU make
+ByteCompile: true
+

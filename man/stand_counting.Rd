@@ -55,10 +55,10 @@ Applies the \code{\link{voxels_counting}} function on a grid base point cloud.
 data(pc_tree)
 
 #Applying stand_counting.
-stand_counting(pc_tree, xy.res = c(1, 1), min.size = 0.5)
+stand_counting(pc_tree, xy.res = c(2, 2), min.size = 1)
 
 #Applying stand_counting using bootstrap in the H index.
-stand_counting(pc_tree, xy.res = c(1, 1), min.size = 0.5, bootstrap = TRUE, R = 1000)
+stand_counting(pc_tree, xy.res = c(2, 2), min.size = 1, bootstrap = TRUE, R = 1000)
 
 }
 \seealso{

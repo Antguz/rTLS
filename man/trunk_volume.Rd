@@ -35,7 +35,7 @@ trunk_volume(pc_tree, max.height = 1.75)
 
 }
 \references{
-Lafarge, T., Pateiro-Lopez, B. (2017). Implementation of the 3D Alpha-Shape for the Reconstruction of 3D Sets from a Point Cloud. Available at \url{https://cran.r-project.org/web/packages/alphashape3d/index.html}.
+Lafarge, T., Pateiro-Lopez, B. (2017). Implementation of the 3D Alpha-Shape for the Reconstruction of 3D Sets from a Point Cloud. Available at \url{https://CRAN.R-project.org/package=alphashape3d}.
 
 Edelsbrunner, H., Mucke, E. P. (1994). Three-Dimensional Alpha Shapes. ACM Transactions on Graphics, 13(1), pp.43-72.
 }

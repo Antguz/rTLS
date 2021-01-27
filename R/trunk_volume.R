@@ -14,7 +14,7 @@
 #' @return A \code{numeric} vector with the estimated trunk volume.
 #' @author J. Antonio Guzmán Q.
 #'
-#' @references Lafarge, T., Pateiro-Lopez, B. (2017). Implementation of the 3D Alpha-Shape for the Reconstruction of 3D Sets from a Point Cloud. Available at \url{https://cran.r-project.org/web/packages/alphashape3d/index.html}.
+#' @references Lafarge, T., Pateiro-Lopez, B. (2017). Implementation of the 3D Alpha-Shape for the Reconstruction of 3D Sets from a Point Cloud. Available at \url{https://CRAN.R-project.org/package=alphashape3d}.
 #'
 #' Edelsbrunner, H., Mucke, E. P. (1994). Three-Dimensional Alpha Shapes. ACM Transactions on Graphics, 13(1), pp.43-72.
 #'

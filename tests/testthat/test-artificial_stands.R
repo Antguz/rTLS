@@ -14,7 +14,7 @@ test_that("Whether random locations of trees works", {
   expect_equal(as.numeric(to_test$Stand[1,5]), 303248, info = "Number of points")
 })
 
-test_that("Whether the predifine locations of trees works", {
+test_that("Whether the pre-difine locations of trees works", {
 
   path <- system.file("extdata", "pc_tree.txt", package = "rTLS") ###Path for tree
   files <- rep(path, 4) #N trees

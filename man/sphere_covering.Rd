@@ -34,7 +34,7 @@ a maximun of k-nearst points (e.g. usefull in resample point clouds where severa
 data("pc_tree")
 
 #Run
-sphere_covering(pc_tree, 0.2)
+sphere_covering(pc_tree[1:100,], 0.2)
 
 }
 \references{

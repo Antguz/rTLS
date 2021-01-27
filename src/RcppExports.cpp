@@ -132,6 +132,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// ray_box_intersection_rcpp
+int ray_box_intersection_rcpp(arma::mat orig, arma::mat dir, arma::mat voxel_cor, arma::vec edge_length);
+RcppExport SEXP _rTLS_ray_box_intersection_rcpp(SEXP origSEXP, SEXP dirSEXP, SEXP voxel_corSEXP, SEXP edge_lengthSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type orig(origSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type dir(dirSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type voxel_cor(voxel_corSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type edge_length(edge_lengthSEXP);
+    rcpp_result_gen = Rcpp::wrap(ray_box_intersection_rcpp(orig, dir, voxel_cor, edge_length));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rotate2D_rcpp
 NumericMatrix rotate2D_rcpp(NumericMatrix plane, NumericVector angle, int threads);
 RcppExport SEXP _rTLS_rotate2D_rcpp(SEXP planeSEXP, SEXP angleSEXP, SEXP threadsSEXP) {
@@ -199,6 +213,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_minimum_distance_rcpp", (DL_FUNC) &_rTLS_minimum_distance_rcpp, 4},
     {"_rTLS_nneighbors_sphere_rcpp", (DL_FUNC) &_rTLS_nneighbors_sphere_rcpp, 4},
     {"_rTLS_polar_to_cartesian_rcpp", (DL_FUNC) &_rTLS_polar_to_cartesian_rcpp, 2},
+    {"_rTLS_ray_box_intersection_rcpp", (DL_FUNC) &_rTLS_ray_box_intersection_rcpp, 4},
     {"_rTLS_rotate2D_rcpp", (DL_FUNC) &_rTLS_rotate2D_rcpp, 3},
     {"_rTLS_rotate3D_rcpp", (DL_FUNC) &_rTLS_rotate3D_rcpp, 5},
     {"_rTLS_sphere_covering_rcpp", (DL_FUNC) &_rTLS_sphere_covering_rcpp, 5},

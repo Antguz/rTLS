@@ -37,6 +37,10 @@ polar_to_cartesian_rcpp <- function(polar, threads = 1L) {
     .Call(`_rTLS_polar_to_cartesian_rcpp`, polar, threads)
 }
 
+ray_box_intersection_rcpp <- function(orig, dir, voxel_cor, edge_length) {
+    .Call(`_rTLS_ray_box_intersection_rcpp`, orig, dir, voxel_cor, edge_length)
+}
+
 rotate2D_rcpp <- function(plane, angle, threads = 1L) {
     .Call(`_rTLS_rotate2D_rcpp`, plane, angle, threads)
 }
