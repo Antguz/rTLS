@@ -22,8 +22,8 @@
 #' @examples
 #' data("pc_tree")
 #'
-#' ###Create cubes of a size of 0.5.
-#' vox <- voxels(pc_tree, edge.length = c(0.5, 0.5, 0.5))
+#' ###Create cubes of a size of 3.
+#' vox <- voxels(pc_tree, edge.length = c(3, 3, 3))
 #' plot_voxels(vox)
 #'
 #' @importFrom grDevices colorRampPalette

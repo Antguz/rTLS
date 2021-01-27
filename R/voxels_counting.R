@@ -31,10 +31,10 @@
 #' data(pc_tree)
 #'
 #' #Applying voxels counting.
-#' voxels_counting(pc_tree, min.size = 0.05)
+#' voxels_counting(pc_tree, min.size = 2)
 #'
 #' #Voxels counting using boostrap on the H indixes with 1000 repetitions.
-#' voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000)
+#' voxels_counting(pc_tree, min.size = 2, bootstrap = TRUE, R = 1000)
 #'
 #'
 #' @export

@@ -26,7 +26,7 @@
 #' data("pc_tree")
 #'
 #' #Run
-#' sphere_covering(pc_tree, 0.2)
+#' sphere_covering(pc_tree[1:100,], 0.2)
 #'
 #' @export
 sphere_covering <- function(cloud, radius, kmax = 1, threads = 1, progress = TRUE) {

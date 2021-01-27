@@ -32,10 +32,10 @@
 #' data(pc_tree)
 #'
 #' #Applying stand_counting.
-#' stand_counting(pc_tree, xy.res = c(1, 1), min.size = 0.5)
+#' stand_counting(pc_tree, xy.res = c(4, 4), min.size = 0.5)
 #'
 #' #Applying stand_counting using bootstrap in the H index.
-#' stand_counting(pc_tree, xy.res = c(1, 1), min.size = 0.5, bootstrap = TRUE, R = 1000)
+#' stand_counting(pc_tree, xy.res = c(4, 4), min.size = 0.5, bootstrap = TRUE, R = 1000)
 #'
 #' @export
 stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.size, edge.sizes = NULL, length.out = 10, bootstrap = FALSE, R = NULL, progress = TRUE, parallel = FALSE, threads = NULL) {

@@ -17,12 +17,17 @@
 #' @examples
 #' #Load data
 #' data("pc_tree")
+#' rgl::plot3d(pc_tree[1:100,])
 #'
 #' #Filter a sample of section of data using SOR
-#' filter(pc_tree[1:5000,], method = "SOR", k = 20, nSigma = 1)
+#' r1 <- filter(pc_tree[1:100,], method = "SOR", k = 20, nSigma = 1)
+#' rgl::plot3d(r1, col = "red") #Filter
+#' rgl::points3d(pc_tree[1:100,], col = "black") #Original
 #'
 #' #Filter using "min_n" of 1000
-#' filter(pc_tree, method = "min_n", radius = 1.0, min_n = 5000)
+#' r2 <- filter(pc_tree[1:100], method = "min_n", radius = 0.2, min_n = 15)
+#' rgl::plot3d(r2, col = "red") #Filter
+#' rgl::points3d(pc_tree[1:100,], col = "black") #Original
 #'
 #' @export
 filter <- function(cloud, method, radius, min_n, k, nSigma, threads = 1L, progress = TRUE) {
