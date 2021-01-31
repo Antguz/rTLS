@@ -3,6 +3,6 @@
 
 #include <RcppArmadillo.h>
 
-arma::vec nneighbors_sphere_rcpp(arma::mat amat, double radius, int threads = 1, bool progress = true)
+arma::vec nneighbors_sphere_rcpp(arma::mat amat, double radius, int threads = 1, bool progress = true);
 
 #endif

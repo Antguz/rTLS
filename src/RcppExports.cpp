@@ -132,17 +132,33 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// ray_box_intersection_rcpp
-int ray_box_intersection_rcpp(arma::mat orig, arma::mat dir, arma::mat voxel_cor, arma::vec edge_length);
-RcppExport SEXP _rTLS_ray_box_intersection_rcpp(SEXP origSEXP, SEXP dirSEXP, SEXP voxel_corSEXP, SEXP edge_lengthSEXP) {
+// ray_AABB_rcpp
+int ray_AABB_rcpp(arma::mat orig, arma::mat dir, arma::vec voxel_min, arma::vec voxel_max);
+RcppExport SEXP _rTLS_ray_AABB_rcpp(SEXP origSEXP, SEXP dirSEXP, SEXP voxel_minSEXP, SEXP voxel_maxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type orig(origSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type dir(dirSEXP);
-    Rcpp::traits::input_parameter< arma::mat >::type voxel_cor(voxel_corSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type voxel_min(voxel_minSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type voxel_max(voxel_maxSEXP);
+    rcpp_result_gen = Rcpp::wrap(ray_AABB_rcpp(orig, dir, voxel_min, voxel_max));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rays_interception_rcpp
+arma::mat rays_interception_rcpp(arma::mat orig, arma::mat dir, arma::mat voxels, arma::vec edge_length, int threads, bool progress);
+RcppExport SEXP _rTLS_rays_interception_rcpp(SEXP origSEXP, SEXP dirSEXP, SEXP voxelsSEXP, SEXP edge_lengthSEXP, SEXP threadsSEXP, SEXP progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type orig(origSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type dir(dirSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type voxels(voxelsSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type edge_length(edge_lengthSEXP);
-    rcpp_result_gen = Rcpp::wrap(ray_box_intersection_rcpp(orig, dir, voxel_cor, edge_length));
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
+    rcpp_result_gen = Rcpp::wrap(rays_interception_rcpp(orig, dir, voxels, edge_length, threads, progress));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -213,7 +229,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_minimum_distance_rcpp", (DL_FUNC) &_rTLS_minimum_distance_rcpp, 4},
     {"_rTLS_nneighbors_sphere_rcpp", (DL_FUNC) &_rTLS_nneighbors_sphere_rcpp, 4},
     {"_rTLS_polar_to_cartesian_rcpp", (DL_FUNC) &_rTLS_polar_to_cartesian_rcpp, 2},
-    {"_rTLS_ray_box_intersection_rcpp", (DL_FUNC) &_rTLS_ray_box_intersection_rcpp, 4},
+    {"_rTLS_ray_AABB_rcpp", (DL_FUNC) &_rTLS_ray_AABB_rcpp, 4},
+    {"_rTLS_rays_interception_rcpp", (DL_FUNC) &_rTLS_rays_interception_rcpp, 6},
     {"_rTLS_rotate2D_rcpp", (DL_FUNC) &_rTLS_rotate2D_rcpp, 3},
     {"_rTLS_rotate3D_rcpp", (DL_FUNC) &_rTLS_rotate3D_rcpp, 5},
     {"_rTLS_sphere_covering_rcpp", (DL_FUNC) &_rTLS_sphere_covering_rcpp, 5},

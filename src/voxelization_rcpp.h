@@ -3,6 +3,6 @@
 
 #include <RcppArmadillo.h>
 
-arma::mat voxelization_rcpp(arma::mat cloud, arma::vec edge_length, int threads = 1)
+arma::mat voxelization_rcpp(arma::mat cloud, arma::vec edge_length, int threads = 1);
 
 #endif

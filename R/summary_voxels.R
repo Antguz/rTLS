@@ -3,7 +3,7 @@
 #' @description Create a summary objects of class \code{"voxels"} created using the \code{\link{voxels}}.
 #'
 #' @param voxels An object of class \code{voxels} created using the \code{voxels()} function or a \code{data.table} describing the voxels coordinates and their number of points produced using \code{voxels()}.
-#' @param edge.length A positive \code{numeric} vector with the voxel-edge length for the x, y, and z coordinates. This need to be used if \code{class(voxels) != "voxels"}. It use the same dimensional scale of the point cloud.
+#' @param edge_length A positive \code{numeric} vector with the voxel-edge length for the x, y, and z coordinates. This need to be used if \code{class(voxels) != "voxels"}. It use the same dimensional scale of the point cloud.
 #' @param bootstrap Logical, if \code{TRUE} it computes a bootstrap on the H index calculations. \code{FALSE} as default.
 #' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates. This need to be used if \code{bootstrap = TRUE}.
 #'
@@ -24,23 +24,23 @@
 #' data("pc_tree")
 #'
 #' #Apply a summary on a object of class "voxels" using bootstrap with 1000 replicates.
-#' vox <- voxels(pc_tree, edge.length = c(0.5, 0.5, 0.5))
+#' vox <- voxels(pc_tree, edge_length = c(0.5, 0.5, 0.5))
 #' summary_voxels(vox, bootstrap = TRUE, R = 1000)
 #'
 #' #Apply a summary on a product from 'voxels' using bootstrap with 1000 replicates.
-#' vox <- voxels(pc_tree, edge.length = c(0.5, 0.5, 0.5), obj.voxels = FALSE)
-#' summary_voxels(vox, edge.length = c(0.5, 0.5, 0.5), bootstrap = TRUE, R = 1000)
+#' vox <- voxels(pc_tree, edge_length = c(0.5, 0.5, 0.5), obj.voxels = FALSE)
+#' summary_voxels(vox, edge_length = c(0.5, 0.5, 0.5), bootstrap = TRUE, R = 1000)
 #'
 #' @export
-summary_voxels <- function(voxels, edge.length = NULL, bootstrap = FALSE, R = NULL) {
+summary_voxels <- function(voxels, edge_length = NULL, bootstrap = FALSE, R = NULL) {
 
   if(class(voxels)[1] != "voxels") {
-    if(is.null(edge.length) == TRUE) {
-      stop("edge.length need to be defined")
+    if(is.null(edge_length) == TRUE) {
+      stop("edge_length need to be defined")
     }
 
     colnames(voxels) <- c("X", "Y", "Z", "N")
-    Edge.length <- edge.length
+    Edge.length <- edge_length
 
   } else if(class(voxels)[1] == "voxels") {
     Edge.length <- voxels$parameter

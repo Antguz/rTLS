@@ -3,6 +3,6 @@
 
 #include <Rcpp.h>
 
-double minimum_distance_rcpp(arma::mat amat, double radius, int threads = 1, bool progress = true)
+double minimum_distance_rcpp(arma::mat amat, double radius, int threads = 1, bool progress = true);
 
 #endif

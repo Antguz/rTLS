@@ -6,7 +6,7 @@
 \usage{
 voxels_counting(
   cloud,
-  edge.sizes = NULL,
+  edge_sizes = NULL,
   min.size,
   length.out = 10,
   bootstrap = FALSE,
@@ -19,11 +19,11 @@ voxels_counting(
 \arguments{
 \item{cloud}{A \code{data.table} with xyz coordinates of the point clouds in the first three columns.}
 
-\item{edge.sizes}{A positive \code{numeric} vector describing the edge length of the different cubes to perform. If \code{NULL}, it use edge sizes by default based on the largest range of XYZ and \code{min.size}.}
+\item{edge_sizes}{A positive \code{numeric} vector describing the edge length of the different cubes to perform. If \code{NULL}, it use edge sizes by default based on the largest range of XYZ and \code{min.size}.}
 
-\item{min.size}{A positive \code{numeric} vector of length 1 describing the minimum cube edge length to perform. This is required if \code{edge.sizes = NULL}.}
+\item{min.size}{A positive \code{numeric} vector of length 1 describing the minimum cube edge length to perform. This is required if \code{edge_sizes = NULL}.}
 
-\item{length.out}{A positive \code{interger} of length 1 indicating the number of different edge lengths to use. This is required if \code{edge.sizes  = NULL}.}
+\item{length.out}{A positive \code{interger} of length 1 indicating the number of different edge lengths to use. This is required if \code{edge_sizes  = NULL}.}
 
 \item{bootstrap}{Logical. If \code{TRUE}, it computes a bootstrap on the H index calculations. \code{FALSE} as default.}
 

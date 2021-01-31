@@ -21,7 +21,7 @@ test_that("Test whether the voxels_counting function works with predifined sizes
 
   sizes <- c(1, 2, 3, 4, 5, 6)
 
-  to_test <- voxels_counting(pc, edge.sizes = sizes, progress = FALSE)
+  to_test <- voxels_counting(pc, edge_sizes = sizes, progress = FALSE)
 
   expect_equal(length(to_test), 12, info = "Length of the object")
   expect_equal(nrow(to_test), 6, info = "N of voxel sizes")

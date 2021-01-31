@@ -4,12 +4,12 @@
 \alias{summary_voxels}
 \title{Voxels Summary}
 \usage{
-summary_voxels(voxels, edge.length = NULL, bootstrap = FALSE, R = NULL)
+summary_voxels(voxels, edge_length = NULL, bootstrap = FALSE, R = NULL)
 }
 \arguments{
 \item{voxels}{An object of class \code{voxels} created using the \code{voxels()} function or a \code{data.table} describing the voxels coordinates and their number of points produced using \code{voxels()}.}
 
-\item{edge.length}{A positive \code{numeric} vector with the voxel-edge length for the x, y, and z coordinates. This need to be used if \code{class(voxels) != "voxels"}. It use the same dimensional scale of the point cloud.}
+\item{edge_length}{A positive \code{numeric} vector with the voxel-edge length for the x, y, and z coordinates. This need to be used if \code{class(voxels) != "voxels"}. It use the same dimensional scale of the point cloud.}
 
 \item{bootstrap}{Logical, if \code{TRUE} it computes a bootstrap on the H index calculations. \code{FALSE} as default.}
 
@@ -30,12 +30,12 @@ If \code{bootstrap = TRUE} four more columns are created (13:16). These represen
 data("pc_tree")
 
 #Apply a summary on a object of class "voxels" using bootstrap with 1000 replicates.
-vox <- voxels(pc_tree, edge.length = c(0.5, 0.5, 0.5))
+vox <- voxels(pc_tree, edge_length = c(0.5, 0.5, 0.5))
 summary_voxels(vox, bootstrap = TRUE, R = 1000)
 
 #Apply a summary on a product from 'voxels' using bootstrap with 1000 replicates.
-vox <- voxels(pc_tree, edge.length = c(0.5, 0.5, 0.5), obj.voxels = FALSE)
-summary_voxels(vox, edge.length = c(0.5, 0.5, 0.5), bootstrap = TRUE, R = 1000)
+vox <- voxels(pc_tree, edge_length = c(0.5, 0.5, 0.5), obj.voxels = FALSE)
+summary_voxels(vox, edge_length = c(0.5, 0.5, 0.5), bootstrap = TRUE, R = 1000)
 
 }
 \seealso{

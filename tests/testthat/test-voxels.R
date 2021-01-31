@@ -6,7 +6,7 @@ test_that("Test whether the voxel and object function works", {
 
   pc <- pc_tree
 
-  to_test <- voxels(pc_tree, edge.length = c(5, 5, 5))
+  to_test <- voxels(pc_tree, edge_length = c(5, 5, 5))
 
   expect_equal(length(to_test), 3, info = "Length of the object")
   expect_equal(nrow(to_test$cloud), nrow(pc), info = "Identity of the cloud")
@@ -26,7 +26,7 @@ test_that("Test whether the voxel function works", {
 
   pc <- pc_tree
 
-  to_test <- voxels(pc_tree, edge.length = c(5, 5, 5), obj.voxels = FALSE)
+  to_test <- voxels(pc_tree, edge_length = c(5, 5, 5), obj.voxels = FALSE)
 
   expect_equal(ncol(to_test), 4, info = "Columns of voxels")
   expect_equal(nrow(to_test), 6, info = "n of voxels")
