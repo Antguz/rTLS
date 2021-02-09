@@ -56,9 +56,9 @@ arma::vec line_AABB_rcpp(arma::mat orig, arma::mat end, arma::vec AABB_min, arma
   }
 
   //If end point falls inside
-  if(end(0, 0) >= AABB_min[0] & end(0, 0) < AABB_max[0]) {
-    if(end(0, 1) >= AABB_min[1] & end(0, 1) < AABB_max[1]) {
-      if(end(0, 2) >= AABB_min[2] & end(0, 2) < AABB_max[2]) {
+  if((end(0, 0) >= AABB_min[0]) & (end(0, 0) < AABB_max[0])) {
+    if((end(0, 1) >= AABB_min[1]) & (end(0, 1) < AABB_max[1])) {
+      if((end(0, 2) >= AABB_min[2]) & (end(0, 2) < AABB_max[2])) {
         feature = 3L;
       }
     }
@@ -67,9 +67,9 @@ arma::vec line_AABB_rcpp(arma::mat orig, arma::mat end, arma::vec AABB_min, arma
   path = sqrt(pow(end(0, 0) - orig(0, 0), 2) + pow(end(0, 1) - orig(0, 1) , 2) + pow(end(0, 2) - orig(0, 2), 2));
 
   //If orig point falls inside
-  if(orig(0, 0) >= AABB_min[0] & orig(0, 0) < AABB_max[0]) {
-    if(orig(0, 1) >= AABB_min[1] & orig(0, 1) < AABB_max[1]) {
-      if(orig(0, 2) >= AABB_min[2] & orig(0, 2) < AABB_max[2]) {
+  if((orig(0, 0) >= AABB_min[0]) & (orig(0, 0) < AABB_max[0])) {
+    if((orig(0, 1) >= AABB_min[1]) & (orig(0, 1) < AABB_max[1])) {
+      if((orig(0, 2) >= AABB_min[2]) & (orig(0, 2) < AABB_max[2])) {
 
         //If end point also falls inside
         if(feature == 3L) {
