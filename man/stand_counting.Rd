@@ -9,9 +9,9 @@ stand_counting(
   xy.res,
   z.res = NULL,
   points.min = NULL,
-  min.size,
-  edge.sizes = NULL,
-  length.out = 10,
+  min_size,
+  edge_sizes = NULL,
+  length_out = 10,
   bootstrap = FALSE,
   R = NULL,
   progress = TRUE,
@@ -28,11 +28,11 @@ stand_counting(
 
 \item{points.min}{A positive \code{numeric} vector of length 1 minimum number of points to retain a sub-grid.}
 
-\item{min.size}{A positive \code{numeric} vector of length 1 describing the minimum cube edge length to perform. This is required if \code{edge.sizes = NULL}.}
+\item{min_size}{A positive \code{numeric} vector of length 1 describing the minimum cube edge length to perform. This is required if \code{edge_sizes = NULL}.}
 
-\item{edge.sizes}{A positive \code{numeric} vector describing the edge length of the different cubes to perform within each subgrid when \code{z.res = NULL}. If \code{edge.sizes = NULL}, it uses the maximum range of values for the xyz coordinates.}
+\item{edge_sizes}{A positive \code{numeric} vector describing the edge length of the different cubes to perform within each subgrid when \code{z.res = NULL}. If \code{edge_sizes = NULL}, it uses the maximum range of values for the xyz coordinates.}
 
-\item{length.out}{A positive \code{interger} of length 1 indicating the number of different edge lengths to use for each subgrid. This is required if \code{edge.sizes  = NULL}.}
+\item{length_out}{A positive \code{interger} of length 1 indicating the number of different edge lengths to use for each subgrid. This is required if \code{edge_sizes  = NULL}.}
 
 \item{bootstrap}{Logical. If \code{TRUE}, it computes a bootstrap on the H index calculations. \code{FALSE} as default.}
 
@@ -55,10 +55,10 @@ Applies the \code{\link{voxels_counting}} function on a grid base point cloud.
 data(pc_tree)
 
 #Applying stand_counting.
-stand_counting(pc_tree, xy.res = c(4, 4), min.size = 2)
+stand_counting(pc_tree, xy.res = c(4, 4), min_size = 2)
 
 #Applying stand_counting using bootstrap in the H index.
-stand_counting(pc_tree, xy.res = c(4, 4), min.size = 1, bootstrap = TRUE, R = 1000)
+stand_counting(pc_tree, xy.res = c(4, 4), min_size = 1, bootstrap = TRUE, R = 1000)
 
 }
 \seealso{

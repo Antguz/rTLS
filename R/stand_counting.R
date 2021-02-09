@@ -6,9 +6,9 @@
 #' @param xy.res A positive \code{numeric} vector describing the grid resolution of the xy coordinates to perform.
 #' @param z.res A positive \code{numeric} vector of length 1 describing the vertical resolution. If \code{z.res = NULL} vertical profiles are not used.
 #' @param points.min A positive \code{numeric} vector of length 1 minimum number of points to retain a sub-grid.
-#' @param min.size A positive \code{numeric} vector of length 1 describing the minimum cube edge length to perform. This is required if \code{edge.sizes = NULL}.
-#' @param edge.sizes A positive \code{numeric} vector describing the edge length of the different cubes to perform within each subgrid when \code{z.res = NULL}. If \code{edge.sizes = NULL}, it uses the maximum range of values for the xyz coordinates.
-#' @param length.out A positive \code{interger} of length 1 indicating the number of different edge lengths to use for each subgrid. This is required if \code{edge.sizes  = NULL}.
+#' @param min_size A positive \code{numeric} vector of length 1 describing the minimum cube edge length to perform. This is required if \code{edge_sizes = NULL}.
+#' @param edge_sizes A positive \code{numeric} vector describing the edge length of the different cubes to perform within each subgrid when \code{z.res = NULL}. If \code{edge_sizes = NULL}, it uses the maximum range of values for the xyz coordinates.
+#' @param length_out A positive \code{interger} of length 1 indicating the number of different edge lengths to use for each subgrid. This is required if \code{edge_sizes  = NULL}.
 #' @param bootstrap Logical. If \code{TRUE}, it computes a bootstrap on the H index calculations. \code{FALSE} as default.
 #' @param R A positive \code{integer} of length 1 indicating the number of bootstrap replicates. This need to be used if \code{bootstrap = TRUE}.
 #' @param progress Logical, if \code{TRUE} displays a graphical progress bar. \code{TRUE} as default.
@@ -32,16 +32,16 @@
 #' data(pc_tree)
 #'
 #' #Applying stand_counting.
-#' stand_counting(pc_tree, xy.res = c(4, 4), min.size = 2)
+#' stand_counting(pc_tree, xy.res = c(4, 4), min_size = 2)
 #'
 #' #Applying stand_counting using bootstrap in the H index.
-#' stand_counting(pc_tree, xy.res = c(4, 4), min.size = 1, bootstrap = TRUE, R = 1000)
+#' stand_counting(pc_tree, xy.res = c(4, 4), min_size = 1, bootstrap = TRUE, R = 1000)
 #'
 #' @export
-stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.size, edge.sizes = NULL, length.out = 10, bootstrap = FALSE, R = NULL, progress = TRUE, parallel = FALSE, threads = NULL) {
+stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min_size, edge_sizes = NULL, length_out = 10, bootstrap = FALSE, R = NULL, progress = TRUE, parallel = FALSE, threads = NULL) {
 
   if(is.null(z.res)) { ###Without vertical grid
-    vox <- voxels(cloud, edge.length = c(xy.res[1], xy.res[2], xy.res[1]*10))
+    vox <- voxels(cloud, edge_length = c(xy.res[1], xy.res[2], xy.res[1]*10))
     vox$voxels <- vox$voxels[ , sum(N), by = .(X, Y)]
     colnames(vox$voxels)[3] <- "N"
 
@@ -52,7 +52,7 @@ stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.s
       vox$voxels <- vox$voxels[,1:2]
     }
   } else { #With vertical grid
-    vox <- voxels(cloud, edge.length = c(xy.res[1], xy.res[2], z.res))
+    vox <- voxels(cloud, edge_length = c(xy.res[1], xy.res[2], z.res))
 
     if(is.null(points.min)) { ###Min number of points
       vox$voxels <- vox$voxels[,1:3]
@@ -64,8 +64,8 @@ stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.s
 
   #Cube size if z.res is true
   if(is.null(z.res) != TRUE) {
-    edge.sizes <- seq(from = log10(max(c(xy.res, z.res))), to = log10(min.size), length.out = length.out)
-    edge.sizes <- 10^edge.sizes
+    edge_sizes <- seq(from = log10(max(c(xy.res, z.res))), to = log10(min_size), length.out = length_out)
+    edge_sizes <- 10^edge_sizes
   }
 
   if(parallel == TRUE) { ###If parallel is true
@@ -93,8 +93,8 @@ stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.s
                     Y < as.numeric((vox$voxels[i, 2] + (xy.res[2]/2))),]
 
         frame <- voxels_counting(pixel,
-                                 min.size = min.size,
-                                 length.out = length.out,
+                                 min_size = min_size,
+                                 length_out = length_out,
                                  bootstrap = bootstrap,
                                  R = R,
                                  progress = FALSE,
@@ -114,9 +114,9 @@ stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.s
                     Z < as.numeric((vox$voxels[i, 3] + (z.res/2))),]
 
         frame <- voxels_counting(pixel,
-                                 edge.sizes = edge.sizes,
-                                 min.size = min.size,
-                                 length.out = length.out,
+                                 edge_sizes = edge_sizes,
+                                 min_size = min_size,
+                                 length_out = length_out,
                                  bootstrap = bootstrap,
                                  R = R,
                                  progress = FALSE,
@@ -156,8 +156,8 @@ stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.s
                       Y < as.numeric((vox$voxels[i, 2] + (xy.res[2]/2))),]
 
         frame <- voxels_counting(pixel,
-                                 min.size = min.size,
-                                 length.out = length.out,
+                                 min_size = min_size,
+                                 length_out = length_out,
                                  bootstrap = bootstrap,
                                  R = R,
                                  progress = FALSE,
@@ -177,9 +177,9 @@ stand_counting <- function(cloud, xy.res, z.res = NULL, points.min = NULL, min.s
                       Z < as.numeric((vox$voxels[i, 3] + (z.res/2))),]
 
         frame <- voxels_counting(pixel,
-                                 edge.sizes = edge.sizes,
-                                 min.size = min.size,
-                                 length.out = length.out,
+                                 edge_sizes = edge_sizes,
+                                 min_size = min_size,
+                                 length_out = length_out,
                                  bootstrap = bootstrap,
                                  R = R,
                                  progress = FALSE,

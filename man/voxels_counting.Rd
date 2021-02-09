@@ -7,8 +7,8 @@
 voxels_counting(
   cloud,
   edge_sizes = NULL,
-  min.size,
-  length.out = 10,
+  min_size,
+  length_out = 10,
   bootstrap = FALSE,
   R = NULL,
   progress = TRUE,
@@ -19,11 +19,11 @@ voxels_counting(
 \arguments{
 \item{cloud}{A \code{data.table} with xyz coordinates of the point clouds in the first three columns.}
 
-\item{edge_sizes}{A positive \code{numeric} vector describing the edge length of the different cubes to perform. If \code{NULL}, it use edge sizes by default based on the largest range of XYZ and \code{min.size}.}
+\item{edge_sizes}{A positive \code{numeric} vector describing the edge length of the different cubes to perform. If \code{NULL}, it use edge sizes by default based on the largest range of XYZ and \code{min_size}.}
 
-\item{min.size}{A positive \code{numeric} vector of length 1 describing the minimum cube edge length to perform. This is required if \code{edge_sizes = NULL}.}
+\item{min_size}{A positive \code{numeric} vector of length 1 describing the minimum cube edge length to perform. This is required if \code{edge_sizes = NULL}.}
 
-\item{length.out}{A positive \code{interger} of length 1 indicating the number of different edge lengths to use. This is required if \code{edge_sizes  = NULL}.}
+\item{length_out}{A positive \code{interger} of length 1 indicating the number of different edge lengths to use. This is required if \code{edge_sizes  = NULL}.}
 
 \item{bootstrap}{Logical. If \code{TRUE}, it computes a bootstrap on the H index calculations. \code{FALSE} as default.}
 
@@ -46,10 +46,10 @@ Creates cube like voxels of different size on a point cloud using the \code{\lin
 data(pc_tree)
 
 #Applying voxels counting.
-voxels_counting(pc_tree, min.size = 2)
+voxels_counting(pc_tree, min_size = 2)
 
-#Voxels counting using boostrap on the H indixes with 1000 repetitions.
-voxels_counting(pc_tree, min.size = 2, bootstrap = TRUE, R = 1000)
+#Voxels counting using bootstrap on the H indexes with 1000 repetitions.
+voxels_counting(pc_tree, min_size = 2, bootstrap = TRUE, R = 1000)
 
 
 }

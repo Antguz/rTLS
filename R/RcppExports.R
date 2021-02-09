@@ -21,6 +21,14 @@ euclidean_rcpp <- function(sample, base, threads = 1L) {
     .Call(`_rTLS_euclidean_rcpp`, sample, base, threads)
 }
 
+line_AABB_rcpp <- function(orig, end, AABB_min, AABB_max) {
+    .Call(`_rTLS_line_AABB_rcpp`, orig, end, AABB_min, AABB_max)
+}
+
+lines_interception_rcpp <- function(orig, end, voxels, edge_length, threads = 1L, progress = TRUE) {
+    .Call(`_rTLS_lines_interception_rcpp`, orig, end, voxels, edge_length, threads, progress)
+}
+
 meanDis_knn_rcpp <- function(amat, k, threads = 1L, progress = TRUE) {
     .Call(`_rTLS_meanDis_knn_rcpp`, amat, k, threads, progress)
 }
@@ -35,14 +43,6 @@ nneighbors_sphere_rcpp <- function(amat, radius, threads = 1L, progress = TRUE) 
 
 polar_to_cartesian_rcpp <- function(polar, threads = 1L) {
     .Call(`_rTLS_polar_to_cartesian_rcpp`, polar, threads)
-}
-
-ray_AABB_rcpp <- function(orig, dir, voxel_min, voxel_max) {
-    .Call(`_rTLS_ray_AABB_rcpp`, orig, dir, voxel_min, voxel_max)
-}
-
-rays_interception_rcpp <- function(orig, dir, voxels, edge_length, threads = 1L, progress = TRUE) {
-    .Call(`_rTLS_rays_interception_rcpp`, orig, dir, voxels, edge_length, threads, progress)
 }
 
 rotate2D_rcpp <- function(plane, angle, threads = 1L) {

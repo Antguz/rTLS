@@ -6,7 +6,7 @@ test_that("Test whether the voxels_counting function works", {
 
   pc <- pc_tree
 
-  to_test <- voxels_counting(pc, min.size = 0.5, progress = FALSE)
+  to_test <- voxels_counting(pc, min_size = 0.5, progress = FALSE)
 
   expect_equal(length(to_test), 12, info = "Length of the object")
   expect_equal(nrow(to_test), 10, info = "N of voxel sizes")
