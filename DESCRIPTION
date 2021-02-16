@@ -35,16 +35,16 @@ Depends:
     data.table (>= 1.13),
     R (>= 4.0.0)
 Imports:
-    alphashape3d (>= 1.3),
-    boot (>= 1.3-22),
+    alphashape3d,
+    boot,
     doSNOW (>= 1.0.16),
     foreach (>= 1.4.4),
     parallel (>= 3.6.0),
     Rcpp (>= 1.0.3),
     RcppProgress (>= 0.4.2),
-    rgeos (>= 0.4-3),
-    rgl (>= 0.104.16),
-    sp (>= 1.3-1)
+    rgeos,
+    rgl,
+    sp
 Suggests: 
     knitr,
     rmarkdown,
