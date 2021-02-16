@@ -27,7 +27,7 @@ test_that("Test whether lines_interception works", {
   edge_length <- c(5, 5, 5)
   test_2 <- lines_interception(orig, end, AABBs, edge_length, progress = FALSE)
 
-  expect_equal(test_2$code_0[1], 0, info = "code_0")
+  expect_equal(test_2$code_0[1], 8, info = "code_0")
   expect_equal(test_2$code_1[1], 0, info = "code_1")
   expect_equal(test_2$code_2[1], 3, info = "code_2")
   expect_equal(test_2$code_3[1], 4, info = "code_3")
