@@ -32,7 +32,7 @@ License: GPL-2
 URL: https://github.com/Antguz/rTLS
 BugReports: https://github.com/Antguz/rTLS/issues
 Depends: 
-    data.table (>= 1.12),
+    data.table (>= 1.13),
     R (>= 4.0.0)
 Imports:
     alphashape3d (>= 1.3),
