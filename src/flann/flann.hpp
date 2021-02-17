@@ -41,7 +41,6 @@
 #include "flann/util/matrix.h"
 #include "flann/util/params.h"
 #include "flann/util/saving.h"
-
 #include "flann/algorithms/all_indices.h"
 
 namespace flann

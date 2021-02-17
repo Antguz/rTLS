@@ -78,6 +78,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// knn_rcpp
+arma::mat knn_rcpp(arma::mat query, arma::mat ref, int k, bool same, std::string build, int threads, int checks);
+RcppExport SEXP _rTLS_knn_rcpp(SEXP querySEXP, SEXP refSEXP, SEXP kSEXP, SEXP sameSEXP, SEXP buildSEXP, SEXP threadsSEXP, SEXP checksSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type query(querySEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type ref(refSEXP);
+    Rcpp::traits::input_parameter< int >::type k(kSEXP);
+    Rcpp::traits::input_parameter< bool >::type same(sameSEXP);
+    Rcpp::traits::input_parameter< std::string >::type build(buildSEXP);
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    Rcpp::traits::input_parameter< int >::type checks(checksSEXP);
+    rcpp_result_gen = Rcpp::wrap(knn_rcpp(query, ref, k, same, build, threads, checks));
+    return rcpp_result_gen;
+END_RCPP
+}
 // line_AABB_rcpp
 arma::vec line_AABB_rcpp(arma::mat orig, arma::mat end, arma::vec AABB_min, arma::vec AABB_max);
 RcppExport SEXP _rTLS_line_AABB_rcpp(SEXP origSEXP, SEXP endSEXP, SEXP AABB_minSEXP, SEXP AABB_maxSEXP) {
@@ -162,6 +179,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// radius_search_rcpp
+arma::mat radius_search_rcpp(arma::mat query, arma::mat ref, double radius, int max_neighbour, bool same, std::string build, int threads, int checks);
+RcppExport SEXP _rTLS_radius_search_rcpp(SEXP querySEXP, SEXP refSEXP, SEXP radiusSEXP, SEXP max_neighbourSEXP, SEXP sameSEXP, SEXP buildSEXP, SEXP threadsSEXP, SEXP checksSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type query(querySEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type ref(refSEXP);
+    Rcpp::traits::input_parameter< double >::type radius(radiusSEXP);
+    Rcpp::traits::input_parameter< int >::type max_neighbour(max_neighbourSEXP);
+    Rcpp::traits::input_parameter< bool >::type same(sameSEXP);
+    Rcpp::traits::input_parameter< std::string >::type build(buildSEXP);
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    Rcpp::traits::input_parameter< int >::type checks(checksSEXP);
+    rcpp_result_gen = Rcpp::wrap(radius_search_rcpp(query, ref, radius, max_neighbour, same, build, threads, checks));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rotate2D_rcpp
 NumericMatrix rotate2D_rcpp(NumericMatrix plane, NumericVector angle, int threads);
 RcppExport SEXP _rTLS_rotate2D_rcpp(SEXP planeSEXP, SEXP angleSEXP, SEXP threadsSEXP) {
@@ -225,12 +260,14 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_dimensionality_knn_rcpp", (DL_FUNC) &_rTLS_dimensionality_knn_rcpp, 5},
     {"_rTLS_dimensionality_sphere_rcpp", (DL_FUNC) &_rTLS_dimensionality_sphere_rcpp, 5},
     {"_rTLS_euclidean_rcpp", (DL_FUNC) &_rTLS_euclidean_rcpp, 3},
+    {"_rTLS_knn_rcpp", (DL_FUNC) &_rTLS_knn_rcpp, 7},
     {"_rTLS_line_AABB_rcpp", (DL_FUNC) &_rTLS_line_AABB_rcpp, 4},
     {"_rTLS_lines_interception_rcpp", (DL_FUNC) &_rTLS_lines_interception_rcpp, 6},
     {"_rTLS_meanDis_knn_rcpp", (DL_FUNC) &_rTLS_meanDis_knn_rcpp, 4},
     {"_rTLS_minimum_distance_rcpp", (DL_FUNC) &_rTLS_minimum_distance_rcpp, 4},
     {"_rTLS_nneighbors_sphere_rcpp", (DL_FUNC) &_rTLS_nneighbors_sphere_rcpp, 4},
     {"_rTLS_polar_to_cartesian_rcpp", (DL_FUNC) &_rTLS_polar_to_cartesian_rcpp, 2},
+    {"_rTLS_radius_search_rcpp", (DL_FUNC) &_rTLS_radius_search_rcpp, 8},
     {"_rTLS_rotate2D_rcpp", (DL_FUNC) &_rTLS_rotate2D_rcpp, 3},
     {"_rTLS_rotate3D_rcpp", (DL_FUNC) &_rTLS_rotate3D_rcpp, 5},
     {"_rTLS_sphere_covering_rcpp", (DL_FUNC) &_rTLS_sphere_covering_rcpp, 5},
