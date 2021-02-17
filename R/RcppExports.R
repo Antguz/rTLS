@@ -21,6 +21,10 @@ euclidean_rcpp <- function(sample, base, threads = 1L) {
     .Call(`_rTLS_euclidean_rcpp`, sample, base, threads)
 }
 
+knn_rcpp <- function(query, ref, k, same, build, threads, checks) {
+    .Call(`_rTLS_knn_rcpp`, query, ref, k, same, build, threads, checks)
+}
+
 line_AABB_rcpp <- function(orig, end, AABB_min, AABB_max) {
     .Call(`_rTLS_line_AABB_rcpp`, orig, end, AABB_min, AABB_max)
 }
@@ -43,6 +47,10 @@ nneighbors_sphere_rcpp <- function(amat, radius, threads = 1L, progress = TRUE) 
 
 polar_to_cartesian_rcpp <- function(polar, threads = 1L) {
     .Call(`_rTLS_polar_to_cartesian_rcpp`, polar, threads)
+}
+
+radius_search_rcpp <- function(query, ref, radius, max_neighbour, same, build, threads, checks) {
+    .Call(`_rTLS_radius_search_rcpp`, query, ref, radius, max_neighbour, same, build, threads, checks)
 }
 
 rotate2D_rcpp <- function(plane, angle, threads = 1L) {
