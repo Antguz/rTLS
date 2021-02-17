@@ -1,22 +1,19 @@
-//This is an adaptation of rflan and FLANN C++ for rTLS, the credits is for them.
-
-//https://CRAN.R-project.org/package=rflann
-//https://github.com/mariusmuja/flann
+//This is an adaptation of FLANN C++ and rflann to the goals of rTLS
 
 #include <RcppArmadillo.h>
-// [[Rcpp::depends(RcppArmadillo)]]
+// [[Rcpp::depends(RcppArmadillo"]]
 #include <string>
 #include "flann/flann.hpp"
 
 //[[Rcpp::export]]
-Rcpp::List knn_rcpp(Rcpp::NumericMatrix query, Rcpp::NumericMatrix ref, int k, std::string build, int threads, int checks) {
+arma::mat knn_rcpp(arma::mat query, arma::mat ref, int k, bool same, std::string build, int threads, int checks) {
 
-  const std::size_t n_dim = query.ncol();
-  const std::size_t n_query = query.nrow();
-  const std::size_t n_ref = ref.nrow();
+  //Constant arguments
+  const std::size_t n_dim = query.n_cols;
+  const std::size_t n_query = query.n_rows;
+  const std::size_t n_ref = ref.n_rows;
 
   // Column major to row major
-
   arma::mat qquery(n_dim, n_query);
   {
     arma::mat temp_q(query.begin(), n_query, n_dim, false);
@@ -26,7 +23,6 @@ Rcpp::List knn_rcpp(Rcpp::NumericMatrix query, Rcpp::NumericMatrix ref, int k, s
   flann::Matrix<double> q_flann(qquery.memptr(), n_query, n_dim);
 
   arma::mat rref(n_dim, n_ref);
-
   {
     arma::mat temp_r(ref.begin(), n_ref, n_dim, false);
     rref = arma::trans(temp_r);
@@ -34,7 +30,7 @@ Rcpp::List knn_rcpp(Rcpp::NumericMatrix query, Rcpp::NumericMatrix ref, int k, s
 
   flann::Matrix<double> ref_flann(rref.memptr(), n_ref, n_dim);
 
-  // Setting the flann index params
+  // Setting for FLANN
   flann::IndexParams params;
   if (build == "kdtree") {
     params = flann::KDTreeSingleIndexParams(1);
@@ -44,31 +40,51 @@ Rcpp::List knn_rcpp(Rcpp::NumericMatrix query, Rcpp::NumericMatrix ref, int k, s
     params = flann::LinearIndexParams();
   }
 
-  // Finding the nearest neighbours
+  // Finding the k nearest neighbors
   flann::Index<flann::L2<double> > index(ref_flann, params);
-
   index.buildIndex();
-
   flann::Matrix<int> indices_flann(new int[n_query * k], n_query, k);
-
   flann::Matrix<double> dists_flann(new double[n_query * k], n_query, k);
 
+  //Parameters for search
   flann::SearchParams search_params;
-
   search_params.cores = threads;
-
   search_params.checks = checks;
 
+  //Search of knn
   index.knnSearch(q_flann, indices_flann, dists_flann, k, search_params);
-
   arma::imat indices(indices_flann.ptr(), k, n_query, true);
-
   arma::mat dists(dists_flann.ptr(), k, n_query, true);
 
+  //Delete arguments
   delete[] indices_flann.ptr();
-
   delete[] dists_flann.ptr();
 
-  return Rcpp::List::create(Rcpp::Named("indices") = indices.t() + 1,
-                            Rcpp::Named("distances") = dists.t());
+  //Estimate distance if necessary
+  int nrow = n_query*k;
+
+  //Create matrix of results
+  arma::mat results(nrow, 3);
+
+  //Row index to save the values
+  nrow = 0;
+
+  //Loop to create long-format result
+  for (int i = 0; i < n_query; i++) {
+    for (int j = 0; j < k; j++) {
+
+      results(nrow, 0) = i + 1;
+      results(nrow, 1) = indices(j, i) + 1;
+      results(nrow, 2) = dists(j, i);
+
+      nrow = nrow + 1;
+    }
+  }
+
+  if(same == true) {
+    arma::vec distance = results.col(2);
+    results = results.rows(find(distance > 0));
+  }
+
+  return results;
 }
