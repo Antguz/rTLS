@@ -40,6 +40,7 @@
 #include <cstring>
 #include <map>
 #include <vector>
+#include <Rcpp.h>
 
 #include "flann/general.h"
 #include "flann/algorithms/nn_index.h"
@@ -69,9 +70,9 @@ struct LshIndexParams : public IndexParams
 };
 
 /**
- * Locality-sensitive hashing  index
+ * Randomized kd-tree index
  *
- * Contains the tables and other information for indexing a set of points
+ * Contains the k-d trees and other information for indexing a set of points
  * for nearest-neighbor matching.
  */
 template<typename Distance>
@@ -145,7 +146,8 @@ public:
 
     void addPoints(const Matrix<ElementType>& points, float rebuild_threshold = 2)
     {
-        assert(points.cols==veclen_);
+      //assert(points.cols==veclen_);
+      if (!(points.cols==veclen_)) Rcpp::stop("...");
         size_t old_size = size_;
 
         extendDataset(points);
@@ -227,11 +229,17 @@ public:
     					size_t knn,
     					const SearchParams& params) const
     {
-        assert(queries.cols == veclen_);
-        assert(indices.rows >= queries.rows);
-        assert(dists.rows >= queries.rows);
-        assert(indices.cols >= knn);
-        assert(dists.cols >= knn);
+      //assert(queries.cols == veclen_);
+      //assert(indices.rows >= queries.rows);
+      //assert(dists.rows >= queries.rows);
+      //assert(indices.cols >= knn);
+      //assert(dists.cols >= knn);
+      if (!(queries.cols == veclen_)) Rcpp::stop("...");
+      if (!(indices.rows >= queries.rows)) Rcpp::stop("...");
+      if (!(dists.rows >= queries.rows)) Rcpp::stop("...");
+      if (!(indices.cols >= knn)) Rcpp::stop("...");
+      if (!(dists.cols >= knn)) Rcpp::stop("...");
+      
 
         int count = 0;
         if (params.use_heap==FLANN_True) {
@@ -282,7 +290,8 @@ public:
     				size_t knn,
     				const SearchParams& params) const
     {
-        assert(queries.cols == veclen_);
+      //assert(queries.cols == veclen_);
+      if (!(queries.cols == veclen_)) Rcpp::stop("...");
 		if (indices.size() < queries.rows ) indices.resize(queries.rows);
 		if (dists.size() < queries.rows ) dists.resize(queries.rows);
 
@@ -396,7 +405,7 @@ private:
         if (level == 0) return;
         for (int index = lowest_index - 1; index >= 0; --index) {
             // Create a new key
-            lsh::BucketKey new_key = key | (lsh::BucketKey(1) << index);
+            lsh::BucketKey new_key = key | (1 << index);
             fill_xor_mask(new_key, index, level - 1, xor_masks);
         }
     }

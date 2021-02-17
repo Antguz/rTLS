@@ -135,7 +135,7 @@ public:
 	}
 
 	/**
-	 * Builds the index using the specified dataset
+	 * Builds th index using using the specified dataset
 	 * @param dataset the dataset to use
 	 */
     virtual void buildIndex(const Matrix<ElementType>& dataset)
@@ -228,26 +228,22 @@ public:
     	IndexHeader header;
 
     	if (Archive::is_saving::value) {
-            header.h.data_type = flann_datatype_value<ElementType>::value;
-            header.h.index_type = getType();
-            header.h.rows = size_;
-            header.h.cols = veclen_;
+    		header.data_type = flann_datatype_value<ElementType>::value;
+    		header.index_type = getType();
+    		header.rows = size_;
+    		header.cols = veclen_;
     	}
     	ar & header;
 
     	// sanity checks
     	if (Archive::is_loading::value) {
-            if (strncmp(header.h.signature,
-                        FLANN_SIGNATURE_,
-                        strlen(FLANN_SIGNATURE_) - strlen("v0.0")) != 0) {
+    	    if (strcmp(header.signature,FLANN_SIGNATURE_)!=0) {
     	        throw FLANNException("Invalid index file, wrong signature");
     	    }
-
-            if (header.h.data_type != flann_datatype_value<ElementType>::value) {
+            if (header.data_type != flann_datatype_value<ElementType>::value) {
                 throw FLANNException("Datatype of saved index is different than of the one to be created.");
             }
-
-            if (header.h.index_type != getType()) {
+            if (header.index_type != getType()) {
                 throw FLANNException("Saved index type is different then the current index type.");
             }
             // TODO: check for distance type
@@ -308,11 +304,17 @@ public:
     		size_t knn,
     		const SearchParams& params) const
     {
-    	assert(queries.cols == veclen());
-    	assert(indices.rows >= queries.rows);
-    	assert(dists.rows >= queries.rows);
-    	assert(indices.cols >= knn);
-    	assert(dists.cols >= knn);
+      //assert(queries.cols == veclen());
+      //assert(indices.rows >= queries.rows);
+      //assert(dists.rows >= queries.rows);
+      //assert(indices.cols >= knn);
+      //assert(dists.cols >= knn);
+
+      if (!(queries.cols == veclen())) Rcpp::stop("...");
+      if (!(indices.rows >= queries.rows)) Rcpp::stop("...");
+      if (!(dists.rows >= queries.rows)) Rcpp::stop("...");
+      if (!(indices.cols >= knn)) Rcpp::stop("...");
+      if (!(dists.cols >= knn)) Rcpp::stop("...");
     	bool use_heap;
 
     	if (params.use_heap==FLANN_Undefined) {
@@ -398,7 +400,8 @@ public:
     				size_t knn,
     				const SearchParams& params) const
     {
-        assert(queries.cols == veclen());
+      //assert(queries.cols == veclen());
+      if (!(queries.cols == veclen())) Rcpp::stop("...");
         bool use_heap;
         if (params.use_heap==FLANN_Undefined) {
         	use_heap = (knn>KNN_HEAP_THRESHOLD)?true:false;
@@ -482,7 +485,7 @@ public:
     /**
      * @brief Perform radius search
      * @param[in] query The query point
-     * @param[out] indices The indices of the neighbors found within the given radius
+     * @param[out] indices The indinces of the neighbors found within the given radius
      * @param[out] dists The distances to the nearest neighbors found
      * @param[in] radius The radius used for search
      * @param[in] params Search parameters
@@ -494,7 +497,8 @@ public:
     		float radius,
     		const SearchParams& params) const
     {
-    	assert(queries.cols == veclen());
+      //assert(queries.cols == veclen());
+      if (!(queries.cols == veclen())) Rcpp::stop("...");
     	int count = 0;
     	size_t num_neighbors = std::min(indices.cols, dists.cols);
     	int max_neighbors = params.max_neighbors;
@@ -592,7 +596,7 @@ public:
     /**
      * @brief Perform radius search
      * @param[in] query The query point
-     * @param[out] indices The indices of the neighbors found within the given radius
+     * @param[out] indices The indinces of the neighbors found within the given radius
      * @param[out] dists The distances to the nearest neighbors found
      * @param[in] radius The radius used for search
      * @param[in] params Search parameters
@@ -604,7 +608,8 @@ public:
     		float radius,
     		const SearchParams& params) const
     {
-        assert(queries.cols == veclen());
+      //assert(queries.cols == veclen());
+      if (!(queries.cols == veclen())) Rcpp::stop("...");
     	int count = 0;
     	// just count neighbors
     	if (params.max_neighbors==0) {
@@ -708,7 +713,7 @@ protected:
     		return id;
     	}
     	size_t point_index = size_t(-1);
-    	if (id < ids_.size() && ids_[id]==id) {
+    	if (ids_[id]==id) {
     		return id;
     	}
     	else {

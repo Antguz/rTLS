@@ -36,8 +36,7 @@
 #include <cassert>
 #include <cstring>
 #include <stdarg.h>
-#include <cmath>
-#include <random>
+#include <Rcpp.h>
 
 #include "flann/general.h"
 #include "flann/algorithms/nn_index.h"
@@ -49,6 +48,7 @@
 #include "flann/util/random.h"
 #include "flann/util/saving.h"
 
+inline int randWrapper2(const int n) { return floor(R::unif_rand()*n); }
 
 namespace flann
 {
@@ -142,7 +142,8 @@ public:
     
     void addPoints(const Matrix<ElementType>& points, float rebuild_threshold = 2)
     {
-        assert(points.cols==veclen_);
+      //assert(points.cols==veclen_);
+      if (!(points.cols==veclen_)) Rcpp::stop("...");
 
         size_t old_size = size_;
         extendDataset(points);
@@ -266,9 +267,7 @@ protected:
         /* Construct the randomized trees. */
         for (int i = 0; i < trees_; i++) {
             /* Randomize the order of vectors to allow for unbiased sampling. */
-            std::random_device rd;
-            std::mt19937 g(rd());
-            std::shuffle(ind.begin(), ind.end(), g);
+          std::random_shuffle(ind.begin(), ind.end(), randWrapper2);
             tree_roots_[i] = divideTree(&ind[0], int(size_) );
         }
         delete[] mean_;
@@ -302,19 +301,15 @@ private:
          * Point data
          */
         ElementType* point;
-		/**
-		* The child nodes.
-		*/
-		Node* child1, *child2;
-		Node(){
-			child1 = NULL;
-			child2 = NULL;
-		}
-		~Node() {
-			if (child1 != NULL) { child1->~Node(); child1 = NULL; }
+        /**
+         * The child nodes.
+         */
+        Node* child1, * child2;
 
-			if (child2 != NULL) { child2->~Node(); child2 = NULL; }
-		}
+        ~Node() {
+        	if (child1!=NULL) child1->~Node();
+        	if (child2!=NULL) child2->~Node();
+        }
 
     private:
     	template<typename Archive>
@@ -530,7 +525,7 @@ private:
         //		checkID -= 1;  /* Set a different unique ID for each search. */
 
         if (trees_ > 1) {
-            fprintf(stderr,"It doesn't make any sense to use more than one tree for exact search");
+          // fprintf(stderr,"It doesn't make any sense to use more than one tree for exact search");
         }
         if (trees_>0) {
             searchLevelExact<with_removed>(result, vec, tree_roots_[0], 0.0, epsError);
@@ -671,7 +666,7 @@ private:
             ElementType max_span = 0;
             size_t div_feat = 0;
             for (size_t i=0;i<veclen_;++i) {
-                ElementType span = std::abs(point[i]-leaf_point[i]);
+                ElementType span = abs(point[i]-leaf_point[i]);
                 if (span > max_span) {
                     max_span = span;
                     div_feat = i;

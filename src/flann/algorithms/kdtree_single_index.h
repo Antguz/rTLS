@@ -142,7 +142,8 @@ public:
 
     void addPoints(const Matrix<ElementType>& points, float rebuild_threshold = 2)
     {
-        assert(points.cols==veclen_);
+      //assert(points.cols==veclen_);
+      if (!(points.cols==veclen_)) Rcpp::stop("1");
         extendDataset(points);
         buildIndex();
     }
@@ -489,7 +490,8 @@ private:
         else if (lim2<count/2) index = lim2;
         else index = count/2;
         
-        assert(index > 0 && index < count);
+        //assert(index > 0 && index < count);
+        if (!(index > 0 && index < count)) Rcpp::stop("2");
     }
 
 
@@ -533,7 +535,8 @@ private:
         else if (lim2<count/2) index = lim2;
         else index = count/2;
         
-        assert(index > 0 && index < count);
+        //assert(index > 0 && index < count);
+        if (!(index > 0 && index < count)) Rcpp::stop("3");
     }
 
 

@@ -153,7 +153,7 @@ public:
             // use the standard C malloc to allocate memory
             void* m = ::malloc(blocksize);
             if (!m) {
-                fprintf(stderr,"Failed to allocate memory.\n");
+              // fprintf(stderr,"Failed to allocate memory.\n");
                 return NULL;
             }
 
@@ -198,10 +198,5 @@ inline void* operator new (std::size_t size, flann::PooledAllocator& allocator)
 {
     return allocator.allocateMemory(size) ;
 }
-
-inline void operator delete(void* p, flann::PooledAllocator& allocator)
-{
-}
-
 
 #endif //FLANN_ALLOCATOR_H_

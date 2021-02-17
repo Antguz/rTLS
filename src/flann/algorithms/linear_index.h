@@ -87,7 +87,8 @@ public:
 
     void addPoints(const Matrix<ElementType>& points, float rebuild_threshold = 2)
     {
-        assert(points.cols==veclen_);
+      //assert(points.cols==veclen_);
+      if (!(points.cols==veclen_)) Rcpp::stop("...");
         extendDataset(points);
     }
 

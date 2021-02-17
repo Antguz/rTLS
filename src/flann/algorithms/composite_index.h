@@ -160,9 +160,9 @@ public:
      */
     void buildIndex()
     {
-        Logger::info("Building kmeans tree...\n");
+        //Logger::info("Building kmeans tree...\n");
         kmeans_index_->buildIndex();
-        Logger::info("Building kdtree tree...\n");
+        //Logger::info("Building kdtree tree...\n");
         kdtree_index_->buildIndex();
     }
     

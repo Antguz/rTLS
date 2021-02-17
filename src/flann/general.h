@@ -35,6 +35,7 @@
 #include <stdexcept>
 #include <cassert>
 #include <limits.h>
+#include <Rcpp.h>
 
 namespace flann
 {

@@ -39,7 +39,6 @@
 #include <iostream>
 #include <iomanip>
 #include <limits.h>
-#include <random>
 // TODO as soon as we use C++0x, use the code in USE_UNORDERED_MAP
 #if USE_UNORDERED_MAP
 #include <unordered_map>
@@ -51,6 +50,9 @@
 
 #include "flann/util/dynamic_bitset.h"
 #include "flann/util/matrix.h"
+
+#include <Rcpp.h>
+inline int randWrapper(const int n) { return floor(R::unif_rand()*n); }
 
 namespace flann
 {
@@ -151,7 +153,7 @@ public:
      */
     LshTable(unsigned int /*feature_size*/, unsigned int /*key_size*/)
     {
-        std::cerr << "LSH is not implemented for that type" << std::endl;
+      // std::cerr << "LSH is not implemented for that type" << std::endl;
         throw;
     }
 
@@ -234,8 +236,9 @@ public:
      */
     size_t getKey(const ElementType* /*feature*/) const
     {
-        std::cerr << "LSH is not implemented for that type" << std::endl;
-        return -1;
+      // std::cerr << "LSH is not implemented for that type" << std::endl;
+        throw;
+        return 1;
     }
 
     /** Get statistics about the table
@@ -270,10 +273,10 @@ private:
         if (speed_level_ == kArray) return;
 
         // Use an array if it will be more than half full
-        if (buckets_space_.size() > ((size_t(1) << key_size_) / 2)) {
+        if (buckets_space_.size() > (unsigned int)((1 << key_size_) / 2)) {
             speed_level_ = kArray;
             // Fill the array version of it
-            buckets_speed_.resize(size_t(1) << key_size_);
+            buckets_speed_.resize(1 << key_size_);
             for (BucketsSpace::const_iterator key_bucket = buckets_space_.begin(); key_bucket != buckets_space_.end(); ++key_bucket) buckets_speed_[key_bucket->first] = key_bucket->second;
 
             // Empty the hash table
@@ -284,9 +287,9 @@ private:
         // If the bitset is going to use less than 10% of the RAM of the hash map (at least 1 size_t for the key and two
         // for the vector) or less than 512MB (key_size_ <= 30)
         if (((std::max(buckets_space_.size(), buckets_speed_.size()) * CHAR_BIT * 3 * sizeof(BucketKey)) / 10
-             >= size_t(size_t(1) << key_size_)) || (key_size_ <= 32)) {
+             >= size_t(1 << key_size_)) || (key_size_ <= 32)) {
             speed_level_ = kBitsetHash;
-            key_bitset_.resize(size_t(1) << key_size_);
+            key_bitset_.resize(1 << key_size_);
             key_bitset_.reset();
             // Try with the BucketsSpace
             for (BucketsSpace::const_iterator key_bucket = buckets_space_.begin(); key_bucket != buckets_space_.end(); ++key_bucket) key_bitset_.set(key_bucket->first);
@@ -364,9 +367,7 @@ inline LshTable<unsigned char>::LshTable(unsigned int feature_size, unsigned int
     // A bit brutal but fast to code
     std::vector<size_t> indices(feature_size * CHAR_BIT);
     for (size_t i = 0; i < feature_size * CHAR_BIT; ++i) indices[i] = i;
-    std::random_device rd;
-    std::mt19937 g(rd());
-    std::shuffle(indices.begin(), indices.end(),g);
+    std::random_shuffle(indices.begin(), indices.end(), randWrapper);
 
     // Generate a random set of order of subsignature_size_ bits
     for (unsigned int i = 0; i < key_size_; ++i) {
