@@ -3,15 +3,15 @@ context("artificial_stands")
 test_that("Whether random locations of trees works", {
 
   path <- system.file("extdata", "pc_tree.txt", package = "rTLS") ###Path for tree
-  files <- rep(path, 4) #N trees
+  files <- rep(path, 2) #N trees
 
-  to_test <- artificial_stand(files, n.trees = 4, dimension = c(30, 30), overlap = 0,
-                              progress = FALSE, plot = FALSE, n_attempts = 1000)
+  to_test <- artificial_stand(files, n.trees = 2, dimension = c(30, 30), overlap = 0,
+                              progress = FALSE, plot = FALSE, n_attempts = 10000)
 
-  expect_equal(as.numeric(to_test$Stand[1,1]), 4, info = "Number of trees")
+  expect_equal(as.numeric(to_test$Stand[1,1]), 2, info = "Number of trees")
   expect_equal(as.numeric(to_test$Stand[1,2]), 900, info = "Stand area")
-  expect_equal(round(as.numeric(to_test$Stand[1,4]), 2), 114.2, info = "Crown area")
-  expect_equal(as.numeric(to_test$Stand[1,5]), 303248, info = "Number of points")
+  expect_equal(round(as.numeric(to_test$Stand[1,4]), 2), 57.1, info = "Crown area")
+  expect_equal(as.numeric(to_test$Stand[1,5]), 151624, info = "Number of points")
 })
 
 test_that("Whether the pre-difine locations of trees works", {
