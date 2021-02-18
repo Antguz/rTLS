@@ -38,7 +38,8 @@ both documents.
 #Point cloud
 data("pc_tree")
 
-knn(pc_tree, pc_tree, 3, same = TRUE, "kdtree", checks = 10)
+#knn search using k = 3
+knn(pc_tree, pc_tree, k = 3, same = TRUE, "kdtree", checks = 10)
 
 }
 \references{
