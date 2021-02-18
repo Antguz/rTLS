@@ -32,7 +32,8 @@
 #' #Point cloud
 #' data("pc_tree")
 #'
-#' knn(pc_tree, pc_tree, 3, same = TRUE, "kdtree", checks = 10)
+#' #knn search using k = 3
+#' knn(pc_tree, pc_tree, k = 3, same = TRUE, "kdtree", checks = 10)
 #'
 #' @export
 knn <- function(query, ref, k, same = FALSE, build = "kdtree", threads = 1L, checks = 1L) {

@@ -33,7 +33,7 @@
 #' #Point cloud
 #' data("pc_tree")
 #'
-#' #Radius search
+#' #Radius search of 0.1
 #' radius_search(pc_tree, pc_tree, radius = 0.1, 100, TRUE, "kdtree")
 #'
 #' @export
