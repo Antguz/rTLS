@@ -33,7 +33,8 @@
 #' #Point cloud
 #' data("pc_tree")
 #'
-#' radius_search(pc_tree, pc_tree, radius = 0.1, max_neighbour = 100, same = TRUE, "kdtree")
+#' #Radius search
+#' radius_search(pc_tree, pc_tree, radius = 0.1, 100, TRUE, "kdtree")
 #'
 #' @export
 radius_search <- function(query, ref, radius, max_neighbour, same = FALSE, build = "kdtree", threads = 1L, checks = 1L) {
