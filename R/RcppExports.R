@@ -9,16 +9,16 @@ circleRANSAC_rcpp <- function(cloud, fpoints, z_value, poutlier, max_iterations,
     .Call(`_rTLS_circleRANSAC_rcpp`, cloud, fpoints, z_value, poutlier, max_iterations, threads)
 }
 
-dimensionality_knn_rcpp <- function(amat, bmat, k, threads = 1L, progress = TRUE) {
-    .Call(`_rTLS_dimensionality_knn_rcpp`, amat, bmat, k, threads, progress)
-}
-
 dimensionality_sphere_rcpp <- function(amat, bmat, radius, threads = 1L, progress = TRUE) {
     .Call(`_rTLS_dimensionality_sphere_rcpp`, amat, bmat, radius, threads, progress)
 }
 
 euclidean_rcpp <- function(sample, base, threads = 1L) {
     .Call(`_rTLS_euclidean_rcpp`, sample, base, threads)
+}
+
+features_knn_rcpp <- function(index, query, k, threads = 1L, progress = TRUE) {
+    .Call(`_rTLS_features_knn_rcpp`, index, query, k, threads, progress)
 }
 
 knn_rcpp <- function(query, ref, k, same, build, threads, checks) {

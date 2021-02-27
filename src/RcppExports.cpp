@@ -35,21 +35,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// dimensionality_knn_rcpp
-arma::cube dimensionality_knn_rcpp(arma::mat amat, arma::mat bmat, arma::vec k, int threads, bool progress);
-RcppExport SEXP _rTLS_dimensionality_knn_rcpp(SEXP amatSEXP, SEXP bmatSEXP, SEXP kSEXP, SEXP threadsSEXP, SEXP progressSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type amat(amatSEXP);
-    Rcpp::traits::input_parameter< arma::mat >::type bmat(bmatSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type k(kSEXP);
-    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
-    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
-    rcpp_result_gen = Rcpp::wrap(dimensionality_knn_rcpp(amat, bmat, k, threads, progress));
-    return rcpp_result_gen;
-END_RCPP
-}
 // dimensionality_sphere_rcpp
 arma::cube dimensionality_sphere_rcpp(arma::mat amat, arma::mat bmat, arma::vec radius, int threads, bool progress);
 RcppExport SEXP _rTLS_dimensionality_sphere_rcpp(SEXP amatSEXP, SEXP bmatSEXP, SEXP radiusSEXP, SEXP threadsSEXP, SEXP progressSEXP) {
@@ -75,6 +60,21 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type base(baseSEXP);
     Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
     rcpp_result_gen = Rcpp::wrap(euclidean_rcpp(sample, base, threads));
+    return rcpp_result_gen;
+END_RCPP
+}
+// features_knn_rcpp
+arma::cube features_knn_rcpp(arma::mat index, arma::mat query, arma::vec k, int threads, bool progress);
+RcppExport SEXP _rTLS_features_knn_rcpp(SEXP indexSEXP, SEXP querySEXP, SEXP kSEXP, SEXP threadsSEXP, SEXP progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type index(indexSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type query(querySEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type k(kSEXP);
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
+    rcpp_result_gen = Rcpp::wrap(features_knn_rcpp(index, query, k, threads, progress));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -243,9 +243,9 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_cartesian_to_polar_rcpp", (DL_FUNC) &_rTLS_cartesian_to_polar_rcpp, 3},
     {"_rTLS_circleRANSAC_rcpp", (DL_FUNC) &_rTLS_circleRANSAC_rcpp, 6},
-    {"_rTLS_dimensionality_knn_rcpp", (DL_FUNC) &_rTLS_dimensionality_knn_rcpp, 5},
     {"_rTLS_dimensionality_sphere_rcpp", (DL_FUNC) &_rTLS_dimensionality_sphere_rcpp, 5},
     {"_rTLS_euclidean_rcpp", (DL_FUNC) &_rTLS_euclidean_rcpp, 3},
+    {"_rTLS_features_knn_rcpp", (DL_FUNC) &_rTLS_features_knn_rcpp, 5},
     {"_rTLS_knn_rcpp", (DL_FUNC) &_rTLS_knn_rcpp, 7},
     {"_rTLS_line_AABB_rcpp", (DL_FUNC) &_rTLS_line_AABB_rcpp, 4},
     {"_rTLS_lines_interception_rcpp", (DL_FUNC) &_rTLS_lines_interception_rcpp, 6},

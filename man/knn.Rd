@@ -22,7 +22,7 @@ knn(query, ref, k, same = FALSE, build = "kdtree", threads = 1L, checks = 1L)
 \item{checks}{Number of checks during searching. Higher value gives better search precision but takes longer. See FLANN C++ manual for more details.}
 }
 \value{
-A \code{data.table} with three columns describing the indices of the query and ref points and the distances.
+A \code{data.table} with three columns describing the indices of the query, ref, and k neighbors and the distances.
 }
 \description{
 K nearest neighbors based on FLANN C++
