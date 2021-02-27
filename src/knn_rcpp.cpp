@@ -8,6 +8,10 @@
 //[[Rcpp::export]]
 arma::mat knn_rcpp(arma::mat query, arma::mat ref, int k, bool same, std::string build, int threads, int checks) {
 
+  if(same == true) {
+    k = k + 1;
+  }
+
   //Constant arguments
   const std::size_t n_dim = query.n_cols;
   const std::size_t n_query = query.n_rows;
@@ -62,28 +66,35 @@ arma::mat knn_rcpp(arma::mat query, arma::mat ref, int k, bool same, std::string
 
   //Estimate distance if necessary
   int nrow = n_query*k;
+  int k_row = 1;
 
   //Create matrix of results
-  arma::mat results(nrow, 3);
+  arma::mat results(nrow, 4);
 
   //Row index to save the values
   nrow = 0;
 
   //Loop to create long-format result
   for (int i = 0; i < n_query; i++) {
+
+    k_row = 1;
+
     for (int j = 0; j < k; j++) {
 
       results(nrow, 0) = i + 1;
       results(nrow, 1) = indices(j, i) + 1;
-      results(nrow, 2) = dists(j, i);
+      results(nrow, 2) = k_row;
+      results(nrow, 3) = dists(j, i);
 
       nrow = nrow + 1;
+      k_row = k_row + 1;
     }
   }
 
   if(same == true) {
-    arma::vec distance = results.col(2);
+    arma::vec distance = results.col(3);
     results = results.rows(find(distance > 0));
+    results.col(2) = results.col(2) - 1;
   }
 
   return results;

@@ -10,7 +10,7 @@
 #' @param threads An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware. If 0, then the maximum allowable cores are used.
 #' @param checks Number of checks during searching. Higher value gives better search precision but takes longer. See FLANN C++ manual for more details.
 #'
-#' @return A \code{data.table} with three columns describing the indices of the query and ref points and the distances.
+#' @return A \code{data.table} with three columns describing the indices of the query, ref, and k neighbors and the distances.
 #'
 #' @author J. Antonio Guzmán Q.
 #'
@@ -40,7 +40,7 @@ knn <- function(query, ref, k, same = FALSE, build = "kdtree", threads = 1L, che
 
   results <- knn_rcpp(as.matrix(query), as.matrix(ref), k = k, same = same, build = build, threads = threads, checks = checks)
   results <- as.data.table(results)
-  colnames(results) <- c("query", "ref", "distance")
+  colnames(results) <- c("query", "ref", "k_index", "distance")
 
   return(results)
 
