@@ -33,7 +33,7 @@ arma::cube features_radius_rcpp(arma::mat index, arma::mat query, arma::vec radi
   int len_radius = radius.n_elem;
 
   //output cube
-  arma::cube out(an, 3, len_radius);
+  arma::cube out(an, 4, len_radius);
 
   //create progress
   Progress p(an*len_radius, progress);
@@ -77,15 +77,17 @@ arma::cube features_radius_rcpp(arma::mat index, arma::mat query, arma::vec radi
 
         double eigen_total = sum(eigenvalues);
 
-        out(i , 0, m) = eigenvalues[2]/eigen_total; //eigenvalue 1
-        out(i , 1, m) = eigenvalues[1]/eigen_total; //eigenvalue 2
-        out(i , 2, m) = eigenvalues[0]/eigen_total; //eigenvalue 3
+        out(i , 0, m) = npoints; //eigenvalue 1
+        out(i , 1, m) = eigenvalues[2]/eigen_total; //eigenvalue 1
+        out(i , 2, m) = eigenvalues[1]/eigen_total; //eigenvalue 2
+        out(i , 3, m) = eigenvalues[0]/eigen_total; //eigenvalue 3
 
       } else {
 
-        out(i , 0, m) = R_NaN; //eigenvalue 1
-        out(i , 1, m) = R_NaN; //eigenvalue 2
-        out(i , 2, m) = R_NaN; //eigenvalue 3
+        out(i , 0, m) = npoints; //eigenvalue 1
+        out(i , 1, m) = R_NaN; //eigenvalue 1
+        out(i , 2, m) = R_NaN; //eigenvalue 2
+        out(i , 3, m) = R_NaN; //eigenvalue 3
 
       }
     }
