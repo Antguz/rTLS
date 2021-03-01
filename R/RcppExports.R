@@ -9,16 +9,20 @@ circleRANSAC_rcpp <- function(cloud, fpoints, z_value, poutlier, max_iterations,
     .Call(`_rTLS_circleRANSAC_rcpp`, cloud, fpoints, z_value, poutlier, max_iterations, threads)
 }
 
-dimensionality_knn_rcpp <- function(amat, bmat, k, threads = 1L, progress = TRUE) {
-    .Call(`_rTLS_dimensionality_knn_rcpp`, amat, bmat, k, threads, progress)
-}
-
-dimensionality_sphere_rcpp <- function(amat, bmat, radius, threads = 1L, progress = TRUE) {
-    .Call(`_rTLS_dimensionality_sphere_rcpp`, amat, bmat, radius, threads, progress)
-}
-
 euclidean_rcpp <- function(sample, base, threads = 1L) {
     .Call(`_rTLS_euclidean_rcpp`, sample, base, threads)
+}
+
+features_knn_rcpp <- function(index, query, k, threads = 1L, progress = TRUE) {
+    .Call(`_rTLS_features_knn_rcpp`, index, query, k, threads, progress)
+}
+
+features_radius_rcpp <- function(index, query, radius, threads = 1L, progress = TRUE) {
+    .Call(`_rTLS_features_radius_rcpp`, index, query, radius, threads, progress)
+}
+
+knn_rcpp <- function(query, ref, k, same, build, threads, checks) {
+    .Call(`_rTLS_knn_rcpp`, query, ref, k, same, build, threads, checks)
 }
 
 line_AABB_rcpp <- function(orig, end, AABB_min, AABB_max) {
@@ -33,16 +37,12 @@ meanDis_knn_rcpp <- function(amat, k, threads = 1L, progress = TRUE) {
     .Call(`_rTLS_meanDis_knn_rcpp`, amat, k, threads, progress)
 }
 
-minimum_distance_rcpp <- function(amat, radius, threads = 1L, progress = TRUE) {
-    .Call(`_rTLS_minimum_distance_rcpp`, amat, radius, threads, progress)
-}
-
-nneighbors_sphere_rcpp <- function(amat, radius, threads = 1L, progress = TRUE) {
-    .Call(`_rTLS_nneighbors_sphere_rcpp`, amat, radius, threads, progress)
-}
-
 polar_to_cartesian_rcpp <- function(polar, threads = 1L) {
     .Call(`_rTLS_polar_to_cartesian_rcpp`, polar, threads)
+}
+
+radius_search_rcpp <- function(query, ref, radius, max_neighbour, same, build, threads, checks) {
+    .Call(`_rTLS_radius_search_rcpp`, query, ref, radius, max_neighbour, same, build, threads, checks)
 }
 
 rotate2D_rcpp <- function(plane, angle, threads = 1L) {

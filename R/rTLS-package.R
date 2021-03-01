@@ -15,4 +15,4 @@
 utils::globalVariables(c(".", "Target_count", "Voxel.size",
                          "X", "Y", "Z", "azimuth", "cumsum_returns",
                          "i", "pulses", "returns", "w", "zenith", "Edge.X",
-                         "N", "N_voxels"))
+                         "N", "N_voxels", "query"))

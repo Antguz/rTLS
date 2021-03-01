@@ -6,7 +6,7 @@ test_that("Test whether the minimum distance calculation works", {
                           Y = c(0, 0, 1, 1, 1, -1, -1, -1),
                           Z = c(0, 10, 0, 5, 10, 0, 5, 10))
 
-  to_test <- min_distance(cartesian, radius = 15, progress = FALSE)
+  to_test <- min_distance(cartesian)
 
   expect_equal(to_test, 1, info = "Min distance")
 })
