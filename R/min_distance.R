@@ -12,7 +12,7 @@
 #' data("pc_tree")
 #'
 #' #Estimate the minimum distance of a sample o 100 points
-#' min_distance(cloud_sample)
+#' min_distance(pc_tree)
 #'
 #' @export
 min_distance <- function(cloud, threads = 1L) {
