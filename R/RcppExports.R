@@ -9,16 +9,16 @@ circleRANSAC_rcpp <- function(cloud, fpoints, z_value, poutlier, max_iterations,
     .Call(`_rTLS_circleRANSAC_rcpp`, cloud, fpoints, z_value, poutlier, max_iterations, threads)
 }
 
-dimensionality_sphere_rcpp <- function(amat, bmat, radius, threads = 1L, progress = TRUE) {
-    .Call(`_rTLS_dimensionality_sphere_rcpp`, amat, bmat, radius, threads, progress)
-}
-
 euclidean_rcpp <- function(sample, base, threads = 1L) {
     .Call(`_rTLS_euclidean_rcpp`, sample, base, threads)
 }
 
 features_knn_rcpp <- function(index, query, k, threads = 1L, progress = TRUE) {
     .Call(`_rTLS_features_knn_rcpp`, index, query, k, threads, progress)
+}
+
+features_radius_rcpp <- function(index, query, radius, threads = 1L, progress = TRUE) {
+    .Call(`_rTLS_features_radius_rcpp`, index, query, radius, threads, progress)
 }
 
 knn_rcpp <- function(query, ref, k, same, build, threads, checks) {
@@ -35,10 +35,6 @@ lines_interception_rcpp <- function(orig, end, voxels, edge_length, threads = 1L
 
 meanDis_knn_rcpp <- function(amat, k, threads = 1L, progress = TRUE) {
     .Call(`_rTLS_meanDis_knn_rcpp`, amat, k, threads, progress)
-}
-
-nneighbors_sphere_rcpp <- function(amat, radius, threads = 1L, progress = TRUE) {
-    .Call(`_rTLS_nneighbors_sphere_rcpp`, amat, radius, threads, progress)
 }
 
 polar_to_cartesian_rcpp <- function(polar, threads = 1L) {
