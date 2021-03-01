@@ -26,15 +26,24 @@ The current development of ___rTLS___ is focused on five major processes applied
 
 * Applications of voxel-counting methods.
 
-* Estimation of dimensionality of the neighboring points using two approach: 
-    + sphere neighborhood. 
+* Fast estimation of geometry features of the neighboring points using two approach: 
+    + radius search. 
     + k-nearest neighbors.
 
-* Calculation of basic metrics on neighboring points.
+* Estimation of canopy structure using single point hemispherical scanning
 
-* Estimation of dimensionality.
+* Filtering of point clouds using:
+    + Statistical Outlier Removal (SOR)
+    + Minimum of neighbors
+    + Nearest point to voxel center
 
-* Estimation of the optimal voxel and sphere size using information theory (coming soon).
+* Line AABB tracing path (ray-tracing)
+
+* Estimation of tree metrics:
+    + DBH using RANSAC fitting
+    + Crown area using convex hull
+
+* And many more!  
 
 ***
 
@@ -49,20 +58,22 @@ install.packages("rTLS")
 or using the development version in github following (recommended)
 
 ```{r}
-#install.packages("devtools")
-devtools::install_github("Antguz/rTLS")
+remotes::install_github("Antguz/rTLS")
 ```
-if you have problems with `devtools` also try
+if you have problems also try 
 
 ```{r}
 devtools::install_github("Antguz/rTLS", INSTALL_opts= c("--no-multiarch"))
 ```
 
+Most common problems for installation comes from rgl package. If required, 
+try to install rgl first and then ___rTLS___.
+
 ***
 
 ### Usage
 
-Take a look to the [vignettes](https://antguz.github.io/rTLS/articles/) were we provide detaits for the use and potential applications of our functions.
+Take a look to the [vignettes](https://antguz.github.io/rTLS/articles/) were we provide details for the use and potential applications of our functions.
 
 
 
