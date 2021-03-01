@@ -32,6 +32,8 @@ filter(
 
 \item{edge_length}{A positive \code{numeric} vector with the voxel-edge length for the x, y, and z coordinates. This needs to be used if \code{method = "voxel_center"}.}
 
+\item{build}{A \code{character} describing the search structure to be used: \code{"kdtree"}, \code{"kmeans"}, \code{"linear"}. Default \code{"kdtree"}.}
+
 \item{threads}{An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.}
 
 \item{checks}{Number of checks during searching. Higher value gives better search precision but takes longer. \code{checks = 20} as default.}
