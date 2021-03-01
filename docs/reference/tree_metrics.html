@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -109,7 +109,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Antguz/rTLS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -135,7 +135,7 @@
     <p>Estimate the tree height, crown area, and the diameter at breast height of a tree point cloud</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tree_metrics</span>(<span class='no'>cloud</span>, <span class='kw'>region.diameter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>relocateZ</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>tree_metrics</span><span class='op'>(</span><span class='va'>cloud</span>, region.diameter <span class='op'>=</span> <span class='cn'>NULL</span>, relocateZ <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,11 +163,15 @@
 while the DBH is calculated extracting the area of the convex hull on the subset of points between <code>region.diameter</code>, and then estimating the diameter of a circle.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>voxels</code></p></div>
+    <div class='dont-index'><p><code><a href='voxels.html'>voxels</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>J. Antonio Guzman Q. and Ronny Hernandez</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"pc_tree"</span>)
-<span class='fu'>tree_metrics</span>(<span class='no'>pc_tree</span>)</div><div class='output co'>#&gt;    Height Crown_area       DBH
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"pc_tree"</span><span class='op'>)</span>
+<span class='fu'>tree_metrics</span><span class='op'>(</span><span class='va'>pc_tree</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    Height Crown_area       DBH
 #&gt; 1: 6.0365   28.54889 0.2002415</div><div class='input'>
 </div></pre>
   </div>
@@ -185,7 +189,7 @@ while the DBH is calculated extracting the area of the convex hull on the subset
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

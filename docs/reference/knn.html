@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>A TLS scan — TLS_scan • rTLS</title>
+<title>K Nearest Neighbors — knn • rTLS</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="A TLS scan — TLS_scan" />
-<meta property="og:description" content="A data.table from a TLS scan." />
+<meta property="og:title" content="K Nearest Neighbors — knn" />
+<meta property="og:description" content="K nearest neighbors based on FLANN C++" />
 
 
 
@@ -126,45 +126,89 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>A TLS scan</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Antguz/rTLS/blob/master/R/TLS_scan-data.R'><code>R/TLS_scan-data.R</code></a></small>
-    <div class="hidden name"><code>TLS_scan.Rd</code></div>
+    <h1>K Nearest Neighbors</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Antguz/rTLS/blob/master/R/knn.R'><code>R/knn.R</code></a></small>
+    <div class="hidden name"><code>knn.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A <code>data.table</code> from a TLS scan.</p>
+    <p>K nearest neighbors based on FLANN C++</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>TLS_scan</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>knn</span><span class='op'>(</span><span class='va'>query</span>, <span class='va'>ref</span>, <span class='va'>k</span>, same <span class='op'>=</span> <span class='cn'>FALSE</span>, build <span class='op'>=</span> <span class='st'>"kdtree"</span>, threads <span class='op'>=</span> <span class='fl'>1L</span>, checks <span class='op'>=</span> <span class='fl'>1L</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>query</th>
+      <td><p>A <code>data.table</code> containing the set of query points where each row represent a point and each column a given coordinate.</p></td>
+    </tr>
+    <tr>
+      <th>ref</th>
+      <td><p>A <code>numeric</code> containing the set of reference points where each row represent a point and each column a given coordinate.</p></td>
+    </tr>
+    <tr>
+      <th>k</th>
+      <td><p>An <code>integer</code> describing the number of nearest neighbors to search for.</p></td>
+    </tr>
+    <tr>
+      <th>same</th>
+      <td><p>Logic. If <code>TRUE</code>, it delete neighbors with distance of 0, useful when the k search is based on the same query.</p></td>
+    </tr>
+    <tr>
+      <th>build</th>
+      <td><p>A <code>character</code> describing the search structure to be used: "kdtree", "kmeans", "linear".</p></td>
+    </tr>
+    <tr>
+      <th>threads</th>
+      <td><p>An <code>integer</code> specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware. If 0, then the maximum allowable cores are used.</p></td>
+    </tr>
+    <tr>
+      <th>checks</th>
+      <td><p>Number of checks during searching. Higher value gives better search precision but takes longer. See FLANN C++ manual for more details.</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>data.table</code> with five columns, which are:</p><dl>
-<dt>X</dt><dd><p>the "X" coordinate</p></dd>
-<dt>Y</dt><dd><p>the "Y coordinate</p></dd>
-<dt>Z</dt><dd><p>the "Z" coordinate</p></dd>
-<dt>Target_count</dt><dd><p>The number of received by the same laser shot</p></dd>
-<dt>Target_index</dt><dd><p>The rank of the returned pulse in the target count of received by the same laser shot</p></dd>
-
-</dl>
-
-<p>A <code>data.table</code> where the rows represent the pulse retunrs and the three columns represent the *XYZ* coordinates, and the target count and index.</p>
+    <p>A <code>data.table</code> with three columns describing the indices of the query, ref, and k neighbors and the distances.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A TLS scan conducted using a Reigel VZ400i with a vertical and horizontal resolution of 0.04 degrees. The scanner has frame of scanning between 30 and 130 degrees zenith and 0 and 360 degrees azimuth.
-At the moment of the scan the roll, pitch, and yaw of the scanner were 0.293, -0.835, -150.159, respectively. The scanner coordinates in this scan are <code>x = 0, y = 0, z = 0</code>.</p>
+    <p>This function is based on the FLAAN C++ Library (Muja and Lowe 2009) for a fast
+estimation of neighbors points. It is adapted from rflann (Muja, Lowe, Yee, 2018) to
+simplify the workflow with TLS data. If you use this function, please consider cite
+both documents.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Muja, M., Lowe, D.G. (2009). Fast approximate nearest neighbors with automatic algorithm configuration. VISAPP (1), 2(331-340), 2.</p>
+<p>Muja, M., Lowe, D.G., Yee, J., (2018). rflann: Basic R Interface to the 'FLANN' C++ Library. R package version 1.6.0.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='radius_search.html'>radius_search</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>J. Antonio Guzmán Q.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>TLS_scan</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>TLS_scan</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           X        Y      Z Target_count Target_index
-#&gt; 1: -252.675 -460.729  1.549            4            4
-#&gt; 2: -241.804 -467.805 22.848            5            5
-#&gt; 3: -259.440 -447.573 28.087            5            5
-#&gt; 4: -451.758 -241.581  2.345            3            3
-#&gt; 5: -461.435 -236.462  3.769            4            4
-#&gt; 6: -440.091 -258.962 23.785            4            4</div><div class='input'>
+    <pre class="examples"><div class='input'>
+<span class='co'>#Point cloud</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"pc_tree"</span><span class='op'>)</span>
+
+<span class='co'>#knn search using k = 3</span>
+<span class='fu'>knn</span><span class='op'>(</span><span class='va'>pc_tree</span>, <span class='va'>pc_tree</span>, k <span class='op'>=</span> <span class='fl'>3</span>, same <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='st'>"kdtree"</span>, checks <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         query   ref k_index    distance
+#&gt;      1:     1     3       1 0.002586577
+#&gt;      2:     1     2       2 0.005620912
+#&gt;      3:     1    12       3 0.006598868
+#&gt;      4:     2     8       1 0.002943683
+#&gt;      5:     2     7       2 0.003253250
+#&gt;     ---                                
+#&gt; 227540: 75847 75848       2 0.002777766
+#&gt; 227541: 75847 74605       3 0.002952626
+#&gt; 227542: 75848 75847       1 0.002777766
+#&gt; 227543: 75848 75846       2 0.003168111
+#&gt; 227544: 75848 75842       3 0.004644131</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

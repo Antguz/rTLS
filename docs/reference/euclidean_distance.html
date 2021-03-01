@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -109,7 +109,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Antguz/rTLS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -135,7 +135,7 @@
     <p>Estimate the distance between a point and a group of point.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>euclidean_distance</span>(<span class='no'>point</span>, <span class='no'>cloud</span>, <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
+    <pre class="usage"><span class='fu'>euclidean_distance</span><span class='op'>(</span><span class='va'>point</span>, <span class='va'>cloud</span>, threads <span class='op'>=</span> <span class='fl'>1L</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,11 +157,15 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>numeric</code> vector describing of <code>point</code> to each row of <code>cloud</code>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>J. Antonio Guzmán Q.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"pc_tree"</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"pc_tree"</span><span class='op'>)</span>
 
-<span class='fu'>euclidean_distance</span>(<span class='kw'>point</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>), <span class='no'>pc_tree</span>)</div><div class='output co'>#&gt;     [1]  9.215623  9.290530  9.186260  9.220790  9.213834  9.195188  9.335600
+<span class='fu'>euclidean_distance</span><span class='op'>(</span>point <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>, <span class='va'>pc_tree</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     [1]  9.215623  9.290530  9.186260  9.220790  9.213834  9.195188  9.335600
 #&gt;     [8]  9.303272  9.273836  9.344563  9.314840  9.145277  9.137260  9.101454
 #&gt;    [15]  9.144743  9.095851  9.135336  9.191674  9.220057  9.247133  9.344455
 #&gt;    [22]  9.293723  9.266447  9.339143  9.315080  9.147642  9.129896  9.147546
@@ -11013,7 +11017,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

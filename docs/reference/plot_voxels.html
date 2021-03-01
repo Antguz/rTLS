@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -109,7 +109,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Antguz/rTLS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -132,30 +132,29 @@
     </div>
 
     <div class="ref-description">
-    <p>The <code>plot</code> method for objects of class <code>"voxels"</code> created using the <code>voxels</code> function.</p>
+    <p>The <code>plot</code> method for objects of class <code>"voxels"</code> created using the <code><a href='voxels.html'>voxels</a></code> function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_voxels</span>(
-  <span class='no'>voxels</span>,
-  <span class='kw'>add.points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>add.voxels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>border</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>gradientcol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>points.size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>pointscol</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>fillcol</span> <span class='kw'>=</span> <span class='st'>"forestgreen"</span>,
-  <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>plot_voxels</span><span class='op'>(</span>
+  <span class='va'>voxels</span>,
+  add.points <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  add.voxels <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  border <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  points.size <span class='op'>=</span> <span class='fl'>1</span>,
+  points.col <span class='op'>=</span> <span class='st'>"black"</span>,
+  fill.col <span class='op'>=</span> <span class='st'>"forestgreen"</span>,
+  line.lwd <span class='op'>=</span> <span class='fl'>0.5</span>,
+  line.col <span class='op'>=</span> <span class='st'>"black"</span>,
+  alpha <span class='op'>=</span> <span class='fl'>0.1</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>voxels</th>
-      <td><p>Object of class <code>"voxels"</code> from <code>voxels</code>.</p></td>
+      <td><p>Object of class <code>"voxels"</code> from <code><a href='voxels.html'>voxels</a></code>.</p></td>
     </tr>
     <tr>
       <th>add.points</th>
@@ -170,28 +169,24 @@
       <td><p>Logical, if <code>TRUE</code> it adds a line on the borders of each voxel. <code>TRUE</code> as default.</p></td>
     </tr>
     <tr>
-      <th>fill</th>
-      <td><p>Logical, if <code>TRUE</code> it fills each voxels with colors. <code>TRUE</code> as default.</p></td>
-    </tr>
-    <tr>
-      <th>gradientcol</th>
-      <td><p>Logical, if <code>TRUE</code> it uses a gradient of colors based on the number of points in each voxels. <code>FALSE</code> as default.</p></td>
-    </tr>
-    <tr>
       <th>points.size</th>
       <td><p>The points size, a positive number to use if plot <code>add.points = TRUE</code>.</p></td>
     </tr>
     <tr>
-      <th>pointscol</th>
+      <th>points.col</th>
       <td><p>A <code>character</code> defining the color of the points to use.</p></td>
     </tr>
     <tr>
-      <th>fillcol</th>
-      <td><p>A <code>character</code> defining the color to fill the voxels.</p></td>
+      <th>fill.col</th>
+      <td><p>A <code>character</code> vector defining the color to fill the voxels, it could be a range of colors or a solid color.</p></td>
     </tr>
     <tr>
-      <th>lwd</th>
+      <th>line.lwd</th>
       <td><p>The line width, a positive number, defaulting to 0.5.</p></td>
+    </tr>
+    <tr>
+      <th>line.col</th>
+      <td><p>A <code>character</code> defining the color of the border lines to use.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
@@ -205,14 +200,19 @@
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>voxels</code>, <code>voxels_counting</code>, <code>summary_voxels</code></p></div>
+    <div class='dont-index'><p><code><a href='voxels.html'>voxels</a></code>, <code><a href='voxels_counting.html'>voxels_counting</a></code>, <code><a href='summary_voxels.html'>summary_voxels</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>J. Antonio Guzmán Q.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"pc_tree"</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"pc_tree"</span><span class='op'>)</span>
 
-<span class='co'>###Create voxels of a size of 0.5.</span>
-<span class='no'>vox</span> <span class='kw'>&lt;-</span> <span class='fu'>voxels</span>(<span class='no'>pc_tree</span>, <span class='kw'>voxel.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
-<span class='fu'>plot_voxels</span>(<span class='no'>vox</span>)</div></pre>
+<span class='co'>###Create cubes of a size of 7x7x1.</span>
+<span class='va'>vox</span> <span class='op'>&lt;-</span> <span class='fu'><a href='voxels.html'>voxels</a></span><span class='op'>(</span><span class='va'>pc_tree</span>, edge_length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span>, <span class='fl'>7</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>plot_voxels</span><span class='op'>(</span><span class='va'>vox</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -228,7 +228,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

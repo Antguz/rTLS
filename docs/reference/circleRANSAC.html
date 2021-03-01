@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>A TLS scan — TLS_scan • rTLS</title>
+<title>Adaptive RANSAC Circle Fitting — circleRANSAC • rTLS</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="A TLS scan — TLS_scan" />
-<meta property="og:description" content="A data.table from a TLS scan." />
+<meta property="og:title" content="Adaptive RANSAC Circle Fitting — circleRANSAC" />
+<meta property="og:description" content="Adaptive random sample consensus for cicle fitting." />
 
 
 
@@ -126,45 +126,80 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>A TLS scan</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Antguz/rTLS/blob/master/R/TLS_scan-data.R'><code>R/TLS_scan-data.R</code></a></small>
-    <div class="hidden name"><code>TLS_scan.Rd</code></div>
+    <h1>Adaptive RANSAC Circle Fitting</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Antguz/rTLS/blob/master/R/circleRANSAC.R'><code>R/circleRANSAC.R</code></a></small>
+    <div class="hidden name"><code>circleRANSAC.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A <code>data.table</code> from a TLS scan.</p>
+    <p>Adaptive random sample consensus for cicle fitting.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>TLS_scan</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>circleRANSAC</span><span class='op'>(</span>
+  <span class='va'>cloud</span>,
+  <span class='va'>fpoints</span>,
+  <span class='va'>pconf</span>,
+  <span class='va'>poutlier</span>,
+  <span class='va'>max_iterations</span>,
+  threads <span class='op'>=</span> <span class='fl'>1L</span>,
+  plot <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>cloud</th>
+      <td><p>A <code>data.table</code> with *XY* coordinates in the first two columns.</p></td>
+    </tr>
+    <tr>
+      <th>fpoints</th>
+      <td><p>A <code>numeric</code> vector between 0 and 1 representing the fraction of point samples that will be used during each iteration.</p></td>
+    </tr>
+    <tr>
+      <th>pconf</th>
+      <td><p>A <code>numeric</code> vector between 0 and 1 describing the confidence threshold to consider a point in a given fitted circle outlier or inlier.</p></td>
+    </tr>
+    <tr>
+      <th>poutlier</th>
+      <td><p>A <code>numeric</code> vector of length two describing the proportion of outliers to consider inside or outsite of the <code>pconf</code> threshold.</p></td>
+    </tr>
+    <tr>
+      <th>max_iterations</th>
+      <td><p>An <code>integer</code> specifying the number of iterations. If <code>NULL</code>, the number of iterations are automaticaly estimated using <code>pconf</code>, <code>1 - poutlier</code>, and  <code>1 - fpoints</code>; see details.</p></td>
+    </tr>
+    <tr>
+      <th>threads</th>
+      <td><p>An <code>integer</code> specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.</p></td>
+    </tr>
+    <tr>
+      <th>plot</th>
+      <td><p>Logical. If <code>TRUE</code>, it provides visual representation of the fitted circle.</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>data.table</code> with five columns, which are:</p><dl>
-<dt>X</dt><dd><p>the "X" coordinate</p></dd>
-<dt>Y</dt><dd><p>the "Y coordinate</p></dd>
-<dt>Z</dt><dd><p>the "Z" coordinate</p></dd>
-<dt>Target_count</dt><dd><p>The number of received by the same laser shot</p></dd>
-<dt>Target_index</dt><dd><p>The rank of the returned pulse in the target count of received by the same laser shot</p></dd>
+    <p>A <code>data.table</code> with the *XY* coordinate information of the circle center, the radius, the error based on the least squares fit, and the proportion of inliers.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-</dl>
+    <div class='dont-index'><p><code><a href='tree_metrics.html'>tree_metrics</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-<p>A <code>data.table</code> where the rows represent the pulse retunrs and the three columns represent the *XYZ* coordinates, and the target count and index.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>A TLS scan conducted using a Reigel VZ400i with a vertical and horizontal resolution of 0.04 degrees. The scanner has frame of scanning between 30 and 130 degrees zenith and 0 and 360 degrees azimuth.
-At the moment of the scan the roll, pitch, and yaw of the scanner were 0.293, -0.835, -150.159, respectively. The scanner coordinates in this scan are <code>x = 0, y = 0, z = 0</code>.</p>
+    <p>J. Antonio Guzmán Q.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>TLS_scan</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>TLS_scan</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           X        Y      Z Target_count Target_index
-#&gt; 1: -252.675 -460.729  1.549            4            4
-#&gt; 2: -241.804 -467.805 22.848            5            5
-#&gt; 3: -259.440 -447.573 28.087            5            5
-#&gt; 4: -451.758 -241.581  2.345            3            3
-#&gt; 5: -461.435 -236.462  3.769            4            4
-#&gt; 6: -440.091 -258.962 23.785            4            4</div><div class='input'>
+    <pre class="examples"><div class='input'>
+<span class='co'>#Point cloud</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"pc_tree"</span><span class='op'>)</span>
+
+<span class='co'>#Subset region at at breast height</span>
+<span class='va'>sub</span> <span class='op'>&lt;-</span> <span class='va'>pc_tree</span><span class='op'>[</span><span class='fu'>between</span><span class='op'>(</span><span class='va'>Z</span>, <span class='fl'>1.25</span>, <span class='fl'>1.35</span><span class='op'>)</span>,<span class='op'>]</span>
+
+<span class='co'>#Fit circle</span>
+<span class='fu'>circleRANSAC</span><span class='op'>(</span><span class='va'>sub</span>, fpoints <span class='op'>=</span> <span class='fl'>0.2</span>, pconf <span class='op'>=</span> <span class='fl'>0.95</span>, poutlier <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.5</span><span class='op'>)</span>, max_iterations <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+</div><div class='img'><img src='circleRANSAC-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;           X         Y     radius        RMSE
+#&gt; 1: 9.246359 -1.020327 0.09543664 0.002734469</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

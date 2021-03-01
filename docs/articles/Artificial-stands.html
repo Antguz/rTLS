@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -68,7 +68,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/Antguz/rTLS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -82,7 +82,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="Artificial-stands_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Creation of artificial stands</h1>
@@ -111,64 +111,69 @@
 <p>Since the <code>artificial_stand</code> function is focused on tree point clouds, users should first define the location of point clouds files to use. This needs to be a vector defining the their names and where the files are located if these are not in the working directory. These files may have any ASCII format and these will be read it in <code>artificial_stand</code> using the <code>fread</code> function of <code>data.table</code>. You could define the specific delimited format of the files using the <code>...</code> argument passed to <code>fread</code>.</p>
 <div style="page-break-after: always;"></div>
 <p>As an example, here we will use a tree point cloud already embedded in <code>rTLS</code>, <code>pc_tree.txt</code>. This file is located in the extdata of <code>rTLS</code>, following:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rTLS</span>)
-<span class="no">path</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"pc_tree.txt"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"rTLS"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Antguz/rTLS">rTLS</a></span><span class="op">)</span>
+<span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"pc_tree.txt"</span>, package <span class="op">=</span> <span class="st">"rTLS"</span><span class="op">)</span></code></pre></div>
 <p>The structure of the location vector should be similar than <code>path</code> depending on the number and identify of point clouds for the future artificial stand. For example, if the user wants a stand with four different tree, the <code>path</code> vector should have paths for four different files. On the other hand, if the user wants a stand with four trees regardless their identity, the user can set the argument <code>sample = TRUE</code> in order to use the same path four different times. Users can also select the argument <code>replace = TRUE</code> in order to do a sample selection with replacement in scenarios when you have more paths than the number of trees required.</p>
 <hr>
 <ol start="2" style="list-style-type: decimal">
 <li>Plot size.</li>
 </ol>
 <p>In order to select the plot size of the future artificial stands users can use the argument <code>dimension</code>. This need to be a vector of length two defining the width and length of the plot. It is expected that the unit scale of the point could files match with the unit scale for plot. An example for an hectare plot could be:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">plot_size</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">100</span>, <span class="fl">100</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot_size</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span></code></pre></div>
 <hr>
 <ol start="3" style="list-style-type: decimal">
 <li>Number of trees and their coordinates.</li>
 </ol>
 <p>Then the number of trees for the future stand may depends on the arguments previously described in the selection of files. For this example, let’s assume that we want to create a stand of 10 trees using the same point cloud. This can be done following <code>n.trees = 10</code>.</p>
 <p>The location of these trees in the future artificial stand could be random or could be previously defined. In order to provide random coordinates to the trees in the future stands we most use <code>coordinates = NULL</code>. On the other hand, if we want to provide specific coordinates we should add a <code>data.table</code> of two columns and with  equal to  describing the basal XYZ coordinates of the point clouds in the future stand.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co">#Number of trees</span>
-<span class="no">trees</span> <span class="kw">&lt;-</span> <span class="fl">10</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Number of trees</span>
+<span class="va">trees</span> <span class="op">&lt;-</span> <span class="fl">10</span>
 
 <span class="co">#Random coordinates </span>
-<span class="no">coor_1</span> <span class="kw">&lt;-</span> <span class="kw">NULL</span>
+<span class="va">coor_1</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
 
 <span class="co">#Predefined coordinates</span>
-<span class="no">coor_2</span> <span class="kw">&lt;-</span> <span class="fu">data.table</span>(<span class="kw">X</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">30</span>, <span class="fl">30</span>, <span class="fl">50</span>, <span class="fl">50</span>, <span class="fl">70</span>, <span class="fl">70</span>, <span class="fl">90</span>, <span class="fl">90</span>), <span class="kw">Y</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">25</span>, <span class="fl">75</span>, <span class="fl">25</span>, <span class="fl">75</span>, <span class="fl">25</span>, <span class="fl">75</span>, <span class="fl">25</span>, <span class="fl">75</span>, <span class="fl">25</span>, <span class="fl">75</span>))</pre></body></html></div>
+<span class="va">coor_2</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="op">(</span>X <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">30</span>, <span class="fl">30</span>, <span class="fl">50</span>, <span class="fl">50</span>, <span class="fl">70</span>, <span class="fl">70</span>, <span class="fl">90</span>, <span class="fl">90</span><span class="op">)</span>, Y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">75</span>, <span class="fl">25</span>, <span class="fl">75</span>, <span class="fl">25</span>, <span class="fl">75</span>, <span class="fl">25</span>, <span class="fl">75</span>, <span class="fl">25</span>, <span class="fl">75</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <hr>
 <ol start="3" style="list-style-type: decimal">
 <li>Other arguments</li>
 </ol>
 <p>Users should define other arguments related with the potential overlap of crowns if they use random coordinates using the <code>overlap</code> argument. In addition, user should also define if they want a random or specific rotation angles in the yaw axis of the point cloud. If the users wants a specific angle of rotation in their point clouds these need to be defined in the degrees argument using vector describing the degrees of rotation. An example of all of this could be:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># 5% of overlaping between crowns</span>
-<span class="no">overl</span> <span class="kw">&lt;-</span> <span class="fl">5</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># 5% of overlaping between crowns</span>
+<span class="va">overl</span> <span class="op">&lt;-</span> <span class="fl">5</span>
 
 <span class="co"># Trees without rotation</span>
-<span class="no">rota_1</span> <span class="kw">&lt;-</span> <span class="fl">FALSE</span>
+<span class="va">rota_1</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span>
 
 <span class="co"># Trees with random rotation  </span>
-<span class="no">rota_2</span> <span class="kw">&lt;-</span> <span class="fl">FALSE</span>
-<span class="no">degreess_1</span> <span class="kw">&lt;-</span> <span class="kw">NULL</span>
+<span class="va">rota_2</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span>
+<span class="va">degreess_1</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
 
 <span class="co"># Trees with rotation and specific angles</span>
-<span class="no">rota_3</span> <span class="kw">&lt;-</span> <span class="fl">FALSE</span>
-<span class="no">degreess_2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">360</span>, <span class="kw">length.out</span> <span class="kw">=</span> <span class="fl">10</span>)</pre></body></html></div>
+<span class="va">rota_3</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span>
+<span class="va">degreess_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">360</span>, length.out <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
 <hr>
 <ol start="4" style="list-style-type: decimal">
 <li>Run artificial stands.</li>
 </ol>
 <p>Once users have selected their arguments related to the point cloud paths, number of trees, plot size, and tree coordinates it is possible to run <code>artifical_stands</code>. Following our example of 10 trees using the same point cloud in an hectare plot we should have the following:</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="co"># A total random artifical stand</span>
-<span class="no">stand_1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rTLS/man/artificial_stand.html">artificial_stand</a></span>(<span class="no">path</span>, <span class="kw">n.trees</span> <span class="kw">=</span> <span class="no">trees</span>, <span class="kw">dimension</span> <span class="kw">=</span> <span class="no">plot_size</span>, <span class="kw">coordinates</span> <span class="kw">=</span> <span class="no">coor_1</span>, <span class="kw">overlap</span> <span class="kw">=</span> <span class="no">overl</span>, <span class="kw">sample</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">replace</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<span class="va">stand_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/artificial_stand.html">artificial_stand</a></span><span class="op">(</span><span class="va">path</span>, n.trees <span class="op">=</span> <span class="va">trees</span>, dimension <span class="op">=</span> <span class="va">plot_size</span>, coordinates <span class="op">=</span> <span class="va">coor_1</span>, overlap <span class="op">=</span> <span class="va">overl</span>, sample <span class="op">=</span> <span class="cn">TRUE</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co"># An artifical stand with defined tree coordinates and random tree rotation </span>
-<span class="no">stand_2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rTLS/man/artificial_stand.html">artificial_stand</a></span>(<span class="no">path</span>, <span class="kw">n.trees</span> <span class="kw">=</span> <span class="no">trees</span>, <span class="kw">dimension</span> <span class="kw">=</span> <span class="no">plot_size</span>, <span class="kw">coordinates</span> <span class="kw">=</span> <span class="no">coor_2</span>, <span class="kw">sample</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">replace</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">rotation</span> <span class="kw">=</span> <span class="no">rota_2</span>, <span class="kw">degrees</span> <span class="kw">=</span> <span class="no">degreess_1</span>)
+<span class="va">stand_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/artificial_stand.html">artificial_stand</a></span><span class="op">(</span><span class="va">path</span>, n.trees <span class="op">=</span> <span class="va">trees</span>, dimension <span class="op">=</span> <span class="va">plot_size</span>, coordinates <span class="op">=</span> <span class="va">coor_2</span>, sample <span class="op">=</span> <span class="cn">TRUE</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, rotation <span class="op">=</span> <span class="va">rota_2</span>, degrees <span class="op">=</span> <span class="va">degreess_1</span><span class="op">)</span>
 
 <span class="co"># An artifical stand with defined tree coordinates and defined tree rotation</span>
-<span class="no">stand_3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rTLS/man/artificial_stand.html">artificial_stand</a></span>(<span class="no">path</span>, <span class="kw">n.trees</span> <span class="kw">=</span> <span class="no">trees</span>, <span class="kw">dimension</span> <span class="kw">=</span> <span class="no">plot_size</span>, <span class="kw">coordinates</span> <span class="kw">=</span> <span class="no">coor_2</span>, <span class="kw">sample</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">replace</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">rotation</span> <span class="kw">=</span> <span class="no">rota_3</span>, <span class="kw">degrees</span> <span class="kw">=</span> <span class="no">degreess_2</span>)
+<span class="va">stand_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/artificial_stand.html">artificial_stand</a></span><span class="op">(</span><span class="va">path</span>, n.trees <span class="op">=</span> <span class="va">trees</span>, dimension <span class="op">=</span> <span class="va">plot_size</span>, coordinates <span class="op">=</span> <span class="va">coor_2</span>, sample <span class="op">=</span> <span class="cn">TRUE</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, rotation <span class="op">=</span> <span class="va">rota_3</span>, degrees <span class="op">=</span> <span class="va">degreess_2</span><span class="op">)</span>
 
 <span class="co"># An artifical stand with defined tree coordinates and without tree rotation</span>
-<span class="no">stand_4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rTLS/man/artificial_stand.html">artificial_stand</a></span>(<span class="no">path</span>, <span class="kw">n.trees</span> <span class="kw">=</span> <span class="no">trees</span>, <span class="kw">dimension</span> <span class="kw">=</span> <span class="no">plot_size</span>, <span class="kw">coordinates</span> <span class="kw">=</span> <span class="no">coor_2</span>, <span class="kw">sample</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">replace</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">rotation</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<span class="va">stand_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/artificial_stand.html">artificial_stand</a></span><span class="op">(</span><span class="va">path</span>, n.trees <span class="op">=</span> <span class="va">trees</span>, dimension <span class="op">=</span> <span class="va">plot_size</span>, coordinates <span class="op">=</span> <span class="va">coor_2</span>, sample <span class="op">=</span> <span class="cn">TRUE</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, rotation <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p>The resulting output of this function is a list that contains:</p>
 <ul>
 <li>Stand: basic information about the artificial stand (e.i. number of trees, plot size, total number of points, covered and total crown area)</li>
@@ -194,7 +199,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

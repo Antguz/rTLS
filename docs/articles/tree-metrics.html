@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -68,7 +68,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/Antguz/rTLS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -82,7 +82,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="tree-metrics_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Estimation of tree metrics</h1>
@@ -105,19 +105,21 @@
 </ol>
 <p>First, we need to read the point clouds in R. This can be done using the function <code>fread</code> of <code>data.table</code> for a fast reading or any other traditional approach for reading tables.</p>
 <p>For this example specifically, we will use a point cloud already embedded in <code>rTLS</code>, <code>pc_tree</code>. This point cloud was created from a group of scans of a tree. It has a coarse resolution of 0.05 m for TLS standards in order to integrate it as an example into the package. The file can be load following:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rTLS</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">pc_tree</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Antguz/rTLS">rTLS</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">pc_tree</span><span class="op">)</span>
 
 <span class="co">#Visualize the point cloud</span>
-<span class="kw pkg">rgl</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/rgl/man/plot3d.html">plot3d</a></span>(<span class="no">pc_tree</span>)</pre></body></html></div>
+<span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rgl/man/plot3d.html">plot3d</a></span><span class="op">(</span><span class="va">pc_tree</span><span class="op">)</span></code></pre></div>
 <hr>
 <ol start="2" style="list-style-type: decimal">
 <li>Run <code>tree_metrics</code>
 </li>
 </ol>
 <p>The next step is run <code>tree_metrics</code>. This can be done following:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/rTLS/man/tree_metrics.html">tree_metrics</a></span>(<span class="no">pc_tree</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/tree_metrics.html">tree_metrics</a></span><span class="op">(</span><span class="va">pc_tree</span><span class="op">)</span></code></pre></div>
 <p>In general, the tree height is estimated based on the range of the Z axis, the crown area is calculated applying a convex hull on the point cloud, and the DBH is calculated extracting the area of the convex hull on the subset of points between a given region, and then estimating the diameter of a circle. Since the estimation of the DBH is applied to a subset of points between 1.25 and 1.35 m, it tends to be affected by presence of other points that do not below to the main trunk. The selection of the region for DBH could be further modified using <code>region.diameter</code>.</p>
 <hr>
 </div>
@@ -138,7 +140,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
