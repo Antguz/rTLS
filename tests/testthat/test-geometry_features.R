@@ -6,7 +6,6 @@ test_that("Whether geometry features works", {
                             Y = c(0, 0, 0, -1, 1, 0, 0),
                             Z = c(-1, 0, 1, 0, 0, 0, 0))
 
-
   k <- c(5, 7)
 
   to_test_knn <- geometry_features(point_cloud, method = "knn", k = k, progress = FALSE)
