@@ -50,7 +50,7 @@ navbar:
       -  text: Voxel counting and fractal geometry
          href: articles/voxels-fractals.html
     - icon: fa-file-code-o
-      text: "functions"
+      text: "Functions"
       href: reference/index.html
     - icon: fa-github fa-lg
       text: "github"
