@@ -12,8 +12,8 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
@@ -60,7 +60,7 @@
   <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-index">
       <header>
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
@@ -79,15 +79,16 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-book"></span>
+     
     Articles
      
     <span class="caret"></span>
@@ -104,12 +105,18 @@
     </li>
   </ul>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/Antguz/rTLS/">
-    <span class="fab fa-github fa-lg"></span>
+<li>
+  <a href="../reference/index.html">
+    <span class="fas fa-file-code-o"></span>
      
+    functions
+  </a>
+</li>
+<li>
+  <a href="https://github.com/Antguz/rTLS/">
+    <span class="fas fa-github fa-lg"></span>
+     
+    github
   </a>
 </li>
       </ul>
@@ -139,7 +146,7 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <h2 id="section-exported-functions" class="hasAnchor"><a href="#section-exported-functions" class="anchor"></a>Exported Functions</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -149,12 +156,6 @@
       
       
       <tr>
-        
-        <td>
-          <p><code><a href="TLS_scan.html">TLS_scan</a></code> </p>
-        </td>
-        <td><p>A TLS scan</p></td>
-      </tr><tr>
         
         <td>
           <p><code><a href="artificial_stand.html">artificial_stand()</a></code> </p>
@@ -205,27 +206,21 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="line_AABB.html">line_AABB()</a></code> </p>
-        </td>
-        <td><p>Line-AABB</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="lines_interception.html">lines_interception()</a></code> </p>
         </td>
         <td><p>Intersection of Lines by AABBs</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="min_distance.html">min_distance()</a></code> </p>
+          <p><code><a href="line_AABB.html">line_AABB()</a></code> </p>
         </td>
-        <td><p>Minimum Distance Between Points</p></td>
+        <td><p>Line-AABB</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="pc_tree.html">pc_tree</a></code> </p>
+          <p><code><a href="min_distance.html">min_distance()</a></code> </p>
         </td>
-        <td><p>A Tree Point Cloud</p></td>
+        <td><p>Minimum Distance Between Points</p></td>
       </tr><tr>
         
         <td>
@@ -238,12 +233,6 @@
           <p><code><a href="polar_to_cartesian.html">polar_to_cartesian()</a></code> </p>
         </td>
         <td><p>Polar to Cartesian Coordinates</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rTLS-package.html">rTLS-package</a></code> </p>
-        </td>
-        <td><p>rTLS: Tools to Process Point Clouds Derived From Terrestrial Laser Scanning</p></td>
       </tr><tr>
         
         <td>
@@ -262,12 +251,6 @@
           <p><code><a href="rotate3D.html">rotate3D()</a></code> </p>
         </td>
         <td><p>Rotate a Point Cloud</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sphere_covering.html">sphere_covering()</a></code> </p>
-        </td>
-        <td><p>Point Cloud Sphere Covering</p></td>
       </tr><tr>
         
         <td>
@@ -304,6 +287,31 @@
           <p><code><a href="voxels_counting.html">voxels_counting()</a></code> </p>
         </td>
         <td><p>Voxels Counting</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-data" class="hasAnchor"><a href="#section-data" class="anchor"></a>Data</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="pc_tree.html">pc_tree</a></code> </p>
+        </td>
+        <td><p>A Tree Point Cloud</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="TLS_scan.html">TLS_scan</a></code> </p>
+        </td>
+        <td><p>A TLS scan</p></td>
       </tr>
     </tbody>
     </table>
