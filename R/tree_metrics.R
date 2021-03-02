@@ -9,13 +9,17 @@
 #' @return A \code{data.table} with the tree height, crown area, and diameter
 #' @author J. Antonio Guzman Q. and Ronny Hernandez
 #'
-#' @details The tree height is estimated based on the maximum value of *Z*, the crown area is calculated applying a convex hull on the point cloud,
-#' while the DBH is calculated extracting the area of the convex hull on the subset of points between \code{region.diameter}, and then estimating the diameter of a circle.
+#' @details The tree height is estimated based on the maximum value of *Z*, the
+#' crown area is calculated applying a convex hull on the point cloud, while the
+#' DBH is calculated extracting the area of the convex hull on the subset of points
+#' between \code{region.diameter}, and then estimating the diameter of a circle.
+#' For another estimation of DBH try \code{\link{circleRANSAC}}.
+#'
 #'
 #' @importFrom sp Polygon
 #' @importFrom data.table data.table
 #'
-#' @seealso \code{\link{voxels}}
+#' @seealso \code{\link{circleRANSAC}}
 #'
 #' @examples
 #' data("pc_tree")
