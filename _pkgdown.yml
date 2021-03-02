@@ -2,7 +2,7 @@ title: rTLS
 url: https://antguz.github.io/rTLS
 template:
   params:
-    bootswatch: cosmo
+    bootswatch: yeti
 reference:
   - title: Exported Functions
     desc: ~
