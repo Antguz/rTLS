@@ -40,7 +40,7 @@ Lafarge, T., Pateiro-Lopez, B. (2017). Implementation of the 3D Alpha-Shape for 
 Edelsbrunner, H., Mucke, E. P. (1994). Three-Dimensional Alpha Shapes. ACM Transactions on Graphics, 13(1), pp.43-72.
 }
 \seealso{
-\code{\link{tree_metrics}}
+\code{\link{tree_metrics}}, \code{\link{circleRANSAC}}
 }
 \author{
 J. Antonio Guzmán Q.

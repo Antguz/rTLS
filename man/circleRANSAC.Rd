@@ -48,7 +48,7 @@ circleRANSAC(sub, fpoints = 0.2, pconf = 0.95, poutlier = c(0.5, 0.5), max_itera
 
 }
 \seealso{
-\code{\link{tree_metrics}}
+\code{\link{tree_metrics}}, \code{\link{trunk_volume}}
 }
 \author{
 J. Antonio Guzmán Q.

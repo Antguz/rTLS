@@ -14,13 +14,13 @@
 #' DBH is calculated extracting the area of the convex hull on the subset of points
 #' between \code{region.diameter}, and then estimating the diameter of a circle.
 #' For another estimation of DBH try \code{\link{circleRANSAC}} or for irregular
-#' trucks try \code{\link{truck_volumen}}.
+#' trucks try \code{\link{trunk_volume}}.
 #'
 #'
 #' @importFrom sp Polygon
 #' @importFrom data.table data.table
 #'
-#' @seealso \code{\link{circleRANSAC}}, \code{\link{truck_volumen}}
+#' @seealso \code{\link{circleRANSAC}}, \code{\link{trunk_volume}}
 #'
 #' @examples
 #' data("pc_tree")

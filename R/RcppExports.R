@@ -53,10 +53,6 @@ rotate3D_rcpp <- function(cloud, roll, pitch, yaw, threads = 1L) {
     .Call(`_rTLS_rotate3D_rcpp`, cloud, roll, pitch, yaw, threads)
 }
 
-sphere_covering_rcpp <- function(amat, radius, kmax = 4, threads = 1L, progress = TRUE) {
-    .Call(`_rTLS_sphere_covering_rcpp`, amat, radius, kmax, threads, progress)
-}
-
 voxelization_rcpp <- function(cloud, edge_length, threads = 1L) {
     .Call(`_rTLS_voxelization_rcpp`, cloud, edge_length, threads)
 }

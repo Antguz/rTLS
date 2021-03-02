@@ -17,7 +17,7 @@
 #' @importFrom graphics lines
 #' @importFrom graphics points
 #'
-#' @seealso \code{\link{tree_metrics}}
+#' @seealso \code{\link{tree_metrics}}, \code{\link{trunk_volume}}
 #'
 #' @examples
 #'

@@ -18,7 +18,7 @@
 #'
 #' Edelsbrunner, H., Mucke, E. P. (1994). Three-Dimensional Alpha Shapes. ACM Transactions on Graphics, 13(1), pp.43-72.
 #'
-#' @seealso \code{\link{tree_metrics}}
+#' @seealso \code{\link{tree_metrics}}, \code{\link{circleRANSAC}}
 #
 #' @import alphashape3d
 #'

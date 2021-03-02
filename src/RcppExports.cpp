@@ -197,21 +197,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// sphere_covering_rcpp
-arma::mat sphere_covering_rcpp(arma::mat amat, double radius, double kmax, int threads, bool progress);
-RcppExport SEXP _rTLS_sphere_covering_rcpp(SEXP amatSEXP, SEXP radiusSEXP, SEXP kmaxSEXP, SEXP threadsSEXP, SEXP progressSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type amat(amatSEXP);
-    Rcpp::traits::input_parameter< double >::type radius(radiusSEXP);
-    Rcpp::traits::input_parameter< double >::type kmax(kmaxSEXP);
-    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
-    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
-    rcpp_result_gen = Rcpp::wrap(sphere_covering_rcpp(amat, radius, kmax, threads, progress));
-    return rcpp_result_gen;
-END_RCPP
-}
 // voxelization_rcpp
 arma::mat voxelization_rcpp(arma::mat cloud, arma::vec edge_length, int threads);
 RcppExport SEXP _rTLS_voxelization_rcpp(SEXP cloudSEXP, SEXP edge_lengthSEXP, SEXP threadsSEXP) {
@@ -240,7 +225,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rTLS_radius_search_rcpp", (DL_FUNC) &_rTLS_radius_search_rcpp, 8},
     {"_rTLS_rotate2D_rcpp", (DL_FUNC) &_rTLS_rotate2D_rcpp, 3},
     {"_rTLS_rotate3D_rcpp", (DL_FUNC) &_rTLS_rotate3D_rcpp, 5},
-    {"_rTLS_sphere_covering_rcpp", (DL_FUNC) &_rTLS_sphere_covering_rcpp, 5},
     {"_rTLS_voxelization_rcpp", (DL_FUNC) &_rTLS_voxelization_rcpp, 3},
     {NULL, NULL, 0}
 };
