@@ -8,6 +8,7 @@
 0 errors | 0 warnings | 1 note
 
 * This is a new release.
-Only one note related with the installed size (data 117.3). The data example 
+Only one note related with the installed size (data and libs). The data example 
 can not be reduced since the nature of data that cannot be created manually 
-for test.
+for test. Likewise, the C++ code complied also contributes to the package size. 
+When build in MacOS-latest some errors appears associated with the package rgl.

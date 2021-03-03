@@ -55,14 +55,19 @@ Applies the \code{\link{voxels_counting}} function on a grid base point cloud.
 data(pc_tree)
 
 #Applying stand_counting.
+\dontrun{
 stand_counting(pc_tree, xy.res = c(4, 4), min_size = 3)
+}
 
 #Applying stand_counting using bootstrap in the H index.
+\dontrun{
 stand_counting(pc_tree,
                xy.res = c(4, 4),
                min_size = 3,
                bootstrap = TRUE,
                R = 10)
+}
+
 
 }
 \seealso{
