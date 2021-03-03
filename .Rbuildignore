@@ -4,6 +4,7 @@
 ^codecov\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^.Rprofile$
 ^docs$
 ^README\.Rmd$
 ^.*\.o$
