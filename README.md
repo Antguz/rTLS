@@ -16,7 +16,7 @@ Originally, ***rTLS*** started as a hobby by [J. Antonio Guzman
 Q.](https://www.jaguzmanq.com/) (<antguz06@gmail.com>) at the University
 of Alberta. It compiles several functions that students at the [Centre
 for Earth Observation
-Sciences](https://www.ualberta.ca/centre-for-earth-observation-sciences/index.html)
+Sciences](https://apps.ualberta.ca/directory/person/gasanche)
 use to process their point cloud of vegetation. Due to its constant use,
 it was decided to formalize its routines as an R package. This was done
 under the supervision of [Dr. Arturo
