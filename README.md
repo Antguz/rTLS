@@ -1,5 +1,5 @@
 
-rTLS <img src="man/figures/rTLS_logo.png" align="right" alt="" width="120" />
+rTLS <img src="https://raw.githubusercontent.com/Antguz/rTLS/master/man/figures/rTLS_logo.png" align="right" alt="" width="120" />
 =============================================================================
 [![DOI](https://zenodo.org/badge/162520913.svg)](https://zenodo.org/badge/latestdoi/162520913)
 [![R build status](https://github.com/Antguz/rTLS/workflows/R-CMD-check/badge.svg)](https://github.com/Antguz/rTLS/actions)
