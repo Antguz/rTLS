@@ -12,17 +12,14 @@ This is an R package to that compiles a series of tools to process and
 calculate metrics on point clouds derived from terrestrial LiDAR (Light
 Detection and Ranging) data.
 
-Originally, ***rTLS*** started as a hobby by [J. Antonio Guzman
-Q.](https://www.jaguzmanq.com/) (<antguz06@gmail.com>) at the University
+Originally, ***rTLS*** started as a hobby by [J. Antonio Guzman Q.](https://www.jaguzmanq.com/) (<antguz06@gmail.com>) at the University
 of Alberta. It compiles several functions that students at the [Centre
 for Earth Observation
 Sciences](https://apps.ualberta.ca/directory/person/gasanche)
 use to process their point cloud of vegetation. Due to its constant use,
 it was decided to formalize its routines as an R package. This was done
-under the supervision of [Dr. Arturo
-Sanchez](https://www.ualberta.ca/science/about-us/contact-us/faculty-directory/arturo-sanchez-azofeifa)
-(<arturo.sanchez@ualberta.ca>) and the supreme help of [Ronny
-Hernandez](http://ronnyhdez.rbind.io/) (<ronny.hernandezm@gmail.com>).
+under the supervision of [Dr. Arturo Sanchez](https://www.ualberta.ca/science/about-us/contact-us/faculty-directory/arturo-sanchez-azofeifa)
+(<arturo.sanchez@ualberta.ca>) and the supreme help of [Ronny Hernandez](http://ronnyhdez.rbind.io/) (<ronny.hernandezm@gmail.com>).
 
 ***rTLS*** goal is to provide a single environment to process point
 clouds as fast as it can be done. That it is why the ***rTLS*** coding
