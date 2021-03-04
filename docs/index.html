@@ -16,13 +16,13 @@
     Laser Scanning">
 <meta property="og:description" content="A set of tools to process and calculate 
              metrics on point clouds derived from terrestrial LiDAR 
-             (Light Detection and Ranging). Its creation is based on key 
+             (Light Detection and Ranging; TLS). Its creation is based on key 
              aspects of the TLS application in forestry and ecology. 
              Currently, the main routines are based on filtering, neighboring 
              features of points, voxelization, canopy structure, 
              and the creation of artificial stands. It is written using 
              data.table and C++ language and in most of the functions it is 
-             posible to use parallel processing to speed-up the routines.">
+             possible to use parallel processing to speed-up the routines.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -47,7 +47,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -107,17 +107,16 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-
-
-<hr>
 <div id="rtls-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#rtls-" class="anchor"></a>rTLS <img src="reference/figures/rTLS_logo.png" align="right" alt="" width="120">
 </h1></div>
-<p>This is an R package to that compiles a series of tools to process and calculate metrics on point clouds derived from Terrestrial Laser Scanners (TLS), also know as Terrestrial-Light Detection and Ranging (T-LiDAR).</p>
-<p>Originally, <strong><em>rTLS</em></strong> started as a hobby by <a href="https://www.jaguzmanq.com/">J. Antonio Guzman Q.</a> (<a href="mailto:antguz06@gmail.com" class="email">antguz06@gmail.com</a>) at the University of Alberta. It compiles several functions that students at the <a href="https://www.ualberta.ca/centre-for-earth-observation-sciences/index.html">Centre for Earth Observation Sciences</a> use to process their point cloud of vegetation. Due to its constant use, it was decided to formalize its routines as an R package. This was done under the supervision of <a href="https://www.ualberta.ca/science/about-us/contact-us/faculty-directory/arturo-sanchez-azofeifa">Dr. Arturo Sanchez</a> (<a href="mailto:arturo.sanchez@ualberta.ca" class="email">arturo.sanchez@ualberta.ca</a>) and the supreme help of <a href="http://ronnyhdez.rbind.io/">Ronny Hernandez</a> (<a href="mailto:ronny.hernandezm@gmail.com" class="email">ronny.hernandezm@gmail.com</a>).</p>
+
+<p>This is an R package to that compiles a series of tools to process and calculate metrics on point clouds derived from terrestrial LiDAR (Light Detection and Ranging) data.</p>
+<p>Originally, <strong><em>rTLS</em></strong> started as a hobby by <a href="https://www.jaguzmanq.com/">J. Antonio Guzman Q.</a> (<a href="mailto:antguz06@gmail.com" class="email">antguz06@gmail.com</a>) at the University of Alberta. It compiles several functions that students at the <a href="https://apps.ualberta.ca/directory/person/gasanche">Centre for Earth Observation Sciences</a> use to process their point cloud of vegetation. Due to its constant use, it was decided to formalize its routines as an R package. This was done under the supervision of <a href="https://www.ualberta.ca/science/about-us/contact-us/faculty-directory/arturo-sanchez-azofeifa">Dr. Arturo Sanchez</a> (<a href="mailto:arturo.sanchez@ualberta.ca" class="email">arturo.sanchez@ualberta.ca</a>) and the supreme help of <a href="http://ronnyhdez.rbind.io/">Ronny Hernandez</a> (<a href="mailto:ronny.hernandezm@gmail.com" class="email">ronny.hernandezm@gmail.com</a>).</p>
 <p><strong><em>rTLS</em></strong> goal is to provide a single environment to process point clouds as fast as it can be done. That it is why the <strong><em>rTLS</em></strong> coding has been evolving using different packages. The current code has been enhanced using C++ language through <code>Rcpp</code> and <code>RcppArmadillo</code> packages, and most of the time-consuming processed can be run using for parallel computing through <code>OpenMP</code>. In the future, if there is a faster way to run our main routines, we will probably change our code!</p>
-<p>The current development of <strong><em>rTLS</em></strong> is focused on five major processes applied on TLS scans: i) voxelization, ii) point neighborhood features, iii) filtering, and iv) optimal voxel and entropy, and iv) estimation of the forest structure. Likewise, the package also contains other functions that can be used to mange point clouds such as 2D- 3D-rotation, conversion to cardinal-polar coordinates, and functions to estimate tree metrics such as truck volume or crown area.</p>
+<p>The current development of <strong><em>rTLS</em></strong> is focused on five major processes applied on TLS scans: i) voxelization, ii) point neighborhood features,</p>
+<p>iii) filtering, and iv) optimal voxel and entropy, and iv) estimation of the forest structure. Likewise, the package also contains other functions that can be used to mange point clouds such as 2D- 3D-rotation, conversion to cardinal-polar coordinates, and functions to estimate tree metrics such as truck volume or crown area.</p>
 <hr>
 <div id="major-features-include" class="section level3">
 <h3 class="hasAnchor">
@@ -128,30 +127,15 @@
 <li><p>Fast voxelization using grid base methods.</p></li>
 <li><p>Applications of voxel-counting methods.</p></li>
 <li>
-<p>Fast estimation of geometry features of the neighboring points using two approach:</p>
+<p>Estimation of dimensionality of the neighboring points using two approach:</p>
 <ul>
-<li>radius search.</li>
+<li>sphere neighborhood.</li>
 <li>k-nearest neighbors.</li>
 </ul>
 </li>
-<li><p>Estimation of canopy structure using single point hemispherical scanning</p></li>
-<li>
-<p>Filtering of point clouds using:</p>
-<ul>
-<li>Statistical Outlier Removal (SOR)</li>
-<li>Minimum of neighbors</li>
-<li>Nearest point to voxel center</li>
-</ul>
-</li>
-<li><p>Line AABB tracing path (ray-tracing)</p></li>
-<li>
-<p>Estimation of tree metrics:</p>
-<ul>
-<li>DBH using RANSAC fitting</li>
-<li>Crown area using convex hull</li>
-</ul>
-</li>
-<li><p>And many more!</p></li>
+<li><p>Calculation of basic metrics on neighboring points.</p></li>
+<li><p>Estimation of dimensionality.</p></li>
+<li><p>Estimation of the optimal voxel and sphere size using information theory (coming soon).</p></li>
 </ul>
 <hr>
 </div>
@@ -159,21 +143,20 @@
 <h3 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h3>
 <p>You can install the <strong><em>rTLS</em></strong> using the CRAN platform following (pending)</p>
-<pre class="{r}"><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("rTLS")</a></code></pre>
+<pre><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("rTLS")</a></code></pre>
 <p>or using the development version in github following (recommended)</p>
-<pre class="{r}"><code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("Antguz/rTLS")</a></code></pre>
-<p>if you have problems also try</p>
-<pre class="{r}"><code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github("Antguz/rTLS", INSTALL_opts= c("--no-multiarch"))</a></code></pre>
-<p>Most common problems for installation comes from rgl package. If required, try to install rgl first and then <strong><em>rTLS</em></strong>.</p>
+<pre><code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">#install.packages("devtools")
+devtools::install_github("Antguz/rTLS")</a></code></pre>
+<p>if you have problems with <code>devtools</code> also try</p>
+<pre><code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github("Antguz/rTLS", INSTALL_opts= c("--no-multiarch"))</a></code></pre>
 <hr>
 </div>
 <div id="usage" class="section level3">
 <h3 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h3>
-<p>Take a look to the <a href="https://antguz.github.io/rTLS/articles/">vignettes</a> were we provide details for the use and potential applications of our functions.</p>
+<p>Take a look to the <a href="https://antguz.github.io/rTLS/articles/">vignettes</a> were we provide detaits for the use and potential applications of our functions.</p>
 </div>
 </div>
-
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -189,7 +172,8 @@
 <div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-2">GPL-2</a></li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small>GPL (&gt;= 3)</small></li>
 </ul>
 </div>
 <div class="developers">

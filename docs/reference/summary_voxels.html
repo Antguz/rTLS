@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -199,18 +199,18 @@ If <code>bootstrap = TRUE</code> four more columns are created (13:16). These re
 </div><div class='output co'>#&gt;    Edge.X Edge.Y Edge.Z N_voxels Volume Surface Density_mean Density_sd
 #&gt; 1:    0.5    0.5    0.5      679 84.875   31.75     446.8218   326.8393
 #&gt;           H     Hmax Equitavility Negentropy H_boot_mean  H_boot_sd
-#&gt; 1: 6.221814 6.520621     0.954175  0.2988072    6.222115 0.01526528
+#&gt; 1: 6.221814 6.520621     0.954175  0.2988072    6.222826 0.01506207
 #&gt;    Equitavility_boot Negentropy_boot
-#&gt; 1:         0.9542212       0.2985062</div><div class='input'>
+#&gt; 1:         0.9543302       0.2977956</div><div class='input'>
 <span class='co'>#Apply a summary on a product from 'voxels' using bootstrap with 1000 replicates.</span>
 <span class='va'>vox</span> <span class='op'>&lt;-</span> <span class='fu'><a href='voxels.html'>voxels</a></span><span class='op'>(</span><span class='va'>pc_tree</span>, edge_length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.5</span>, <span class='fl'>0.5</span><span class='op'>)</span>, obj.voxels <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='fu'>summary_voxels</span><span class='op'>(</span><span class='va'>vox</span>, edge_length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.5</span>, <span class='fl'>0.5</span><span class='op'>)</span>, bootstrap <span class='op'>=</span> <span class='cn'>TRUE</span>, R <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;    Edge.X Edge.Y Edge.Z N_voxels Volume Surface Density_mean Density_sd
 #&gt; 1:    0.5    0.5    0.5      679 84.875   31.75     446.8218   326.8393
 #&gt;           H     Hmax Equitavility Negentropy H_boot_mean  H_boot_sd
-#&gt; 1: 6.221814 6.520621     0.954175  0.2988072    6.222167 0.01558634
+#&gt; 1: 6.221814 6.520621     0.954175  0.2988072    6.222175 0.01533461
 #&gt;    Equitavility_boot Negentropy_boot
-#&gt; 1:         0.9542292       0.2984537</div><div class='input'>
+#&gt; 1:         0.9542304       0.2984464</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
