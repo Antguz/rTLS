@@ -45,8 +45,12 @@ AABBs <- data.table(X = 0, Y = 0, Z = 0)
 edge_length <- c(2, 2, 2)
 
 #Plot
+\dontrun{
 cube <- rgl::cube3d()
-cube <- rgl::scale3d(cube, edge_length[1]/2, edge_length[2]/2, edge_length[3]/2)
+cube <- rgl::scale3d(cube,
+                     edge_length[1]/2,
+                     edge_length[2]/2,
+                     edge_length[3]/2)
 box <- rgl::translate3d(cube, AABBs[[1]], AABBs[[2]], AABBs[[3]])
 rgl::shade3d(box, col= "green", alpha = 0.6)
 rgl::points3d(orig, size = 5, col = "black")
@@ -56,6 +60,7 @@ for(i in 1:nrow(orig)) {
 rgl::lines3d(c(orig[[1]][i], end[[1]][i]),
              c(orig[[2]][i], end[[2]][i]),
              c(orig[[3]][i], end[[3]][i]), col = "grey")
+}
 }
 
 #Estimation

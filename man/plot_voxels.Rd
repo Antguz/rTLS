@@ -47,8 +47,8 @@ The \code{plot} method for objects of class \code{"voxels"} created using the \c
 \examples{
 data("pc_tree")
 
-###Create cubes of a size of 7x7x1.
-vox <- voxels(pc_tree, edge_length = c(7, 7, 1))
+###Create cubes of a size of 7x7x3.5.
+vox <- voxels(pc_tree, edge_length = c(7, 7, 3.5))
 plot_voxels(vox)
 
 }
