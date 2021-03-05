@@ -3,6 +3,8 @@ rTLS <img src="https://raw.githubusercontent.com/Antguz/rTLS/master/man/figures/
 =============================================================================
 [![DOI](https://zenodo.org/badge/162520913.svg)](https://zenodo.org/badge/latestdoi/162520913)
 [![R build status](https://github.com/Antguz/rTLS/workflows/R-CMD-check/badge.svg)](https://github.com/Antguz/rTLS/actions)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/Antguz/rTLS)
 [![Codecov test coverage](https://codecov.io/gh/Antguz/rTLS/branch/master/graph/badge.svg)](https://codecov.io/gh/Antguz/rTLS?branch=master)
 
 This is an R package to that compiles a series of tools to process and
