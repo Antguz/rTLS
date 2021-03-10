@@ -33,6 +33,7 @@
 #' @param overlap A positive \code{numeric} vector between 0 and 100 describing the overlap percentage of a given the tree crowns in the future forest stand. If \code{NULL}, the degree of overlap is not controlled.
 #' @param rotation Logical. If \code{TRUE}, it performs a rotation in yaw axis of the point cloud. \code{TRUE} as default.
 #' @param degrees A positive \code{numeric} vector describing the degrees of rotation of the point clouds in the future stand. The \code{length(degree)} should be the same as \code{n.trees}. If \code{NULL}, it creates random degrees of rotation for each \code{n.trees}.
+#' @param progress Logical, if \code{TRUE} displays a graphical progress bar. \code{TRUE} as default.
 #' @param plot Logical. If \code{TRUE}, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.
 #' @param n_attempts A positive \code{numeric} vector of length one describing the number of attempts to provide random \code{coordinates} until a tree met the \code{overlap} criteria.
 #' This needs to be used if \code{coordinate = NULL} and \code{overlap != NULL}. \code{n_attempts = 100} as default.
@@ -78,7 +79,7 @@
 #'
 #'
 #' @export
-artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, sample = TRUE, replace = TRUE, overlap = NULL, rotation = TRUE, degrees = NULL, n_attempts = 100, plot = TRUE, ...) {
+artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, sample = TRUE, replace = TRUE, overlap = NULL, rotation = TRUE, degrees = NULL, n_attempts = 100, progress = TRUE, plot = TRUE, ...) {
 
   ####Posible errors or assumtions ------------------------------------------------------------------------------
 
@@ -122,34 +123,38 @@ artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, samp
     filestoread <- files
   }
 
-  stant <- NA ###Final stant to create
+  stant <- NA ###Final stand to create
   spatial_stant <- NA
   tcoordinates <- data.table(Tree = 1:n.trees, file = filestoread, Xcoordinate = NA, Ycoordinate = NA, CA = NA, Hmax = NA)
 
-  if(plot == TRUE) { ####If plot obtion is truee
-    plotXY <- matrix(c(0, 0, dimension[1], 0, dimension[1], dimension[2], 0, dimension[2], 0 , 0), ncol = 2, byrow = TRUE)
-    p_plotXY <- Polygon(plotXY)
-    spatial_plotXY <- SpatialPolygons(list(Polygons(list(p_plotXY), ID = "plot")))
+  ###For plot estimations
+  plotXY <- matrix(c(0, 0, dimension[1], 0, dimension[1], dimension[2], 0, dimension[2], 0 , 0), ncol = 2, byrow = TRUE)
+  p_plotXY <- Polygon(plotXY)
+  spatial_plotXY <- SpatialPolygons(list(Polygons(list(p_plotXY), ID = "plot")))
+
+  if(plot == TRUE) { ####If plot option is true
     plot(spatial_plotXY, col = "lightgoldenrod")
   }
 
   ####Creating the loop for the artificial forest stand--------------------------------------------------------------
 
-  cat(paste("", "Creating an artificial forest stand of ", round(dimension[1], 2), " x ", round(dimension[2], 2), " with ", n.trees, " trees", sep = ""))  #Progress bar
-  pb <- txtProgressBar(min = 0, max = n.trees, style = 3)
+  if(progress == TRUE) {
+    cat(paste("", "Creating an artificial forest stand of ", round(dimension[1], 2), " x ", round(dimension[2], 2), " with ", n.trees, " trees", sep = ""))  #Progress bar
+    pb <- txtProgressBar(min = 0, max = n.trees, style = 3)
+  }
 
   for(i in 1:n.trees) {  ####Conduct the loop
 
-    setTxtProgressBar(pb, i)
+    if(progress == TRUE) {
+      setTxtProgressBar(pb, i)
+    }
 
     ###Reading of the files-------------------------------------
-
     tree <- fread(filestoread[i], ...)
     colnames(tree) <- c("X", "Y", "Z")
     tree$Z <- tree$Z - min(tree$Z)
 
     ###Positioning in the plot and rotation of the clouds-------
-
     basetree <- subset(tree, Z >= 0 & Z <= 0.1) ####Move the tree to their base centroid
     centroidXY <- c(mean(basetree$X), mean(basetree$Y))
 

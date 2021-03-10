@@ -12,8 +12,8 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
@@ -55,13 +55,23 @@
 <![endif]-->
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W6KLJNB4MN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W6KLJNB4MN');
+</script>
+
 
   </head>
 
   <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
@@ -72,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -80,15 +90,16 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-book"></span>
+     
     Articles
      
     <span class="caret"></span>
@@ -105,12 +116,18 @@
     </li>
   </ul>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/Antguz/rTLS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+<li>
+  <a href="../reference/index.html">
+    <span class="fas fa-file-code-o"></span>
      
+    Functions
+  </a>
+</li>
+<li>
+  <a href="https://github.com/Antguz/rTLS/">
+    <span class="fas fa-github fa-lg"></span>
+     
+    github
   </a>
 </li>
       </ul>
@@ -135,7 +152,7 @@
     <p>Create cubes of a given distance in a point cloud though their voxelization. It use a modify version of the code used in Greaves et al. 2015.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>voxels</span>(<span class='no'>cloud</span>, <span class='no'>voxel.size</span>, <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>obj.voxels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>voxels</span><span class='op'>(</span><span class='va'>cloud</span>, <span class='va'>edge_length</span>, threads <span class='op'>=</span> <span class='fl'>1L</span>, obj.voxels <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,8 +162,8 @@
       <td><p>A <code>data.table</code> with *XYZ* coordinates in the first three columns.</p></td>
     </tr>
     <tr>
-      <th>voxel.size</th>
-      <td><p>A positive <code>numeric</code> vector with the voxel edge length. It use the same dimentional scale of the point cloud.</p></td>
+      <th>edge_length</th>
+      <td><p>A positive <code>numeric</code> vector with the voxel-edge length for the x, y, and z coordinates. It use the same dimensional scale of the point cloud.</p></td>
     </tr>
     <tr>
       <th>threads</th>
@@ -160,7 +177,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>If <code>TRUE</code>, it return an object of class <code>"voxels"</code> which contain a list with the points used to create the voxels, the parameter <code>voxel.size</code>, and the <code>voxels</code> created. If <code>FALSE</code>, it returns a <code>data.table</code> with the coordinates of the voxels created and the number of points in each voxel.</p>
+    <p>If <code>obj.voxels == TRUE</code>, it return an object of class <code>"voxels"</code> which contain a list with the points used to create the voxels, the parameter <code>edge_length</code>, and the <code>voxels</code> created. If <code>FALSE</code>, it returns a <code>data.table</code> with the coordinates of the voxels created and the number of points in each voxel.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Voxels are created from the negative to the positive *XYZ* coordinates.</p>
@@ -169,13 +186,17 @@
     <p>Greaves, H. E., Vierling, L. A., Eitel, J. U., Boelman, N. T., Magney, T. S., Prager, C. M., &amp; Griffin, K. L. (2015). Estimating aboveground biomass and leaf area of low-stature Arctic shrubs with terrestrial LiDAR. Remote Sensing of Environment, 164, 26-35.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>voxels_counting</code>, <code>plot_voxels</code>, <code>summary_voxels</code></p></div>
+    <div class='dont-index'><p><code><a href='voxels_counting.html'>voxels_counting</a></code>, <code><a href='plot_voxels.html'>plot_voxels</a></code>, <code><a href='summary_voxels.html'>summary_voxels</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>J. Antonio Guzmán Q.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"pc_tree"</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"pc_tree"</span><span class='op'>)</span>
 
-<span class='co'>###Create voxels of a size of 0.5.</span>
-<span class='fu'>voxels</span>(<span class='no'>pc_tree</span>, <span class='kw'>voxel.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; $cloud
+<span class='co'>###Create cube of a size of 0.5.</span>
+<span class='fu'>voxels</span><span class='op'>(</span><span class='va'>pc_tree</span>, edge_length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.5</span>, <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $cloud
 #&gt;               X        Y          Z
 #&gt;     1:  9.14850 -1.11025 0.00099992
 #&gt;     2:  9.22250 -1.12225 0.00000000
@@ -190,8 +211,8 @@
 #&gt; 75848: 11.38000  1.25925 5.45124960
 #&gt; 
 #&gt; $parameter
-#&gt; voxel.size 
-#&gt;        0.5 
+#&gt; X.size Y.size Z.size 
+#&gt;    0.5    0.5    0.5 
 #&gt; 
 #&gt; $voxels
 #&gt;             X          Y    Z  N
@@ -209,19 +230,7 @@
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "voxels"</div><div class='input'>
-<span class='co'>###Returns just the coordinates of the voxels and the number of points in each voxel</span>
-<span class='fu'>voxels</span>(<span class='no'>pc_tree</span>, <span class='kw'>voxel.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>obj.voxel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;             X          Y    Z  N
-#&gt;   1:  9.38575 -1.2837501 0.25 37
-#&gt;   2:  8.88575 -1.2837501 0.25 12
-#&gt;   3:  8.88575 -0.7837501 0.25 36
-#&gt;   4:  9.38575 -1.2837501 0.75 47
-#&gt;   5:  8.88575 -1.2837501 0.75  8
-#&gt;  ---                            
-#&gt; 675: 10.38575  2.2162499 5.25  3
-#&gt; 676: 10.88575  1.7162499 5.25 95
-#&gt; 677: 11.38575  1.7162499 5.25  2
-#&gt; 678: 10.88575  2.2162499 5.25 17
-#&gt; 679: 10.88575  2.7162499 4.75  8</div><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -238,7 +247,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

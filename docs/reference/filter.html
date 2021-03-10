@@ -12,8 +12,8 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
@@ -55,13 +55,23 @@
 <![endif]-->
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W6KLJNB4MN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W6KLJNB4MN');
+</script>
+
 
   </head>
 
   <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
@@ -72,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -80,15 +90,16 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-book"></span>
+     
     Articles
      
     <span class="caret"></span>
@@ -105,12 +116,18 @@
     </li>
   </ul>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/Antguz/rTLS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+<li>
+  <a href="../reference/index.html">
+    <span class="fas fa-file-code-o"></span>
      
+    Functions
+  </a>
+</li>
+<li>
+  <a href="https://github.com/Antguz/rTLS/">
+    <span class="fas fa-github fa-lg"></span>
+     
+    github
   </a>
 </li>
       </ul>
@@ -135,7 +152,18 @@
     <p>Filtering of point clouds using different methods</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>cloud</span>, <span class='no'>method</span>, <span class='no'>radius</span>, <span class='no'>min_n</span>, <span class='no'>k</span>, <span class='no'>nSigma</span>, <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>filter</span><span class='op'>(</span>
+  <span class='va'>cloud</span>,
+  <span class='va'>method</span>,
+  <span class='va'>radius</span>,
+  <span class='va'>min_neighbours</span>,
+  <span class='va'>k</span>,
+  <span class='va'>nSigma</span>,
+  <span class='va'>edge_length</span>,
+  build <span class='op'>=</span> <span class='st'>"kdtree"</span>,
+  threads <span class='op'>=</span> <span class='fl'>1L</span>,
+  checks <span class='op'>=</span> <span class='fl'>20</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,14 +174,14 @@
     </tr>
     <tr>
       <th>method</th>
-      <td><p>A filtering method to use. It most be <code>"SOR"</code> or <code>"min_n"</code>.</p></td>
+      <td><p>A filtering method to use. It most be <code>"SOR"</code>, <code>"min_neighbors"</code>, or <code>"min_neighbors"</code>.</p></td>
     </tr>
     <tr>
       <th>radius</th>
-      <td><p>A <code>numeric</code> vector representing the radius of the sphere to consider. This needs to be used if <code>method = "min_n"</code>.</p></td>
+      <td><p>A <code>numeric</code> vector representing the radius of the sphere to consider. This needs to be used if <code>method = "voxel_center"</code>.</p></td>
     </tr>
     <tr>
-      <th>min_n</th>
+      <th>min_neighbours</th>
       <td><p>An <code>integer</code> representing the minimum number of neighbors to keep a given point. This needs to be used if <code>method = "min_n"</code>.</p></td>
     </tr>
     <tr>
@@ -165,49 +193,53 @@
       <td><p>A <code>numeric</code> vector representing the standard deviation multiplier. This needs to be used if <code>method = "SOR"</code>.</p></td>
     </tr>
     <tr>
+      <th>edge_length</th>
+      <td><p>A positive <code>numeric</code> vector with the voxel-edge length for the x, y, and z coordinates. This needs to be used if <code>method = "voxel_center"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>build</th>
+      <td><p>A <code>character</code> describing the search structure to be used: <code>"kdtree"</code>, <code>"kmeans"</code>, <code>"linear"</code>. Default <code>"kdtree"</code>.</p></td>
+    </tr>
+    <tr>
       <th>threads</th>
       <td><p>An <code>integer</code> specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.</p></td>
     </tr>
     <tr>
-      <th>progress</th>
-      <td><p>Show progress. <code>TRUE</code> as default.</p></td>
+      <th>checks</th>
+      <td><p>Number of checks during searching. Higher value gives better search precision but takes longer. <code>checks = 20</code> as default.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>data.table</code> with the filtered points</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>J. Antonio Guzmán Q.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#Load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"pc_tree"</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"pc_tree"</span><span class='op'>)</span>
 
-<span class='co'>#Filter a sample of section of data using SOR</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>pc_tree</span>[<span class='fl'>1</span>:<span class='fl'>5000</span>,], <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"SOR"</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>nSigma</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt;             X        Y          Z
-#&gt;    1: 9.14850 -1.11025 0.00099992
-#&gt;    2: 9.22250 -1.12225 0.00000000
-#&gt;    3: 9.12125 -1.09025 0.03899991
-#&gt;    4: 9.14725 -1.15775 0.10199999
-#&gt;    5: 9.14675 -1.10650 0.08574998
-#&gt;   ---                            
-#&gt; 4030: 8.52825 -2.08400 2.85474992
-#&gt; 4031: 8.57025 -2.05925 2.83424997
-#&gt; 4032: 8.57175 -2.07200 2.88599992
-#&gt; 4033: 8.63575 -2.06175 2.86675000
-#&gt; 4034: 8.56950 -2.00475 2.85299993</div><div class='input'>
-<span class='co'>#Filter using "min_n" of 1000</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>pc_tree</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"min_n"</span>, <span class='kw'>radius</span> <span class='kw'>=</span> <span class='fl'>1.0</span>, <span class='kw'>min_n</span> <span class='kw'>=</span> <span class='fl'>5000</span>)</div><div class='output co'>#&gt;               X        Y       Z
-#&gt;     1:  7.72725 -0.98150 3.00250
-#&gt;     2:  7.83075 -0.96225 2.74775
-#&gt;     3:  7.79100 -1.01025 2.77925
-#&gt;     4:  7.99475 -1.02550 2.72800
-#&gt;     5:  7.91475 -0.98625 2.72575
-#&gt;    ---                          
-#&gt; 11543: 10.85050  1.40150 4.85675
-#&gt; 11544: 10.85450  1.54150 4.77000
-#&gt; 11545: 10.38700  1.62525 4.64625
-#&gt; 11546: 10.54175  1.65700 4.65300
-#&gt; 11547: 10.80000  1.61525 4.64600</div><div class='input'>
+<span class='co'>#Move pc_tree for comparison</span>
+<span class='va'>pc_compare</span> <span class='op'>&lt;-</span> <span class='va'>pc_tree</span>
+<span class='va'>pc_compare</span><span class='op'>$</span><span class='va'>X</span> <span class='op'>&lt;-</span> <span class='va'>pc_compare</span><span class='op'>$</span><span class='va'>X</span> <span class='op'>-</span> <span class='fl'>7</span>
+
+<span class='co'>#SOR filter</span>
+<span class='va'>r1</span> <span class='op'>&lt;-</span> <span class='fu'>filter</span><span class='op'>(</span><span class='va'>pc_tree</span>, method <span class='op'>=</span> <span class='st'>"SOR"</span>, k <span class='op'>=</span> <span class='fl'>30</span>, nSigma <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='va'>r1</span>, col <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span> <span class='co'>#Filter</span>
+<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/3dobjects.html'>points3d</a></span><span class='op'>(</span><span class='va'>pc_compare</span>, col <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span> <span class='co'>#Original</span>
+
+<span class='co'>#min_neighbours filter</span>
+<span class='va'>r2</span> <span class='op'>&lt;-</span> <span class='fu'>filter</span><span class='op'>(</span><span class='va'>pc_tree</span>, <span class='st'>"min_neighbors"</span>, radius <span class='op'>=</span> <span class='fl'>0.02</span>, min_neighbours <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
+<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='va'>r2</span>, col <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span> <span class='co'>#Filter</span>
+<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/3dobjects.html'>points3d</a></span><span class='op'>(</span><span class='va'>pc_compare</span>, col <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span> <span class='co'>#Original</span>
+
+<span class='co'>#voxel_center filter</span>
+<span class='va'>r3</span> <span class='op'>&lt;-</span> <span class='fu'>filter</span><span class='op'>(</span><span class='va'>pc_tree</span>, method <span class='op'>=</span> <span class='st'>"voxel_center"</span>, edge_length <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>
+<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='va'>r3</span>, col <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span> <span class='co'>#Filter</span>
+<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/3dobjects.html'>points3d</a></span><span class='op'>(</span><span class='va'>pc_compare</span>, col <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span> <span class='co'>#Original</span>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -224,7 +256,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

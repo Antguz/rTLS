@@ -1,1 +1,58 @@
-destination: docs
+title: rTLS
+url: https://antguz.github.io/rTLS
+template:
+  params:
+    bootswatch: yeti
+    ganalytics: G-W6KLJNB4MN
+reference:
+  - title: Exported Functions
+    desc: ~
+    contents:
+    - '`artificial_stand`'
+    - '`canopy_structure`'
+    - '`cartesian_to_polar`'
+    - '`circleRANSAC`'
+    - '`euclidean_distance`'
+    - '`filter`'
+    - '`geometry_features`'
+    - '`knn`'
+    - '`lines_interception`'
+    - '`line_AABB`'
+    - '`min_distance`'
+    - '`plot_voxels`'
+    - '`polar_to_cartesian`'
+    - '`radius_search`'
+    - '`rotate2D`'
+    - '`rotate3D`'
+    - '`stand_counting`'
+    - '`summary_voxels`'
+    - '`tree_metrics`'
+    - '`trunk_volume`'
+    - '`voxels`'
+    - '`voxels_counting`'
+  - title: Data
+    desc: ~
+    contents:
+        - '`pc_tree`'
+        - '`TLS_scan`'
+navbar:
+  type: inverse
+  left:
+    - icon: fa-home
+      href: index.html
+  right:
+    - text: "Articles"
+      icon: fas fa-book
+      menu:
+      -  text: Creation of artificial stands
+         href: articles/Artificial-stands.html
+      -  text: Estimation of tree metrics
+         href: articles/tree-metrics.html
+      -  text: Voxel counting and fractal geometry
+         href: articles/voxels-fractals.html
+    - icon: fa-file-code-o
+      text: "Functions"
+      href: reference/index.html
+    - icon: fa-github fa-lg
+      text: "github"
+      href: https://github.com/Antguz/rTLS/

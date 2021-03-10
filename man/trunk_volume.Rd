@@ -9,11 +9,11 @@ trunk_volume(cloud, max.height = NULL, alpha = 0.2, plot = TRUE, ...)
 \arguments{
 \item{cloud}{A \code{data.table} with three columns representing the *XYZ* coordinates of a point cloud.}
 
-\item{max.height}{A \code{numeric} vector to contemplate points in the cloud lower than a specific height. If \code{NULL}, it performs the α-shape on the entire point cloud.}
+\item{max.height}{A \code{numeric} vector to contemplate points in the cloud lower than a specific height. If \code{NULL}, it performs the alpha-shape on the entire point cloud.}
 
 \item{alpha}{A \code{numeric} vector of length one passed to \code{ashape3d} to describes alpha. \code{alpha = 0.20} as default since it seems to provide better estimations of the trunk volume. However, the \code{alpha} value may depends on the resolution of the point cloud.}
 
-\item{plot}{Logical. If \code{TRUE}, it uses \code{plot.ashape3d} to represent the α-shape.}
+\item{plot}{Logical. If \code{TRUE}, it uses \code{plot.ashape3d} to represent the alpha-shape.}
 
 \item{...}{General arguments passed to \code{ashape3d}.}
 }
@@ -35,12 +35,12 @@ trunk_volume(pc_tree, max.height = 1.75)
 
 }
 \references{
-Lafarge, T., Pateiro-Lopez, B. (2017). Implementation of the 3D Alpha-Shape for the Reconstruction of 3D Sets from a Point Cloud. Available at \url{https://cran.r-project.org/web/packages/alphashape3d/index.html}.
+Lafarge, T., Pateiro-Lopez, B. (2017). Implementation of the 3D Alpha-Shape for the Reconstruction of 3D Sets from a Point Cloud. Available at \url{https://CRAN.R-project.org/package=alphashape3d}.
 
 Edelsbrunner, H., Mucke, E. P. (1994). Three-Dimensional Alpha Shapes. ACM Transactions on Graphics, 13(1), pp.43-72.
 }
 \seealso{
-\code{\link{tree_metrics}}
+\code{\link{tree_metrics}}, \code{\link{circleRANSAC}}
 }
 \author{
 J. Antonio Guzmán Q.

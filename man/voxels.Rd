@@ -4,19 +4,19 @@
 \alias{voxels}
 \title{Voxelization of a Point Cloud}
 \usage{
-voxels(cloud, voxel.size, threads = 1L, obj.voxels = TRUE)
+voxels(cloud, edge_length, threads = 1L, obj.voxels = TRUE)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with *XYZ* coordinates in the first three columns.}
 
-\item{voxel.size}{A positive \code{numeric} vector with the voxel edge length. It use the same dimentional scale of the point cloud.}
+\item{edge_length}{A positive \code{numeric} vector with the voxel-edge length for the x, y, and z coordinates. It use the same dimensional scale of the point cloud.}
 
 \item{threads}{An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.}
 
 \item{obj.voxels}{Logical. If \code{obj.voxel = TRUE}, it returns an object of class \code{"voxels"}, If \code{obj.voxel = FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel. \code{TRUE} as default.}
 }
 \value{
-If \code{TRUE}, it return an object of class \code{"voxels"} which contain a list with the points used to create the voxels, the parameter \code{voxel.size}, and the \code{voxels} created. If \code{FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel.
+If \code{obj.voxels == TRUE}, it return an object of class \code{"voxels"} which contain a list with the points used to create the voxels, the parameter \code{edge_length}, and the \code{voxels} created. If \code{FALSE}, it returns a \code{data.table} with the coordinates of the voxels created and the number of points in each voxel.
 }
 \description{
 Create cubes of a given distance in a point cloud though their voxelization. It use a modify version of the code used in Greaves et al. 2015.
@@ -27,11 +27,9 @@ Voxels are created from the negative to the positive *XYZ* coordinates.
 \examples{
 data("pc_tree")
 
-###Create voxels of a size of 0.5.
-voxels(pc_tree, voxel.size = 0.5)
+###Create cube of a size of 0.5.
+voxels(pc_tree, edge_length = c(0.5, 0.5, 0.5))
 
-###Returns just the coordinates of the voxels and the number of points in each voxel
-voxels(pc_tree, voxel.size = 0.5, obj.voxel = FALSE)
 
 }
 \references{

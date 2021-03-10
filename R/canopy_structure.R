@@ -12,7 +12,6 @@
 #' @param azimuth.range A \code{numeric} vector of length two describing the range of the azimuth angle to use. Theoretically, it should be between 0 and 360 degrees.
 #' @param vertical.resolution A \code{numeric} vector of length one describing the vertical resolution to extract the vertical profiles. Low values lead to more variable profiles.
 #' The scale used needs to be in congruence with the scale of \code{scan}.
-#'
 #' @param TLS.pulse.counts If \code{TLS.type} is equal to \code{"single"} or \code{"multiple"}, a \code{numeric} vector of length two describing the horizontal and vertical pulse counts of the scanner.
 #' If \code{TLS.type} is equal to \code{"fixed.angle"}, a \code{numeric} vector of length one describing the horizontal pulse counts resolution.
 #' Preferred parameter over \code{TLS.resolution} to estimate the number of pulses.
@@ -31,7 +30,7 @@
 #' @details Since \code{scan} describes discrete returns measured by the TLS, \code{canopy_structre} first simulates the number of pulses emitted based on Danson et al. (2007). The simulated pulses are
 #' created based on the TLS properties (\code{TLS.pulse.counts, TLS.resolution, TLS.frame}) assuming that the scanner is perfectly balance. Then these pulses are rotated (\code{\link{rotate3D}}) based on the \code{TLS.angles}
 #' roll, pitch, and yaw, and move to \code{TLS.coordintates} to simulate the positioning of the scanner during the \code{scan}. Rotated simulated-pulses of interest and \code{scan} returns are then extracted based on the \code{zenith.range} and \code{azimuth.range} for a given number of \code{zenith.rings}, \code{azimuth.rings} and vertical profiles.
-#' Using the frequency of pulses and returns the probability of gap (Pgap) is estimated. For \code{TLS.type = "multiple"}, the frequency of returns is estimated using the sum of 1/target count following Lovell et al. (2011).
+#' The probability of gap (Pgap) is then estimated using the frequency of pulses and returns. For \code{TLS.type = "multiple"}, the frequency of returns is estimated using the sum of 1/target count following Lovell et al. (2011).
 #'
 #' Using the Pgap estimated per each zenith ring and vertical profile, \code{canopy_structure} then estimates the accumulative L(z) profiles based on the closest
 #' zenith ring to 57.5 (hinge region) and, if \code{TLS.type = "fixed.angle"}, the f(z) or commonly named PAVD based on the ratio of the
@@ -64,27 +63,32 @@
 #'
 #' @examples
 #'
-#' #Using a multiple return file
-#'
-#' \dontrun{
+#' \donttest{
 #' data(TLS_scan)
-#' TLS_scan <- TLS_scan[, 1:4] #Select the four columns required
+#' #Using a multiple return file
+#' #Select the four columns required
+#' TLS_scan <- TLS_scan[, 1:4]
 #'
 #' #This will take a while#
-#' canopy_structure(TLS.type = "multiple", scan = TLS_scan, zenith.range = c(50,70), zenith.rings = 4,
-#'                  azimuth.range = c(0, 360), vertical.resolution = 0.25,
-#'                  TLS.resolution = c(0.04, 0.04), TLS.frame = c(30, 130, 0, 360),
+#' canopy_structure(TLS.type = "multiple", scan = TLS_scan,
+#'                  zenith.range = c(50,70), TLS.pulse.counts = NULL,
+#'                  zenith.rings = 4, azimuth.range = c(0, 360),
+#'                  vertical.resolution = 0.25, TLS.resolution = c(0.04, 0.04),
+#'                  TLS.frame = c(30, 130, 0, 360),
 #'                  TLS.angles =  c(0.293, -0.835, -150.159))
 #'
 #' #Using a single return file
 #'
 #' data(TLS_scan)
-#' TLS_scan <- TLS_scan[Target_index == 1, 1:3] #Subset to first return observations
+#' #Subset to first return observations
+#' TLS_scan <- TLS_scan[Target_index == 1, 1:3]
 #'
 #' #This will take a while#
-#' canopy_structure(TLS.type = "single", scan = TLS_scan, zenith.range = c(50,70), zenith.rings = 4,
+#' canopy_structure(TLS.type = "single", scan = TLS_scan,
+#'                  zenith.range = c(50,70), zenith.rings = 4,
 #'                  azimuth.range = c(0, 360), vertical.resolution = 0.25,
-#'                  TLS.resolution = c(0.04, 0.04), TLS.frame = c(30, 130, 0, 360),
+#'                  TLS.pulse.counts = NULL, TLS.resolution = c(0.04, 0.04),
+#'                  TLS.frame = c(30, 130, 0, 360),
 #'                  TLS.angles =  c(0.293, -0.835, -150.159))
 #' }
 #'
@@ -224,14 +228,13 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
 
     Pgap[, Pgap := (1- (cumsum_returns/pulses)), by = seq_len(nrow(Pgap))]
 
-
   }
 
   #####Estimation of the canopy structure metrics-------------------------------------------------------------------------------------
 
   if(TLS.type == "multiple" | TLS.type == "single") {
 
-    Pgap[, 'L/LAI' := log10(Pgap)/log10(min(Pgap)), by = zenith] #Normalize L/LAI
+    Pgap[, 'L/LAI' := log(Pgap)/log(min(Pgap)), by = zenith] #Normalize L/LAI
 
     Pgap[, 'L/LAI (weighted.mean)' := lapply(.SD, weighted.mean, w = 1:zenith.rings), by = height, .SDcols=c('L/LAI')] #weighted.mean L/LAI
 
@@ -246,7 +249,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
     col_hinge <- which(abs(zenith_bands - 57.5) == min(abs(zenith_bands - 57.5)))
     subset_Pgap <- subset(Pgap, zenith == zenith_bands[col_hinge])
 
-    final[, 'L (hinge)' := -1.1 * log10(subset_Pgap$Pgap)] ###Estimates the L close to hinge
+    final[, 'L (hinge)' := -1.1 * log(subset_Pgap$Pgap)] ###Estimates the L close to hinge
     final[, 'L/LAI (weighted mean)' := subset_Pgap$`L/LAI (weighted.mean)`]
 
     max_LAI <- as.numeric(final[which.max(height), 'L (hinge)'])

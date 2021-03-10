@@ -6,24 +6,24 @@
 \usage{
 voxels_counting(
   cloud,
-  voxel.sizes = NULL,
-  min.size,
-  length.out = 10,
+  edge_sizes = NULL,
+  min_size,
+  length_out = 10,
   bootstrap = FALSE,
   R = NULL,
   progress = TRUE,
   parallel = FALSE,
-  cores = NULL
+  threads = NULL
 )
 }
 \arguments{
 \item{cloud}{A \code{data.table} with xyz coordinates of the point clouds in the first three columns.}
 
-\item{voxel.sizes}{A positive \code{numeric} vector describing the different voxel edge lengths to perform. If \code{NULL}, it use voxel sizes by default based on the largest range of XYZ and \code{min.size}.}
+\item{edge_sizes}{A positive \code{numeric} vector describing the edge length of the different cubes to perform. If \code{NULL}, it use edge sizes by default based on the largest range of XYZ and \code{min_size}.}
 
-\item{min.size}{A positive \code{numeric} vector of length 1 describing the minimum voxel edge length to perform. This is required if \code{voxel.sizes = NULL}.}
+\item{min_size}{A positive \code{numeric} vector of length 1 describing the minimum cube edge length to perform. This is required if \code{edge_sizes = NULL}.}
 
-\item{length.out}{A positive \code{interger} of length 1 indicating the number of different voxel sizes to use. This is required if \code{voxel.sizes = NULL}.}
+\item{length_out}{A positive \code{interger} of length 1 indicating the number of different edge lengths to use. This is required if \code{edge_sizes  = NULL}.}
 
 \item{bootstrap}{Logical. If \code{TRUE}, it computes a bootstrap on the H index calculations. \code{FALSE} as default.}
 
@@ -33,28 +33,24 @@ voxels_counting(
 
 \item{parallel}{Logical, if \code{TRUE} it uses a parallel processing for the voxelization. \code{FALSE} as default.}
 
-\item{cores}{An \code{integer} >= 0 describing the number of cores to use. This need to be used if \code{parallel = TRUE}.}
+\item{threads}{An \code{integer} >= 0 describing the number of threads to use. This need to be used if \code{parallel = TRUE}.}
 }
 \value{
 A \code{data.table} with the summary of the voxels created with their features.
 }
 \description{
-Creates voxels of different size on a point cloud using the \code{\link{voxels}} function, and then return a \code{\link{summary_voxels}} of their features.
+Creates cube like voxels of different size on a point cloud using the \code{\link{voxels}} function, and then return a \code{\link{summary_voxels}} of their features.
 }
 \examples{
 
 data(pc_tree)
 
 #Applying voxels counting.
-voxels_counting(pc_tree, min.size = 0.05)
+voxels_counting(pc_tree, min_size = 2)
 
-#Voxels counting using boostrap on the H indixes with 1000 repetitions.
-voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000)
+#Voxels counting using bootstrap on the H indexes with 1000 repetitions.
+voxels_counting(pc_tree, min_size = 2, bootstrap = TRUE, R = 1000)
 
-\dontrun{
-#Voxels counting using bootstrap on the H indices and using parallel processing.
-voxels_counting(pc_tree, min.size = 0.05, bootstrap = TRUE, R = 1000, parallel = TRUE, cores = 4)
-}
 
 }
 \seealso{

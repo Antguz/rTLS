@@ -70,7 +70,7 @@ Using the outputs of `voxel_counting` is then possible to estimate the fractal g
 
 ```r
 
-dimention <- lm(log10(N_voxels) ~ log10(1/(Voxel.size^3)), data = fractals)
+dimention <- lm(log10(N_voxels) ~ log10(1/(Edge.X*Edge.Y*Edge.Z)), data = fractals)
 
 ```
 

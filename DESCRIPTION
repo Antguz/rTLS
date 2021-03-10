@@ -1,8 +1,8 @@
 Type: Package
 Package: rTLS
-Title: Tools to Process Point Clouds Derived From Terrestrial
+Title: Tools to Process Point Clouds Derived from Terrestrial
     Laser Scanning
-Version: 0.1.2
+Version: 0.2.1
 Authors@R:
     c(person(given = "J. Antonio",
              family = "Guzmán Q.",
@@ -19,37 +19,46 @@ Authors@R:
              role = "ths",
              email = "arturo.sanchez@ualberta.ca",
              comment = c(ORCID = "0000-0001-7768-6600")))
-Description: A package that compiles a set of tools to process and calculate metrics on point clouds derived from terrestrial LiDAR (Light Detection and Ranging). Its creation is based on key aspects of the TLS application in forestry. Currently, the main routines are based on filtering, neighboring features of points, voxelization, optimal sphere or voxel size, and the creation of artificial stands. rTLS is written using data.table and C++ language and in most of the functions it is posible to use parallel processing to speed-up the routines.
-License: GPL-2
+Description: A set of tools to process and calculate 
+             metrics on point clouds derived from terrestrial LiDAR 
+             (Light Detection and Ranging; TLS). Its creation is based on key 
+             aspects of the TLS application in forestry and ecology. 
+             Currently, the main routines are based on filtering, neighboring 
+             features of points, voxelization, canopy structure, 
+             and the creation of artificial stands. It is written using 
+             data.table and C++ language and in most of the functions it is 
+             possible to use parallel processing to speed-up the routines.
+License: GPL (>= 3)
 URL: https://github.com/Antguz/rTLS
 BugReports: https://github.com/Antguz/rTLS/issues
 Depends: 
-    data.table (>= 1.12.2),
-    R (>= 3.6.3)
+    data.table (>= 1.13),
+    R (>= 4.0.0)
 Imports:
-    alphashape3d (>= 1.3),
-    boot (>= 1.3-22),
+    alphashape3d,
+    boot,
     doSNOW (>= 1.0.16),
     foreach (>= 1.4.4),
     parallel (>= 3.6.0),
-    Rcpp (>= 1.0.4.6),
-    RcppArmadillo (>= 0.9.870),
+    Rcpp (>= 1.0.3),
     RcppProgress (>= 0.4.2),
-    rgeos (>= 0.4-3),
-    rgl (>= 0.100.54),
-    sp (>= 1.3-1)
+    rgeos,
+    rgl,
+    sp
 Suggests: 
     knitr,
     rmarkdown,
     covr,
-    testthat
+    testthat (>= 3.0.1)
 LinkingTo: 
     Rcpp,
-    RcppArmadillo (>= 0.9.800),
-    RcppProgress (>= 0.4.1)
+    RcppArmadillo (>= 0.9.870),
+    RcppProgress (>= 0.4.2)
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 SystemRequirements: GNU make
+ByteCompile: true
+Config/testthat/edition: 3

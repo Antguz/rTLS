@@ -12,8 +12,8 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Voxels Counting — voxels_counting" />
-<meta property="og:description" content="Creates voxels of different size on a point cloud using the voxels function, and then return a summary_voxels of their features." />
+<meta property="og:description" content="Creates cube like voxels of different size on a point cloud using the voxels function, and then return a summary_voxels of their features." />
 
 
 
@@ -55,13 +55,23 @@
 <![endif]-->
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W6KLJNB4MN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W6KLJNB4MN');
+</script>
+
 
   </head>
 
   <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
@@ -72,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -80,15 +90,16 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-book"></span>
+     
     Articles
      
     <span class="caret"></span>
@@ -105,12 +116,18 @@
     </li>
   </ul>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/Antguz/rTLS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+<li>
+  <a href="../reference/index.html">
+    <span class="fas fa-file-code-o"></span>
      
+    Functions
+  </a>
+</li>
+<li>
+  <a href="https://github.com/Antguz/rTLS/">
+    <span class="fas fa-github fa-lg"></span>
+     
+    github
   </a>
 </li>
       </ul>
@@ -132,20 +149,20 @@
     </div>
 
     <div class="ref-description">
-    <p>Creates voxels of different size on a point cloud using the <code>voxels</code> function, and then return a <code>summary_voxels</code> of their features.</p>
+    <p>Creates cube like voxels of different size on a point cloud using the <code><a href='voxels.html'>voxels</a></code> function, and then return a <code><a href='summary_voxels.html'>summary_voxels</a></code> of their features.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>voxels_counting</span>(
-  <span class='no'>cloud</span>,
-  <span class='kw'>voxel.sizes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>min.size</span>,
-  <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>bootstrap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>R</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>cores</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>voxels_counting</span><span class='op'>(</span>
+  <span class='va'>cloud</span>,
+  edge_sizes <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>min_size</span>,
+  length_out <span class='op'>=</span> <span class='fl'>10</span>,
+  bootstrap <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  R <span class='op'>=</span> <span class='cn'>NULL</span>,
+  progress <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  parallel <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  threads <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,16 +172,16 @@
       <td><p>A <code>data.table</code> with xyz coordinates of the point clouds in the first three columns.</p></td>
     </tr>
     <tr>
-      <th>voxel.sizes</th>
-      <td><p>A positive <code>numeric</code> vector describing the different voxel edge lengths to perform. If <code>NULL</code>, it use voxel sizes by default based on the largest range of XYZ and <code>min.size</code>.</p></td>
+      <th>edge_sizes</th>
+      <td><p>A positive <code>numeric</code> vector describing the edge length of the different cubes to perform. If <code>NULL</code>, it use edge sizes by default based on the largest range of XYZ and <code>min_size</code>.</p></td>
     </tr>
     <tr>
-      <th>min.size</th>
-      <td><p>A positive <code>numeric</code> vector of length 1 describing the minimum voxel edge length to perform. This is required if <code>voxel.sizes = NULL</code>.</p></td>
+      <th>min_size</th>
+      <td><p>A positive <code>numeric</code> vector of length 1 describing the minimum cube edge length to perform. This is required if <code>edge_sizes = NULL</code>.</p></td>
     </tr>
     <tr>
-      <th>length.out</th>
-      <td><p>A positive <code>interger</code> of length 1 indicating the number of different voxel sizes to use. This is required if <code>voxel.sizes = NULL</code>.</p></td>
+      <th>length_out</th>
+      <td><p>A positive <code>interger</code> of length 1 indicating the number of different edge lengths to use. This is required if <code>edge_sizes  = NULL</code>.</p></td>
     </tr>
     <tr>
       <th>bootstrap</th>
@@ -183,8 +200,8 @@
       <td><p>Logical, if <code>TRUE</code> it uses a parallel processing for the voxelization. <code>FALSE</code> as default.</p></td>
     </tr>
     <tr>
-      <th>cores</th>
-      <td><p>An <code>integer</code> &gt;= 0 describing the number of cores to use. This need to be used if <code>parallel = TRUE</code>.</p></td>
+      <th>threads</th>
+      <td><p>An <code>integer</code> &gt;= 0 describing the number of threads to use. This need to be used if <code>parallel = TRUE</code>.</p></td>
     </tr>
     </table>
 
@@ -193,75 +210,78 @@
     <p>A <code>data.table</code> with the summary of the voxels created with their features.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>voxels</code>, <code>summary_voxels</code>, <code>plot_voxels</code></p></div>
+    <div class='dont-index'><p><code><a href='voxels.html'>voxels</a></code>, <code><a href='summary_voxels.html'>summary_voxels</a></code>, <code><a href='plot_voxels.html'>plot_voxels</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>J. Antonio Guzmán Q.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>pc_tree</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>pc_tree</span><span class='op'>)</span>
 
 <span class='co'>#Applying voxels counting.</span>
-<span class='fu'>voxels_counting</span>(<span class='no'>pc_tree</span>, <span class='kw'>min.size</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</div><div class='output co'>#&gt; [1] "Creating voxels"
-#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |==============                                                        |  20%  |                                                                              |=====================                                                 |  30%  |                                                                              |============================                                          |  40%  |                                                                              |===================================                                   |  50%  |                                                                              |==========================================                            |  60%  |                                                                              |=================================================                     |  70%  |                                                                              |========================================================              |  80%  |                                                                              |===============================================================       |  90%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt;     Voxel.size N_voxels     volume  Surface Density_mean Density_sd         H
-#&gt;  1:  0.0500000    72859   9.107375 25.25250    8328.1956  1591.7595 11.181794
-#&gt;  2:  0.0856426    38369  24.101833 26.25073    3146.9806  1698.9219 10.419240
-#&gt;  3:  0.1466931    12990  41.005141 27.39352    1849.7193  1356.6095  9.206435
-#&gt;  4:  0.2512636     3735  59.248769 28.97823    1280.1616  1019.8631  7.902519
-#&gt;  5:  0.4303774     1012  80.673112 30.93252     940.1893   742.7959  6.586281
-#&gt;  6:  0.7371728      262 104.956457 34.23569     722.6616   539.7403  5.255786
-#&gt;  7:  1.2626679       79 159.035666 41.45259     476.9245   432.0273  3.956065
-#&gt;  8:  2.1627634       23 232.677747 42.09791     325.9787   316.0107  2.701463
-#&gt;  9:  3.7044937        8 406.702247 54.89309     186.4952   103.6981  1.941538
-#&gt; 10:  6.3452497        1 255.473675 40.26219     296.8916         NA  0.000000
-#&gt;          Hmax Equitavility Negentropy
-#&gt;  1: 11.196281    0.9987060 0.01448758
-#&gt;  2: 10.555005    0.9871373 0.13576547
-#&gt;  3:  9.471935    0.9719698 0.26550005
-#&gt;  4:  8.225503    0.9607338 0.32298420
-#&gt;  5:  6.919684    0.9518181 0.33340334
-#&gt;  6:  5.568345    0.9438686 0.31255878
-#&gt;  7:  4.369448    0.9053924 0.41338314
-#&gt;  8:  3.135494    0.8615749 0.43403118
-#&gt;  9:  2.079442    0.9336824 0.13790355
-#&gt; 10:  0.000000          NaN 0.00000000</div><div class='input'>
-<span class='co'>#Voxels counting using boostrap on the H indixes with 1000 repetitions.</span>
-<span class='fu'>voxels_counting</span>(<span class='no'>pc_tree</span>, <span class='kw'>min.size</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>bootstrap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>R</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</div><div class='output co'>#&gt; [1] "Creating voxels"
-#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |==============                                                        |  20%  |                                                                              |=====================                                                 |  30%  |                                                                              |============================                                          |  40%  |                                                                              |===================================                                   |  50%  |                                                                              |==========================================                            |  60%  |                                                                              |=================================================                     |  70%  |                                                                              |========================================================              |  80%  |                                                                              |===============================================================       |  90%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt;     Voxel.size N_voxels     volume  Surface Density_mean Density_sd         H
-#&gt;  1:  0.0500000    72859   9.107375 25.25250    8328.1956  1591.7595 11.181794
-#&gt;  2:  0.0856426    38369  24.101833 26.25073    3146.9806  1698.9219 10.419240
-#&gt;  3:  0.1466931    12990  41.005141 27.39352    1849.7193  1356.6095  9.206435
-#&gt;  4:  0.2512636     3735  59.248769 28.97823    1280.1616  1019.8631  7.902519
-#&gt;  5:  0.4303774     1012  80.673112 30.93252     940.1893   742.7959  6.586281
-#&gt;  6:  0.7371728      262 104.956457 34.23569     722.6616   539.7403  5.255786
-#&gt;  7:  1.2626679       79 159.035666 41.45259     476.9245   432.0273  3.956065
-#&gt;  8:  2.1627634       23 232.677747 42.09791     325.9787   316.0107  2.701463
-#&gt;  9:  3.7044937        8 406.702247 54.89309     186.4952   103.6981  1.941538
-#&gt; 10:  6.3452497        1 255.473675 40.26219     296.8916         NA  0.000000
-#&gt;          Hmax Equitavility Negentropy H_boot_mean    H_boot_sd
-#&gt;  1: 11.196281    0.9987060 0.01448758   11.181798 0.0002444957
-#&gt;  2: 10.555005    0.9871373 0.13576547   10.419243 0.0006875815
-#&gt;  3:  9.471935    0.9719698 0.26550005    9.206300 0.0025179284
-#&gt;  4:  8.225503    0.9607338 0.32298420    7.902664 0.0060826024
-#&gt;  5:  6.919684    0.9518181 0.33340334    6.586349 0.0128106250
-#&gt;  6:  5.568345    0.9438686 0.31255878    5.257734 0.0256478765
-#&gt;  7:  4.369448    0.9053924 0.41338314    3.959126 0.0501174616
-#&gt;  8:  3.135494    0.8615749 0.43403118    2.712053 0.0963596360
-#&gt;  9:  2.079442    0.9336824 0.13790355    1.952823 0.0496017772
-#&gt; 10:  0.000000          NaN 0.00000000    0.000000 0.0000000000
-#&gt;     Equitavility_boot Negentropy_boot
-#&gt;  1:         0.9987064      0.01448301
-#&gt;  2:         0.9871377      0.13576177
-#&gt;  3:         0.9719556      0.26563509
-#&gt;  4:         0.9607514      0.32283955
-#&gt;  5:         0.9518280      0.33333487
-#&gt;  6:         0.9442185      0.31061075
-#&gt;  7:         0.9060930      0.41032157
-#&gt;  8:         0.8649523      0.42344129
-#&gt;  9:         0.9391092      0.12661886
-#&gt; 10:               NaN      0.00000000</div><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'>#Voxels counting using bootstrap on the H indices and using parallel processing.</span>
-<span class='fu'>voxels_counting</span>(<span class='no'>pc_tree</span>, <span class='kw'>min.size</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>bootstrap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>R</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cores</span> <span class='kw'>=</span> <span class='fl'>4</span>)
-}</div></pre>
+<span class='fu'>voxels_counting</span><span class='op'>(</span><span class='va'>pc_tree</span>, min_size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Creating voxels"
+#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |==============                                                        |  20%  |                                                                              |=====================                                                 |  30%  |                                                                              |============================                                          |  40%  |                                                                              |===================================                                   |  50%  |                                                                              |==========================================                            |  60%  |                                                                              |=================================================                     |  70%  |                                                                              |========================================================              |  80%  |                                                                              |===============================================================       |  90%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt;       Edge.X   Edge.Y   Edge.Z N_voxels   Volume  Surface Density_mean
+#&gt;  1: 2.000000 2.000000 2.000000       26 208.0000 52.00000     729.3077
+#&gt;  2: 2.273717 2.273717 2.273717       23 270.3565 46.52809     637.8868
+#&gt;  3: 2.584894 2.584894 2.584894       18 310.8856 53.45340     630.6469
+#&gt;  4: 2.938658 2.938658 2.938658       14 355.2836 69.08568     627.3617
+#&gt;  5: 3.340838 3.340838 3.340838        8 298.3020 44.64479     849.4609
+#&gt;  6: 3.798059 3.798059 3.798059        8 438.3037 57.70101     657.2501
+#&gt;  7: 4.317855 4.317855 4.317855        8 644.0124 74.57549     508.5317
+#&gt;  8: 4.908790 4.908790 4.908790        7 827.9828 96.38486     449.6735
+#&gt;  9: 5.580598 5.580598 5.580598        4 695.1880 93.42923     608.8672
+#&gt; 10: 6.344350 6.344350 6.344350        1 255.3650 40.25077    1884.3862
+#&gt;     Density_sd         H     Hmax Equitavility Negentropy
+#&gt;  1:   666.6192 2.8071337 3.258097    0.8615870  0.4509629
+#&gt;  2:   731.5321 2.5806326 3.135494    0.8230385  0.5548616
+#&gt;  3:   861.5751 2.2028562 2.890372    0.7621360  0.6875155
+#&gt;  4:   778.8986 1.9014672 2.639057    0.7205100  0.7375901
+#&gt;  5:   416.4392 1.9635014 2.079442    0.9442446  0.1159402
+#&gt;  6:   408.2369 1.9136861 2.079442    0.9202885  0.1657555
+#&gt;  7:   598.9605 1.5854415 2.079442    0.7624362  0.4940001
+#&gt;  8:   823.1561 0.9318226 1.945910    0.4788621  1.0140875
+#&gt;  9:  1143.8455 0.2341148 1.386294    0.1688781  1.1521796
+#&gt; 10:         NA 0.0000000 0.000000          NaN  0.0000000</div><div class='input'>
+<span class='co'>#Voxels counting using bootstrap on the H indexes with 1000 repetitions.</span>
+<span class='fu'>voxels_counting</span><span class='op'>(</span><span class='va'>pc_tree</span>, min_size <span class='op'>=</span> <span class='fl'>2</span>, bootstrap <span class='op'>=</span> <span class='cn'>TRUE</span>, R <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Creating voxels"
+#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |==============                                                        |  20%  |                                                                              |=====================                                                 |  30%  |                                                                              |============================                                          |  40%  |                                                                              |===================================                                   |  50%  |                                                                              |==========================================                            |  60%  |                                                                              |=================================================                     |  70%  |                                                                              |========================================================              |  80%  |                                                                              |===============================================================       |  90%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt;       Edge.X   Edge.Y   Edge.Z N_voxels   Volume  Surface Density_mean
+#&gt;  1: 2.000000 2.000000 2.000000       26 208.0000 52.00000     729.3077
+#&gt;  2: 2.273717 2.273717 2.273717       23 270.3565 46.52809     637.8868
+#&gt;  3: 2.584894 2.584894 2.584894       18 310.8856 53.45340     630.6469
+#&gt;  4: 2.938658 2.938658 2.938658       14 355.2836 69.08568     627.3617
+#&gt;  5: 3.340838 3.340838 3.340838        8 298.3020 44.64479     849.4609
+#&gt;  6: 3.798059 3.798059 3.798059        8 438.3037 57.70101     657.2501
+#&gt;  7: 4.317855 4.317855 4.317855        8 644.0124 74.57549     508.5317
+#&gt;  8: 4.908790 4.908790 4.908790        7 827.9828 96.38486     449.6735
+#&gt;  9: 5.580598 5.580598 5.580598        4 695.1880 93.42923     608.8672
+#&gt; 10: 6.344350 6.344350 6.344350        1 255.3650 40.25077    1884.3862
+#&gt;     Density_sd         H     Hmax Equitavility Negentropy H_boot_mean
+#&gt;  1:   666.6192 2.8071337 3.258097    0.8615870  0.4509629   2.8162757
+#&gt;  2:   731.5321 2.5806326 3.135494    0.8230385  0.5548616   2.6031132
+#&gt;  3:   861.5751 2.2028562 2.890372    0.7621360  0.6875155   2.2407661
+#&gt;  4:   778.8986 1.9014672 2.639057    0.7205100  0.7375901   1.9009389
+#&gt;  5:   416.4392 1.9635014 2.079442    0.9442446  0.1159402   1.9723545
+#&gt;  6:   408.2369 1.9136861 2.079442    0.9202885  0.1657555   1.9335671
+#&gt;  7:   598.9605 1.5854415 2.079442    0.7624362  0.4940001   1.6746742
+#&gt;  8:   823.1561 0.9318226 1.945910    0.4788621  1.0140875   1.1708952
+#&gt;  9:  1143.8455 0.2341148 1.386294    0.1688781  1.1521796   0.7565913
+#&gt; 10:         NA 0.0000000 0.000000          NaN  0.0000000   0.0000000
+#&gt;      H_boot_sd Equitavility_boot Negentropy_boot
+#&gt;  1: 0.11540398         0.8643929       0.4418209
+#&gt;  2: 0.11011667         0.8302083       0.5323810
+#&gt;  3: 0.13168963         0.7752519       0.6496057
+#&gt;  4: 0.23530080         0.7203098       0.7381184
+#&gt;  5: 0.04165204         0.9485020       0.1070870
+#&gt;  6: 0.05937777         0.9298492       0.1458744
+#&gt;  7: 0.17392296         0.8053480       0.4047674
+#&gt;  8: 0.32131280         0.6017211       0.7750149
+#&gt;  9: 0.49512725         0.5457653       0.6297030
+#&gt; 10: 0.00000000               NaN       0.0000000</div><div class='input'>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -277,7 +297,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

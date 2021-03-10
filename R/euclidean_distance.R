@@ -18,7 +18,7 @@
 #' @export
 euclidean_distance <- function(point, cloud, threads = 1L) {
 
-  results <- euclidean_dist(point, as.matrix(cloud), threads)
+  results <- euclidean_rcpp(point, as.matrix(cloud), threads)
 
   return(results)
 }

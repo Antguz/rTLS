@@ -12,8 +12,8 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
@@ -55,13 +55,23 @@
 <![endif]-->
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W6KLJNB4MN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W6KLJNB4MN');
+</script>
+
 
   </head>
 
   <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
@@ -72,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -80,15 +90,16 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-book"></span>
+     
     Articles
      
     <span class="caret"></span>
@@ -105,12 +116,18 @@
     </li>
   </ul>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/Antguz/rTLS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+<li>
+  <a href="../reference/index.html">
+    <span class="fas fa-file-code-o"></span>
      
+    Functions
+  </a>
+</li>
+<li>
+  <a href="https://github.com/Antguz/rTLS/">
+    <span class="fas fa-github fa-lg"></span>
+     
+    github
   </a>
 </li>
       </ul>
@@ -135,20 +152,21 @@
     <p>Create an artificial forest stand of a given area using tree point clouds.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>artificial_stand</span>(
-  <span class='no'>files</span>,
-  <span class='no'>n.trees</span>,
-  <span class='no'>dimension</span>,
-  <span class='kw'>coordinates</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sample</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>overlap</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>rotation</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>degrees</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>n_attempts</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>artificial_stand</span><span class='op'>(</span>
+  <span class='va'>files</span>,
+  <span class='va'>n.trees</span>,
+  <span class='va'>dimension</span>,
+  coordinates <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sample <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  replace <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  overlap <span class='op'>=</span> <span class='cn'>NULL</span>,
+  rotation <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  degrees <span class='op'>=</span> <span class='cn'>NULL</span>,
+  n_attempts <span class='op'>=</span> <span class='fl'>100</span>,
+  progress <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  plot <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -202,6 +220,10 @@ coordinates based on stand dimension. <code>NULL</code> as default.</p></td>
 This needs to be used if <code>coordinate = NULL</code> and <code>overlap != NULL</code>. <code>n_attempts = 100</code> as default.</p></td>
     </tr>
     <tr>
+      <th>progress</th>
+      <td><p>Logical, if <code>TRUE</code> displays a graphical progress bar. <code>TRUE</code> as default.</p></td>
+    </tr>
+    <tr>
       <th>plot</th>
       <td><p>Logical. If <code>TRUE</code>, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.</p></td>
     </tr>
@@ -231,29 +253,28 @@ requirements are met, this could lead to an infinite loop if the stand
 this scenario.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>voxels_counting</code></p></div>
+    <div class='dont-index'><p><code><a href='voxels_counting.html'>voxels_counting</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>J. Antonio Guzmán Q.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#' #Import an example point cloud</span>
-<span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"pc_tree.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"rTLS"</span>)
+<span class='va'>path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"pc_tree.txt"</span>, package <span class='op'>=</span> <span class='st'>"rTLS"</span><span class='op'>)</span>
 
 <span class='co'>#Creates a stand of 4 trees with 10% of overlap</span>
-<span class='no'>files</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='no'>path</span>, <span class='fl'>4</span>)
-<span class='fu'>artificial_stand</span>(<span class='no'>files</span>, <span class='kw'>n.trees</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>dimension</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>, <span class='fl'>15</span>), <span class='kw'>overlap</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='img'><img src='artificial_stand-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; Creating an artificial forest stand of 15 x 15 with 4 trees  |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt; $Stand
+<span class='va'>files</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>path</span>, <span class='fl'>4</span><span class='op'>)</span>
+<span class='fu'>artificial_stand</span><span class='op'>(</span><span class='va'>files</span>, n.trees <span class='op'>=</span> <span class='fl'>4</span>, dimension <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>15</span><span class='op'>)</span>, overlap <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='img'><img src='artificial_stand-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; Creating an artificial forest stand of 15 x 15 with 4 trees  |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt; $Stand
 #&gt;    n.trees stand_area covered_area total_crown_area n_points
 #&gt; 1:       4        225     92.61884         114.1718   303248
 #&gt; 
 #&gt; $Trees
-#&gt;    Tree
-#&gt; 1:    1
-#&gt; 2:    2
-#&gt; 3:    3
-#&gt; 4:    4
-#&gt;                                                                                              file
-#&gt; 1: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath46603dd23b7f/rTLS/extdata/pc_tree.txt
-#&gt; 2: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath46603dd23b7f/rTLS/extdata/pc_tree.txt
-#&gt; 3: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath46603dd23b7f/rTLS/extdata/pc_tree.txt
-#&gt; 4: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath46603dd23b7f/rTLS/extdata/pc_tree.txt
+#&gt;    Tree                                                              file
+#&gt; 1:    1 /tmp/Rtmp9a1acH/temp_libpath2a2e60108e57/rTLS/extdata/pc_tree.txt
+#&gt; 2:    2 /tmp/Rtmp9a1acH/temp_libpath2a2e60108e57/rTLS/extdata/pc_tree.txt
+#&gt; 3:    3 /tmp/Rtmp9a1acH/temp_libpath2a2e60108e57/rTLS/extdata/pc_tree.txt
+#&gt; 4:    4 /tmp/Rtmp9a1acH/temp_libpath2a2e60108e57/rTLS/extdata/pc_tree.txt
 #&gt;    Xcoordinate Ycoordinate       CA  Hmax
 #&gt; 1:   10.993230   11.587823 28.54901 6.036
 #&gt; 2:   13.119010    2.624109 28.54901 6.036
@@ -275,22 +296,18 @@ this scenario.</p>
 #&gt; 303248:  5.372143  6.003040 5.451    4
 #&gt; </div><div class='input'>
 <span class='co'>#Creates a stand of 4 trees with their locations</span>
-<span class='no'>location</span> <span class='kw'>&lt;-</span> <span class='fu'>data.table</span>(<span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>10</span>, <span class='fl'>5</span>), <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>10</span>))
-<span class='fu'>artificial_stand</span>(<span class='no'>files</span>, <span class='kw'>n.trees</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>dimension</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>, <span class='fl'>15</span>), <span class='kw'>coordinates</span> <span class='kw'>=</span> <span class='no'>location</span>)</div><div class='img'><img src='artificial_stand-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; Creating an artificial forest stand of 15 x 15 with 4 trees  |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt; $Stand
+<span class='va'>location</span> <span class='op'>&lt;-</span> <span class='fu'>data.table</span><span class='op'>(</span>X <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>10</span>, <span class='fl'>5</span><span class='op'>)</span>, Y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>artificial_stand</span><span class='op'>(</span><span class='va'>files</span>, n.trees <span class='op'>=</span> <span class='fl'>4</span>, dimension <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>15</span><span class='op'>)</span>, coordinates <span class='op'>=</span> <span class='va'>location</span><span class='op'>)</span>
+</div><div class='img'><img src='artificial_stand-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; Creating an artificial forest stand of 15 x 15 with 4 trees  |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt; $Stand
 #&gt;    n.trees stand_area covered_area total_crown_area n_points
 #&gt; 1:       4        225     102.0835         102.0835   303248
 #&gt; 
 #&gt; $Trees
-#&gt;    Tree
-#&gt; 1:    1
-#&gt; 2:    2
-#&gt; 3:    3
-#&gt; 4:    4
-#&gt;                                                                                              file
-#&gt; 1: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath46603dd23b7f/rTLS/extdata/pc_tree.txt
-#&gt; 2: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath46603dd23b7f/rTLS/extdata/pc_tree.txt
-#&gt; 3: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath46603dd23b7f/rTLS/extdata/pc_tree.txt
-#&gt; 4: C:/Users/josea/AppData/Local/Temp/RtmpMXtOX2/temp_libpath46603dd23b7f/rTLS/extdata/pc_tree.txt
+#&gt;    Tree                                                              file
+#&gt; 1:    1 /tmp/Rtmp9a1acH/temp_libpath2a2e60108e57/rTLS/extdata/pc_tree.txt
+#&gt; 2:    2 /tmp/Rtmp9a1acH/temp_libpath2a2e60108e57/rTLS/extdata/pc_tree.txt
+#&gt; 3:    3 /tmp/Rtmp9a1acH/temp_libpath2a2e60108e57/rTLS/extdata/pc_tree.txt
+#&gt; 4:    4 /tmp/Rtmp9a1acH/temp_libpath2a2e60108e57/rTLS/extdata/pc_tree.txt
 #&gt;    Xcoordinate Ycoordinate       CA  Hmax
 #&gt; 1:           5           5 28.54901 6.036
 #&gt; 2:          10           5 28.54901 6.036
@@ -328,7 +345,7 @@ this scenario.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

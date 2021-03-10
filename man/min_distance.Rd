@@ -4,14 +4,12 @@
 \alias{min_distance}
 \title{Minimum Distance Between Points}
 \usage{
-min_distance(cloud, threads = 1, progress = TRUE)
+min_distance(cloud, threads = 1L)
 }
 \arguments{
 \item{cloud}{A \code{data.table} with *XYZ* coordinates in the first three columns representing a point cloud.}
 
 \item{threads}{An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.}
-
-\item{progress}{Show progress. \code{TRUE} as default.}
 }
 \value{
 A \code{numeric} vector describing the minimum distance between points.
@@ -23,8 +21,7 @@ Estimate the minimum distance between points in a point cloud.
 data("pc_tree")
 
 #Estimate the minimum distance of a sample o 100 points
-cloud_sample <- pc_tree[sample(nrow(pc_tree), 100), ]
-min_distance(cloud_sample)
+min_distance(pc_tree)
 
 }
 \author{

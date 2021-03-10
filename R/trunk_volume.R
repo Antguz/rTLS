@@ -3,9 +3,9 @@
 #' @description Estimates the tree trunk volume of a point cloud using the \code{\link[alphashape3d]{ashape3d}} package.
 #'
 #' @param cloud A \code{data.table} with three columns representing the *XYZ* coordinates of a point cloud.
-#' @param max.height A \code{numeric} vector to contemplate points in the cloud lower than a specific height. If \code{NULL}, it performs the α-shape on the entire point cloud.
+#' @param max.height A \code{numeric} vector to contemplate points in the cloud lower than a specific height. If \code{NULL}, it performs the alpha-shape on the entire point cloud.
 #' @param alpha A \code{numeric} vector of length one passed to \code{ashape3d} to describes alpha. \code{alpha = 0.20} as default since it seems to provide better estimations of the trunk volume. However, the \code{alpha} value may depends on the resolution of the point cloud.
-#' @param plot Logical. If \code{TRUE}, it uses \code{plot.ashape3d} to represent the α-shape.
+#' @param plot Logical. If \code{TRUE}, it uses \code{plot.ashape3d} to represent the alpha-shape.
 #' @param ... General arguments passed to \code{ashape3d}.
 #'
 #' @details This is an adaptation of the code develop by Lafarge & Pateiro-Lopez (2017) based on Edelsbrunner & Mucke (1994) for the quick extraction of the tree trunk volume.
@@ -14,11 +14,11 @@
 #' @return A \code{numeric} vector with the estimated trunk volume.
 #' @author J. Antonio Guzmán Q.
 #'
-#' @references Lafarge, T., Pateiro-Lopez, B. (2017). Implementation of the 3D Alpha-Shape for the Reconstruction of 3D Sets from a Point Cloud. Available at \url{https://cran.r-project.org/web/packages/alphashape3d/index.html}.
+#' @references Lafarge, T., Pateiro-Lopez, B. (2017). Implementation of the 3D Alpha-Shape for the Reconstruction of 3D Sets from a Point Cloud. Available at \url{https://CRAN.R-project.org/package=alphashape3d}.
 #'
 #' Edelsbrunner, H., Mucke, E. P. (1994). Three-Dimensional Alpha Shapes. ACM Transactions on Graphics, 13(1), pp.43-72.
 #'
-#' @seealso \code{\link{tree_metrics}}
+#' @seealso \code{\link{tree_metrics}}, \code{\link{circleRANSAC}}
 #
 #' @import alphashape3d
 #'
