@@ -30,16 +30,27 @@ namespace Rcpp {
 }
 
 // [[Rcpp::export]]
-double displayed_area_rcpp(Rcpp::NumericMatrix sphere) {
+double displayed_area_rcpp(Rcpp::NumericMatrix sphere, NumericVector angles_vertices) {
 
   int points = sphere.nrow();
+  int angles = angles_vertices.size();
 
   multi_polygon_type circles;
 
   for (int i = 0; i < sphere.nrow(); ++i) {
 
+    NumericMatrix circle(angles, 3);
+
+    for (int j = 0; j < angles; j++) { //Conduct the matrix multiplication
+
+      circle(j, 0) = i + 1;
+      circle(j, 1) = sphere(i, 2) * cos(angles_vertices(j)) + sphere(i, 0);
+      circle(j, 2) = sphere(i, 2) * sin(angles_vertices(j)) + sphere(i, 1);
+
+    }
+
     // Conversion of pointsMatrix here to boost::geometry polygon
-    polygon poly = as<polygon>(sphere);
+    polygon poly = as<polygon>(circle);
 
     circles.push_back(poly);
 
