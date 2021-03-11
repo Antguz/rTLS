@@ -8,8 +8,9 @@
 
 0 errors | 0 warnings | 1 note
 
-* This is a new release 0.2.1.
-Only one note related with the installed size (data and libs). The data example 
-can not be reduced since the nature of data that cannot be created manually 
-for test. Likewise, the C++ code complied also contributes to the package size. 
+* This is a new release 0.2.2.
+Only one note related with the installed size (data and libs). We reduce the size 
+the examples considerably in compassion with 0.2.1. However the size still greater 
+than 5Mb; currently, it is 23.4Mb. The C++ code complied also contributes to the 
+package size. We consider that we need an exception of the package size. 
 
