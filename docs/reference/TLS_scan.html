@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -166,22 +166,27 @@
 
 </dl>
 
-<p>A <code>data.table</code> where the rows represent the pulse retunrs and the three columns represent the *XYZ* coordinates, and the target count and index.</p>
+<p>A <code>data.table</code> where the rows represent the pulse returns and the
+three columns represent the *XYZ* coordinates, and the target count and index.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A TLS scan conducted using a Reigel VZ400i with a vertical and horizontal resolution of 0.04 degrees. The scanner has frame of scanning between 30 and 130 degrees zenith and 0 and 360 degrees azimuth.
-At the moment of the scan the roll, pitch, and yaw of the scanner were 0.293, -0.835, -150.159, respectively. The scanner coordinates in this scan are <code>x = 0, y = 0, z = 0</code>.</p>
+    <p>A TLS scan conducted using a Reigel VZ400i with a vertical and
+horizontal resolution of 0.048 and 0.622 degrees (2082 and 580 lines, respectively).
+The scanner has frame of scanning between 30 and 130.024 degrees zenith and 0 and
+359.90 degrees azimuth. At the moment of the scan the roll, pitch, and yaw of
+the scanner were 1.026, 0.746, -110.019, respectively. The scanner coordinates
+in this scan are <code>x = 0, y = 0, z = 0</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>TLS_scan</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>TLS_scan</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           X        Y      Z Target_count Target_index
-#&gt; 1: -252.675 -460.729  1.549            4            4
-#&gt; 2: -241.804 -467.805 22.848            5            5
-#&gt; 3: -259.440 -447.573 28.087            5            5
-#&gt; 4: -451.758 -241.581  2.345            3            3
-#&gt; 5: -461.435 -236.462  3.769            4            4
-#&gt; 6: -440.091 -258.962 23.785            4            4</div><div class='input'>
+</div><div class='output co'>#&gt;         X      Y      Z Target_count Target_index
+#&gt; 1: -3.392 12.330 -1.200            1            1
+#&gt; 2: -3.370 12.248 -1.202            1            1
+#&gt; 3: -3.339 12.136 -1.202            1            1
+#&gt; 4: -3.722 11.989 -1.169            2            2
+#&gt; 5: -3.595 12.039 -1.168            1            1
+#&gt; 6: -3.424 11.943 -1.171            1            1</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

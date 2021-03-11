@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -262,264 +262,40 @@ Therefore, user should consider this difference since it may introduce more vari
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'># \donttest{</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>TLS_scan</span><span class='op'>)</span>
 <span class='co'>#Using a multiple return file</span>
 <span class='co'>#Select the four columns required</span>
 <span class='va'>TLS_scan</span> <span class='op'>&lt;-</span> <span class='va'>TLS_scan</span><span class='op'>[</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
 
 <span class='co'>#This will take a while#</span>
-<span class='fu'>canopy_structure</span><span class='op'>(</span>TLS.type <span class='op'>=</span> <span class='st'>"multiple"</span>, scan <span class='op'>=</span> <span class='va'>TLS_scan</span>,
-                 zenith.range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>50</span>,<span class='fl'>70</span><span class='op'>)</span>, TLS.pulse.counts <span class='op'>=</span> <span class='cn'>NULL</span>,
-                 zenith.rings <span class='op'>=</span> <span class='fl'>4</span>, azimuth.range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>360</span><span class='op'>)</span>,
-                 vertical.resolution <span class='op'>=</span> <span class='fl'>0.25</span>, TLS.resolution <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.04</span>, <span class='fl'>0.04</span><span class='op'>)</span>,
-                 TLS.frame <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>130</span>, <span class='fl'>0</span>, <span class='fl'>360</span><span class='op'>)</span>,
-                 TLS.angles <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.293</span>, <span class='op'>-</span><span class='fl'>0.835</span>, <span class='op'>-</span><span class='fl'>150.159</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     height Pgap(52.5) Pgap(57.5) Pgap(62.5) Pgap(67.5)    L (hinge)
-#&gt;  1:   0.25  0.9999996  0.9999940  1.0000000 1.00000000 6.596768e-06
-#&gt;  2:   0.50  0.9875563  0.9953484  0.9949059 0.99316321 5.128699e-03
-#&gt;  3:   0.75  0.9875518  0.9911823  0.9832767 0.97397280 9.742472e-03
-#&gt;  4:   1.00  0.9874439  0.9802355  0.9511441 0.92806353 2.195869e-02
-#&gt;  5:   1.25  0.9861295  0.9436780  0.8998049 0.88722025 6.376729e-02
-#&gt;  6:   1.50  0.9666078  0.9125188  0.8720820 0.86255388 1.007013e-01
-#&gt;  7:   1.75  0.9185173  0.8848894  0.8544223 0.82567938 1.345219e-01
-#&gt;  8:   2.00  0.8587689  0.8719095  0.8422414 0.79144973 1.507766e-01
-#&gt;  9:   2.25  0.8305027  0.8526559  0.8163878 0.73887703 1.753391e-01
-#&gt; 10:   2.50  0.7939050  0.8177325  0.7762613 0.67563004 2.213420e-01
-#&gt; 11:   2.75  0.7455174  0.7843017  0.7344192 0.62400366 2.672577e-01
-#&gt; 12:   3.00  0.7114164  0.7580521  0.6870913 0.58278989 3.047035e-01
-#&gt; 13:   3.25  0.6807722  0.7198980  0.6362174 0.54111535 3.615103e-01
-#&gt; 14:   3.50  0.6383797  0.6705212  0.5905863 0.50395869 4.396700e-01
-#&gt; 15:   3.75  0.6120817  0.6250700  0.5578539 0.46647280 5.168808e-01
-#&gt; 16:   4.00  0.5759468  0.5855053  0.5249086 0.43803254 5.888081e-01
-#&gt; 17:   4.25  0.5404163  0.5460720  0.4858952 0.41154666 6.655049e-01
-#&gt; 18:   4.50  0.5004908  0.5173401  0.4449304 0.38961477 7.249602e-01
-#&gt; 19:   4.75  0.4619961  0.4882093  0.4135053 0.36871662 7.887122e-01
-#&gt; 20:   5.00  0.4261585  0.4454133  0.3887992 0.34329946 8.896278e-01
-#&gt; 21:   5.25  0.3911782  0.3996997  0.3672498 0.30935142 1.008746e+00
-#&gt; 22:   5.50  0.3509752  0.3532994  0.3464482 0.28160575 1.144483e+00
-#&gt; 23:   5.75  0.3125040  0.3160967  0.3209844 0.25542759 1.266878e+00
-#&gt; 24:   6.00  0.2742538  0.2916462  0.2966874 0.23151502 1.355435e+00
-#&gt; 25:   6.25  0.2482374  0.2747142  0.2745086 0.20887566 1.421226e+00
-#&gt; 26:   6.50  0.2314778  0.2552699  0.2541662 0.19186171 1.501977e+00
-#&gt; 27:   6.75  0.2160634  0.2396876  0.2356337 0.17801155 1.571261e+00
-#&gt; 28:   7.00  0.2025989  0.2204046  0.2201753 0.16909343 1.663520e+00
-#&gt; 29:   7.25  0.1900666  0.2066881  0.2076575 0.15980152 1.734199e+00
-#&gt; 30:   7.50  0.1754737  0.1935555  0.1947079 0.15095984 1.806410e+00
-#&gt; 31:   7.75  0.1618376  0.1802650  0.1857775 0.14179205 1.884660e+00
-#&gt; 32:   8.00  0.1513431  0.1698016  0.1757433 0.12952788 1.950437e+00
-#&gt; 33:   8.25  0.1397842  0.1596065  0.1663403 0.11725853 2.018548e+00
-#&gt; 34:   8.50  0.1322167  0.1510281  0.1556561 0.10407986 2.079318e+00
-#&gt; 35:   8.75  0.1268511  0.1491886  0.1476986 0.09682468 2.092798e+00
-#&gt; 36:   9.00  0.1225452  0.1479490  0.1430807 0.09169004 2.101976e+00
-#&gt; 37:   9.25  0.1211588  0.1464550  0.1380444 0.08755788 2.113141e+00
-#&gt; 38:   9.50  0.1204408  0.1435660  0.1328977 0.08450490 2.135057e+00
-#&gt; 39:   9.75  0.1201225  0.1414127  0.1283303 0.08209894 2.151680e+00
-#&gt; 40:  10.00  0.1199047  0.1390559  0.1246678 0.08028725 2.170167e+00
-#&gt; 41:  10.25  0.1197986  0.1364313  0.1216773 0.07966947 2.191127e+00
-#&gt; 42:  10.50  0.1197155  0.1346748  0.1199070 0.07930168 2.205382e+00
-#&gt; 43:  10.75  0.1196199  0.1339906  0.1191666 0.07896144 2.210984e+00
-#&gt; 44:  11.00  0.1194002  0.1337255  0.1184478 0.07885074 2.213163e+00
-#&gt; 45:  11.25  0.1192780  0.1336036  0.1175325 0.07869995 2.214166e+00
-#&gt; 46:  11.50  0.1192594  0.1331682  0.1158684 0.07866574 2.217756e+00
-#&gt; 47:  11.75  0.1192594  0.1323934  0.1144242 0.07864175 2.224175e+00
-#&gt; 48:  12.00  0.1192594  0.1308175  0.1131790 0.07864175 2.237347e+00
-#&gt; 49:  12.25  0.1192594  0.1288480  0.1124484 0.07864175 2.254034e+00
-#&gt; 50:  12.50  0.1192594  0.1270569  0.1116069 0.07863968 2.269433e+00
-#&gt; 51:  12.75  0.1192594  0.1254683  0.1110642 0.07863761 2.283272e+00
-#&gt; 52:  13.00  0.1192594  0.1245421  0.1107433 0.07863501 2.291423e+00
-#&gt; 53:  13.25  0.1192594  0.1240194  0.1106506 0.07862457 2.296049e+00
-#&gt; 54:  13.50  0.1192594  0.1238591  0.1106452 0.07862213 2.297472e+00
-#&gt; 55:  13.75  0.1192594  0.1238579  0.1106452 0.07861917 2.297482e+00
-#&gt; 56:  14.00  0.1192594  0.1238579  0.1106452 0.07861917 2.297482e+00
-#&gt;     height Pgap(52.5) Pgap(57.5) Pgap(62.5) Pgap(67.5)    L (hinge)
-#&gt;     L/LAI (weighted mean)         PAVD
-#&gt;  1:          5.947408e-07 2.582111e-02
-#&gt;  2:          2.810313e-03 4.662072e-02
-#&gt;  3:          7.883336e-03 1.212207e-01
-#&gt;  4:          2.107394e-02 1.685681e-01
-#&gt;  5:          3.941664e-02 1.181357e-01
-#&gt;  6:          5.227155e-02 1.378848e-01
-#&gt;  7:          6.727545e-02 1.212549e-01
-#&gt;  8:          8.046978e-02 1.725119e-01
-#&gt;  9:          9.924162e-02 2.487455e-01
-#&gt; 10:          1.263088e-01 2.481997e-01
-#&gt; 11:          1.533166e-01 2.323811e-01
-#&gt; 12:          1.786031e-01 2.680579e-01
-#&gt; 13:          2.077717e-01 2.863468e-01
-#&gt; 14:          2.389305e-01 2.630823e-01
-#&gt; 15:          2.675577e-01 2.510025e-01
-#&gt; 16:          2.948705e-01 2.757510e-01
-#&gt; 17:          3.248763e-01 2.701939e-01
-#&gt; 18:          3.542774e-01 2.570092e-01
-#&gt; 19:          3.822438e-01 2.960242e-01
-#&gt; 20:          4.144556e-01 3.542272e-01
-#&gt; 21:          4.530007e-01 3.643103e-01
-#&gt; 22:          4.926431e-01 3.847269e-01
-#&gt; 23:          5.345070e-01 3.679280e-01
-#&gt; 24:          5.745430e-01 3.417554e-01
-#&gt; 25:          6.117310e-01 3.140459e-01
-#&gt; 26:          6.459039e-01 2.883268e-01
-#&gt; 27:          6.772781e-01 2.608846e-01
-#&gt; 28:          7.056662e-01 2.391397e-01
-#&gt; 29:          7.316881e-01 2.552045e-01
-#&gt; 30:          7.594581e-01 2.469215e-01
-#&gt; 31:          7.863268e-01 2.818964e-01
-#&gt; 32:          8.170013e-01 3.015343e-01
-#&gt; 33:          8.498127e-01 3.281393e-01
-#&gt; 34:          8.855191e-01 1.988494e-01
-#&gt; 35:          9.071569e-01 1.408081e-01
-#&gt; 36:          9.224789e-01 1.253798e-01
-#&gt; 37:          9.361220e-01 1.189854e-01
-#&gt; 38:          9.490694e-01 9.999052e-02
-#&gt; 39:          9.599499e-01 8.409063e-02
-#&gt; 40:          9.691002e-01 5.872359e-02
-#&gt; 41:          9.754901e-01 3.674555e-02
-#&gt; 42:          9.794886e-01 1.879945e-02
-#&gt; 43:          9.815343e-01 1.214248e-02
-#&gt; 44:          9.828555e-01 1.372617e-02
-#&gt; 45:          9.843492e-01 2.142628e-02
-#&gt; 46:          9.866807e-01 2.128447e-02
-#&gt; 47:          9.889967e-01 2.424092e-02
-#&gt; 48:          9.916345e-01 2.145893e-02
-#&gt; 49:          9.939695e-01 2.176450e-02
-#&gt; 50:          9.963378e-01 1.721469e-02
-#&gt; 51:          9.982110e-01 1.019209e-02
-#&gt; 52:          9.993201e-01 4.941766e-03
-#&gt; 53:          9.998578e-01 1.243655e-03
-#&gt; 54:          9.999932e-01 6.285961e-05
-#&gt; 55:          1.000000e+00 0.000000e+00
-#&gt; 56:          1.000000e+00           NA
-#&gt;     L/LAI (weighted mean)         PAVD</div><div class='input'>
+<span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'>canopy_structure</span><span class='op'>(</span>TLS.type <span class='op'>=</span> <span class='st'>"multiple"</span>,
+                 scan <span class='op'>=</span> <span class='va'>TLS_scan</span>,
+                 zenith.range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>50</span>, <span class='fl'>70</span><span class='op'>)</span>,
+                 zenith.rings <span class='op'>=</span> <span class='fl'>4</span>,
+                 azimuth.range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>360</span><span class='op'>)</span>,
+                 vertical.resolution <span class='op'>=</span> <span class='fl'>0.25</span>,
+                 TLS.pulse.counts <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2082</span>, <span class='fl'>580</span><span class='op'>)</span>,
+                 TLS.frame <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>130.024</span>, <span class='fl'>0</span>, <span class='fl'>359.90</span><span class='op'>)</span>,
+                 TLS.angles <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.026</span>, <span class='fl'>0.760</span>, <span class='op'>-</span><span class='fl'>110.019</span><span class='op'>)</span><span class='op'>)</span>
+
 <span class='co'>#Using a single return file</span>
 
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>TLS_scan</span><span class='op'>)</span>
 <span class='co'>#Subset to first return observations</span>
 <span class='va'>TLS_scan</span> <span class='op'>&lt;-</span> <span class='va'>TLS_scan</span><span class='op'>[</span><span class='va'>Target_index</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in .checkTypos(e, names_x): Object 'Target_index' not found amongst X, Y, Z, Target_count</span></div><div class='input'>
+
 <span class='co'>#This will take a while#</span>
-<span class='fu'>canopy_structure</span><span class='op'>(</span>TLS.type <span class='op'>=</span> <span class='st'>"single"</span>, scan <span class='op'>=</span> <span class='va'>TLS_scan</span>,
-                 zenith.range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>50</span>,<span class='fl'>70</span><span class='op'>)</span>, zenith.rings <span class='op'>=</span> <span class='fl'>4</span>,
-                 azimuth.range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>360</span><span class='op'>)</span>, vertical.resolution <span class='op'>=</span> <span class='fl'>0.25</span>,
-                 TLS.pulse.counts <span class='op'>=</span> <span class='cn'>NULL</span>, TLS.resolution <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.04</span>, <span class='fl'>0.04</span><span class='op'>)</span>,
-                 TLS.frame <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>130</span>, <span class='fl'>0</span>, <span class='fl'>360</span><span class='op'>)</span>,
-                 TLS.angles <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.293</span>, <span class='op'>-</span><span class='fl'>0.835</span>, <span class='op'>-</span><span class='fl'>150.159</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt;     height  Pgap(52.5)   Pgap(57.5)   Pgap(62.5)   Pgap(67.5)    L (hinge)
-#&gt;  1:   0.25  0.99999913  0.999985781  1.000000000  1.000000000 1.564148e-05
-#&gt;  2:   0.50  0.97983799  0.993065362  0.991326064  0.988642918 7.654673e-03
-#&gt;  3:   0.75  0.97982580  0.986432887  0.969149759  0.956998794 1.502599e-02
-#&gt;  4:   1.00  0.97957843  0.969483328  0.924179486  0.889972547 3.409120e-02
-#&gt;  5:   1.25  0.97766919  0.921492756  0.851883648  0.829779746 8.993640e-02
-#&gt;  6:   1.50  0.95167146  0.879715185  0.813287297  0.795798262 1.409728e-01
-#&gt;  7:   1.75  0.88243968  0.838318872  0.786331440  0.746591942 1.939924e-01
-#&gt;  8:   2.00  0.80420347  0.819377704  0.769046667  0.697367848 2.191311e-01
-#&gt;  9:   2.25  0.76756816  0.793397919  0.733113819  0.620117650 2.545734e-01
-#&gt; 10:   2.50  0.72196934  0.747661126  0.677029177  0.533054094 3.198860e-01
-#&gt; 11:   2.75  0.65969341  0.702968572  0.622927276  0.462983947 3.876874e-01
-#&gt; 12:   3.00  0.61445170  0.668368258  0.561729810  0.402108601 4.432076e-01
-#&gt; 13:   3.25  0.57540719  0.619602727  0.495079141  0.340088571 5.265444e-01
-#&gt; 14:   3.50  0.52236129  0.559265247  0.429955297  0.286416382 6.392446e-01
-#&gt; 15:   3.75  0.48812473  0.496631328  0.381051537  0.233440070 7.698981e-01
-#&gt; 16:   4.00  0.44039718  0.440509909  0.332321967  0.192055464 9.018046e-01
-#&gt; 17:   4.25  0.39057835  0.385264761  0.277103830  0.151740889 1.049207e+00
-#&gt; 18:   4.50  0.33517812  0.343727143  0.218744057  0.118673908 1.174698e+00
-#&gt; 19:   4.75  0.28137096  0.300731145  0.172693986  0.087328397 1.321692e+00
-#&gt; 20:   5.00  0.23058009  0.238661561  0.134977471  0.048521997 1.575980e+00
-#&gt; 21:   5.25  0.18264698  0.176113848  0.103291830 -0.001845892 1.910287e+00
-#&gt; 22:   5.50  0.12725895  0.111729163  0.072230073 -0.043084747 2.410845e+00
-#&gt; 23:   5.75  0.07459890  0.058942199  0.034159846 -0.082500815 3.114318e+00
-#&gt; 24:   6.00  0.02036234  0.024120595 -0.003125639 -0.119727942 4.097158e+00
-#&gt; 25:   6.25 -0.01858723 -0.001397948 -0.037489891 -0.154438185          NaN
-#&gt; 26:   6.50 -0.04259821 -0.030758402 -0.069751424 -0.180859242          NaN
-#&gt; 27:   6.75 -0.06608396 -0.055249591 -0.100075541 -0.203532524          NaN
-#&gt; 28:   7.00 -0.08626688 -0.084455409 -0.125458359 -0.218840900          NaN
-#&gt; 29:   7.25 -0.10619371 -0.105935634 -0.147010780 -0.234553649          NaN
-#&gt; 30:   7.50 -0.12842958 -0.125655316 -0.168907137 -0.249230138          NaN
-#&gt; 31:   7.75 -0.14865865 -0.146548100 -0.183440424 -0.263901294          NaN
-#&gt; 32:   8.00 -0.16425398 -0.163268371 -0.198506057 -0.282529077          NaN
-#&gt; 33:   8.25 -0.18163400 -0.179153251 -0.212598537 -0.300932900          NaN
-#&gt; 34:   8.50 -0.19386552 -0.192867001 -0.229001697 -0.320497404          NaN
-#&gt; 35:   8.75 -0.20239613 -0.196188127 -0.241519361 -0.332385947          NaN
-#&gt; 36:   9.00 -0.20941033 -0.198457903 -0.249698279 -0.340879541          NaN
-#&gt; 37:   9.25 -0.21177598 -0.200852099 -0.258566845 -0.347682770          NaN
-#&gt; 38:   9.50 -0.21311297 -0.205441420 -0.267094142 -0.352925388          NaN
-#&gt; 39:   9.75 -0.21368696 -0.209114476 -0.274835808 -0.357223287          NaN
-#&gt; 40:  10.00 -0.21407456 -0.212773313 -0.281481679 -0.360490259          NaN
-#&gt; 41:  10.25 -0.21427750 -0.216986708 -0.287052195 -0.361657162          NaN
-#&gt; 42:  10.50 -0.21442993 -0.219990562 -0.290376019 -0.362401029          NaN
-#&gt; 43:  10.75 -0.21462242 -0.221288973 -0.291787311 -0.363080019          NaN
-#&gt; 44:  11.00 -0.21499434 -0.221811537 -0.293123950 -0.363304867          NaN
-#&gt; 45:  11.25 -0.21523822 -0.222057711 -0.294715653 -0.363498610          NaN
-#&gt; 46:  11.50 -0.21528003 -0.222742021 -0.297497356 -0.363559933          NaN
-#&gt; 47:  11.75 -0.21528003 -0.223808479 -0.299857804 -0.363595482          NaN
-#&gt; 48:  12.00 -0.21528003 -0.226041818 -0.301994294 -0.363595482          NaN
-#&gt; 49:  12.25 -0.21528003 -0.228885703 -0.303255392 -0.363595482          NaN
-#&gt; 50:  12.50 -0.21528003 -0.231470973 -0.304701345 -0.363599926          NaN
-#&gt; 51:  12.75 -0.21528003 -0.233682983 -0.305639836 -0.363603481          NaN
-#&gt; 52:  13.00 -0.21528003 -0.235061379 -0.306120635 -0.363608813          NaN
-#&gt; 53:  13.25 -0.21528003 -0.235819452 -0.306271718 -0.363630143          NaN
-#&gt; 54:  13.50 -0.21528003 -0.236033633 -0.306277939 -0.363638141          NaN
-#&gt; 55:  13.75 -0.21528003 -0.236036299 -0.306277939 -0.363644362          NaN
-#&gt; 56:  14.00 -0.21528003 -0.236036299 -0.306277939 -0.363644362          NaN
-#&gt;     height  Pgap(52.5)   Pgap(57.5)   Pgap(62.5)   Pgap(67.5)    L (hinge)
-#&gt;     L/LAI (weighted mean) PAVD
-#&gt;  1:                   NaN  NaN
-#&gt;  2:                   NaN  NaN
-#&gt;  3:                   NaN  NaN
-#&gt;  4:                   NaN  NaN
-#&gt;  5:                   NaN  NaN
-#&gt;  6:                   NaN  NaN
-#&gt;  7:                   NaN  NaN
-#&gt;  8:                   NaN  NaN
-#&gt;  9:                   NaN  NaN
-#&gt; 10:                   NaN  NaN
-#&gt; 11:                   NaN  NaN
-#&gt; 12:                   NaN  NaN
-#&gt; 13:                   NaN  NaN
-#&gt; 14:                   NaN  NaN
-#&gt; 15:                   NaN  NaN
-#&gt; 16:                   NaN  NaN
-#&gt; 17:                   NaN  NaN
-#&gt; 18:                   NaN  NaN
-#&gt; 19:                   NaN  NaN
-#&gt; 20:                   NaN  NaN
-#&gt; 21:                   NaN  NaN
-#&gt; 22:                   NaN  NaN
-#&gt; 23:                   NaN  NaN
-#&gt; 24:                   NaN  NaN
-#&gt; 25:                   NaN  NaN
-#&gt; 26:                   NaN  NaN
-#&gt; 27:                   NaN  NaN
-#&gt; 28:                   NaN  NaN
-#&gt; 29:                   NaN  NaN
-#&gt; 30:                   NaN  NaN
-#&gt; 31:                   NaN  NaN
-#&gt; 32:                   NaN  NaN
-#&gt; 33:                   NaN  NaN
-#&gt; 34:                   NaN  NaN
-#&gt; 35:                   NaN  NaN
-#&gt; 36:                   NaN  NaN
-#&gt; 37:                   NaN  NaN
-#&gt; 38:                   NaN  NaN
-#&gt; 39:                   NaN  NaN
-#&gt; 40:                   NaN  NaN
-#&gt; 41:                   NaN  NaN
-#&gt; 42:                   NaN  NaN
-#&gt; 43:                   NaN  NaN
-#&gt; 44:                   NaN  NaN
-#&gt; 45:                   NaN  NaN
-#&gt; 46:                   NaN  NaN
-#&gt; 47:                   NaN  NaN
-#&gt; 48:                   NaN  NaN
-#&gt; 49:                   NaN  NaN
-#&gt; 50:                   NaN  NaN
-#&gt; 51:                   NaN  NaN
-#&gt; 52:                   NaN  NaN
-#&gt; 53:                   NaN  NaN
-#&gt; 54:                   NaN  NaN
-#&gt; 55:                   NaN  NaN
-#&gt; 56:                   NaN  NaN
-#&gt;     L/LAI (weighted mean) PAVD</div><div class='input'><span class='co'># }</span>
+<span class='fu'>canopy_structure</span><span class='op'>(</span>TLS.type <span class='op'>=</span> <span class='st'>"single"</span>,
+                 scan <span class='op'>=</span> <span class='va'>TLS_scan</span>,
+                 zenith.range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>50</span>, <span class='fl'>70</span><span class='op'>)</span>,
+                 zenith.rings <span class='op'>=</span> <span class='fl'>4</span>,
+                 azimuth.range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>360</span><span class='op'>)</span>,
+                 vertical.resolution <span class='op'>=</span> <span class='fl'>0.25</span>,
+                 TLS.pulse.counts <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2082</span>, <span class='fl'>580</span><span class='op'>)</span>,
+                 TLS.frame <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>130.024</span>, <span class='fl'>0</span>, <span class='fl'>359.90</span><span class='op'>)</span>,
+                 TLS.angles <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.026</span>, <span class='fl'>0.760</span>, <span class='op'>-</span><span class='fl'>110.019</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 </div></pre>
   </div>
