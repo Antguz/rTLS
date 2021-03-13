@@ -15,6 +15,8 @@
 #' @param alpha A positive numeric vector describing the transparency of the voxels to fill. This value most be between 0.0 (fully transparent) .. 1.0 (opaque).
 #' @param ... General arguments passed to \code{\link{rgl}}.
 #'
+#' @return Plot a 3D point cloud and voxels.
+#'
 #' @author J. Antonio Guzmán Q.
 #'
 #' @seealso \code{\link{voxels}}, \code{\link{voxels_counting}}, \code{\link{summary_voxels}}
