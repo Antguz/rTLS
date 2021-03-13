@@ -119,8 +119,6 @@ canopy_structure(TLS.type = "single",
 
 }
 \references{
-\insertRef{Danson F.M., Hetherington D., Morsdorf F., Koetz B., Allgower B. (2007) <doi: https://doi.org/10.1109/LGRS.2006.887064>}
-
 Danson F.M., Hetherington D., Morsdorf F., Koetz B., Allgower B. 2007. Forest canopy gap fraction from terrestrial laser scanning. IEEE Geosci. Remote Sensing Letters 4:157-160. doi: 10.1109/LGRS.2006.887064
 
 Lovell J.L., Jupp D.L.B., van Gorsel E., Jimenez-Berni J., Hopkinson C., Chasmer L. 2011. Foliage profiles from ground based waveform and discrete point LiDAR. In: SilviLaser 2011, Hobart, Australia, 16–20 October 2011.
