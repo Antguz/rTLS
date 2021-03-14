@@ -42,12 +42,11 @@
 #' Therefore, user should consider this difference since it may introduce more variability to profile estimations.
 #'
 #' @references
-#'
-#' Danson F.M., Hetherington D., Morsdorf F., Koetz B., Allgower B. 2007. Forest canopy gap fraction from terrestrial laser scanning. IEEE Geosci. Remote Sensing Letters 4:157-160. doi: 10.1109/LGRS.2006.887064.
+#' Danson F.M., Hetherington D., Morsdorf F., Koetz B., Allgower B. 2007. Forest canopy gap fraction from terrestrial laser scanning. IEEE Geosci. Remote Sensing Letters 4:157-160. doi: 10.1109/LGRS.2006.887064
 #'
 #' Lovell J.L., Jupp D.L.B., van Gorsel E., Jimenez-Berni J., Hopkinson C., Chasmer L. 2011. Foliage profiles from ground based waveform and discrete point LiDAR. In: SilviLaser 2011, Hobart, Australia, 16–20 October 2011.
 #'
-#' Jupp D.L.B., Culvenor D.S., Lovell J.L., Newnham G.J., Strahler A.H., Woodcock C.E. 2009. Estimating forest LAI profiles and structural parameters using a ground-based laser called “Echidna®”. Tree Physiology 29(2): 171-181. doi: 10.1093/treephys/tpn022.
+#' Jupp D.L.B., Culvenor D.S., Lovell J.L., Newnham G.J., Strahler A.H., Woodcock C.E. 2009. Estimating forest LAI profiles and structural parameters using a ground-based laser called “Echidna®”. Tree Physiology 29(2): 171-181. doi: 10.1093/treephys/tpn022
 #'
 #' @return For any \code{TLS.type}, it returns a \code{data.table} with the height profiles defined by \code{vertical.resolution}, the gap probability based on the \code{zenith.range} and \code{zenith.rings}, and
 #' the accumulative L(z) profiles based on the closest zenith ring to 57.5 degrees (hinge angle). If \code{TLS.type} is equal to \code{"fixed.angle"}, it returns f(z) or commonly named PAVD based on
@@ -63,7 +62,7 @@
 #'
 #' @examples
 #'
-#' \dontrun{
+#' \donttest{
 #' data(TLS_scan)
 #' #Using a multiple return file
 #' #Select the four columns required

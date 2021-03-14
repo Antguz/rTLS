@@ -24,7 +24,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: J. Antonio Guzmán Q. \email{antguz06@gmail.com} (\href{https://orcid.org/0000-0002-0721-148X}{ORCID})
+\strong{Maintainer}: J. Antonio Guzmán Q. \email{antguz06@gmail.com} (\href{https://orcid.org/0000-0002-0721-148X}{ORCID}) [thesis advisor, copyright holder]
 
 Authors:
 \itemize{
@@ -33,7 +33,14 @@ Authors:
 
 Other contributors:
 \itemize{
-  \item Arturo Sanchez-Azofeifa \email{arturo.sanchez@ualberta.ca} (\href{https://orcid.org/0000-0001-7768-6600}{ORCID}) [thesis advisor]
+  \item Arturo Sanchez-Azofeifa \email{arturo.sanchez@ualberta.ca} (\href{https://orcid.org/0000-0001-7768-6600}{ORCID}) [degree supervisor, scientific advisor]
+  \item Marius Muja \email{mariusm@cs.ubc.ca} (Copyright holder for FLANN C++ code) [copyright holder]
+  \item David G. Lowe \email{lowe@cs.ubc.ca} (Copyright holder for FLANN C++ code) [copyright holder]
+  \item Aguilar Pablo (Copyright holder for Boost C++ code) [copyright holder]
+  \item Diggins Christopher (Copyright holder for Boost C++ code) [copyright holder]
+  \item Henney Kevlin (Copyright holder for Boost C++ code) [copyright holder]
+  \item Yee Jeremy \email{jeremyyee@outlook.com.au} (Copyright holder for rflann code) [copyright holder]
+  \item Rabaud Vincent (Honored by a work on dynamic_bitset.h) [honoree]
 }
 
 }

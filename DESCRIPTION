@@ -2,11 +2,11 @@ Type: Package
 Package: rTLS
 Title: Tools to Process Point Clouds Derived from Terrestrial
     Laser Scanning
-Version: 0.2.2
+Version: 0.2.3
 Authors@R:
     c(person(given = "J. Antonio",
              family = "Guzmán Q.",
-             role = c("cre", "aut"),
+             role = c("cre", "aut", "ths", "cph"),
              email = "antguz06@gmail.com",
              comment = c(ORCID = "0000-0002-0721-148X")),
       person(given = "Ronny",
@@ -16,9 +16,41 @@ Authors@R:
              comment = c(ORCID = "0000-0001-6225-7096")),
       person(given = "Arturo",
              family = "Sanchez-Azofeifa",
-             role = "ths",
+             role = c("dgs", "sad"),
              email = "arturo.sanchez@ualberta.ca",
-             comment = c(ORCID = "0000-0001-7768-6600")))
+             comment = c(ORCID = "0000-0001-7768-6600")),
+      person(given = "Marius",
+             family = "Muja",
+             role = "cph",
+             email = "mariusm@cs.ubc.ca",
+             comment = "Copyright holder for FLANN C++ code"),
+      person(given = "David G.",
+             family = "Lowe",
+             role = "cph",
+             email = "lowe@cs.ubc.ca",
+             comment = "Copyright holder for FLANN C++ code"),
+      person(given = "Aguilar",
+             family = "Pablo",
+             role = "cph",
+             comment = "Copyright holder for Boost C++ code"),
+      person(given = "Diggins",
+             family = "Christopher",
+             role = "cph",
+             comment = "Copyright holder for Boost C++ code"),
+      person(given = "Henney",
+             family = "Kevlin",
+             role = "cph",
+             comment = "Copyright holder for Boost C++ code"),
+      person(given = "Yee",
+             family = "Jeremy",
+             role = "cph",
+             email = "jeremyyee@outlook.com.au",
+             comment = "Copyright holder for rflann code"),
+      person(given = "Rabaud",
+             family = "Vincent",
+             role = "hnr",
+             comment = "Honored by a work on dynamic_bitset.h"))
+Maintainer: J. Antonio Guzmán Q. <antguz06@gmail.com>
 Description: A set of tools to process and calculate 
              metrics on point clouds derived from terrestrial LiDAR 
              (Light Detection and Ranging; TLS). Its creation is based on key 
