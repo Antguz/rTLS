@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
       </span>
     </div>
 
@@ -253,16 +253,16 @@ of L/LAI (average weighted) and the derivative of z (Jupp et al. 2009; Equation 
 Therefore, user should consider this difference since it may introduce more variability to profile estimations.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Danson F.M., Hetherington D., Morsdorf F., Koetz B., Allgower B. 2007. Forest canopy gap fraction from terrestrial laser scanning. IEEE Geosci. Remote Sensing Letters 4:157-160. doi: 10.1109/LGRS.2006.887064.</p>
+    <p>Danson F.M., Hetherington D., Morsdorf F., Koetz B., Allgower B. 2007. Forest canopy gap fraction from terrestrial laser scanning. IEEE Geosci. Remote Sensing Letters 4:157-160. doi: 10.1109/LGRS.2006.887064</p>
 <p>Lovell J.L., Jupp D.L.B., van Gorsel E., Jimenez-Berni J., Hopkinson C., Chasmer L. 2011. Foliage profiles from ground based waveform and discrete point LiDAR. In: SilviLaser 2011, Hobart, Australia, 16–20 October 2011.</p>
-<p>Jupp D.L.B., Culvenor D.S., Lovell J.L., Newnham G.J., Strahler A.H., Woodcock C.E. 2009. Estimating forest LAI profiles and structural parameters using a ground-based laser called “Echidna®”. Tree Physiology 29(2): 171-181. doi: 10.1093/treephys/tpn022.</p>
+<p>Jupp D.L.B., Culvenor D.S., Lovell J.L., Newnham G.J., Strahler A.H., Woodcock C.E. 2009. Estimating forest LAI profiles and structural parameters using a ground-based laser called “Echidna®”. Tree Physiology 29(2): 171-181. doi: 10.1093/treephys/tpn022</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>J. Antonio Guzmán Q.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='co'># \donttest{</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>TLS_scan</span><span class='op'>)</span>
 <span class='co'>#Using a multiple return file</span>
 <span class='co'>#Select the four columns required</span>
@@ -284,7 +284,7 @@ Therefore, user should consider this difference since it may introduce more vari
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>TLS_scan</span><span class='op'>)</span>
 <span class='co'>#Subset to first return observations</span>
 <span class='va'>TLS_scan</span> <span class='op'>&lt;-</span> <span class='va'>TLS_scan</span><span class='op'>[</span><span class='va'>Target_index</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>
-
+</div><div class='output co'>#&gt; <span class='error'>Error in .checkTypos(e, names_x): Object 'Target_index' not found amongst X, Y, Z, Target_count</span></div><div class='input'>
 <span class='co'>#This will take a while#</span>
 <span class='fu'>canopy_structure</span><span class='op'>(</span>TLS.type <span class='op'>=</span> <span class='st'>"single"</span>,
                  scan <span class='op'>=</span> <span class='va'>TLS_scan</span>,
@@ -295,7 +295,74 @@ Therefore, user should consider this difference since it may introduce more vari
                  TLS.pulse.counts <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2082</span>, <span class='fl'>580</span><span class='op'>)</span>,
                  TLS.frame <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>130.024</span>, <span class='fl'>0</span>, <span class='fl'>359.90</span><span class='op'>)</span>,
                  TLS.angles <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.026</span>, <span class='fl'>0.760</span>, <span class='op'>-</span><span class='fl'>110.019</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
+</div><div class='output co'>#&gt;     height Pgap(52.5) Pgap(57.5) Pgap(62.5) Pgap(67.5)  L (hinge)
+#&gt;  1:   0.25 1.00000000 1.00000000  1.0000000  1.0000000 0.00000000
+#&gt;  2:   0.50 1.00000000 1.00000000  1.0000000  0.9764347 0.00000000
+#&gt;  3:   0.75 0.99818031 0.97200862  0.9672550  0.9281773 0.03122967
+#&gt;  4:   1.00 0.98459764 0.92356646  0.9212362  0.8729762 0.08746377
+#&gt;  5:   1.25 0.94280979 0.85510441  0.8373519  0.7223373 0.17218487
+#&gt;  6:   1.50 0.92588019 0.80260192  0.7051786  0.5266560 0.24188607
+#&gt;  7:   1.75 0.82755203 0.65435863  0.5908526  0.4360572 0.46650968
+#&gt;  8:   2.00 0.74826561 0.58629433  0.4879443  0.3728684 0.58732668
+#&gt;  9:   2.25 0.63084697 0.45266821  0.3863783  0.3421441 0.87185543
+#&gt; 10:   2.50 0.48523940 0.38261518  0.3260419  0.2860812 1.05679810
+#&gt; 11:   2.75 0.40296349 0.27543918  0.2677438  0.2394478 1.41832729
+#&gt; 12:   3.00 0.34656940 0.21761684  0.2330599  0.1870805 1.67752133
+#&gt; 13:   3.25 0.31087426 0.19022207  0.2074737  0.1616260 1.82551938
+#&gt; 14:   3.50 0.25394401 0.17048392  0.1750104  0.1474073 1.94602570
+#&gt; 15:   3.75 0.21595802 0.14526019  0.1437070  0.1421706 2.12215159
+#&gt; 16:   4.00 0.20278152 0.10790520  0.1326705  0.1409443 2.44915240
+#&gt; 17:   4.25 0.16398317 0.08945973  0.1233574  0.1406128 2.65536339
+#&gt; 18:   4.50 0.14835334 0.06872721  0.1158174  0.1406128 2.94537106
+#&gt; 19:   4.75 0.13751645 0.05619821  0.1105311  0.1405631 3.16675741
+#&gt; 20:   5.00 0.12871046 0.04255883  0.1099843  0.1405631 3.47255463
+#&gt; 21:   5.25 0.11623260 0.03559828  0.1098848  0.1405631 3.66900386
+#&gt; 22:   5.50 0.10573689 0.03395757  0.1098848  0.1405631 3.72090770
+#&gt; 23:   5.75 0.08919722 0.03002983  0.1098848  0.1405631 3.85612043
+#&gt; 24:   6.00 0.07704431 0.02512430  0.1098848  0.1405631 4.05231194
+#&gt; 25:   6.25 0.07124405 0.02499171  0.1098848  0.1405631 4.05813206
+#&gt; 26:   6.50 0.06901818 0.02492542  0.1098848  0.1405631 4.06105371
+#&gt; 27:   6.75 0.06659735 0.02492542  0.1098848  0.1405631 4.06105371
+#&gt; 28:   7.00 0.06575249 0.02477627  0.1098848  0.1405631 4.06765593
+#&gt; 29:   7.25 0.06557377 0.02466026  0.1098848  0.1405631 4.07281853
+#&gt; 30:   7.50 0.06549253 0.02466026  0.1098848  0.1405631 4.07281853
+#&gt; 31:   7.75 0.06549253 0.02466026  0.1098848  0.1405631 4.07281853
+#&gt; 32:   8.00 0.06549253 0.02466026  0.1098848  0.1405631 4.07281853
+#&gt;     height Pgap(52.5) Pgap(57.5) Pgap(62.5) Pgap(67.5)  L (hinge)
+#&gt;     L/LAI (weighted mean)         PAVD
+#&gt;  1:           0.000000000 0.0792017904
+#&gt;  2:           0.004861608 0.2680908352
+#&gt;  3:           0.021317708 0.3646951846
+#&gt;  4:           0.043703630 0.9340795288
+#&gt;  5:           0.101039816 1.4961111526
+#&gt;  6:           0.192874938 1.2652301743
+#&gt;  7:           0.270537997 1.1002953598
+#&gt;  8:           0.338076935 1.1317610455
+#&gt;  9:           0.407547318 1.2749174884
+#&gt; 10:           0.485805009 1.4272248720
+#&gt; 11:           0.573411715 1.4241631995
+#&gt; 12:           0.660830489 0.9264699570
+#&gt; 13:           0.717699580 0.8997225967
+#&gt; 14:           0.772926850 0.7940195737
+#&gt; 15:           0.821665799 0.5048485224
+#&gt; 16:           0.852654690 0.4607920015
+#&gt; 17:           0.880939280 0.4314586220
+#&gt; 18:           0.907423312 0.3270122704
+#&gt; 19:           0.927496160 0.2951670462
+#&gt; 20:           0.945614267 0.2201061983
+#&gt; 21:           0.959124947 0.0980857835
+#&gt; 22:           0.965145703 0.2098353951
+#&gt; 23:           0.978025935 0.2444928039
+#&gt; 24:           0.993033528 0.0514349745
+#&gt; 25:           0.996190738 0.0213080163
+#&gt; 26:           0.997498678 0.0213397832
+#&gt; 27:           0.998808569 0.0129122739
+#&gt; 28:           0.999601157 0.0057567814
+#&gt; 29:           0.999954523 0.0007408768
+#&gt; 30:           1.000000000 0.0000000000
+#&gt; 31:           1.000000000 0.0000000000
+#&gt; 32:           1.000000000           NA
+#&gt;     L/LAI (weighted mean)         PAVD</div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>

@@ -42,7 +42,7 @@ plot_voxels(
 \item{...}{General arguments passed to \code{\link{rgl}}.}
 }
 \value{
-Plot a 3D point cloud and voxels.
+A 3D plot of a point cloud and voxels.
 }
 \description{
 The \code{plot} method for objects of class \code{"voxels"} created using the \code{\link{voxels}} function.

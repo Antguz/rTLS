@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
       </span>
     </div>
 
@@ -213,7 +213,7 @@ with <code><a href='https://rdrr.io/r/base/nrow.html'>nrow(AABBs)</a></code>.</p
 <span class='va'>edge_length</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span><span class='op'>)</span>
 
 <span class='co'>#Plot</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='co'># \donttest{</span>
 <span class='va'>cube</span> <span class='op'>&lt;-</span> <span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/mesh3d.html'>cube3d</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>cube</span> <span class='op'>&lt;-</span> <span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/matrices.html'>scale3d</a></span><span class='op'>(</span><span class='va'>cube</span>,
                      <span class='va'>edge_length</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>/</span><span class='fl'>2</span>,
@@ -229,7 +229,7 @@ with <code><a href='https://rdrr.io/r/base/nrow.html'>nrow(AABBs)</a></code>.</p
              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>orig</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span>, <span class='va'>end</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span>,
              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>orig</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span>, <span class='va'>end</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span>, col <span class='op'>=</span> <span class='st'>"grey"</span><span class='op'>)</span>
 <span class='op'>}</span>
-<span class='op'>}</span>
+<span class='co'># }</span>
 
 <span class='co'>#Estimation</span>
 <span class='fu'>lines_interception</span><span class='op'>(</span><span class='va'>orig</span>, <span class='va'>end</span>, <span class='va'>AABBs</span>, <span class='va'>edge_length</span>, progress <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
