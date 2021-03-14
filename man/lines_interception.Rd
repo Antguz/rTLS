@@ -45,7 +45,7 @@ AABBs <- data.table(X = 0, Y = 0, Z = 0)
 edge_length <- c(2, 2, 2)
 
 #Plot
-\dontrun{
+\donttest{
 cube <- rgl::cube3d()
 cube <- rgl::scale3d(cube,
                      edge_length[1]/2,
