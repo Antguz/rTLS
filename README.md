@@ -51,7 +51,7 @@ The current development of ___rTLS___ is focused on five major processes applied
 
 ### Installation
 
-You can install the ___rTLS___ using the CRAN platform following (pending)
+You can install the ___rTLS___ using the CRAN platform following
 
 ```
 install.packages("rTLS")
