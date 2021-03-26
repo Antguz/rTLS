@@ -19,6 +19,7 @@ arma::mat circleRANSAC_rcpp(arma::mat cloud, double fpoints, double z_value, arm
 #endif
 
   int npoints = cloud.n_rows; //n of points in the cloud
+  double npoints_double = npoints;
   int an_samples = round((npoints * fpoints)); //number of points for sample each iteration
   int int_outliers = round((npoints * poutlier(0))); //number of internal outliers
   int ext_outliers = round((npoints * poutlier(1))); //number of external outliers
@@ -53,7 +54,7 @@ arma::mat circleRANSAC_rcpp(arma::mat cloud, double fpoints, double z_value, arm
       residual(k) = (observed_radio - xyr(i,2)); //residual
     }
 
-    double threshold = z_value*stddev(residual)/sqrt(npoints); //Confidence of intervals
+    double threshold = z_value*(stddev(residual)/sqrt(npoints_double)); //Confidence of intervals
     double min_threshold = mean(residual) - threshold; //Create the minimum threshold
     double max_threshold = mean(residual) + threshold; //Create the maximum threshold
 
@@ -70,7 +71,7 @@ arma::mat circleRANSAC_rcpp(arma::mat cloud, double fpoints, double z_value, arm
       error += pow(residual(l), 2);
     }
 
-    xyr(i,3) = sqrt(error)/npoints; //errors per number of points
+    xyr(i,3) = sqrt(error)/npoints_double; //errors per number of points
     xyr(i,4) = int_out; //Internal proportion of outliers
     xyr(i,5) = ext_out; //External proportion of outliers
   }
