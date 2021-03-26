@@ -1,4 +1,4 @@
-context("filter")
+### Filter
 
 test_that("Whether filter SOR works", {
 

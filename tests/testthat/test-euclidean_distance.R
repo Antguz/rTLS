@@ -1,4 +1,4 @@
-context("euclidean_distance")
+### Euclidean_distance
 
 test_that("Test whether the euclidean distance estimation works", {
 

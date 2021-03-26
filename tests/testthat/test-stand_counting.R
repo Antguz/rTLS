@@ -1,4 +1,4 @@
-context("stand_counting")
+### Stand_counting
 
 test_that("Test whether the stand_counting function works", {
 

@@ -1,4 +1,4 @@
-context("voxels")
+### Voxels
 
 test_that("Test whether the voxel and object function works", {
 

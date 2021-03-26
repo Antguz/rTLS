@@ -1,4 +1,4 @@
-context("tree_metrics")
+### Tree_metrics
 
 test_that("Test whether the tree_metrics works", {
 

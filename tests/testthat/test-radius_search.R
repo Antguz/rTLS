@@ -1,4 +1,4 @@
-context("radius_search")
+### Radius_search
 
 test_that("Whether radius_search works", {
 

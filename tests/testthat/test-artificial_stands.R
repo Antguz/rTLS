@@ -1,4 +1,4 @@
-context("artificial_stands")
+### Artificial_stands
 
 test_that("Whether random locations of trees works", {
 

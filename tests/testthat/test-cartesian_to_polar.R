@@ -1,4 +1,4 @@
-context("cartesian_to_polar")
+### Cartesian_to_polar
 
 test_that("Whether coordinate transformation works", {
 

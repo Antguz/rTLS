@@ -1,4 +1,5 @@
-context("line_AABB")
+### Line_AABB
+
 test_that("Test whether the line_AABB works", {
 
   orig <- data.table(X = c(0, 0, 0, 0, 0),

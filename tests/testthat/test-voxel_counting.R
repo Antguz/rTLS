@@ -1,4 +1,4 @@
-context("voxels_counting")
+### Voxels_counting
 
 test_that("Test whether the voxels_counting function works", {
 

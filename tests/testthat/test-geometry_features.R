@@ -1,4 +1,4 @@
-context("geometry_features")
+### Geometry_features
 
 test_that("Whether geometry features works", {
 
@@ -21,7 +21,7 @@ test_that("Whether geometry features works", {
 
   radius <- c(2.1, 5)
 
-  to_test_radius <- geometry_features(point_cloud, method = "radius_search", radius = radius, max_neighbour = 7)
+  to_test_radius <- geometry_features(point_cloud, method = "radius_search", radius = radius, max_neighbour = 7, progress = FALSE)
 
   expect_equal(dim(to_test_radius), c(7, 4, 2), info = "radius dimensions")
   expect_equal(round(unique(to_test_radius[,1,1]), 4), c(6, 7), info = "npoints")

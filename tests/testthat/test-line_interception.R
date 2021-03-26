@@ -1,4 +1,5 @@
-context("line_interception")
+### Line_interception
+
 test_that("Test whether lines_interception works", {
 
   n <- 20

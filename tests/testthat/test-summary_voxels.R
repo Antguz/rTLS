@@ -1,4 +1,4 @@
-context("summary_voxels")
+### Summary_voxels
 
 test_that("Test whether the summary applied on voxels works", {
 

@@ -1,4 +1,4 @@
-context("circleRANSAC")
+### circleRANSAC
 
 test_that("Test whether the circleRANSAC works", {
 

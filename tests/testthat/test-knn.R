@@ -1,4 +1,4 @@
-context("knn")
+### knn
 
 test_that("Whether knn works", {
 

@@ -1,4 +1,4 @@
-context("min_distance")
+### Min_distance
 
 test_that("Test whether the minimum distance calculation works", {
 
