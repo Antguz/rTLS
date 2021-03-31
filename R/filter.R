@@ -17,7 +17,6 @@
 #' @author J. Antonio Guzmán Q.
 #'
 #' @examples
-#' \donttest{
 #' #Load data
 #' data("pc_tree")
 #'
@@ -39,7 +38,6 @@
 #' r3 <- filter(pc_tree, method = "voxel_center", edge_length = 0.1)
 #' rgl::plot3d(r3, col = "red") #Filter
 #' rgl::points3d(pc_compare, col = "black") #Original
-#' }
 #'
 #' @export
 filter <- function(cloud, method, radius, min_neighbours, k, nSigma, edge_length, build = "kdtree", threads = 1L, checks = 20) {

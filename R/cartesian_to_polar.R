@@ -20,12 +20,10 @@
 #'
 #' @examples
 #'
-#' \donttest{
 #' data(pc_tree)
 #' cartesian_to_polar(pc_tree)
 #' anchor <- c(1, 1, 1)
 #' cartesian_to_polar(pc_tree, anchor)
-#' }
 #'
 #' @export
 cartesian_to_polar <- function(cartesian, anchor = c(0 , 0, 0), digits = NULL) {
