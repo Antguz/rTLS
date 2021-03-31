@@ -45,7 +45,6 @@ A \code{data.table} with the filtered points
 Filtering of point clouds using different methods
 }
 \examples{
-\donttest{
 #Load data
 data("pc_tree")
 
@@ -67,7 +66,6 @@ rgl::points3d(pc_compare, col = "black") #Original
 r3 <- filter(pc_tree, method = "voxel_center", edge_length = 0.1)
 rgl::plot3d(r3, col = "red") #Filter
 rgl::points3d(pc_compare, col = "black") #Original
-}
 
 }
 \author{
