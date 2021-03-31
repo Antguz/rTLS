@@ -25,10 +25,12 @@ If a point from \code{cartesian} presents the same *XY* coordinates than \code{a
 }
 \examples{
 
+\donttest{
 data(pc_tree)
 cartesian_to_polar(pc_tree)
 anchor <- c(1, 1, 1)
 cartesian_to_polar(pc_tree, anchor)
+}
 
 }
 \seealso{
