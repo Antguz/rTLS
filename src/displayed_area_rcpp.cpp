@@ -1,62 +1,49 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include <iostream>
+#include <boost/polygon/polygon.hpp>
 
-#include <boost/geometry.hpp>
-#include <boost/geometry/geometries/geometries.hpp>
-#include <boost/geometry/geometries/point_xy.hpp>
-#include <boost/geometry/geometries/multi_polygon.hpp>
+#include <vector>
+#include "draw_circle_rcpp.h"
 
-typedef boost::geometry::model::point<double, 2, boost::geometry::cs::cartesian> point;
-typedef boost::geometry::model::polygon<point, true, true> polygon;
-typedef boost::geometry::model::multi_polygon<polygon> multi_polygon_type;
-
-namespace Rcpp {
-
-  //Converter from R to Boost.Geometry's multi_polygon type
-  template <> polygon as(SEXP pointsMatrixSEXP) {
-
-    NumericMatrix pointsMatrix(pointsMatrixSEXP);
-    polygon poly;
-
-    for (int i = 0; i < pointsMatrix.nrow(); ++i) {
-      double x = pointsMatrix(i,0);
-      double y = pointsMatrix(i,1);
-      point p(x,y);
-      poly.outer().push_back(p);
-    }
-
-    return poly;
-  }
-}
+namespace bpl = boost::polygon;
+typedef bpl::polygon_data<double> Polygon;
+typedef bpl::polygon_traits<Polygon>::point_type Point;
 
 // [[Rcpp::export]]
-double displayed_area_rcpp(Rcpp::NumericMatrix sphere, NumericVector angles_vertices) {
+double displayed_area_rcpp(arma::mat spheres, int nvertices = 10L) {
 
-  int points = sphere.nrow();
-  int angles = angles_vertices.size();
+  const std::size_t n_shperes = spheres.n_rows;
 
-  multi_polygon_type circles;
+  // Create a polygon
+  Polygon da;
 
-  for (int i = 0; i < sphere.nrow(); ++i) {
+  for (int i = 0; i < n_shperes; i++) {
 
-    NumericMatrix circle(angles, 3);
+    // Create a polygon
+    Polygon polygon;
 
-    for (int j = 0; j < angles; j++) { //Conduct the matrix multiplication
+    double X = spheres(i, 0);
+    double Y = spheres(i, 1);
+    double radius = spheres(i, 2);
 
-      circle(j, 0) = i + 1;
-      circle(j, 1) = sphere(i, 2) * cos(angles_vertices(j)) + sphere(i, 0);
-      circle(j, 2) = sphere(i, 2) * sin(angles_vertices(j)) + sphere(i, 1);
+    arma::mat circle_sphere = draw_circle_rcpp(X, Y, radius, nvertices);
+
+    // Convert to points
+    std::vector<Point> points;
+
+    for (int j = 0; j < nvertices; ++j) {
+
+      double xx = circle_sphere(j, 0);
+      double yy = circle_sphere(j, 1);
+
+      points.push_back(Point(xx, yy));
 
     }
 
-    // Conversion of pointsMatrix here to boost::geometry polygon
-    polygon poly = as<polygon>(circle);
+    polygon.set(points.begin(),points.end());
 
-    circles.push_back(poly);
+    boost::geometry::union_(da, polygon, da);
 
   }
 
-  double area = boost::geometry::area(circles);
-
-  return area;
+  return bpl::area(da);
 }
