@@ -15,19 +15,15 @@ arma::mat radius_search_rcpp(arma::mat query, arma::mat ref, double radius, int 
   const std::size_t n_ref = ref.n_rows;
 
   // Column major to row major
-  arma::mat qquery(n_dim, n_query);
-  {
-    arma::mat temp_q(query.begin(), n_query, n_dim, false);
-    qquery = arma::trans(temp_q);
-  }
+  //Query
+  arma::mat temp_q(query.begin(), n_query, n_dim, false);
+  arma::mat qquery = temp_q.t();
 
   flann::Matrix<double> q_flann(qquery.memptr(), n_query, n_dim);
 
-  arma::mat rref(n_dim, n_ref);
-  {
-    arma::mat temp_r(ref.begin(), n_ref, n_dim, false);
-    rref = arma::trans(temp_r);
-  }
+  //Reference
+  arma::mat temp_r(ref.begin(), n_ref, n_dim, false);
+  arma::mat rref = temp_r.t();
 
   flann::Matrix<double> ref_flann(rref.memptr(), n_ref, n_dim);
 
