@@ -24,13 +24,13 @@ arma::mat knn_rcpp(arma::mat query, arma::mat ref, int k, bool same, std::string
   arma::mat temp_q(query.begin(), n_query, n_dim, false);
   arma::mat qquery = temp_q.t();
 
-  flann::Matrix<double> q_flann(qquery.memptr(), n_query, n_dim);
+  flann::Matrix<double> q_flann(qquery.begin(), n_query, n_dim);
 
   //Reference
   arma::mat temp_r(ref.begin(), n_ref, n_dim, false);
   arma::mat rref = temp_r.t();
 
-  flann::Matrix<double> ref_flann(rref.memptr(), n_ref, n_dim);
+  flann::Matrix<double> ref_flann(rref.begin(), n_ref, n_dim);
 
   // Setting for FLANN
   flann::IndexParams params;
@@ -43,7 +43,7 @@ arma::mat knn_rcpp(arma::mat query, arma::mat ref, int k, bool same, std::string
   }
 
   // Finding the k nearest neighbors
-  flann::Index<flann::L2<double> > index(ref_flann, params);
+  flann::Index<flann::L2<double>> index(ref_flann, params);
   index.buildIndex();
   flann::Matrix<int> indices_flann(new int[n_query * k], n_query, k);
   flann::Matrix<double> dists_flann(new double[n_query * k], n_query, k);

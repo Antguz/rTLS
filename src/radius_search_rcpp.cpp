@@ -19,13 +19,13 @@ arma::mat radius_search_rcpp(arma::mat query, arma::mat ref, double radius, int 
   arma::mat temp_q(query.begin(), n_query, n_dim, false);
   arma::mat qquery = temp_q.t();
 
-  flann::Matrix<double> q_flann(qquery.memptr(), n_query, n_dim);
+  flann::Matrix<double> q_flann(qquery.begin(), n_query, n_dim);
 
   //Reference
   arma::mat temp_r(ref.begin(), n_ref, n_dim, false);
   arma::mat rref = temp_r.t();
 
-  flann::Matrix<double> ref_flann(rref.memptr(), n_ref, n_dim);
+  flann::Matrix<double> ref_flann(rref.begin(), n_ref, n_dim);
 
   // Setting for FLANN
   flann::IndexParams params;
