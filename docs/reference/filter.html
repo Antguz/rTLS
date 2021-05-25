@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.4</span>
       </span>
     </div>
 
@@ -227,18 +227,18 @@
 
 <span class='co'>#SOR filter</span>
 <span class='va'>r1</span> <span class='op'>&lt;-</span> <span class='fu'>filter</span><span class='op'>(</span><span class='va'>pc_tree</span>, method <span class='op'>=</span> <span class='st'>"SOR"</span>, k <span class='op'>=</span> <span class='fl'>30</span>, nSigma <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='va'>r1</span>, col <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span> <span class='co'>#Filter</span>
-<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/3dobjects.html'>points3d</a></span><span class='op'>(</span><span class='va'>pc_compare</span>, col <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span> <span class='co'>#Original</span>
+<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://dmurdoch.github.io/rgl/dev/reference/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='va'>r1</span>, col <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span> <span class='co'>#Filter</span>
+<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://dmurdoch.github.io/rgl/dev/reference/3dobjects.html'>points3d</a></span><span class='op'>(</span><span class='va'>pc_compare</span>, col <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span> <span class='co'>#Original</span>
 
 <span class='co'>#min_neighbours filter</span>
 <span class='va'>r2</span> <span class='op'>&lt;-</span> <span class='fu'>filter</span><span class='op'>(</span><span class='va'>pc_tree</span>, <span class='st'>"min_neighbors"</span>, radius <span class='op'>=</span> <span class='fl'>0.02</span>, min_neighbours <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
-<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='va'>r2</span>, col <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span> <span class='co'>#Filter</span>
-<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/3dobjects.html'>points3d</a></span><span class='op'>(</span><span class='va'>pc_compare</span>, col <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span> <span class='co'>#Original</span>
+<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://dmurdoch.github.io/rgl/dev/reference/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='va'>r2</span>, col <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span> <span class='co'>#Filter</span>
+<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://dmurdoch.github.io/rgl/dev/reference/3dobjects.html'>points3d</a></span><span class='op'>(</span><span class='va'>pc_compare</span>, col <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span> <span class='co'>#Original</span>
 
 <span class='co'>#voxel_center filter</span>
 <span class='va'>r3</span> <span class='op'>&lt;-</span> <span class='fu'>filter</span><span class='op'>(</span><span class='va'>pc_tree</span>, method <span class='op'>=</span> <span class='st'>"voxel_center"</span>, edge_length <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>
-<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='va'>r3</span>, col <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span> <span class='co'>#Filter</span>
-<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/3dobjects.html'>points3d</a></span><span class='op'>(</span><span class='va'>pc_compare</span>, col <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span> <span class='co'>#Original</span>
+<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://dmurdoch.github.io/rgl/dev/reference/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='va'>r3</span>, col <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span> <span class='co'>#Filter</span>
+<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://dmurdoch.github.io/rgl/dev/reference/3dobjects.html'>points3d</a></span><span class='op'>(</span><span class='va'>pc_compare</span>, col <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span> <span class='co'>#Original</span>
 
 </div></pre>
   </div>
