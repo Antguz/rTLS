@@ -1,11 +1,11 @@
-pandoc: 2.11.4
+pandoc: 2.14.0.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   Artificial-stands: Artificial-stands.html
   tree-metrics: tree-metrics.html
   voxels-fractals: voxels-fractals.html
-last_built: 2021-05-25T03:25Z
+last_built: 2021-10-28T20:48Z
 urls:
   reference: https://antguz.github.io/rTLS/reference
   article: https://antguz.github.io/rTLS/articles
