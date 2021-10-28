@@ -1,3 +1,7 @@
+# rTLS 0.2.4
+
+Corrections to the compiler
+
 # rTLS 0.2.3.2
 
 Minor corrections on the DESCRIPTION file by adding 'LazyDataCompression: bzip2'

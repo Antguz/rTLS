@@ -2,7 +2,7 @@ Type: Package
 Package: rTLS
 Title: Tools to Process Point Clouds Derived from Terrestrial
     Laser Scanning
-Version: 0.2.3.4
+Version: 0.2.4
 Authors@R:
     c(person(given = "J. Antonio",
              family = "Guzmán Q.",
@@ -64,7 +64,7 @@ License: GPL (>= 3)
 URL: https://github.com/Antguz/rTLS
 BugReports: https://github.com/Antguz/rTLS/issues
 Depends: 
-    data.table (>= 1.14),
+    data.table (>= 1.0),
     R (>= 4.0.0)
 Imports:
     alphashape3d,
