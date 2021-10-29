@@ -6,7 +6,6 @@ rTLS <img src="https://raw.githubusercontent.com/Antguz/rTLS/master/man/figures/
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/Antguz/rTLS)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/rTLS)](https://cran.r-project.org/package=rTLS)
-[![Codecov test coverage](https://codecov.io/gh/Antguz/rTLS/branch/master/graph/badge.svg)](https://codecov.io/gh/Antguz/rTLS?branch=master)
 
 This is an R package to that compiles a series of tools to process and calculate metrics on point clouds derived from Terrestrial Laser Scanners (TLS), also know as Terrestrial-Light Detection and Ranging (T-LiDAR).
 
