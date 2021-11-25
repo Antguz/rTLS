@@ -1,6 +1,6 @@
 #' K Nearest Neighbors
 #'
-#' Adapted K nearest neighbors based on RcppHNSW
+#' Adapted K nearest neighbors based on \code{RcppHNSW}
 #'
 #' @param query A \code{data.table} containing the set of query points where each row represent a point and each column a given coordinate.
 #' @param ref A \code{numeric} containing the set of reference points where each row represent a point and each column a given coordinate.
