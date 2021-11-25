@@ -8,7 +8,7 @@
 #' @param max_neighbour An \code{integer} specifying the maximum number of ref points to look around to consider for a given radius.
 #' @param distance Type of distance to calculate. \code{"euclidean"} as default. Look \code{hnsw_knn} for more options.
 #' @param same Logic. If \code{TRUE}, it delete neighbors with distance of 0, useful when the k search is based on the same query.
-#' @param threads An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware. If 0, then the maximum allowable cores are used.
+#' @param threads An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.
 #' @param verbose If TRUE, log messages to the console.
 #' @param progress If TRUE, log a progress bar when \code{verbose = TRUE}. Tracking progress could cause a small overhead.
 #' @param ... Arguments passed to \code{hnsw_build} and \code{hnsw_search}.
@@ -35,10 +35,10 @@
 #' data("pc_tree")
 #'
 #' #Radius search of 0.1
-#' radius_search(pc_tree, pc_tree, radius = 0.1, max_neighbour = 100, TRUE)
+#' radius_search(pc_tree, pc_tree, radius = 0.1, max_neighbour = 100)
 #'
 #' @export
-radius_search <- function(query, ref, radius, max_neighbour, distance = "euclidean", same = FALSE, verbose = FALSE, progress = FALSE, ...) {
+radius_search <- function(query, ref, radius, max_neighbour, distance = "euclidean", same = FALSE, threads = 1L, verbose = FALSE, progress = FALSE, ...) {
 
   #Initial arguments
   if(progress == TRUE) {
@@ -48,9 +48,9 @@ radius_search <- function(query, ref, radius, max_neighbour, distance = "euclide
   }
 
   if(same == TRUE) {
-    k_final = k+1
+    k_final = max_neighbour + 1
   } else if(same == FALSE) {
-    k_final = k
+    k_final = max_neighbour
   }
 
   #Modifications and estimation using RcppHNSW

@@ -7,11 +7,13 @@
 #' @param radius A \code{numeric} vector representing the radius for search to consider. This needs be used if \code{method = "radius_search"}.
 #' @param k An \code{integer} vector representing the number of neighbors to consider. This needs be used if \code{method = "knn"}.
 #' @param max_neighbour An \code{integer} specifying the maximum number of points to look around each query point for a given radius. This needs be used if \code{method = "radius_search"}.
-#' @param target Logic. If \code{TRUE}, it consider that target point for the calculations of geometry features.
-#' @param build A \code{character} describing the search structure to be used: "kdtree", "kmeans", "linear".
+#' @param distance Type of distance to calculate. \code{"euclidean"} as default. Look \code{hnsw_knn} for more options.
+#' @param target Logic. If \code{TRUE}, it consider the each target point for the calculations of geometry features.
 #' @param threads An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.
-#' @param checks Number of checks during searching. Higher value gives better search precision but takes longer. See FLANN C++ manual for more details.
-#' @param progress Show progress. \code{TRUE} as default.
+#' @param verbose If \code{TRUE}, log messages to the console.
+#' @param progress If \code{TRUE}, log a progress bar when \code{verbose = TRUE}. Tracking progress could cause a small overhead.
+#' @param ... Arguments passed to \code{hnsw_build} and \code{hnsw_search}.
+#'
 #'
 #' @details The function returns the geometry features of the neighboring points
 #' of a given point in \code{cloud}. Geometry features are represented by the
@@ -44,7 +46,9 @@
 #' geometry_features(example, method = "radius_search", radius = radius_test, max_neighbour = 200)
 #'
 #' @export
-geometry_features <- function(cloud, method, radius, k, max_neighbour, target = FALSE, build = "kdtree", threads = 1L, checks = 1L, progress = TRUE) {
+geometry_features <- function(cloud, method, radius, k, max_neighbour, distance = "euclidean", target = FALSE, threads = 1L, verbose = FALSE, progress = TRUE, ...) {
+
+  dist <- match.arg(distance, c("l2", "euclidean", "cosine", "ip"))
 
   if(method == "radius_search") {
 
@@ -52,24 +56,31 @@ geometry_features <- function(cloud, method, radius, k, max_neighbour, target = 
       stop("max_neighbour value can not be greater than nrow(cloud)")
     }
 
+    #Distances and radius
+    dist <- match.arg(distance, c("l2", "euclidean", "cosine", "ip"))
     radius_max <- max(radius)
 
-    index <- radius_search_rcpp(query = as.matrix(cloud),
-                                ref = as.matrix(cloud),
-                                radius = radius_max,
-                                max_neighbour = max_neighbour,
-                                same = target,
-                                build = build,
-                                threads = threads,
-                                checks = checks)
+    #Get index
+    index <- radius_search(query = as.matrix(cloud),
+                           ref = as.matrix(cloud),
+                           radius = radius_max,
+                           max_neighbour = max_neighbour,
+                           distance = dist,
+                           same = target,
+                           threads = threads,
+                           verbose = verbose,
+                           progress = progress)
+
     index[, 1] <- index[, 1] - 1
     index[, 2] <- index[, 2] - 1
 
-    results <- features_radius_rcpp(index = index,
+    #Estimate features
+    results <- features_radius_rcpp(index = as.matrix(index),
                                     query = as.matrix(cloud),
                                     radius = radius,
                                     threads = threads,
-                                    progress = progress)
+                                    progress = progress,
+                                    ...)
 
     col_names <- c("npoints", "eig1", "eig2", "eig3")
     lev_names <- paste0("radius_", radius)
@@ -105,12 +116,23 @@ geometry_features <- function(cloud, method, radius, k, max_neighbour, target = 
                       threads = threads,
                       checks = checks)
 
+
+    index <- knn(query = as.matrix(cloud),
+                 ref = as.matrix(cloud),
+                 k = k_max,
+                 distance = dist,
+                 same = target,
+                 threads = threads,
+                 verbose = verbose,
+                 progress = progress,
+                 ...)
+
     index[, 1] <- index[, 1] - 1
     index[, 2] <- index[, 2] - 1
     index <- index[,1:3]
 
     #Estimate features
-    results <- features_knn_rcpp(index = index,
+    results <- features_knn_rcpp(index = as.matrix(index),
                                  query = as.matrix(cloud),
                                  k = k_value,
                                  threads = threads,

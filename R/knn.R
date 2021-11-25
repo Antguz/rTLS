@@ -7,7 +7,7 @@
 #' @param k An \code{integer} describing the number of nearest neighbors to search for.
 #' @param distance Type of distance to calculate. \code{"euclidean"} as default. Look \code{hnsw_knn} for more options.
 #' @param same Logic. If \code{TRUE}, it delete neighbors with distance of 0, useful when the k search is based on the same query.
-#' @param threads An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware. If 0, then the maximum allowable cores are used.
+#' @param threads An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.
 #' @param verbose If TRUE, log messages to the console.
 #' @param progress If TRUE, log a progress bar when \code{verbose = TRUE}. Tracking progress could cause a small overhead.
 #' @param ... Arguments passed to \code{hnsw_build} and \code{hnsw_search}.
