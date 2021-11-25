@@ -5,7 +5,11 @@
 #' @param query A \code{data.table} containing the set of query points where each row represent a point and each column a given coordinate.
 #' @param ref A \code{numeric} containing the set of reference points where each row represent a point and each column a given coordinate.
 #' @param k An \code{integer} describing the number of nearest neighbors to search for.
+#' @param distance Type of distance to calculate. \code{"euclidean"} as default. Look \code{hnsw_knn} for more options.
+#' @param same Logic. If \code{TRUE}, it delete neighbors with distance of 0, useful when the k search is based on the same query.
 #' @param threads An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware. If 0, then the maximum allowable cores are used.
+#' @param verbose If TRUE, log messages to the console.
+#' @param progress If TRUE, log a progress bar when \code{verbose = TRUE}. Tracking progress could cause a small overhead.
 #' @param ... Arguments passed to \code{hnsw_build} and \code{hnsw_search}.
 #' @return A \code{data.table} with three columns describing the indices of the query, ref, and k neighbors and the distances.
 #'
@@ -19,9 +23,7 @@
 #' \code{RcppHNSW} package.
 #'
 #' @references
-#' Muja, M., Lowe, D.G. (2009). Fast approximate nearest neighbors with automatic algorithm configuration. VISAPP (1), 2(331-340), 2.
-#'
-#' Muja, M., Lowe, D.G., Yee, J., (2018). rflann: Basic R Interface to the 'FLANN' C++ Library. R package version 1.6.0.
+#' Malkov, Y. A., & Yashunin, D. A. (2016). Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs. arXiv preprint arXiv:1603.09320.
 #'
 #' @seealso \code{\link{radius_search}}
 #'
@@ -34,9 +36,9 @@
 #' knn(pc_tree, pc_tree, k = 3, same = TRUE)
 #'
 #' @export
-knn <- function(query, ref, k, distance = "euclidean", same = FALSE, threads = 1L, progress = FALSE, ...) {
+knn <- function(query, ref, k, distance = "euclidean", same = FALSE, threads = 1L, verbose = FALSE, progress = FALSE, ...) {
 
-  #Initinal arguments
+  #Initial arguments
   if(progress == TRUE) {
     bar <- "bar"
   } else if(progress == FALSE) {
@@ -56,13 +58,15 @@ knn <- function(query, ref, k, distance = "euclidean", same = FALSE, threads = 1
                      distance = dist,
                      progress = bar,
                      n_threads = threads,
+                     verbose = verbose,
                      ...)
 
   results <- hnsw_search(X = as.matrix(query),
-                         ann = ann,
+                         ann = neig,
                          k = k_final,
                          progress = bar,
                          n_threads = threads,
+                         verbose = verbose,
                          ...)
 
   #Index
