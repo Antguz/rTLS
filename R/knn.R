@@ -25,6 +25,10 @@
 #' @references
 #' Malkov, Y. A., & Yashunin, D. A. (2016). Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs. arXiv preprint arXiv:1603.09320.
 #'
+#'
+#' @importFrom RcppHNSW hnsw_build
+#' @importFrom RcppHNSW hnsw_search
+#'
 #' @seealso \code{\link{radius_search}}
 #'
 #' @examples

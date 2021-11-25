@@ -29,6 +29,9 @@
 #'
 #' @seealso \code{\link{radius_search}}
 #'
+#' @importFrom RcppHNSW hnsw_build
+#' @importFrom RcppHNSW hnsw_search
+#'
 #' @examples
 #'
 #' #Point cloud
