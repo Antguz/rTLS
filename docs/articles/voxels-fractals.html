@@ -25,6 +25,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -37,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.5</span>
       </span>
     </div>
 
@@ -79,7 +81,7 @@
   </a>
 </li>
 <li>
-  <a href="https://github.com/Antguz/rTLS/">
+  <a href="https://github.com/Antguz/rTLS/" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
     github
@@ -95,14 +97,14 @@
 
       
 
-      </header><script src="voxels-fractals_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Voxel counting and fractal geometry</h1>
             
-            <h4 class="date">2020-04-10</h4>
+            <h4 data-toc-skip class="date">2020-04-10</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/Antguz/rTLS/blob/master/vignettes/voxels-fractals.Rmd"><code>vignettes/voxels-fractals.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Antguz/rTLS/blob/HEAD/vignettes/voxels-fractals.Rmd" class="external-link"><code>vignettes/voxels-fractals.Rmd</code></a></small>
       <div class="hidden name"><code>voxels-fractals.Rmd</code></div>
 
     </div>
@@ -110,15 +112,15 @@
     
     
 <p>The following examples demonstrates how to use the <code>voxel_counting</code> function of <code>rTLS</code> package to estimate the fractal geometry (Minkowski–Bouligand dimension) of point clouds. In general, this function is based on <code>voxel</code> (also from <code>rTLS</code>) and summarize the properties of the voxelization using different scales.</p>
-<div id="background" class="section level2">
-<h2 class="hasAnchor">
-<a href="#background" class="anchor"></a>Background</h2>
+<div class="section level2">
+<h2 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
+</h2>
 <p>The Minkowski–Bouligand dimension, or commonly known as the box-counting method, is a way of sampling complex patterns in a given object by breaking the object into smaller and smaller boxes while extracting the rate of change. Here because we are dealing with point clouds with three dimensions, voxels of a given volume are used instead of boxes.</p>
 <p>In practice, a given point cloud can be covered using a single large voxel (N<sub>1</sub> = 1) of size S<sub>1</sub>, but as S is reduced in volume (S<sub>1</sub> &gt; S<sub>2</sub> … &gt; S<sub>n</sub>), the number of voxels required (N &gt; 1) to cover it will increase. Since N increases as a power function, it is positive to estimate the Minkowski-Boulingand dimension by a log-log linear model. This can be done by <code>rTLS</code> following the next steps.</p>
 </div>
-<div id="steps" class="section level2">
-<h2 class="hasAnchor">
-<a href="#steps" class="anchor"></a>Steps</h2>
+<div class="section level2">
+<h2 id="steps">Steps<a class="anchor" aria-label="anchor" href="#steps"></a>
+</h2>
 <ol style="list-style-type: decimal">
 <li>Read the file</li>
 </ol>
@@ -126,11 +128,11 @@
 <p>For this example specifically, we will use a point cloud already embedded in <code>rTLS</code>, <code>pc_tree</code>. This point cloud was created from a group of scans of a tree. It has a coarse resolution of 0.05 m for TLS standards in order to integrate it as an example into the package. The file can be load following:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Antguz/rTLS">rTLS</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">pc_tree</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Antguz/rTLS" class="external-link">rTLS</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pc_tree</span><span class="op">)</span>
 
 <span class="co">#Visualize the point cloud</span>
-<span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/plot3d.html">plot3d</a></span><span class="op">(</span><span class="va">pc_tree</span><span class="op">)</span></code></pre></div>
+<span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">pc_tree</span><span class="op">)</span></code></pre></div>
 <hr>
 <ol start="2" style="list-style-type: decimal">
 <li>Run <code>voxel_counting</code>
@@ -155,7 +157,7 @@
 <p>Using the outputs of <code>voxel_counting</code> is then possible to estimate the fractal geometry. As mentioned before, this can be done by fitting a log-log regression between N (<code>fractals$N_voxels</code>) and S (<code>fractals$Voxel.size^3</code>). In practice, the Minkowski–Bouligand dimension is estimated using 1/S in order to obtain positive slopes. This can be done following:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="va">dimention</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">N_voxels</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="va">Edge.X</span><span class="op">*</span><span class="va">Edge.Y</span><span class="op">*</span><span class="va">Edge.Z</span><span class="op">)</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">fractals</span><span class="op">)</span></code></pre></div>
+<span class="va">dimention</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">N_voxels</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="va">Edge.X</span><span class="op">*</span><span class="va">Edge.Y</span><span class="op">*</span><span class="va">Edge.Z</span><span class="op">)</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">fractals</span><span class="op">)</span></code></pre></div>
 <p>The coefficients from this relationship represent the fractal dimension (d<sub>MB</sub>;<code>dimention$coefficients[2]</code>) and the intercept (intercept<sub>MB</sub>;, <code>dimention$coefficients[1]</code>). In general, the resulting d<sub>MB</sub> may have a value between 0 and 1, where values close to 1 represents a tree that uniformly occupies their 3D space (such as a Menger sponge with the greatest surface‐to‐volume ratio), while values close to 0 represents a cylindrical tree (such as a pole‐like object) or a point cloud with two points. On the other hand, the intercept<sub>MB</sub> may have positive and negative values, where high values tend to be associated with large objects that require several voxels to fill at different scales.</p>
 <hr>
 </div>
@@ -172,11 +174,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by J. Antonio Guzmán Q., Ronny Hernandez.</p>
+  <p></p>
+<p>Developed by J. Antonio Guzmán Q., Ronny Hernandez.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
 </div>
 
       </footer>
@@ -184,6 +188,8 @@
 
   
 
+
+  
 
   </body>
 </html>

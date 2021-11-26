@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://antguz.github.io/rTLS/404.html</loc>
+  </url>
+  <url>
+    <loc>https://antguz.github.io/rTLS/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://antguz.github.io/rTLS/articles/Artificial-stands.html</loc>
+  </url>
+  <url>
+    <loc>https://antguz.github.io/rTLS/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://antguz.github.io/rTLS/articles/tree-metrics.html</loc>
+  </url>
+  <url>
+    <loc>https://antguz.github.io/rTLS/articles/voxels-fractals.html</loc>
+  </url>
+  <url>
+    <loc>https://antguz.github.io/rTLS/authors.html</loc>
+  </url>
+  <url>
     <loc>https://antguz.github.io/rTLS/index.html</loc>
+  </url>
+  <url>
+    <loc>https://antguz.github.io/rTLS/news/index.html</loc>
   </url>
   <url>
     <loc>https://antguz.github.io/rTLS/reference/TLS_scan.html</loc>
@@ -19,6 +43,9 @@
     <loc>https://antguz.github.io/rTLS/reference/circleRANSAC.html</loc>
   </url>
   <url>
+    <loc>https://antguz.github.io/rTLS/reference/dimensionality.html</loc>
+  </url>
+  <url>
     <loc>https://antguz.github.io/rTLS/reference/euclidean_distance.html</loc>
   </url>
   <url>
@@ -26,6 +53,9 @@
   </url>
   <url>
     <loc>https://antguz.github.io/rTLS/reference/geometry_features.html</loc>
+  </url>
+  <url>
+    <loc>https://antguz.github.io/rTLS/reference/index.html</loc>
   </url>
   <url>
     <loc>https://antguz.github.io/rTLS/reference/knn.html</loc>
@@ -61,6 +91,9 @@
     <loc>https://antguz.github.io/rTLS/reference/rotate3D.html</loc>
   </url>
   <url>
+    <loc>https://antguz.github.io/rTLS/reference/sphere_covering.html</loc>
+  </url>
+  <url>
     <loc>https://antguz.github.io/rTLS/reference/stand_counting.html</loc>
   </url>
   <url>
@@ -77,14 +110,5 @@
   </url>
   <url>
     <loc>https://antguz.github.io/rTLS/reference/voxels_counting.html</loc>
-  </url>
-  <url>
-    <loc>https://antguz.github.io/rTLS/articles/Artificial-stands.html</loc>
-  </url>
-  <url>
-    <loc>https://antguz.github.io/rTLS/articles/tree-metrics.html</loc>
-  </url>
-  <url>
-    <loc>https://antguz.github.io/rTLS/articles/voxels-fractals.html</loc>
   </url>
 </urlset>

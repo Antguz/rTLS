@@ -35,6 +35,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -47,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.5</span>
       </span>
     </div>
 
@@ -89,7 +91,7 @@
   </a>
 </li>
 <li>
-  <a href="https://github.com/Antguz/rTLS/">
+  <a href="https://github.com/Antguz/rTLS/" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
     github
@@ -107,19 +109,18 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="rtls-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#rtls-" class="anchor"></a>rTLS <img src="https://raw.githubusercontent.com/Antguz/rTLS/master/man/figures/rTLS_logo.png" align="right" alt="" width="120">
+<div class="section level1">
+<div class="page-header"><h1 id="rtls-">rTLS <img src="https://raw.githubusercontent.com/Antguz/rTLS/master/reference/figures/rTLS_logo.png" align="right" alt="" width="120"><a class="anchor" aria-label="anchor" href="#rtls-"></a>
 </h1></div>
 
 <p>This is an R package to that compiles a series of tools to process and calculate metrics on point clouds derived from Terrestrial Laser Scanners (TLS), also know as Terrestrial-Light Detection and Ranging (T-LiDAR).</p>
-<p>Originally, <strong><em>rTLS</em></strong> started as a hobby by <a href="https://www.jaguzmanq.com/">J. Antonio Guzman Q.</a> (<a href="mailto:antguz06@gmail.com" class="email">antguz06@gmail.com</a>) at the University of Alberta. It compiles several functions that students at the <a href="https://www.ualberta.ca/centre-for-earth-observation-sciences/index.html">Centre for Earth Observation Sciences</a> use to process their point cloud of vegetation. Due to its constant use, it was decided to formalize its routines as an R package. This was done under the supervision of <a href="https://apps.ualberta.ca/directory/person/gasanche">Dr. Arturo Sanchez</a> (<a href="mailto:arturo.sanchez@ualberta.ca" class="email">arturo.sanchez@ualberta.ca</a>) and the supreme help of <a href="http://ronnyhdez.rbind.io/">Ronny Hernandez</a> (<a href="mailto:ronny.hernandezm@gmail.com" class="email">ronny.hernandezm@gmail.com</a>).</p>
+<p>Originally, <strong><em>rTLS</em></strong> started as a hobby by <a href="https://www.jaguzmanq.com/" class="external-link">J. Antonio Guzman Q.</a> (<a href="mailto:antguz06@gmail.com" class="email">antguz06@gmail.com</a>) at the University of Alberta. It compiles several functions that students at the <a href="https://www.ualberta.ca/centre-for-earth-observation-sciences/index.html" class="external-link">Centre for Earth Observation Sciences</a> use to process their point cloud of vegetation. Due to its constant use, it was decided to formalize its routines as an R package. This was done under the supervision of <a href="https://apps.ualberta.ca/directory/person/gasanche" class="external-link">Dr. Arturo Sanchez</a> (<a href="mailto:arturo.sanchez@ualberta.ca" class="email">arturo.sanchez@ualberta.ca</a>) and the supreme help of <a href="http://ronnyhdez.rbind.io/" class="external-link">Ronny Hernandez</a> (<a href="mailto:ronny.hernandezm@gmail.com" class="email">ronny.hernandezm@gmail.com</a>).</p>
 <p><strong><em>rTLS</em></strong> goal is to provide a single environment to process point clouds as fast as it can be done. That it is why the <strong><em>rTLS</em></strong> coding has been evolving using different packages. The current code has been enhanced using C++ language through <code>Rcpp</code> and <code>RcppArmadillo</code> packages, and most of the time-consuming processed can be run using for parallel computing through <code>OpenMP</code>. In the future, if there is a faster way to run our main routines, we will probably change our code!</p>
 <p>The current development of <strong><em>rTLS</em></strong> is focused on five major processes applied on TLS scans: i) voxelization, ii) point neighborhood features, iii) filtering, and iv) optimal voxel and entropy, and iv) estimation of the forest structure. Likewise, the package also contains other functions that can be used to mange point clouds such as 2D- 3D-rotation, conversion to cardinal-polar coordinates, and functions to estimate tree metrics such as truck volume or crown area.</p>
 <hr>
-<div id="major-features-include" class="section level3">
-<h3 class="hasAnchor">
-<a href="#major-features-include" class="anchor"></a>Major features include:</h3>
+<div class="section level3">
+<h3 id="major-features-include">Major features include:<a class="anchor" aria-label="anchor" href="#major-features-include"></a>
+</h3>
 <ul>
 <li><p>Support for major platforms: Windows, Linux, macOS.</p></li>
 <li><p>Fast computation using parallel processing options.</p></li>
@@ -153,21 +154,21 @@
 </ul>
 <hr>
 </div>
-<div id="installation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h3>
+<div class="section level3">
+<h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h3>
 <p>You can install the <strong><em>rTLS</em></strong> using the CRAN platform following</p>
-<pre><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("rTLS")</a></code></pre>
+<pre><code><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rTLS"</span><span class="op">)</span></code></pre>
 <p>or using the development version in github following (recommended)</p>
-<pre><code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("Antguz/rTLS")</a></code></pre>
+<pre><code><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Antguz/rTLS"</span><span class="op">)</span></code></pre>
 <p>if you have problems also try</p>
-<pre><code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github("Antguz/rTLS", INSTALL_opts= c("--no-multiarch"))</a></code></pre>
+<pre><code><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Antguz/rTLS"</span>, INSTALL_opts<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"--no-multiarch"</span><span class="op">)</span><span class="op">)</span></code></pre>
 <p>Most common problems for installation comes from rgl package. If required, try to install rgl first and then <strong><em>rTLS</em></strong>.</p>
 <hr>
 </div>
-<div id="usage" class="section level3">
-<h3 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h3>
+<div class="section level3">
+<h3 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h3>
 <p>Take a look to the <a href="https://antguz.github.io/rTLS/articles/">vignettes</a> were we provide details for the use and potential applications of our functions.</p>
 </div>
 </div>
@@ -175,58 +176,61 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=rTLS">https://​cloud.r-project.org/​package=rTLS</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/Antguz/rTLS/">https://​github.com/​Antguz/​rTLS/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/Antguz/rTLS/issues">https://​github.com/​Antguz/​rTLS/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=rTLS" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/Antguz/rTLS/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/Antguz/rTLS/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small>GPL (&gt;= 3)</small></li>
 </ul>
 </div>
+
+
 <div class="citation">
-<h2>Citation</h2>
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
 <li><a href="authors.html">Citing rTLS</a></li>
 </ul>
 </div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>J. Antonio Guzmán Q. <br><small class="roles"> Maintainer, author, thesis advisor, copyright holder </small> <a href="https://orcid.org/0000-0002-0721-148X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Ronny Hernandez <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-6225-7096" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li>J. Antonio Guzmán Q. <br><small class="roles"> Maintainer, author, thesis advisor, copyright holder </small> <a href="https://orcid.org/0000-0002-0721-148X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Ronny Hernandez <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-6225-7096" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://CRAN.R-project.org/package=rTLS"><img src="https://www.r-pkg.org/badges/version/rTLS"></a></li>
-<li><a href="https://github.com/Antguz/rTLS/actions"><img src="https://github.com/Antguz/rTLS/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://opensource.org/licenses/"><img src="https://img.shields.io/badge/License-GPL%20v3-yellow.svg" alt="GPLv3 License"></a></li>
-<li><a href="https://cran.r-project.org/package=rTLS"><img src="http://cranlogs.r-pkg.org/badges/grand-total/rTLS"></a></li>
-<li><a href="https://codecov.io/gh/Antguz/rTLS?branch=master"><img src="https://codecov.io/gh/Antguz/rTLS/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://CRAN.R-project.org/package=rTLS" class="external-link"><img src="https://www.r-pkg.org/badges/version/rTLS"></a></li>
+<li><a href="https://github.com/Antguz/rTLS/actions" class="external-link"><img src="https://github.com/Antguz/rTLS/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://opensource.org/licenses/" class="external-link"><img src="https://img.shields.io/badge/License-GPL%20v3-yellow.svg" alt="GPLv3 License"></a></li>
+<li><a href="https://cran.r-project.org/package=rTLS" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/rTLS"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by J. Antonio Guzmán Q., Ronny Hernandez.</p>
+  <p></p>
+<p>Developed by J. Antonio Guzmán Q., Ronny Hernandez.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
 </div>
 
       </footer>
@@ -234,6 +238,8 @@
 
   
 
+
+  
 
   </body>
 </html>
