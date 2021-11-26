@@ -10,11 +10,12 @@ geometry_features(
   radius,
   k,
   max_neighbour,
+  distance = "euclidean",
   target = FALSE,
-  build = "kdtree",
   threads = 1L,
-  checks = 1L,
-  progress = TRUE
+  verbose = FALSE,
+  progress = TRUE,
+  ...
 )
 }
 \arguments{
@@ -28,15 +29,17 @@ geometry_features(
 
 \item{max_neighbour}{An \code{integer} specifying the maximum number of points to look around each query point for a given radius. This needs be used if \code{method = "radius_search"}.}
 
-\item{target}{Logic. If \code{TRUE}, it consider that target point for the calculations of geometry features.}
+\item{distance}{Type of distance to calculate. \code{"euclidean"} as default. Look \code{hnsw_knn} for more options.}
 
-\item{build}{A \code{character} describing the search structure to be used: "kdtree", "kmeans", "linear".}
+\item{target}{Logic. If \code{TRUE}, it consider the each target point for the calculations of geometry features.}
 
 \item{threads}{An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.}
 
-\item{checks}{Number of checks during searching. Higher value gives better search precision but takes longer. See FLANN C++ manual for more details.}
+\item{verbose}{If \code{TRUE}, log messages to the console.}
 
-\item{progress}{Show progress. \code{TRUE} as default.}
+\item{progress}{If \code{TRUE}, log a progress bar when \code{verbose = TRUE}. Tracking progress could cause a small overhead.}
+
+\item{...}{Arguments passed to \code{hnsw_build} and \code{hnsw_search}.}
 }
 \value{
 A \code{array} describing the point of the \code{cloud} in rows,

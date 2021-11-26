@@ -5,9 +5,9 @@ citEntry(
   title = "rTLS: Tools to Process Point Clouds Derived from Terrestrial Laser Scanning",
   author = "J. Antonio Guzmán Q, Ronny Hernandez, and Arturo Sanchez-Azofeifa",
   year = "2021",
-  note = "R pacakge version 0.2.3.1",
+  note = "R pacakge version 0.2.5",
   url = "https://CRAN.R-project.org/package=rTLS",
   textVersion = "Guzman, JA, Hernandez, R., and Sanchez-Azofeifa, A., (2021),
   rTLS: Tools to Process Point Clouds Derived from Terrestrial Laser Scanning.
-  R pacakge version 0.2.3.1. https://CRAN.R-project.org/package=rTLS"
+  R pacakge version 0.2.5. https://CRAN.R-project.org/package=rTLS"
 )

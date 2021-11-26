@@ -1,3 +1,9 @@
+# rTLS 0.2.5
+
+Having FLANN all this time has causing gcc-ASAN problems, a headache for us and 
+more than four months outside of CRAN. This new version, 'knn' and 'radius_search' 
+were modified to work with 'RcppHNSW' as a base. Problem solved!
+
 # rTLS 0.2.4
 
 Corrections to the compiler

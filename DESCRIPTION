@@ -63,7 +63,7 @@ VignetteBuilder:
 Encoding: UTF-8
 LazyData: true
 LazyDataCompression: bzip2
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 SystemRequirements: GNU make
 ByteCompile: true
 Config/testthat/edition: 3

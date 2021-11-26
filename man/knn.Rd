@@ -4,7 +4,17 @@
 \alias{knn}
 \title{K Nearest Neighbors}
 \usage{
-knn(query, ref, k, same = FALSE, build = "kdtree", threads = 1L, checks = 1L)
+knn(
+  query,
+  ref,
+  k,
+  distance = "euclidean",
+  same = FALSE,
+  threads = 1L,
+  verbose = FALSE,
+  progress = FALSE,
+  ...
+)
 }
 \arguments{
 \item{query}{A \code{data.table} containing the set of query points where each row represent a point and each column a given coordinate.}
@@ -13,25 +23,30 @@ knn(query, ref, k, same = FALSE, build = "kdtree", threads = 1L, checks = 1L)
 
 \item{k}{An \code{integer} describing the number of nearest neighbors to search for.}
 
+\item{distance}{Type of distance to calculate. \code{"euclidean"} as default. Look \code{hnsw_knn} for more options.}
+
 \item{same}{Logic. If \code{TRUE}, it delete neighbors with distance of 0, useful when the k search is based on the same query.}
 
-\item{build}{A \code{character} describing the search structure to be used: "kdtree", "kmeans", "linear".}
+\item{threads}{An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.}
 
-\item{threads}{An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware. If 0, then the maximum allowable cores are used.}
+\item{verbose}{If TRUE, log messages to the console.}
 
-\item{checks}{Number of checks during searching. Higher value gives better search precision but takes longer. See FLANN C++ manual for more details.}
+\item{progress}{If TRUE, log a progress bar when \code{verbose = TRUE}. Tracking progress could cause a small overhead.}
+
+\item{...}{Arguments passed to \code{hnsw_build} and \code{hnsw_search}.}
 }
 \value{
 A \code{data.table} with three columns describing the indices of the query, ref, and k neighbors and the distances.
 }
 \description{
-K nearest neighbors based on FLANN C++
+Adapted K nearest neighbors based on \code{RcppHNSW}
 }
 \details{
-This function is based on the FLAAN C++ Library (Muja and Lowe 2009) for a fast
-estimation of neighbors points. It is adapted from rflann (Muja, Lowe, Yee, 2018) to
-simplify the workflow with TLS data. If you use this function, please consider cite
-both documents.
+This function is based on hnswlib C++ library (Malkov & Yashunin 2016) and
+its bindings for R (RcppHNSW; Melville 2020) for a fast estimation of neighbors
+points. It is adapted to simplify the workflow within rTLS.
+If you use this function, please consider cite the C++ library and
+\code{RcppHNSW} package.
 }
 \examples{
 
@@ -39,13 +54,11 @@ both documents.
 data("pc_tree")
 
 #knn search using k = 3
-knn(pc_tree, pc_tree, k = 3, same = TRUE, "kdtree", checks = 10)
+knn(pc_tree, pc_tree, k = 3, same = TRUE)
 
 }
 \references{
-Muja, M., Lowe, D.G. (2009). Fast approximate nearest neighbors with automatic algorithm configuration. VISAPP (1), 2(331-340), 2.
-
-Muja, M., Lowe, D.G., Yee, J., (2018). rflann: Basic R Interface to the 'FLANN' C++ Library. R package version 1.6.0.
+Malkov, Y. A., & Yashunin, D. A. (2016). Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs. arXiv preprint arXiv:1603.09320.
 }
 \seealso{
 \code{\link{radius_search}}

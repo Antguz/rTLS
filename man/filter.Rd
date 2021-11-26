@@ -12,9 +12,11 @@ filter(
   k,
   nSigma,
   edge_length,
-  build = "kdtree",
+  distance = "euclidean",
   threads = 1L,
-  checks = 20
+  verbose = FALSE,
+  progress = FALSE,
+  ...
 )
 }
 \arguments{
@@ -32,11 +34,15 @@ filter(
 
 \item{edge_length}{A positive \code{numeric} vector with the voxel-edge length for the x, y, and z coordinates. This needs to be used if \code{method = "voxel_center"}.}
 
-\item{build}{A \code{character} describing the search structure to be used: \code{"kdtree"}, \code{"kmeans"}, \code{"linear"}. Default \code{"kdtree"}.}
+\item{distance}{Type of distance to calculate. \code{"euclidean"} as default. Look \code{hnsw_knn} for more options.}
 
 \item{threads}{An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.}
 
-\item{checks}{Number of checks during searching. Higher value gives better search precision but takes longer. \code{checks = 20} as default.}
+\item{verbose}{If TRUE, log messages to the console.}
+
+\item{progress}{If TRUE, log a progress bar when \code{verbose = TRUE}. Tracking progress could cause a small overhead.}
+
+\item{...}{Arguments passed to \code{hnsw_build} and \code{hnsw_search}.}
 }
 \value{
 A \code{data.table} with the filtered points
@@ -45,6 +51,8 @@ A \code{data.table} with the filtered points
 Filtering of point clouds using different methods
 }
 \examples{
+
+\donttest{
 #Load data
 data("pc_tree")
 
@@ -66,6 +74,7 @@ rgl::points3d(pc_compare, col = "black") #Original
 r3 <- filter(pc_tree, method = "voxel_center", edge_length = 0.1)
 rgl::plot3d(r3, col = "red") #Filter
 rgl::points3d(pc_compare, col = "black") #Original
+}
 
 }
 \author{

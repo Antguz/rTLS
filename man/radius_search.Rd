@@ -9,10 +9,12 @@ radius_search(
   ref,
   radius,
   max_neighbour,
+  distance = "euclidean",
   same = FALSE,
-  build = "kdtree",
   threads = 1L,
-  checks = 1L
+  verbose = FALSE,
+  progress = FALSE,
+  ...
 )
 }
 \arguments{
@@ -20,43 +22,48 @@ radius_search(
 
 \item{ref}{A \code{numeric} containing the set of reference points where each row represent a point and each column a given coordinate.}
 
-\item{radius}{A \code{numeric} describing the euclidean distance form the each query points.}
+\item{radius}{A \code{numeric} describing maximum euclidean distance form the each query points in which a point can be consider a neighbor.}
 
-\item{max_neighbour}{An \code{integer} specifying the maximun number of points to look around each query point for a given radius.}
+\item{max_neighbour}{An \code{integer} specifying the maximum number of ref points to look around to consider for a given radius.}
+
+\item{distance}{Type of distance to calculate. \code{"euclidean"} as default. Look \code{hnsw_knn} for more options.}
 
 \item{same}{Logic. If \code{TRUE}, it delete neighbors with distance of 0, useful when the k search is based on the same query.}
 
-\item{build}{A \code{character} describing the search structure to be used: "kdtree", "kmeans", "linear".}
+\item{threads}{An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware.}
 
-\item{threads}{An \code{integer} specifying the number of threads to use for parallel processing. Experiment to see what works best for your data on your hardware. If 0, then the maximum allowable cores are used.}
+\item{verbose}{If TRUE, log messages to the console.}
 
-\item{checks}{Number of checks during searching. Higher value gives better search precision but takes longer. See FLANN C++ manual for more details.}
+\item{progress}{If TRUE, log a progress bar when \code{verbose = TRUE}. Tracking progress could cause a small overhead.}
+
+\item{...}{Arguments passed to \code{hnsw_build} and \code{hnsw_search}.}
 }
 \value{
 A \code{data.table} with three columns describing the indices of the query and ref points and the distances.
 }
 \description{
-Radius searching of points based on FLANN C++
+Adapted radius searching of points based on RcppHNSW
 }
 \details{
-This function is based on the FLAAN C++ Library (Muja and Lowe 2009) for a fast
-estimation of neighbors points. It is adapted from rflann (Muja, Lowe, Yee, 2018) to
-simplify the workflow with TLS data. If you use this function, please consider cite
-both documents.
+This function is based on hnswlib C++ library (Malkov & Yashunin 2016) and
+its bindings for R (RcppHNSW; Melville 2020) for a fast estimation of neighbors
+points. It is adapted to simplify the workflow within rTLS.
+If you use this function, please consider cite the C++ library and
+\code{RcppHNSW} package.
 }
 \examples{
 
 #Point cloud
 data("pc_tree")
 
-#Radius search of 0.1
-radius_search(pc_tree, pc_tree, radius = 0.1, 100, TRUE, "kdtree")
+\donttest{
+#Radius search of 1
+radius_search(pc_tree, pc_tree, radius = 1, max_neighbour = 100)
+}
 
 }
 \references{
-Muja, M., Lowe, D.G. (2009). Fast approximate nearest neighbors with automatic algorithm configuration. VISAPP (1), 2(331-340), 2.
-
-Muja, M., Lowe, D.G., Yee, J., (2018). rflann: Basic R Interface to the 'FLANN' C++ Library. R package version 1.6.0.
+Malkov, Y. A., & Yashunin, D. A. (2016). Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs. arXiv preprint arXiv:1603.09320.
 }
 \seealso{
 \code{\link{radius_search}}
