@@ -37,8 +37,10 @@
 #' #Point cloud
 #' data("pc_tree")
 #'
-#' #Radius search of 0.1
-#' radius_search(pc_tree, pc_tree, radius = 0.1, max_neighbour = 100)
+#' \donttest{
+#' #Radius search of 1
+#' radius_search(pc_tree, pc_tree, radius = 1, max_neighbour = 100)
+#' }
 #'
 #' @export
 radius_search <- function(query, ref, radius, max_neighbour, distance = "euclidean", same = FALSE, threads = 1L, verbose = FALSE, progress = FALSE, ...) {
