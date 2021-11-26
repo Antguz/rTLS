@@ -64,7 +64,14 @@ jobs:
             r-cran-rgl \
             libcgal-dev \
             libglu1-mesa-dev \
-            libglu1-mesa-dev
+            libglu1-mesa-dev \
+            libx11-dev \
+            libgeos-dev \
+            gdal-bin \
+            libgdal1-dev \
+            libproj-dev \
+            libcurl4-gnutls-dev \
+            libv8-dev
 
       - name: Install dependencies
         run: |
