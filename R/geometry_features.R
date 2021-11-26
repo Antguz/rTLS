@@ -108,14 +108,6 @@ geometry_features <- function(cloud, method, radius, k, max_neighbour, distance 
     k_max <- max(k_value)
 
     #Estimate index
-    index <- knn_rcpp(query = as.matrix(cloud),
-                      ref = as.matrix(cloud),
-                      k = k_max,
-                      same = target,
-                      build = build,
-                      threads = threads,
-                      checks = checks)
-
 
     index <- knn(query = as.matrix(cloud),
                  ref = as.matrix(cloud),

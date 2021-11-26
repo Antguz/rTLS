@@ -19,11 +19,11 @@
 #' min_distance(pc_tree)
 #'
 #' @export
-min_distance <- function(cloud, distance = "euclidean", threads = 1L, ...) {
+min_distance <- function(cloud, distance = "euclidean", threads = 1L, verbose = FALSE, progress = FALSE, ...) {
 
   #test type of distance
   dist <- match.arg(distance, c("l2", "euclidean", "cosine", "ip"))
-  results <- knn(cloud, cloud, k = 3, distance = dist, same = TRUE, threads = threads)
+  results <- knn(cloud, cloud, k = 3, distance = dist, same = TRUE, threads = threads, ...)
   min_results <- min(results$distance)
 
   return(min_results)
