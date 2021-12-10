@@ -1,3 +1,7 @@
+# rTLS 0.2.5.2
+
+Bug on package test
+
 # rTLS 0.2.5
 
 Having FLANN all this time has causing gcc-ASAN problems, a headache for us and 
