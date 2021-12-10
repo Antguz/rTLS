@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.5.2</span>
       </span>
     </div>
 
@@ -84,7 +84,8 @@
     <p>Create an artificial forest stand of a given area using tree point clouds.</p>
     </div>
 
-    <div class="ref-usage sourceCode">Usage,<pre class="sourceCode r"><code><span class="fu">artificial_stand</span><span class="op">(</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">artificial_stand</span><span class="op">(</span>
   <span class="va">files</span>,
   <span class="va">n.trees</span>,
   <span class="va">dimension</span>,
@@ -99,8 +100,8 @@
   plot <span class="op">=</span> <span class="cn">TRUE</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>files</dt>
@@ -166,11 +167,10 @@ this scenario.</p>
     <h2>Author</h2>
     <p>J. Antonio Guzmán Q.</p>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#' #Import an example point cloud</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#' #Import an example point cloud</span></span>
 <span class="r-in"><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"pc_tree.txt"</span>, package <span class="op">=</span> <span class="st">"rTLS"</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#Creates a stand of 4 trees with 10% of overlap</span></span>
@@ -180,33 +180,33 @@ this scenario.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Creating an artificial forest stand of 15 x 15 with 4 trees  |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Stand</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    n.trees stand_area covered_area total_crown_area n_points</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:       4        225     86.86008         113.2156   303248</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:       4        225     93.60138          114.196   303248</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trees</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Tree                                                            file</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    1 /tmp/RtmpET2FIo/temp_libpathdd1d5f1fd2/rTLS/extdata/pc_tree.txt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:    2 /tmp/RtmpET2FIo/temp_libpathdd1d5f1fd2/rTLS/extdata/pc_tree.txt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:    3 /tmp/RtmpET2FIo/temp_libpathdd1d5f1fd2/rTLS/extdata/pc_tree.txt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:    4 /tmp/RtmpET2FIo/temp_libpathdd1d5f1fd2/rTLS/extdata/pc_tree.txt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Tree                                                              file</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    1 /tmp/RtmpJRljPt/temp_libpath3c8f32891143/rTLS/extdata/pc_tree.txt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:    2 /tmp/RtmpJRljPt/temp_libpath3c8f32891143/rTLS/extdata/pc_tree.txt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:    3 /tmp/RtmpJRljPt/temp_libpath3c8f32891143/rTLS/extdata/pc_tree.txt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:    4 /tmp/RtmpJRljPt/temp_libpath3c8f32891143/rTLS/extdata/pc_tree.txt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Xcoordinate Ycoordinate       CA  Hmax</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    1.228766    1.605424 28.54901 6.036</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   13.918173   13.625652 28.54901 6.036</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:    8.979370   10.684736 28.54901 6.036</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:    9.487938    1.277417 28.54901 6.036</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    9.489306  11.2464647 28.54901 6.036</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:    2.784030   0.8966356 28.54901 6.036</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   10.446336   3.9893417 28.54901 6.036</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:    2.054869  13.7880876 28.54901 6.036</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Cloud</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 X        Y     Z Tree</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      1:  1.359932 1.599598 0.001    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      2:  1.355464 1.673443 0.000    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      3:  1.346631 1.567864 0.039    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      4:  1.357450 1.596984 0.086    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      5:  1.368706 1.579031 0.132    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ---                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 303244: 11.475566 3.712361 5.420    4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 303245: 11.505757 3.703786 5.464    4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 303246: 11.419926 3.775363 5.398    4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 303247: 11.374875 3.729861 5.425    4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 303248: 11.410846 3.758200 5.451    4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                X        Y     Z Tree</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      1: 9.435401 11.12674 0.001    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      2: 9.505666 11.10360 0.000    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      3: 9.410832 11.15084 0.039    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      4: 9.433889 11.13002 0.086    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      5: 9.413047 11.12620 0.132    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ---                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 303244: 2.516888 10.67904 5.420    4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 303245: 2.490221 10.66250 5.464    4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 303246: 2.600932 10.67776 5.398    4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 303247: 2.597624 10.74171 5.425    4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 303248: 2.594357 10.69603 5.451    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#Creates a stand of 4 trees with their locations</span></span>
@@ -216,14 +216,14 @@ this scenario.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Creating an artificial forest stand of 15 x 15 with 4 trees  |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Stand</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    n.trees stand_area covered_area total_crown_area n_points</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:       4        225     107.9565         107.9565   303248</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:       4        225     101.9986         101.9986   303248</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trees</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Tree                                                            file</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    1 /tmp/RtmpET2FIo/temp_libpathdd1d5f1fd2/rTLS/extdata/pc_tree.txt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:    2 /tmp/RtmpET2FIo/temp_libpathdd1d5f1fd2/rTLS/extdata/pc_tree.txt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:    3 /tmp/RtmpET2FIo/temp_libpathdd1d5f1fd2/rTLS/extdata/pc_tree.txt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:    4 /tmp/RtmpET2FIo/temp_libpathdd1d5f1fd2/rTLS/extdata/pc_tree.txt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Tree                                                              file</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    1 /tmp/RtmpJRljPt/temp_libpath3c8f32891143/rTLS/extdata/pc_tree.txt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:    2 /tmp/RtmpJRljPt/temp_libpath3c8f32891143/rTLS/extdata/pc_tree.txt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:    3 /tmp/RtmpJRljPt/temp_libpath3c8f32891143/rTLS/extdata/pc_tree.txt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:    4 /tmp/RtmpJRljPt/temp_libpath3c8f32891143/rTLS/extdata/pc_tree.txt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Xcoordinate Ycoordinate       CA  Hmax</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:           5           5 28.54901 6.036</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:          10           5 28.54901 6.036</span>
@@ -231,18 +231,18 @@ this scenario.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4:           5          10 28.54901 6.036</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Cloud</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                X         Y     Z Tree</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      1: 4.978010  5.129441 0.001    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      2: 4.906772  5.109488 0.000    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      3: 5.011837  5.123138 0.039    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      4: 4.981090  5.127567 0.086    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      5: 4.996262  5.142358 0.132    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ---                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 303244: 6.193482 12.907785 5.420    4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 303245: 6.224861 12.908363 5.464    4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 303246: 6.121923 12.951880 5.398    4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 303247: 6.092053 12.895243 5.425    4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 303248: 6.118227 12.932819 5.451    4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                X        Y     Z Tree</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      1: 5.075139 4.892331 0.001    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      2: 5.131044 4.940784 0.000    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      3: 5.041859 4.883592 0.039    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      4: 5.071554 4.892712 0.086    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      5: 5.064148 4.872859 0.132    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ---                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 303244: 7.519325 8.120474 5.420    4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 303245: 7.512075 8.089938 5.464    4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 303246: 7.579839 8.178809 5.398    4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 303247: 7.532417 8.221833 5.425    4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 303248: 7.562298 8.187133 5.451    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
 <span class="r-in"></span>
@@ -260,7 +260,7 @@ this scenario.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>

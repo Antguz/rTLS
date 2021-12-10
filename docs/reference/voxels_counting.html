@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.5.2</span>
       </span>
     </div>
 
@@ -84,7 +84,8 @@
     <p>Creates cube like voxels of different size on a point cloud using the <code><a href="voxels.html">voxels</a></code> function, and then return a <code><a href="summary_voxels.html">summary_voxels</a></code> of their features.</p>
     </div>
 
-    <div class="ref-usage sourceCode">Usage,<pre class="sourceCode r"><code><span class="fu">voxels_counting</span><span class="op">(</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">voxels_counting</span><span class="op">(</span>
   <span class="va">cloud</span>,
   edge_sizes <span class="op">=</span> <span class="cn">NULL</span>,
   <span class="va">min_size</span>,
@@ -95,8 +96,8 @@
   parallel <span class="op">=</span> <span class="cn">FALSE</span>,
   threads <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>cloud</dt>
@@ -130,11 +131,10 @@
     <h2>Author</h2>
     <p>J. Antonio Guzmán Q.</p>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pc_tree</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#Applying voxels counting.</span></span>
@@ -180,26 +180,26 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  9: 5.580598 5.580598 5.580598        4 695.1880 93.42923     608.8672</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10: 6.344350 6.344350 6.344350        1 255.3650 40.25077    1884.3862</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Density_sd         H     Hmax Equitavility Negentropy H_boot_mean</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   666.6192 2.8071337 3.258097    0.8615870  0.4509629   2.8070937</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   731.5321 2.5806326 3.135494    0.8230385  0.5548616   2.6018320</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   861.5751 2.2028562 2.890372    0.7621360  0.6875155   2.2459113</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   778.8986 1.9014672 2.639057    0.7205100  0.7375901   1.9048872</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   416.4392 1.9635014 2.079442    0.9442446  0.1159402   1.9719284</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   408.2369 1.9136861 2.079442    0.9202885  0.1657555   1.9344501</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   598.9605 1.5854415 2.079442    0.7624362  0.4940001   1.6745894</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   823.1561 0.9318226 1.945910    0.4788621  1.0140875   1.1481905</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:  1143.8455 0.2341148 1.386294    0.1688781  1.1521796   0.7821638</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   666.6192 2.8071337 3.258097    0.8615870  0.4509629   2.8037754</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   731.5321 2.5806326 3.135494    0.8230385  0.5548616   2.5981348</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   861.5751 2.2028562 2.890372    0.7621360  0.6875155   2.2467749</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   778.8986 1.9014672 2.639057    0.7205100  0.7375901   1.8931751</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   416.4392 1.9635014 2.079442    0.9442446  0.1159402   1.9718819</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   408.2369 1.9136861 2.079442    0.9202885  0.1657555   1.9314591</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   598.9605 1.5854415 2.079442    0.7624362  0.4940001   1.6645529</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   823.1561 0.9318226 1.945910    0.4788621  1.0140875   1.1847412</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:  1143.8455 0.2341148 1.386294    0.1688781  1.1521796   0.7345779</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10:         NA 0.0000000 0.000000          NaN  0.0000000   0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      H_boot_sd Equitavility_boot Negentropy_boot</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1: 0.11849355         0.8615747       0.4510029</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2: 0.11301943         0.8297996       0.5336622</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3: 0.13349056         0.7770320       0.6444605</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4: 0.22374025         0.7218059       0.7341702</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5: 0.04065408         0.9482971       0.1075131</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6: 0.05877145         0.9302739       0.1449914</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7: 0.16967566         0.8053073       0.4048521</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8: 0.32170391         0.5900532       0.7977196</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9: 0.49668500         0.5642119       0.6041306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1: 0.11322984         0.8605563       0.4543211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2: 0.11176808         0.8286205       0.5373594</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3: 0.12940663         0.7773308       0.6435968</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4: 0.22710029         0.7173679       0.7458822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5: 0.04179467         0.9482748       0.1075596</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6: 0.06095108         0.9288355       0.1479824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7: 0.18464350         0.8004807       0.4148886</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8: 0.33027498         0.6088365       0.7611689</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9: 0.49596206         0.5298859       0.6517165</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10: 0.00000000               NaN       0.0000000</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
@@ -217,7 +217,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>

@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rTLS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.5.2</span>
       </span>
     </div>
 
@@ -84,9 +84,10 @@
     <p>Create a summary objects of class <code>"voxels"</code> created using the <code><a href="voxels.html">voxels</a></code>.</p>
     </div>
 
-    <div class="ref-usage sourceCode">Usage,<pre class="sourceCode r"><code><span class="fu">summary_voxels</span><span class="op">(</span><span class="va">voxels</span>, edge_length <span class="op">=</span> <span class="cn">NULL</span>, bootstrap <span class="op">=</span> <span class="cn">FALSE</span>, R <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">summary_voxels</span><span class="op">(</span><span class="va">voxels</span>, edge_length <span class="op">=</span> <span class="cn">NULL</span>, bootstrap <span class="op">=</span> <span class="cn">FALSE</span>, R <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>voxels</dt>
@@ -116,11 +117,10 @@ If <code>bootstrap = TRUE</code> four more columns are created (13:16). These re
     <h2>Author</h2>
     <p>J. Antonio Guzmán Q.</p>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"pc_tree"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"pc_tree"</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#Apply a summary on a object of class "voxels" using bootstrap with 1000 replicates.</span></span>
 <span class="r-in"><span class="va">vox</span> <span class="op">&lt;-</span> <span class="fu"><a href="voxels.html">voxels</a></span><span class="op">(</span><span class="va">pc_tree</span>, edge_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span>
@@ -128,19 +128,19 @@ If <code>bootstrap = TRUE</code> four more columns are created (13:16). These re
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Edge.X Edge.Y Edge.Z N_voxels Volume Surface Density_mean Density_sd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:    0.5    0.5    0.5      679 84.875   31.75     446.8218   326.8393</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           H     Hmax Equitavility Negentropy H_boot_mean  H_boot_sd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 6.221814 6.520621     0.954175  0.2988072    6.221747 0.01578555</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 6.221814 6.520621     0.954175  0.2988072    6.222021 0.01502877</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Equitavility_boot Negentropy_boot</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:         0.9541647       0.2988743</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:         0.9542068       0.2986002</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#Apply a summary on a product from 'voxels' using bootstrap with 1000 replicates.</span></span>
 <span class="r-in"><span class="va">vox</span> <span class="op">&lt;-</span> <span class="fu"><a href="voxels.html">voxels</a></span><span class="op">(</span><span class="va">pc_tree</span>, edge_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span>, obj.voxels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">summary_voxels</span><span class="op">(</span><span class="va">vox</span>, edge_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span>, bootstrap <span class="op">=</span> <span class="cn">TRUE</span>, R <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Edge.X Edge.Y Edge.Z N_voxels Volume Surface Density_mean Density_sd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:    0.5    0.5    0.5      679 84.875   31.75     446.8218   326.8393</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           H     Hmax Equitavility Negentropy H_boot_mean  H_boot_sd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 6.221814 6.520621     0.954175  0.2988072    6.222431 0.01481991</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           H     Hmax Equitavility Negentropy H_boot_mean H_boot_sd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 6.221814 6.520621     0.954175  0.2988072    6.221552 0.0144849</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Equitavility_boot Negentropy_boot</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:         0.9542696       0.2981905</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:         0.9541349       0.2990688</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -156,7 +156,7 @@ If <code>bootstrap = TRUE</code> four more columns are created (13:16). These re
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>
