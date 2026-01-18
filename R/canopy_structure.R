@@ -260,7 +260,7 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
     final[, `L (hinge)` := -1.1 * log(subset_Pgap$Pgap)] ###Estimates the L close to hinge
     final[, `L/LAI (weighted mean)` := subset_Pgap$`L/LAI (weighted.mean)`]
 
-    max_LAI <- as.numeric(final[which.max(height), 'L (hinge)'])
+    max_LAI <- as.numeric(final[which.max(height), `L (hinge)`])
 
     final$PAVD <- NA
 
