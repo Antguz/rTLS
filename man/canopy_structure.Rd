@@ -89,7 +89,7 @@ data(TLS_scan)
 TLS_scan <- TLS_scan[, 1:4]
 
 #This will take a while#
-a <- canopy_structure(TLS.type = "multiple",
+canopy_structure(TLS.type = "multiple",
                  scan = TLS_scan,
                  zenith.range = c(50, 70),
                  zenith.rings = 4,

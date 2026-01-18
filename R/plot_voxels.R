@@ -13,7 +13,7 @@
 #' @param line.lwd The line width, a positive number, defaulting to 0.5.
 #' @param line.col A \code{character} defining the color of the border lines to use.
 #' @param alpha A positive numeric vector describing the transparency of the voxels to fill. This value most be between 0.0 (fully transparent) .. 1.0 (opaque).
-#' @param ... General arguments passed to \code{\link{rgl}}.
+#' @param ... General arguments passed to \code{\link[rgl:plot3d]{plot3d}}.
 #'
 #' @return A 3D plot of a point cloud and voxels.
 #'

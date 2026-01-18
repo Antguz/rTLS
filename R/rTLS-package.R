@@ -15,4 +15,9 @@
 utils::globalVariables(c(".", "Target_count", "Voxel.size",
                          "X", "Y", "Z", "azimuth", "cumsum_returns",
                          "i", "pulses", "returns", "w", "zenith", "Edge.X",
-                         "N", "N_voxels", "query", "k_index"))
+                         "N", "N_voxels", "query", "k_index", "L/LAI",
+                         "L/LAI (weighted.mean)", "zenith_idx",
+                         "zenith", "height", "Pgap", "returns",
+                         "pulses", "cumsum_returns", "w",
+                         "zenith_bands", "Target_count", "Z", "azimuth",
+                         "distance"))

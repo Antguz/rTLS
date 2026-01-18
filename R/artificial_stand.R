@@ -37,7 +37,7 @@
 #' @param plot Logical. If \code{TRUE}, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.
 #' @param n_attempts A positive \code{numeric} vector of length one describing the number of attempts to provide random \code{coordinates} until a tree met the \code{overlap} criteria.
 #' This needs to be used if \code{coordinate = NULL} and \code{overlap != NULL}. \code{n_attempts = 100} as default.
-#' @param ... Parameters passed to \code{\link{fread}} for the reading of \code{files}.
+#' @param ... Parameters passed to \code{\link[data.table:fread]{fread}} for the reading of \code{files}.
 #'
 #'
 #' @return A \code{list} which contain a \code{data.table} (Trees) with the information of the point clouds used and their current coordinates in the stand, and another \code{data.table} with that compile all the point clouds used.

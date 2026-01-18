@@ -53,7 +53,7 @@ This needs to be used if \code{coordinate = NULL} and \code{overlap != NULL}. \c
 
 \item{plot}{Logical. If \code{TRUE}, it provides visual tracking of the distribution of each tree in the artificial stand. This can not be exported as a return object.}
 
-\item{...}{Parameters passed to \code{\link{fread}} for the reading of \code{files}.}
+\item{...}{Parameters passed to \code{\link[data.table:fread]{fread}} for the reading of \code{files}.}
 }
 \value{
 A \code{list} which contain a \code{data.table} (Trees) with the information of the point clouds used and their current coordinates in the stand, and another \code{data.table} with that compile all the point clouds used.

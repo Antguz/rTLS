@@ -69,7 +69,7 @@
 #' TLS_scan <- TLS_scan[, 1:4]
 #'
 #' #This will take a while#
-#' a <- canopy_structure(TLS.type = "multiple",
+#' canopy_structure(TLS.type = "multiple",
 #'                  scan = TLS_scan,
 #'                  zenith.range = c(50, 70),
 #'                  zenith.rings = 4,
@@ -239,9 +239,12 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
 
   if(TLS.type == "multiple" | TLS.type == "single") {
 
-    Pgap[, 'L/LAI' := log(Pgap)/log(min(Pgap)), by = zenith] #Normalize L/LAI
+    Pgap[, `L/LAI` := log(Pgap)/log(min(Pgap)), by = zenith] #Normalize L/LAI
 
-    Pgap[, 'L/LAI (weighted.mean)' := lapply(.SD, weighted.mean, w = 1:zenith.rings), by = height, .SDcols=c('L/LAI')] #weighted.mean L/LAI
+    zr <- zenith.rings
+    Pgap[, zenith_idx := frank(zenith, ties.method = "first"), by = height]
+    Pgap[, `L/LAI (weighted.mean)` := weighted.mean(`L/LAI`, w = zenith_idx, na.rm = TRUE), by = height]
+    Pgap[, zenith_idx := NULL]
 
     final <- reshape(Pgap[, c("zenith" ,"height", "Pgap")],
                        v.names = "Pgap",
@@ -254,15 +257,15 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
     col_hinge <- which(abs(zenith_bands - 57.5) == min(abs(zenith_bands - 57.5)))
     subset_Pgap <- subset(Pgap, zenith == zenith_bands[col_hinge])
 
-    final[, 'L (hinge)' := -1.1 * log(subset_Pgap$Pgap)] ###Estimates the L close to hinge
-    final[, 'L/LAI (weighted mean)' := subset_Pgap$`L/LAI (weighted.mean)`]
+    final[, `L (hinge)` := -1.1 * log(subset_Pgap$Pgap)] ###Estimates the L close to hinge
+    final[, `L/LAI (weighted mean)` := subset_Pgap$`L/LAI (weighted.mean)`]
 
     max_LAI <- as.numeric(final[which.max(height), 'L (hinge)'])
 
     final$PAVD <- NA
 
     for(i in 1:nrow(final)) {  ###Estimates PAVD
-      ld <- final$'L/LAI (weighted mean)'[i+1]-final$'L/LAI (weighted mean)'[i]
+      ld <- final$`L/LAI (weighted mean)`[i+1]-final$`L/LAI (weighted mean)`[i]
       final$PAVD[i] <- max_LAI*(ld/vertical.resolution)
     }
   }

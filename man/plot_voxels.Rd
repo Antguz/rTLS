@@ -39,7 +39,7 @@ plot_voxels(
 
 \item{alpha}{A positive numeric vector describing the transparency of the voxels to fill. This value most be between 0.0 (fully transparent) .. 1.0 (opaque).}
 
-\item{...}{General arguments passed to \code{\link{rgl}}.}
+\item{...}{General arguments passed to \code{\link[rgl:plot3d]{plot3d}}.}
 }
 \value{
 A 3D plot of a point cloud and voxels.
