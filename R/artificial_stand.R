@@ -43,22 +43,10 @@
 #' @return A \code{list} which contain a \code{data.table} (Trees) with the information of the point clouds used and their current coordinates in the stand, and another \code{data.table} with that compile all the point clouds used.
 #' @author J. Antonio Guzmán Q.
 #'
-#' @importFrom sp Polygon
-#' @importFrom sp Polygons
-#' @importFrom sp SpatialPolygons
-#' @importFrom sp plot
-#' @importFrom sp spsample
-#' @importFrom rgeos gArea
-#' @importFrom rgeos gUnion
-#' @importFrom rgeos gDifference
-#' @importFrom foreach foreach
-#' @importFrom foreach %do%
-#' @importFrom stats runif
-#' @importFrom stats na.exclude
-#' @importFrom data.table data.table
-#' @importFrom data.table fread
-#' @importFrom utils txtProgressBar
-#' @importFrom utils setTxtProgressBar
+#' @importFrom sf st_polygon st_sfc st_area st_union st_difference st_intersection st_sample st_coordinates st_is_empty st_make_valid
+#' @importFrom data.table data.table fread
+#' @importFrom stats runif na.exclude
+#' @importFrom utils txtProgressBar setTxtProgressBar
 #' @importFrom grDevices chull
 #' @importFrom graphics points
 #' @useDynLib rTLS, .registration = TRUE
@@ -79,212 +67,272 @@
 #'
 #'
 #' @export
-artificial_stand <- function(files, n.trees, dimension, coordinates = NULL, sample = TRUE, replace = TRUE, overlap = NULL, rotation = TRUE, degrees = NULL, n_attempts = 100, progress = TRUE, plot = TRUE, ...) {
+artificial_stand <- function(files,
+                             n.trees,
+                             dimension,
+                             coordinates = NULL,
+                             sample = TRUE,
+                             replace = TRUE,
+                             overlap = NULL,
+                             rotation = TRUE,
+                             degrees = NULL,
+                             n_attempts = 100,
+                             progress = TRUE,
+                             plot = TRUE,
+                             ...) {
 
-  ####Posible errors or assumtions ------------------------------------------------------------------------------
-
-  if(length(files) < n.trees) {
-    if(sample == FALSE) {
-      stop("The number of files selected is lower than n.trees")
-    }
-    if(replace == FALSE) {
-      stop("The number of files selected without replacement is lower than n.trees")
-    }
+  # ---- Basic checks ----
+  if (length(files) < n.trees) {
+    if (sample == FALSE) stop("The number of files selected is lower than n.trees")
+    if (replace == FALSE) stop("The number of files selected without replacement is lower than n.trees")
   }
 
-  if(is.null(coordinates) != TRUE) {
-    if(ncol(coordinates) != 2) {
-      stop("The ncol of the coordinates differ from 2")
-    }
-    if(nrow(coordinates) != n.trees) {
-      stop("The nrow of coordinates differ from the n.trees")
-    }
-    if(is.null(overlap) != TRUE) {
-      stop("The overlap of tree crowns can not be controled using established coordinates, select overlap = NULL")
-    }
+  if (!is.null(coordinates)) {
+    if (ncol(coordinates) != 2) stop("The ncol of the coordinates differ from 2")
+    if (nrow(coordinates) != n.trees) stop("The nrow of coordinates differ from the n.trees")
+    if (!is.null(overlap)) stop("The overlap of tree crowns can not be controlled using established coordinates, select overlap = NULL")
+    colnames(coordinates) <- c("X", "Y")
   }
 
-  if(rotation == TRUE) {
-    if(is.null(degrees) == TRUE) {
-      degrees <- runif(n.trees, 0.0, 360.0)
+  if (rotation) {
+    if (is.null(degrees)) {
+      degrees <- stats::runif(n.trees, 0.0, 360.0)
     } else {
-      if(length(degrees) != n.trees) {
-        stop("The length of degrees differ from n.trees")
-      }
+      if (length(degrees) != n.trees) stop("The length of degrees differ from n.trees")
     }
   }
 
-  ###Selecting the order of files and files to use and their storage------------------------------------------------
-
-  if(sample == TRUE) { ###Selecting the order of files and files to use
-    order <- sample(1:length(files), n.trees, replace = replace)
-    filestoread <- files[order]
+  # ---- File order ----
+  if (sample) {
+    ord <- base::sample(seq_along(files), n.trees, replace = replace)
+    filestoread <- files[ord]
   } else {
     filestoread <- files
   }
 
-  stant <- NA ###Final stand to create
-  spatial_stant <- NA
-  tcoordinates <- data.table(Tree = 1:n.trees, file = filestoread, Xcoordinate = NA, Ycoordinate = NA, CA = NA, Hmax = NA)
+  # ---- Stand boundary polygon (sf) ----
+  # ring must be closed
+  plotXY <- matrix(
+    c(0, 0,
+      dimension[1], 0,
+      dimension[1], dimension[2],
+      0, dimension[2],
+      0, 0),
+    ncol = 2, byrow = TRUE
+  )
 
-  ###For plot estimations
-  plotXY <- matrix(c(0, 0, dimension[1], 0, dimension[1], dimension[2], 0, dimension[2], 0 , 0), ncol = 2, byrow = TRUE)
-  p_plotXY <- Polygon(plotXY)
-  spatial_plotXY <- SpatialPolygons(list(Polygons(list(p_plotXY), ID = "plot")))
+  spatial_plotXY <- sf::st_sfc(sf::st_polygon(list(plotXY)))
+  spatial_plotXY <- sf::st_make_valid(spatial_plotXY)
 
-  if(plot == TRUE) { ####If plot option is true
-    plot(spatial_plotXY, col = "lightgoldenrod")
+  if (plot) {
+    graphics::plot(spatial_plotXY, col = "lightgoldenrod", reset = FALSE)
   }
 
-  ####Creating the loop for the artificial forest stand--------------------------------------------------------------
+  # ---- Storage ----
+  stant <- NULL                        # combined point cloud
+  spatial_stant <- NULL                # union of crowns (sf geometry)
+  available_space <- spatial_plotXY    # available placement area
 
-  if(progress == TRUE) {
-    cat(paste("", "Creating an artificial forest stand of ", round(dimension[1], 2), " x ", round(dimension[2], 2), " with ", n.trees, " trees", sep = ""))  #Progress bar
-    pb <- txtProgressBar(min = 0, max = n.trees, style = 3)
+  tcoordinates <- data.table::data.table(
+    Tree = 1:n.trees,
+    file = filestoread,
+    Xcoordinate = NA_real_,
+    Ycoordinate = NA_real_,
+    CA = NA_real_,
+    Hmax = NA_real_
+  )
+
+  # ---- Progress ----
+  if (progress) {
+    cat(paste0(
+      " Creating an artificial forest stand of ",
+      round(dimension[1], 2), " x ", round(dimension[2], 2),
+      " with ", n.trees, " trees"
+    ))
+    pb <- utils::txtProgressBar(min = 0, max = n.trees, style = 3)
   }
 
-  for(i in 1:n.trees) {  ####Conduct the loop
+  # ---- Helper: safe area numeric ----
+  area_num <- function(g) {
+    if (is.null(g)) return(0)
+    if (length(g) == 0) return(0)
+    # st_area returns units if CRS is set; here CRS is NA, but as.numeric is safe
+    as.numeric(sf::st_area(g))
+  }
 
-    if(progress == TRUE) {
-      setTxtProgressBar(pb, i)
-    }
+  # ---- Main loop ----
+  for (i in 1:n.trees) {
 
-    ###Reading of the files-------------------------------------
-    tree <- fread(filestoread[i], ...)
+    if (progress) utils::setTxtProgressBar(pb, i)
+
+    # Read point cloud
+    tree <- data.table::fread(filestoread[i], ...)
     colnames(tree) <- c("X", "Y", "Z")
     tree$Z <- tree$Z - min(tree$Z)
 
-    ###Positioning in the plot and rotation of the clouds-------
-    basetree <- subset(tree, Z >= 0 & Z <= 0.1) ####Move the tree to their base centroid
+    # Move to base centroid
+    basetree <- subset(tree, Z >= 0 & Z <= 0.1)
     centroidXY <- c(mean(basetree$X), mean(basetree$Y))
-
     tree$X <- tree$X - centroidXY[1]
     tree$Y <- tree$Y - centroidXY[2]
 
-    if(rotation == TRUE) {  ###If rotation occur
+    # Optional rotation (your existing function)
+    if (rotation) {
       tree <- rotate3D(tree, roll = 0, pitch = 0, yaw = degrees[i])
     }
 
-    if(i == 1) {  ###Dealing with the first tree ----------------
-
-      if(is.null(coordinates) != TRUE) { ####Move the tree to their new position
-        colnames(coordinates) <- c("X", "Y")
-        treecoordinates <- c(coordinates$X[i], coordinates$Y[i])
-      } else {
-        xy <- as.data.frame(spsample(spatial_plotXY, 1, type = "random")) #Set the random new coordinates
-        treecoordinates <- c(xy[1,1], xy[1,2])
+    # ---- Choose coordinates ----
+    if (!is.null(coordinates)) {
+      treecoordinates <- c(coordinates$X[i], coordinates$Y[i])
+    } else {
+      # sample within available_space (sf)
+      # st_sample may return empty if geometry is empty
+      samp <- sf::st_sample(available_space, size = 1, type = "random")
+      if (length(samp) == 0 || sf::st_is_empty(samp)) {
+        stop("No available space to sample a new tree location.", call. = FALSE)
       }
-
-      tree$X <- tree$X + treecoordinates[1]
-      tree$Y <- tree$Y + treecoordinates[2]
-
-      basetree <- subset(tree, Z >= 0 & Z <= 0.1)
-      newcentroidXY <- c(mean(basetree$X), mean(basetree$Y))
-
-      ch <- chull(tree[,1:2]) ###Crown in their space XY space
-      crown <- tree[ch, 1:2]
-      p_crown <- Polygon(crown)
-      ps_crown <- Polygons(list(p_crown), ID = as.character(i))
-      spatial_stant <- SpatialPolygons(list(ps_crown))
-      available_space <- gDifference(spatial_plotXY, spatial_stant)
-
-      tree$Tree <- i
-      stant <- tree
-
-      if(plot == TRUE) {
-        plot(spatial_stant, col = "forestgreen", add = TRUE)
-        points(newcentroidXY[1], newcentroidXY[2], col = "red")
-      }
-
-      tcoordinates$Xcoordinate[i] <- newcentroidXY[1]   ###Information of each tree for tcoordinates
-      tcoordinates$Ycoordinate[i] <- newcentroidXY[2]
-      tcoordinates$CA[i] <- gArea(spatial_stant)
-      tcoordinates$Hmax[i] <- max(tree$Z)
-
+      xy <- sf::st_coordinates(samp)
+      treecoordinates <- c(xy[1, 1], xy[1, 2])
     }
 
-    if(i > 1) {  ###Dealing with other trees ----------------------
+    # Apply translation
+    tree_try <- tree
+    tree_try$X <- tree_try$X + treecoordinates[1]
+    tree_try$Y <- tree_try$Y + treecoordinates[2]
 
-      try <- 1
+    basetree2 <- subset(tree_try, Z >= 0 & Z <= 0.1)
+    newcentroidXY <- c(mean(basetree2$X), mean(basetree2$Y))
 
-      repeat {
-        if(is.null(coordinates) != TRUE) { ####Move the tree to their new position
-          colnames(coordinates) <- c("X", "Y")
-          treecoordinates <- c(coordinates$X[i], coordinates$Y[i])
-        } else {
-          xy <- as.data.frame(spsample(available_space, 1, type = "random")) #Set the random new coordinates
-          treecoordinates <- c(xy[1,1], xy[1,2])
+    # Build crown polygon from convex hull in XY
+    ch <- grDevices::chull(tree_try[, 1:2])
+    crown <- as.matrix(tree_try[ch, 1:2])
+    crown <- rbind(crown, crown[1, ])  # close ring
+
+    spatial_crown <- sf::st_sfc(sf::st_polygon(list(crown)))
+    spatial_crown <- sf::st_make_valid(spatial_crown)
+
+    # ---- First tree: accept directly (no overlap constraints needed) ----
+    if (i == 1) {
+      spatial_stant <- spatial_crown
+      available_space <- sf::st_difference(spatial_plotXY, spatial_stant)
+      available_space <- sf::st_make_valid(available_space)
+
+      tree_try$Tree <- i
+      stant <- tree_try
+
+      if (plot) {
+        graphics::plot(spatial_crown, col = "forestgreen", add = TRUE)
+        graphics::points(newcentroidXY[1], newcentroidXY[2], col = "red")
+      }
+
+      tcoordinates$Xcoordinate[i] <- newcentroidXY[1]
+      tcoordinates$Ycoordinate[i] <- newcentroidXY[2]
+      tcoordinates$CA[i] <- area_num(spatial_crown)
+      tcoordinates$Hmax[i] <- max(tree_try$Z)
+
+      next
+    }
+
+    # ---- Other trees: retry until overlap criterion or attempts exceeded ----
+    tries <- 1
+    repeat {
+
+      if (!is.null(coordinates)) {
+        treecoordinates <- c(coordinates$X[i], coordinates$Y[i])
+      } else {
+        samp <- sf::st_sample(available_space, size = 1, type = "random")
+        if (length(samp) == 0 || sf::st_is_empty(samp)) {
+          # treat as a failed attempt; maybe available_space is fragmented
+          tries <- tries + 1
+          if (tries > n_attempts) {
+            stop(
+              "artificial_stand stopped: could not sample new coordinates (available space empty/invalid). ",
+              "Try reducing overlap or n.trees, or increasing stand dimension.",
+              call. = FALSE
+            )
+          }
+          next
+        }
+        xy <- sf::st_coordinates(samp)
+        treecoordinates <- c(xy[1, 1], xy[1, 2])
+      }
+
+      tree_try <- tree
+      tree_try$X <- tree_try$X + treecoordinates[1]
+      tree_try$Y <- tree_try$Y + treecoordinates[2]
+
+      basetree2 <- subset(tree_try, Z >= 0 & Z <= 0.1)
+      newcentroidXY <- c(mean(basetree2$X), mean(basetree2$Y))
+
+      ch <- grDevices::chull(tree_try[, 1:2])
+      crown <- as.matrix(tree_try[ch, 1:2])
+      crown <- rbind(crown, crown[1, ])
+
+      spatial_crown <- sf::st_sfc(sf::st_polygon(list(crown)))
+      spatial_crown <- sf::st_make_valid(spatial_crown)
+
+      A_crown <- area_num(spatial_crown)
+
+      # Compute overlap % as intersection area / crown area
+      if (is.null(overlap)) {
+        ok <- TRUE
+      } else {
+        inter <- suppressWarnings(sf::st_intersection(spatial_crown, spatial_stant))
+        A_inter <- area_num(inter)
+        percentage <- if (A_crown > 0) (A_inter / A_crown) * 100 else Inf
+        ok <- is.finite(percentage) && (percentage <= overlap)
+      }
+
+      tries <- tries + 1
+
+      if (ok) {
+
+        if (plot) {
+          graphics::plot(spatial_crown, col = "forestgreen", add = TRUE)
+          graphics::points(newcentroidXY[1], newcentroidXY[2], col = "red")
         }
 
-        tree_try <- tree
+        tree_try$Tree <- i
+        stant <- rbind(stant, tree_try)
 
-        tree_try$X <- tree_try$X + treecoordinates[1]
-        tree_try$Y <- tree_try$Y + treecoordinates[2]
+        spatial_stant <- sf::st_union(spatial_stant, spatial_crown)
+        spatial_stant <- sf::st_make_valid(spatial_stant)
 
-        basetree <- subset(tree_try, Z >= 0 & Z <= 0.1)
-        newcentroidXY <- c(mean(basetree$X), mean(basetree$Y))
+        available_space <- sf::st_difference(spatial_plotXY, spatial_stant)
+        available_space <- sf::st_make_valid(available_space)
 
-        ch <- chull(tree_try[,1:2]) ###Crown in their space XY space
-        crown <- tree_try[ch, 1:2]
-        p_crown <- Polygon(crown)
-        ps_crown <- Polygons(list(p_crown), ID = i)
-        spatial_crown <- SpatialPolygons(list(ps_crown))
+        tcoordinates$Xcoordinate[i] <- newcentroidXY[1]
+        tcoordinates$Ycoordinate[i] <- newcentroidXY[2]
+        tcoordinates$CA[i] <- A_crown
+        tcoordinates$Hmax[i] <- max(tree_try$Z)
 
-        area_intercepted <- gArea(spatial_crown) - (gArea(gUnion(spatial_crown, spatial_stant)) - gArea(spatial_stant))
-        percentage <- area_intercepted/gArea(spatial_crown)*100
+        break
+      }
 
-        try <- try + 1
-
-        if(is.null(overlap) == TRUE) {
-          if(plot == TRUE) {
-            plot(spatial_crown, col = "forestgreen", add = TRUE)
-            points(newcentroidXY[1], newcentroidXY[2], col = "red")
-          }
-
-          tree_try$Tree <- i
-          stant <- rbind(stant, tree_try)
-
-          spatial_stant <- gUnion(spatial_crown, spatial_stant)
-          available_space <- gDifference(available_space, spatial_stant)
-
-          tcoordinates$Xcoordinate[i] <- newcentroidXY[1]   ###Information of each tree for tcoordinates
-          tcoordinates$Ycoordinate[i] <- newcentroidXY[2]
-          tcoordinates$CA[i] <- gArea(spatial_crown)
-          tcoordinates$Hmax[i] <- max(tree_try$Z)
-
-          break
-        } else if(percentage <= overlap) {
-
-          if(plot == TRUE) {
-            plot(spatial_crown, col = "forestgreen", add = TRUE)
-            points(newcentroidXY[1], newcentroidXY[2], col = "red")
-          }
-
-          tree_try$Tree <- i
-          stant <- rbind(stant, tree_try)
-
-          spatial_stant <- gUnion(spatial_crown, spatial_stant)
-          available_space <- gDifference(available_space, spatial_stant)
-
-          tcoordinates$Xcoordinate[i] <- newcentroidXY[1]   ###Information of each tree for tcoordinates
-          tcoordinates$Ycoordinate[i] <- newcentroidXY[2]
-          tcoordinates$CA[i] <- gArea(spatial_crown)
-          tcoordinates$Hmax[i] <- max(tree_try$Z)
-          break
-        } else if(try > n_attempts) {
-          stop("artificial_stand was stopped due to the n_attempts exceeds the established number, Try it again and/or reduce the value of the parameters of overlap or n.trees", call. = FALSE)
-        }
+      if (tries > n_attempts) {
+        stop(
+          "artificial_stand was stopped because n_attempts was exceeded. ",
+          "Try again and/or reduce overlap or n.trees, or increase stand dimension.",
+          call. = FALSE
+        )
       }
     }
   }
 
-  stand <- data.table(n.trees = n.trees,
-                      stand_area = (dimension[1]*dimension[2]),
-                      covered_area = (gArea(spatial_plotXY) - gArea(available_space)),
-                      total_crown_area = gArea(spatial_stant),
-                      n_points = nrow(stant))
+  # ---- Stand summary ----
+  stand <- data.table::data.table(
+    n.trees = n.trees,
+    stand_area = (dimension[1] * dimension[2]),
+    covered_area = area_num(spatial_plotXY) - area_num(available_space),
+    total_crown_area = area_num(spatial_stant),
+    n_points = if (is.null(stant)) 0 else nrow(stant)
+  )
 
-  final <- list(Stand = stand, Trees = na.exclude(tcoordinates), Cloud = stant)
+  final <- list(
+    Stand = stand,
+    Trees = stats::na.exclude(tcoordinates),
+    Cloud = stant
+  )
+
   return(final)
 }
-
