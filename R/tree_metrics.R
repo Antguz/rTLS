@@ -17,7 +17,7 @@
 #' trucks try \code{\link{trunk_volume}}.
 #'
 #'
-#' @importFrom sp Polygon
+#' @importFrom sf st_polygon st_sfc st_area st_is_longlat st_transform st_set_crs
 #' @importFrom data.table data.table
 #'
 #' @seealso \code{\link{circleRANSAC}}, \code{\link{trunk_volume}}
@@ -29,32 +29,37 @@
 #' @export
 tree_metrics <- function(cloud, region.diameter = NULL, relocateZ = TRUE) {
 
-  colnames(cloud[,1:3]) <- c("X", "Y", "Z")
+  colnames(cloud[, 1:3]) <- c("X", "Y", "Z")
 
-  if(relocateZ == TRUE) {
-    cloud[,3] <- cloud[,3] - min(cloud[,3])
+  if (isTRUE(relocateZ)) {
+    cloud[, 3] <- cloud[, 3] - min(cloud[, 3])
   }
 
-  Height <- max(cloud[,3]) ### Tree height
+  Height <- max(cloud[, 3])  # Tree height
 
-  ch <- chull(cloud[,1:2]) ###Crown area
-  extreme_coor <- cloud[ch, ]
-  poly_crown <- Polygon(extreme_coor[,1:2], hole=F)
-  Crown_area <- poly_crown@area
+  # --- Crown area (convex hull polygon area) ---
+  ch <- chull(cloud[, 1:2])
+  coords_crown <- as.matrix(cloud[c(ch, ch[1]), 1:2])  # close ring
+  poly_crown <- sf::st_sfc(sf::st_polygon(list(coords_crown))) # CRS unknown here
 
-  if(is.null(region.diameter) == TRUE) {
-    region.diameter <- c(min(cloud[,3]) + 1.25, min(cloud[,3]) + 1.35)
+  Crown_area <- as.numeric(sf::st_area(poly_crown))
+
+  # --- DBH region ---
+  if (is.null(region.diameter)) {
+    region.diameter <- c(min(cloud[, 3]) + 1.25, min(cloud[, 3]) + 1.35)
   }
 
-  sub <- cloud[between(Z, region.diameter[1], region.diameter[2]),]
-  sub <- sub[order(Z),]
-  ch <- chull(sub[,1:2])
-  extreme_coor <- sub[c(ch, ch[1]), 1:2]
-  poly_DBH <- Polygon(extreme_coor, hole=F)
-  DBH <- sqrt(poly_DBH@area/pi)*2
+  sub <- cloud[data.table::between(Z, region.diameter[1], region.diameter[2]), ]
+  sub <- sub[order(Z), ]
 
-  frame <- data.table(Height, Crown_area, DBH)
+  ch2 <- chull(sub[, 1:2])
+  coords_dbh <- as.matrix(sub[c(ch2, ch2[1]), 1:2])  # close ring
+  poly_dbh <- sf::st_sfc(sf::st_polygon(list(coords_dbh)))
 
-  return(frame)
+  area_dbh <- as.numeric(sf::st_area(poly_dbh))
+  DBH <- sqrt(area_dbh / pi) * 2
+
+  data.table::data.table(Height, Crown_area, DBH)
+
 }
 
