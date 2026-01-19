@@ -2,7 +2,7 @@ Type: Package
 Package: rTLS
 Title: Tools to Process Point Clouds Derived from Terrestrial
     Laser Scanning
-Version: 0.2.6
+Version: 0.2.6.1
 Authors@R:
     c(person(given = "J. Antonio",
              family = "Guzmán Q.",
@@ -40,7 +40,7 @@ Imports:
     boot,
     doSNOW (>= 1.0.16),
     foreach (>= 1.4.4),
-    parallel (>= 3.6.0),
+    parallel,
     RcppHNSW (>= 0.3.0),
     rgl,
     sf
@@ -49,10 +49,10 @@ Suggests:
     rmarkdown,
     covr,
     testthat (>= 3.0.1)
-LinkingTo: 
-    Rcpp (>= 1.0.0),
-    RcppArmadillo (>= 15.0.0),
-    RcppProgress (>= 0.4.2)
+LinkingTo:
+    Rcpp,
+    RcppArmadillo,
+    RcppProgress
 VignetteBuilder: 
     knitr
 Encoding: UTF-8

@@ -239,11 +239,11 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
 
   if(TLS.type == "multiple" | TLS.type == "single") {
 
-    Pgap[, `L/LAI` := log(Pgap)/log(min(Pgap)), by = zenith] #Normalize L/LAI
+    Pgap[, L_LAI := log(Pgap)/log(min(Pgap)), by = zenith] #Normalize L/LAI
 
     zr <- zenith.rings
     Pgap[, zenith_idx := frank(zenith, ties.method = "first"), by = height]
-    Pgap[, `L/LAI (weighted.mean)` := weighted.mean(`L/LAI`, w = zenith_idx, na.rm = TRUE), by = height]
+    Pgap[, L_LAI_W := weighted.mean(L_LAI, w = zenith_idx, na.rm = TRUE), by = height]
     Pgap[, zenith_idx := NULL]
 
     final <- reshape(Pgap[, c("zenith" ,"height", "Pgap")],
@@ -257,18 +257,23 @@ canopy_structure <- function(TLS.type, scan, zenith.range, zenith.rings, azimuth
     col_hinge <- which(abs(zenith_bands - 57.5) == min(abs(zenith_bands - 57.5)))
     subset_Pgap <- subset(Pgap, zenith == zenith_bands[col_hinge])
 
-    final[, `L (hinge)` := -1.1 * log(subset_Pgap$Pgap)] ###Estimates the L close to hinge
-    final[, `L/LAI (weighted mean)` := subset_Pgap$`L/LAI (weighted.mean)`]
+    final[, L := -1.1 * log(subset_Pgap$Pgap)] ###Estimates the L close to hinge
+    final[, L_LAI_W := subset_Pgap$L_LAI_W]
 
-    max_LAI <- as.numeric(final[which.max(height), `L (hinge)`])
+    max_LAI <- as.numeric(final[which.max(height), L])
 
     final$PAVD <- NA
 
     for(i in 1:nrow(final)) {  ###Estimates PAVD
-      ld <- final$`L/LAI (weighted mean)`[i+1]-final$`L/LAI (weighted mean)`[i]
+      ld <- final$L_LAI_W[i+1]-final$L_LAI_W[i]
       final$PAVD[i] <- max_LAI*(ld/vertical.resolution)
     }
   }
+
+  # Change names
+  final <- data.table::setnames(final,
+                                old = c("L", "L_LAI_W"),
+                                new = c("L (hinge)", "L/LAI (weighted mean)"))
 
   return(final)
 }
