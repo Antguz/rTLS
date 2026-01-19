@@ -56,65 +56,64 @@ arma::vec line_AABB_rcpp(arma::mat orig, arma::mat end, arma::vec AABB_min, arma
   }
 
   //If end point falls inside
-  if((end(0, 0) >= AABB_min[0]) & (end(0, 0) < AABB_max[0])) {
-    if((end(0, 1) >= AABB_min[1]) & (end(0, 1) < AABB_max[1])) {
-      if((end(0, 2) >= AABB_min[2]) & (end(0, 2) < AABB_max[2])) {
-        feature = 3L;
-      }
-    }
+  if ((end(0, 0) >= AABB_min[0]) && (end(0, 0) < AABB_max[0]) &&
+      (end(0, 1) >= AABB_min[1]) && (end(0, 1) < AABB_max[1]) &&
+      (end(0, 2) >= AABB_min[2]) && (end(0, 2) < AABB_max[2])) {
+    feature = 3L;
   }
 
-  path = sqrt(pow(end(0, 0) - orig(0, 0), 2) + pow(end(0, 1) - orig(0, 1) , 2) + pow(end(0, 2) - orig(0, 2), 2));
+  path = sqrt(pow(end(0, 0) - orig(0, 0), 2) +
+    pow(end(0, 1) - orig(0, 1), 2) +
+    pow(end(0, 2) - orig(0, 2), 2));
 
   //If orig point falls inside
-  if((orig(0, 0) >= AABB_min[0]) & (orig(0, 0) < AABB_max[0])) {
-    if((orig(0, 1) >= AABB_min[1]) & (orig(0, 1) < AABB_max[1])) {
-      if((orig(0, 2) >= AABB_min[2]) & (orig(0, 2) < AABB_max[2])) {
+  if ((orig(0, 0) >= AABB_min[0]) && (orig(0, 0) < AABB_max[0]) &&
+      (orig(0, 1) >= AABB_min[1]) && (orig(0, 1) < AABB_max[1]) &&
+      (orig(0, 2) >= AABB_min[2]) && (orig(0, 2) < AABB_max[2])) {
 
-        //If end point also falls inside
-        if(feature == 3L) {
-
-          feature = 1L;
-          result(0) = feature;
-          result(1) = path;
-          return result;
-        }
-
-        double x;
-        double y;
-        double z;
-        feature = 2L;
-
-        if(end(0, 0) < AABB_min[0]) {
-          x = AABB_min[0];
-        } else if(end(0, 0) > AABB_max[0]) {
-          x = AABB_max[0];
-        } else {
-          x = end(0, 0);
-        }
-
-        if(end(0, 1) < AABB_min[1]) {
-          y = AABB_min[1];
-        } else if(end(0, 1) > AABB_max[1]) {
-          y = AABB_max[1];
-        } else {
-          y = end(0, 1);
-        }
-
-        if(end(0, 2) < AABB_min[2]) {
-          z = AABB_min[1];
-        } else if(end(0, 2) > AABB_max[2]) {
-          z = AABB_max[2];
-        } else {
-          z = end(0, 2);
-        }
-
-        path = sqrt(pow(x - orig(0, 0), 2) + pow(y - orig(0, 1) , 2) + pow(z - orig(0, 2), 2));
-        result(0) = feature;
-        result(1) = path;
-        return result;
-      }
+    //If end point also falls inside
+    if(feature == 3L) {
+      feature = 1L;
+      result(0) = feature;
+      result(1) = path;
+      return result;
     }
+
+    double x;
+    double y;
+    double z;
+    feature = 2L;
+
+    if(end(0, 0) < AABB_min[0]) {
+      x = AABB_min[0];
+    } else if(end(0, 0) > AABB_max[0]) {
+      x = AABB_max[0];
+    } else {
+      x = end(0, 0);
+    }
+
+    if(end(0, 1) < AABB_min[1]) {
+      y = AABB_min[1];
+    } else if(end(0, 1) > AABB_max[1]) {
+      y = AABB_max[1];
+    } else {
+      y = end(0, 1);
+    }
+
+    if(end(0, 2) < AABB_min[2]) {
+      z = AABB_min[2];  // FIX: was AABB_min[1]
+    } else if(end(0, 2) > AABB_max[2]) {
+      z = AABB_max[2];
+    } else {
+      z = end(0, 2);
+    }
+
+    path = sqrt(pow(x - orig(0, 0), 2) +
+      pow(y - orig(0, 1), 2) +
+      pow(z - orig(0, 2), 2));
+    result(0) = feature;
+    result(1) = path;
+    return result;
   }
 
   if(feature == 3L) {
@@ -141,14 +140,16 @@ arma::vec line_AABB_rcpp(arma::mat orig, arma::mat end, arma::vec AABB_min, arma
     }
 
     if(orig(0, 2) < AABB_min[2]) {
-      z = AABB_min[1];
+      z = AABB_min[2];  // FIX: was AABB_min[1]
     } else if(orig(0, 2) > AABB_max[2]) {
       z = AABB_max[2];
     } else {
       z = orig(0, 2);
     }
 
-    path = sqrt(pow(x - end(0, 0), 2) + pow(y - end(0, 1) , 2) + pow(z - end(0, 2), 2));
+    path = sqrt(pow(x - end(0, 0), 2) +
+      pow(y - end(0, 1), 2) +
+      pow(z - end(0, 2), 2));
     result(0) = feature;
     result(1) = path;
     return result;
@@ -160,9 +161,6 @@ arma::vec line_AABB_rcpp(arma::mat orig, arma::mat end, arma::vec AABB_min, arma
   double dir_y = end(0, 1) - orig(0, 1);
   double dir_z = end(0, 2) - orig(0, 2);
 
-  //lb is the corner of AABB with minimal coordinates - left bottom,
-  //rt is maximal corner
-  //r.org is origin of ray
   double txmin = (AABB_min[0] - orig(0, 0)) / dir_x;
   double txmax = (AABB_max[0] - orig(0, 0)) / dir_x;
 
@@ -170,16 +168,14 @@ arma::vec line_AABB_rcpp(arma::mat orig, arma::mat end, arma::vec AABB_min, arma
   double tmax = max(txmin, txmax);
 
   double tymin = (AABB_min[1] - orig(0, 1)) / dir_y;
-  double tymax = (AABB_max[1]- orig(0, 1)) / dir_y;
+  double tymax = (AABB_max[1] - orig(0, 1)) / dir_y;
 
   tmin = max(tmin, min(tymin, tymax));
   tmax = min(tmax, max(tymin, tymax));
 
-  //Estimate on z
   double tzmin = (AABB_min[2] - orig(0, 2)) / dir_z;
   double tzmax = (AABB_max[2] - orig(0, 2)) / dir_z;
 
-  //Tmin and tmax to use
   tmin = max(tmin, min(tzmin, tzmax));
   tmax = min(tmax, max(tzmin, tzmax));
 
@@ -194,5 +190,4 @@ arma::vec line_AABB_rcpp(arma::mat orig, arma::mat end, arma::vec AABB_min, arma
   result(0) = 4L;
   result(1) = (path*tmax) - (path*tmin);
   return result;
-
 }
