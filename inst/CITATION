@@ -1,13 +1,12 @@
-citHeader("To cite rTLS in publications use:")
-
-citEntry(
-  entry = "Manual",
+bibentry(
+  bibtype = "Manual",
   title = "rTLS: Tools to Process Point Clouds Derived from Terrestrial Laser Scanning",
-  author = "J. Antonio Guzmán Q, Ronny Hernandez, and Arturo Sanchez-Azofeifa",
-  year = "2021",
-  note = "R pacakge version 0.2.5",
-  url = "https://CRAN.R-project.org/package=rTLS",
-  textVersion = "Guzman, JA, Hernandez, R., and Sanchez-Azofeifa, A., (2021),
-  rTLS: Tools to Process Point Clouds Derived from Terrestrial Laser Scanning.
-  R pacakge version 0.2.5. https://CRAN.R-project.org/package=rTLS"
+  author = c(
+    person("J. Antonio", "Guzmán Q."),
+    person("Ronny", "Hernandez"),
+    person("Arturo", "Sanchez-Azofeifa")
+  ),
+  year = "2026",
+  note = "R package version 0.2.6.1",
+  url = "https://CRAN.R-project.org/package=rTLS"
 )
